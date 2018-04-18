@@ -1,0 +1,93 @@
+{
+  "name": "boost",
+  "description": "SaaS Starter Kit",
+  "version": "0.0.0",
+  "author": "Future Studio <info@futurestud.io>",
+  "contributors": [
+    {
+      "name": "Marcus Poehls",
+      "email": "marcus@futurestud.io"
+    },
+    {
+      "name": "Norman Peitek",
+      "email": "norman@futurestud.io"
+    },
+    {
+      "name": "Christian Fellner",
+      "email": "christian@futurestud.io"
+    }
+  ],
+  "dependencies": {
+    "axios": "~0.18.0",
+    "bcrypt": "~2.0.0",
+    "boom": "~7.2.0",
+    "bounce": "~1.2.0",
+    "catbox": "~10.0.2",
+    "catbox-mongodb": "4.2.0",
+    "chalk": "~2.4.0",
+    "crumb": "~7.0.0",
+    "dotenv": "~5.0.1",
+    "haikunator": "~2.0.0",
+    "handlebars": "~4.0.11",
+    "handlebars-helper-repeat": "~2.0.0",
+    "hapi": "~17.3.1",
+    "hapi-auth-basic": "~5.0.0",
+    "hapi-auth-cookie": "~8.1.0",
+    "hapi-auth-jwt2": "~8.1.0",
+    "hapi-dev-errors": "~2.1.0",
+    "hapi-request-user": "~1.0.0",
+    "hoek": "~5.0.3",
+    "html-to-text": "~4.0.0",
+    "inert": "~5.1.0",
+    "joi": "~13.2.0",
+    "jsonwebtoken": "~8.2.0",
+    "laabr": "~3.1.3",
+    "listr": "~0.13.0",
+    "lodash": "~4.17.5",
+    "md5": "~2.2.1",
+    "mongoose": "~5.0.10",
+    "mongoose-simple-random": "~0.4.1",
+    "nodemailer": "~4.6.3",
+    "nodemailer-postmark-transport": "~1.3.0",
+    "pino": "~4.16.1",
+    "validator": "~9.4.1",
+    "vision": "~5.3.1"
+  },
+  "devDependencies": {
+    "code": "~5.2.0",
+    "cross-env": "~5.1.4",
+    "eslint-config-prettier": "~2.9.0",
+    "eslint-config-standard": "~11.0.0",
+    "eslint-plugin-import": "~2.11.0",
+    "eslint-plugin-node": "~6.0.1",
+    "eslint-plugin-prettier": "~2.6.0",
+    "eslint-plugin-promise": "~3.7.0",
+    "eslint-plugin-standard": "~3.0.1",
+    "lab": "~15.4.0",
+    "prettier": "~1.12.1"
+  },
+  "engines": {
+    "node": ">= 8.9.0"
+  },
+  "homepage": "https://boost.futurestud.io",
+  "keywords": [
+    "boost",
+    "saas",
+    "saas-starter-kit",
+    "hapi",
+    "hapi.js",
+    "mongodb",
+    "mongoose",
+    "node",
+    "node.js",
+    "bootstrap"
+  ],
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "setup": "npm run pumpitup",
+    "pumpitup": "node ./data/load-sample-data.js",
+    "test": "cross-env NODE_ENV=test lab --assert code --leaks --coverage --lint",
+    "lint": "./node_modules/eslint/bin/eslint.js . --fix --ext .js"
+  }
+}

@@ -1,0 +1,83 @@
+<style>
+    .error {
+        color: #ff3860;
+    }
+
+    label.is-danger {
+        color: #ff3860;
+    }
+</style>
+
+<div class="columns content">
+    <div class="column is-half is-offset-one-quarter">
+        <h1 class="title">
+            <img src="/images/star.svg" alt=""> Login
+        </h1>
+        <p class="subtitle">
+            Access and update your personal account.
+        </p>
+
+        <hr>
+
+        {{#if errormessage}}
+            <p class="error">
+                {{errormessage}}
+            </p>
+        {{/if}}
+
+        <form method="POST">
+            <input type="hidden" name="keepMeSafeFromCsrf" value="{{keepMeSafeFromCsrf}}">
+
+            <div class="field">
+                <label class="label {{#if errors.email}}is-danger{{/if}}" for="email">
+                    {{#if errors.email}} {{errors.email.message}} {{else}} Email address {{/if}}
+                </label>
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input {{#if errors.email}}is-danger{{else}}{{#if
+                        email}}is-success{{/if}}{{/if}}" type="email" placeholder="Your personal email address" id="email"
+                        name="email" value="{{email}}">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        {{#if errors.email}}
+                        <i class="fa fa-warning"></i>
+                        {{else}} {{#if email}}
+                        <i class="fa fa-check"></i>
+                        {{/if}} {{/if}}
+                    </span>
+                </p>
+            </div>
+
+            <div class="field">
+                <div class="is-clearfix">
+                    <label class="label is-pulled-left {{#if errors.password}}is-danger{{/if}}" for="password">
+                        {{#if errors.password}} {{errors.password.message}} {{else}} Password {{/if}}
+                    </label>
+                </div>
+
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input {{#if errors.password}}is-danger{{/if}}" type="password" placeholder="Your password" id="password" name="password">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                    </span> {{#if errors.password}}
+                    <span class="icon is-small is-right">
+                        <i class="fa fa-warning"></i>
+                    </span> {{/if}}
+                </p>
+            </div>
+
+            <input class="button is-primary" type="submit" value="Log in">
+            <a href="/forgot-password" class="button is-secondary is-pulled-right">Forgot Password?</a>
+
+        </form>
+
+        <br>
+
+        <hr>
+        <div class="has-text-centered">
+            <a href="/signup">Create a new account</a>
+        </div>
+
+    </div>
+</div>

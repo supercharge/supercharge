@@ -1,0 +1,40 @@
+services:
+  - mongo:3.6
+
+stages:
+  - test
+  # - build
+  - deploy
+
+variables:
+  DATABASE: "mongodb://mongo/boost"
+
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+#
+# don’t cache node_modules when running tests
+# against different Node.js versions to avoid
+# NPM install issues for packages that compile
+# against a specific version
+#
+# cache:
+#   paths:
+#   - node_modules/
+
+
+before_script:
+  - npm install
+
+# test against Node.js v8 and latest stable release
+test:node-8:
+  stage: test
+  image: node:8
+  script:
+    - npm test
+
+test:node-latest:
+  stage: test
+  image: node:latest
+  script:
+    - npm test

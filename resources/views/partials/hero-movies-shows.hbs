@@ -1,0 +1,56 @@
+<section class="hero is-bold {{isHeight}}">
+
+    {{#movieOrShow}}
+        <div class="hero-bg" style="background-image: url({{images.background}});"></div>
+        <div class="shadow"></div>
+    {{/movieOrShow}}
+
+    {{> hero-header}}
+
+    {{#movieOrShow}}
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-4">
+                        <h1 class="title">
+                            <a href="/movies/{{ids.slug}}" class="has-text-white">
+                                {{title}}
+                            </a>
+                        </h1>
+                        {{#if tagline}}
+                            <h2 class="subtitle has-text-grey-lighter">
+                                {{tagline}}
+                            </h2>
+                        {{/if}}
+
+                        <p class="has-text-grey">
+                            {{year}} &bull;
+                            <span class="certification">{{certification}}</span> &bull; {{formatRuntime runtime}}
+                        </p>
+                        <p class="has-text-grey-lighter has-margin-top-1">
+                            {{overview}}
+                        </p>
+                        <p class="field">
+                            {{#isOnWatchlist this}}
+                                <div class="tag is-medium add-to-watchlist">
+                                    <span class="icon is-small has-text-primary">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                    <span class="has-text-white-ter">On Wour Watchlist</span>
+                                </div>
+                                {{else}}
+                                    <a href="/watchlist/add/{{#if isMovie}}movie{{else}}show{{/if}}/{{ids.slug}}" class="button add-to-watchlist has-margin-top-1">
+                                        <span class="icon is-small has-text-primary">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                        <span class="has-text-white-ter">Add to Watchlist</span>
+                                    </a>
+                            {{/isOnWatchlist}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/movieOrShow}}
+
+</section>

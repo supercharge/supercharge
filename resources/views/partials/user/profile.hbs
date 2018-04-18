@@ -1,0 +1,66 @@
+<div class="columns is-variable is-5 is-centered">
+    <div class="column is-3">
+        <aside class="menu">
+            <p class="menu-label">
+                Personal Settings
+            </p>
+            <ul class="menu-list">
+                <li>
+                    <a href="/profile" class="is-active">Profile</a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+    <div class="column is-6 content has-white-background">
+        <h2>Your Profile</h2>
+
+        <form method="POST">
+            <input type="hidden" name="keepMeSafeFromCsrf" value="{{keepMeSafeFromCsrf}}">
+
+            <div class="field">
+                <label class="label {{#if errors.username}}is-danger{{/if}}" for="username">
+                    {{#if errors.username}} {{errors.username.message}} {{else}} Username {{/if}}
+                </label>
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input {{#if errors.username}}is-danger{{else}}{{#if
+                                 username}}is-success{{/if}}{{/if}}" type="text" placeholder="Your personal username" id="username"
+                        name="username" value="{{user.username}}">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-user"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        {{#if errors.username}}
+                        <i class="fa fa-warning"></i>
+                        {{else}} {{#if user.username}}
+                        <i class="fa fa-check"></i>
+                        {{/if}} {{/if}}
+                    </span>
+                </p>
+            </div>
+
+            <div class="field">
+                <label class="label {{#if errors.homepage}}is-danger{{/if}}" for="homepage">
+                    {{#if errors.homepage}} {{errors.homepage.message}} {{else}} Homepage {{/if}}
+                </label>
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input {{#if errors.homepage}}is-danger{{else}}{{#if
+                                 homepage}}is-success{{/if}}{{/if}}" type="text" placeholder="Your homepage" id="homepage"
+                        name="homepage" value="{{user.homepage}}">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-link"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        {{#if errors.homepage}}
+                        <i class="fa fa-warning"></i>
+                        {{else}} {{#if user.homepage}}
+                        <i class="fa fa-check"></i>
+                        {{/if}} {{/if}}
+                    </span>
+                </p>
+            </div>
+
+            <button class="button is-primary has-text-weight-semibold" type="submit">Update</button>
+
+        </form>
+    </div>
+</div>

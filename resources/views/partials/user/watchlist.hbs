@@ -1,0 +1,73 @@
+<div class="columns">
+    <div class="column is-8 is-offset-2 content">
+
+        {{#if message}}
+            <div class="notification is-success">
+                {{message}}
+            </div>
+        {{/if}}
+
+        {{#if error}}
+            <div class="notification is-warning">
+                {{error}}
+            </div>
+        {{/if}}
+
+        <h1 class="is-size-2 has-margin-bottom-3 has-text-weight-bold">
+            Your Watchlist
+        </h1>
+
+        {{#unless watchlist}}
+            <p>You don’t have anything on your watchlist yet.</p>
+            <hr>
+            <p>Know what?</p>
+            <p>
+                <a href="/discover" class="button is-primary">Discover your favorite movies and shows!</a>
+            </p>
+        {{/unless}}
+
+        {{#watchlist}}
+            {{! grid modifier: is-6 increases the column gap and is-multiline adds prober breaks to the grid}}
+            <h2>TV Shows</h2>
+            {{#unless shows}}
+                <p>
+                    No TV shows on your watchlist
+                </p>
+                {{else}}
+                    <div class="columns is-6 is-variable is-multiline content">
+                        {{#each shows}}
+                            <div class="column is-one-quarter has-margin-bottom-3">
+                                <a href="/shows/{{ids.slug}}">
+                                    <img src="{{images.poster}}">
+                                    <strong>
+                                        {{title}}
+                                    </strong>
+                                </a>
+                            </div>
+                        {{/each}}
+                    </div>
+            {{/unless}}
+
+            <h2>Movies</h2>
+            {{#unless movies}}
+                <p>
+                    No movies on your watchlist
+                </p>
+                {{else}}
+
+                    <div class="columns is-6 is-variable is-multiline">
+                        {{#each movies}}
+                            <div class="column is-one-quarter has-margin-bottom-3">
+                                <a href="/movies/{{ids.slug}}">
+                                    <img src="{{images.poster}}">
+                                    <strong>
+                                        {{title}}
+                                    </strong>
+                                </a>
+                            </div>
+                        {{/each}}
+                    </div>
+            {{/unless}}
+        {{/watchlist}}
+    </div>
+</div>

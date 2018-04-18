@@ -1,0 +1,164 @@
+@import url('https://rsms.me/inter/inter-ui.css');
+
+html {
+  background: hsl(210, 17%, 95%);
+}
+
+body {
+  font-family: 'Inter UI', sans-serif;
+}
+
+button.button,
+input[type='submit'].button {
+  font-family: 'Inter UI', sans-serif;
+  font-weight: 500;
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.label {
+  font-weight: 500;
+}
+
+label.is-danger {
+  color: #ff3860;
+}
+
+.error {
+  color: #ff3860;
+}
+
+.field:not(:last-child) {
+  margin-bottom: 1.75rem;
+}
+
+.hero-body {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.hero .shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  /* background: -moz-radial-gradient(center, circle cover, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(0, 0, 0, 0.7)), color-stop(100%, rgba(0, 0, 0, 0.3)));
+    background: -webkit-radial-gradient(center, circle cover, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+    background: -o-radial-gradient(center, circle cover, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+    background: -ms-radial-gradient(center, circle cover, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+    background: radial-gradient(center, circle cover, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%); */
+  background: -webkit-linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.7) 15%,
+    rgba(0, 0, 0, 0)
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.7) 15%,
+    rgba(0, 0, 0, 0)
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.hero-body .certification {
+  border: 1px solid hsl(0, 0%, 48%);
+  border-radius: 2px;
+  padding: 2px 5px;
+}
+
+.hero-body .add-to-watchlist {
+  background: hsl(0, 0%, 14%);
+  border: none;
+}
+
+.hero-body .add-to-watchlist:hover {
+  background: hsl(0, 0%, 12%);
+  border: none;
+}
+
+.hero .navbar-menu .search-input,
+.hero .navbar-menu .search-button {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: none;
+  color: #fff;
+}
+
+.hero .navbar-menu .search-input {
+  border-bottom-left-radius: 0 !important;
+}
+
+.hero .navbar-menu .search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.hero .navbar-menu .search-button {
+  border-bottom-right-radius: 0 !important;
+}
+
+.hero .navbar-menu .search-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/**
+ * Bulma Helpers
+ *
+ **/
+.has-white-background {
+  background-color: #ffffff;
+}
+
+.has-margin-1 {
+  margin: 1rem;
+}
+.has-margin-2 {
+  margin: 2rem;
+}
+
+.has-margin-top-1 {
+  margin-top: 1rem;
+}
+
+.has-margin-top-2 {
+  margin-top: 2rem;
+}
+
+.has-margin-top-3 {
+  margin-top: 3rem;
+}
+
+.has-margin-bottom-1 {
+  margin-bottom: 1rem;
+}
+
+.has-margin-bottom-2 {
+  margin-bottom: 2rem;
+}
+
+.has-margin-bottom-3 {
+  margin-bottom: 3rem;
+}
