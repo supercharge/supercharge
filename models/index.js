@@ -2,11 +2,6 @@
 
 const Mongoose = require('mongoose')
 const User = require('./user')
-const Movie = require('./movie')
-const Show = require('./show')
-const Season = require('./season')
-const Episode = require('./episode')
-const Watchlist = require('./watchlist')
 
 // tell Mongoose to use Node.js promises
 Mongoose.Promise = global.Promise
@@ -29,10 +24,5 @@ Mongoose.connection.on('error', err => {
 
 // use ES6 shorthands: "propertyName: variableName" equals "propertyName"
 module.exports = {
-  User,
-  Movie,
-  Show,
-  Season,
-  Episode,
-  Watchlist
+  User
 }

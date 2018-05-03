@@ -11,11 +11,11 @@
  *
  * @returns {boolean}
  */
-function isApiError (error) {
+function isApiError(error) {
   return error.isBoom && error.name === 'APIError'
 }
 
-function composeUrl (request, path) {
+function composeUrl(request, path) {
   // fetch HTTP protocol from reverse proxy
   const proxyProtocol = request.headers && request.headers['x-forwarded-proto']
   // protocol hierarchy: proxy, server, default 'http'
@@ -24,7 +24,7 @@ function composeUrl (request, path) {
   return `${protocol}://${request.info.host}${path}`
 }
 
-function register (server, options) {
+function register(server, options) {
   server.ext('onPreResponse', (request, h) => {
     const error = request.response
 

@@ -13,11 +13,11 @@
  *
  * @returns {boolean}
  */
-function isHapiValidationError (error) {
+function isHapiValidationError(error) {
   return error.isBoom && error.name === 'ValidationError'
 }
 
-function register (server, options) {
+function register(server, options) {
   server.ext('onPreResponse', (request, h) => {
     const error = request.response
 

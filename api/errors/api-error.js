@@ -3,7 +3,7 @@
 const Boom = require('boom')
 
 class APIError extends Boom {
-  constructor (message, link, statusCode, error) {
+  constructor(message, link, statusCode, error) {
     const data = {
       statusCode,
       message,

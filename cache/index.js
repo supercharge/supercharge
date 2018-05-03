@@ -6,7 +6,7 @@ const Logger = require(Path.resolve(__dirname, '..', 'utils', 'logger'))
 
 const SearchCache = new Search()
 
-async function start () {
+async function start() {
   try {
     await Promise.all([SearchCache.start()])
 

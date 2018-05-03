@@ -2,7 +2,7 @@
 
 const Routes = require('./routes')
 
-function register (server, options) {
+function register(server, options) {
   server.dependency(['vision'])
 
   server.route(Routes)

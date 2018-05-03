@@ -9,7 +9,7 @@ class APIValidationError extends APIError {
    * @param {String} message - error message
    * @param {String} link - link to the API documentation
    */
-  constructor (message, link) {
+  constructor(message, link) {
     const statusCode = 400
     const error = 'Bad Request'
 

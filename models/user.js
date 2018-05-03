@@ -56,7 +56,7 @@ const userSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
-      transform: function (doc, ret, options) {
+      transform: function(doc, ret, options) {
         delete ret._id
         delete ret.password
 
@@ -75,7 +75,7 @@ const userSchema = new Schema(
 /**
  * pre-save hook to generate a unique username
  */
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function(next) {
   if (this.isNew) {
     // split email address at @ symbol and only return the first part
     this.username = _.first(_.split(this.email, '@', 1))
@@ -109,14 +109,14 @@ userSchema.virtual('watchlist', {
  * use the “User” model in your app and static methods to find documents
  * like: const user = await User.findByEmail('marcus@futurestud.io')
  */
-userSchema.statics.findByEmail = function (email) {
+userSchema.statics.findByEmail = function(email) {
   return this.findOne({ email })
 }
 
 /**
  * Instance Methods
  */
-userSchema.methods.comparePassword = async function (candidatePassword) {
+userSchema.methods.comparePassword = async function(candidatePassword) {
   const isMatch = await Bcrypt.compare(candidatePassword, this.password)
 
   if (isMatch) {
@@ -130,7 +130,7 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   })
 }
 
-userSchema.methods.hashPassword = async function () {
+userSchema.methods.hashPassword = async function() {
   const salt = await Bcrypt.genSalt(SALT_WORK_FACTOR)
   const hash = await Bcrypt.hash(this.password, salt)
 
@@ -138,12 +138,12 @@ userSchema.methods.hashPassword = async function () {
   return this
 }
 
-userSchema.methods.generateAuthToken = async function () {
+userSchema.methods.generateAuthToken = async function() {
   this.authToken = Crypto.randomBytes(20).toString('hex')
   return this
 }
 
-userSchema.methods.resetPassword = async function () {
+userSchema.methods.resetPassword = async function() {
   try {
     const passwordResetToken = Crypto.randomBytes(20).toString('hex')
 
@@ -166,7 +166,7 @@ userSchema.methods.resetPassword = async function () {
   }
 }
 
-userSchema.methods.comparePasswordResetToken = async function (resetToken) {
+userSchema.methods.comparePasswordResetToken = async function(resetToken) {
   const isMatch = await Bcrypt.compare(resetToken, this.passwordResetToken)
 
   if (isMatch) {
@@ -184,7 +184,7 @@ userSchema.methods.comparePasswordResetToken = async function (resetToken) {
 /**
  * Virtuals
  */
-userSchema.virtual('gravatar').get(function () {
+userSchema.virtual('gravatar').get(function() {
   // create the MD5 hash from the user’s email address
   const hash = MD5(this.email)
   // return the ready-to-load avatar URL

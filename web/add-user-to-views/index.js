@@ -2,7 +2,7 @@
 
 const _ = require('lodash')
 
-function register (server, options) {
+function register(server, options) {
   server.ext('onPreResponse', (request, h) => {
     const response = request.response
 

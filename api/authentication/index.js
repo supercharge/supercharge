@@ -1,9 +1,10 @@
 'use strict'
 
+const Path = require('path')
 const Boom = require('boom')
-const { User } = require('../../models')
+const { User } = require(Path.resolve('..', '..', 'models'))
 
-async function register (server, options) {
+async function register(server, options) {
   // declare dependencies to hapi auth plugins
   await server.register([
     {
@@ -39,7 +40,7 @@ async function register (server, options) {
   }
 
   server.auth.strategy('jwt', 'jwt', {
-    key: [ process.env.JWT_SECRET_KEY ],
+    key: [process.env.JWT_SECRET_KEY],
     tokenType: 'Bearer',
     verifyOptions: {
       algorithms: ['HS256']
