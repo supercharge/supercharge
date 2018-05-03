@@ -5,7 +5,7 @@ const Boom = require('boom')
 const Querystring = require('querystring')
 
 class Paginator {
-  constructor (request, totalCount, perPage = 8) {
+  constructor(request, totalCount, perPage = 8) {
     if (!request) {
       throw new Boom('Request object required as first parameter in paginator')
     }
@@ -39,49 +39,49 @@ class Paginator {
     }
   }
 
-  getCurrentPage (request) {
+  getCurrentPage(request) {
     return parseFloat(request.query.page) || 1
   }
 
-  getFirst (request, currentPage) {
+  getFirst(request, currentPage) {
     if (!this.isFirstPage(currentPage)) {
       return this.composeUrl(request, 1)
     }
   }
 
-  getLast (request, lastPage) {
+  getLast(request, lastPage) {
     if (!this.isLastPage(this.getCurrentPage(request), lastPage)) {
       return this.composeUrl(request, lastPage)
     }
   }
 
-  getNext (request, currentPage, lastPage) {
+  getNext(request, currentPage, lastPage) {
     // return if current page is the last one, there's no more
     if (!this.isLastPage(currentPage, lastPage)) {
       return this.composeUrl(request, currentPage + 1)
     }
   }
 
-  getPrevious (request, currentPage) {
+  getPrevious(request, currentPage) {
     // return if current page is the first one, there's no zero :)
     if (!this.isFirstPage(currentPage)) {
       return this.composeUrl(request, currentPage - 1)
     }
   }
 
-  isFirstPage (currentPage) {
+  isFirstPage(currentPage) {
     return currentPage === 1
   }
 
-  isLastPage (currentPage, lastPage) {
+  isLastPage(currentPage, lastPage) {
     return currentPage === lastPage
   }
 
-  hasPage (request) {
+  hasPage(request) {
     return !_.isNil(request.query.page)
   }
 
-  composeUrl (request, page) {
+  composeUrl(request, page) {
     // fetch HTTP protocol from reverse proxy
     const proxyProtocol = request.headers && request.headers['x-forwarded-proto']
     // protocol hierarchy: proxy, server, default 'http'
@@ -94,7 +94,7 @@ class Paginator {
     return `${protocol}://${request.info.host}${request.path}?${query}`
   }
 
-  linkHeader (first, prev, next, last) {
+  linkHeader(first, prev, next, last) {
     return this.createLinkHeader({
       first,
       prev,
@@ -103,7 +103,7 @@ class Paginator {
     })
   }
 
-  createLinkHeader (links) {
+  createLinkHeader(links) {
     const headers = []
 
     _.forOwn(links, (link, key) => {

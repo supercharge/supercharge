@@ -24,7 +24,7 @@ const Templates = Path.resolve(__dirname, '..', 'public', 'email-templates')
  * filename: email template name, without ".html" file ending. Email templates are located within "web/email-templates"
  * options: data which will be used to replace the placeholders within the template
  **/
-async function prepareTemplate (filename, options = {}) {
+async function prepareTemplate(filename, options = {}) {
   try {
     const templatePath = Path.resolve(Templates, `${filename}.html`)
     const content = await ReadFile(templatePath, 'utf8')
@@ -57,7 +57,7 @@ async function prepareTemplate (filename, options = {}) {
  *
  * @throws
  */
-async function send (template, user, subject, data) {
+async function send(template, user, subject, data) {
   const { html, text } = await prepareTemplate(template, data)
   const mailOptions = {
     from: `Marcus Poehls <marcus@futurestud.io>`,
@@ -79,7 +79,7 @@ async function send (template, user, subject, data) {
  * Send an email and don’t worry
  * about success or failure
  */
-async function fireAndForget (template, user, subject, data) {
+async function fireAndForget(template, user, subject, data) {
   try {
     await send(template, user, subject, data)
   } catch (err) {
