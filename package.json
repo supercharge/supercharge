@@ -18,8 +18,9 @@
     }
   ],
   "dependencies": {
+    "argon2": "~0.19.2",
     "axios": "~0.18.0",
-    "bcrypt": "~2.0.1",
+    "bcryptjs": "~2.4.3",
     "boom": "~7.2.0",
     "bounce": "~1.2.0",
     "catbox": "~10.0.2",
