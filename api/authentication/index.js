@@ -2,7 +2,7 @@
 
 const Path = require('path')
 const Boom = require('boom')
-const { User } = require(Path.resolve('..', '..', 'models'))
+const { User } = require(Path.resolve(__dirname, '..', '..', 'models'))
 
 async function register(server, options) {
   // declare dependencies to hapi auth plugins
