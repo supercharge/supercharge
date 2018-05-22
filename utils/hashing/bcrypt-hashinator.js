@@ -1,10 +1,12 @@
 'use strict'
 
+const Path = require('path')
 const Bcrypt = require('bcryptjs')
+const Config = require(Path.resolve(__dirname, '..', 'config'))
 
 class BcryptHashinator {
   constructor() {
-    this.rounds = process.env.HASHING_BCRYPT_ROUNDS || 12
+    this.rounds = Config.get('hashing.bcrypt.rounds') || 12
   }
 
   async make(value) {

@@ -1,14 +1,15 @@
 'use strict'
 
+const MD5 = require('md5')
+const _ = require('lodash')
+const Path = require('path')
+const Boom = require('boom')
+const Crypto = require('crypto')
 const Mongoose = require('mongoose')
 const Schema = Mongoose.Schema
-const Bcrypt = require('bcrypt')
-const Boom = require('boom')
-const MD5 = require('md5')
-const Crypto = require('crypto')
 const Validator = require('validator')
-const _ = require('lodash')
 const Haikunator = require('haikunator')
+const Hash = require(Path.resolve(__dirname, '..', 'utils', 'hashinator'))
 
 // initialize haikunator to generate funky usernames
 // initialize to not append numbers to generated names
@@ -16,8 +17,6 @@ const Haikunator = require('haikunator')
 const haikunator = new Haikunator({
   defaults: { tokenLength: 0 }
 })
-
-const SALT_WORK_FACTOR = 12
 
 const userSchema = new Schema(
   {
@@ -117,7 +116,7 @@ userSchema.statics.findByEmail = function(email) {
  * Instance Methods
  */
 userSchema.methods.comparePassword = async function(candidatePassword) {
-  const isMatch = await Bcrypt.compare(candidatePassword, this.password)
+  const isMatch = await Hash.check(candidatePassword, this.password)
 
   if (isMatch) {
     return this
@@ -131,8 +130,7 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
 }
 
 userSchema.methods.hashPassword = async function() {
-  const salt = await Bcrypt.genSalt(SALT_WORK_FACTOR)
-  const hash = await Bcrypt.hash(this.password, salt)
+  const hash = await Hash.make(this.password)
 
   this.password = hash
   return this
@@ -146,9 +144,7 @@ userSchema.methods.generateAuthToken = async function() {
 userSchema.methods.resetPassword = async function() {
   try {
     const passwordResetToken = Crypto.randomBytes(20).toString('hex')
-
-    const salt = await Bcrypt.genSalt(SALT_WORK_FACTOR)
-    const hash = await Bcrypt.hash(passwordResetToken, salt)
+    const hash = await Hash.make(passwordResetToken)
 
     this.passwordResetToken = hash
     this.passwordResetDeadline = Date.now() + 1000 * 60 * 60 // 1 hour from now
@@ -167,7 +163,7 @@ userSchema.methods.resetPassword = async function() {
 }
 
 userSchema.methods.comparePasswordResetToken = async function(resetToken) {
-  const isMatch = await Bcrypt.compare(resetToken, this.passwordResetToken)
+  const isMatch = await Hash.check(resetToken, this.passwordResetToken)
 
   if (isMatch) {
     return this

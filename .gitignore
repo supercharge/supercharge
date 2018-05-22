@@ -22,7 +22,7 @@ package-lock.json
 coverage
 
 # Secrets
-secrets.env
+.env
 
 # IDEA IntelliJ/Webstorm
 .idea
