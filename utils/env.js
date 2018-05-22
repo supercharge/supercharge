@@ -7,8 +7,8 @@ const Dotenv = require('dotenv')
 const Logger = require('./logger')
 
 class Env {
-  constructor(appRoot) {
-    this.appRoot = appRoot || Path.resolve(__dirname, '..')
+  constructor() {
+    this.appRoot = Path.resolve(__dirname, '..')
     this.load(this.getEnvPath(), false)
   }
 
@@ -20,7 +20,7 @@ class Env {
       // import environment variables from local .env file
       Dotenv.config({ path: Fs.readFileSync(path, encoding) })
 
-      Logger('%s environment file from %s', overwrite ? 'Merging' : 'Loading', path)
+      Logger.info('%s environment file from %s', overwrite ? 'Merging' : 'Loading', path)
     } catch (err) {
       Logger.error('Error while loading environment file')
       throw err
@@ -40,4 +40,4 @@ class Env {
   }
 }
 
-module.exports = Env
+module.exports = new Env()
