@@ -14,11 +14,10 @@ class Env {
 
   load(filePath, overwrite = true) {
     const path = Path.join(this.appRoot, filePath)
-    const encoding = 'utf8'
 
     try {
       // import environment variables from local .env file
-      Dotenv.config({ path: Fs.readFileSync(path, encoding) })
+      Dotenv.config({ path })
 
       Logger.info('%s environment file from %s', overwrite ? 'Merging' : 'Loading', path)
     } catch (err) {

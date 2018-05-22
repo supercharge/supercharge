@@ -13,5 +13,55 @@ module.exports = {
   | to encrypted cookies, sessions and other sensitive data.
   |
   */
-  appKey: Env.get('APP_KEY')
+  key: Env.get('APP_KEY'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Application Name
+  |--------------------------------------------------------------------------
+  |
+  | This value is the name of your application. This value is used when the
+  | framework needs to place the application's name in a notification or
+  | any other location as required by the application or its packages.
+  |
+  */
+  name: Env.get('APP_NAME', 'Future Studio Boost'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Application Environment
+  |--------------------------------------------------------------------------
+  |
+  | This value determines the "environment" your application is currently
+  | running in. This may determine how you prefer to configure various
+  | services your application utilizes. Set this in your ".env" file.
+  |
+  */
+  env: Env.get('APP_ENV', 'production'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Web Application Port
+  |--------------------------------------------------------------------------
+  |
+  | This value determines the "environment" your application is currently
+  | running in. This may determine how you prefer to configure various
+  | services your application utilizes. Set this in your ".env" file.
+  |
+  */
+  web: {
+    port: Env.get('PORT', 3000)
+  },
+
+  /*
+  |--------------------------------------------------------------------------
+  | API Port
+  |--------------------------------------------------------------------------
+  |
+  | TODO
+  |
+  */
+  api: {
+    port: Env.get('PORT', 3001)
+  }
 }

@@ -4,7 +4,7 @@ const Routes = require('./routes')
 
 function register(server, options) {
   server.route(Routes)
-  server.log('info', 'Plugin registered: API users')
+  server.log('info', 'API Plugin registered: users')
 }
 
 exports.plugin = {

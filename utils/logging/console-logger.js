@@ -29,9 +29,9 @@ class PinoConsole {
     return this.logger
   }
 
-  log(level, msg, ...options) {
-    this.logger.log(level, msg, ...options)
-  }
+  // log(level, msg, ...options) {
+  //   this.logger.log(level, msg, ...options)
+  // }
 
   /**
    * Pino uses integers (e.g., 30, 40, etc.)
@@ -41,7 +41,7 @@ class PinoConsole {
    * debug = 20 (blue)
    * info  = 30 (green)
    * warn  = 40 (yellow)
-   * error = 50 (red)
+   * error = 50 (red )
    * fatal = 60 (bold red)
    *
    * Return a chalk function for the
@@ -57,7 +57,7 @@ class PinoConsole {
     const position = level / 10 - 1
 
     // now grab the Chalk function like it's hot
-    return this.color[position] || Chalk.white
+    return this.color(position) || Chalk.white
   }
 
   color(color) {

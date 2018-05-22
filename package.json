@@ -28,6 +28,8 @@
     "chalk": "~2.4.1",
     "crumb": "~7.1.0",
     "dotenv": "~5.0.1",
+    "glob": "~7.1.2",
+    "globby": "~8.0.1",
     "haikunator": "~2.0.0",
     "handlebars": "~4.0.11",
     "handlebars-helper-repeat": "~2.0.0",
@@ -50,6 +52,7 @@
     "nodemailer": "~4.6.3",
     "nodemailer-postmark-transport": "~1.3.0",
     "pino": "~4.16.1",
+    "readdirp": "~2.1.0",
     "require-all": "~2.2.0",
     "validator": "~10.1.0",
     "vision": "~5.3.1"

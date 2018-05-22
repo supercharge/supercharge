@@ -3,6 +3,7 @@
 const Path = require('path')
 const Boom = require('boom')
 const { User } = require(Path.resolve(__dirname, '..', '..', '..', 'models'))
+const Config = require(Path.resolve(__dirname, '..', '..', '..', 'utils', 'config'))
 
 async function register(server, options) {
   // declare dependencies to hapi auth plugins
@@ -12,6 +13,9 @@ async function register(server, options) {
     },
     {
       plugin: require('hapi-auth-jwt2')
+    },
+    {
+      plugin: require('hapi-request-user')
     }
   ])
 
@@ -35,7 +39,7 @@ async function register(server, options) {
   /**
    * JWT strategy (for API requests)
    */
-  if (!process.env.JWT_SECRET_KEY) {
+  if (!Config.get('auth.jwt.secret')) {
     throw new Boom('Missing JWT_SECRET_KEY environment variable. Add it to your ENV vars')
   }
 

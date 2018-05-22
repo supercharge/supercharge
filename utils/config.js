@@ -3,7 +3,7 @@
 const Path = require('path')
 const _ = require('lodash')
 const Logger = require('./logger')
-const requireAll = require('require-all')
+const RequireAll = require('require-all')
 
 /**
  * Manages configuration by recursively reading all
@@ -17,12 +17,12 @@ class Config {
   }
 
   syncWithConfigFiles() {
-    this.config = requireAll({
+    this.config = RequireAll({
       dirname: this.configPath,
       filter: /(.*)\.js$/
     })
 
-    Logger.info('loaded all config files from %s', this.configPath)
+    Logger.info(`Loaded all config files from ${this.configPath}`)
   }
 
   /**
