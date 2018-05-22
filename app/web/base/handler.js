@@ -68,7 +68,7 @@ const Handler = {
       const accept = request.headers.accept
 
       if (accept && accept.match(/json/)) {
-        return Boom.notFound('Fuckity fuck, this resource isn’t available.')
+        return Boom.notFound('Oh no, this resource isn’t available.')
       }
 
       return h.view('404').code(404)

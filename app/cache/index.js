@@ -2,7 +2,7 @@
 
 const Path = require('path')
 const Search = require('./search-cache')
-const Logger = require(Path.resolve(__dirname, '..', 'utils', 'logger'))
+const Logger = require(Path.resolve(__dirname, '..', '..', 'utils', 'logger'))
 
 const SearchCache = new Search()
 

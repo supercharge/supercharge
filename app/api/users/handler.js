@@ -4,7 +4,8 @@ const Joi = require('joi')
 const Boom = require('boom')
 const Path = require('path')
 const JWT = require('jsonwebtoken')
-const User = require(Path.resolve(__dirname, '..', '..', 'models')).User
+const { User } = require(Path.resolve(__dirname, '..', '..', '..', 'models'))
+const Config = require(Path.resolve(__dirname, '..', '..', '..', 'utils', 'config'))
 
 const Handler = {
   login: {
@@ -12,7 +13,7 @@ const Handler = {
     handler: (request, h) => {
       const user = request.user
 
-      const token = JWT.sign({ user }, process.env.JWT_SECRET_KEY, {
+      const token = JWT.sign({ user }, Config.get('auth.jwt.secret'), {
         algorithm: 'HS256',
         expiresIn: '14d'
       })

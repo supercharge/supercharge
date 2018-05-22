@@ -3,8 +3,8 @@
 const Joi = require('joi')
 const Boom = require('boom')
 const Path = require('path')
-const User = require(Path.resolve(__dirname, '..', '..', 'models')).User
-const ErrorExtractor = require(Path.resolve(__dirname, '..', '..', 'utils', 'error-extractor'))
+const User = require(Path.resolve(__dirname, '..', '..', '..', 'models')).User
+const ErrorExtractor = require(Path.resolve(__dirname, '..', '..', '..', 'utils', 'error-extractor'))
 
 const Handler = {
   profile: {
