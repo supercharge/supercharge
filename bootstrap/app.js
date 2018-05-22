@@ -123,7 +123,7 @@ class Bootstrap {
   }
 
   isHapiPlugin(plugin) {
-    return !!(plugin && plugin.plugin)
+    return plugin && plugin.plugin
   }
 
   configureViews(server) {
