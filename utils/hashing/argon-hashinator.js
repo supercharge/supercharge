@@ -1,12 +1,14 @@
 'use strict'
 
+const Path = require('path')
 const Argon = require('argon2')
+const Config = require(Path.resolve(__dirname, '..', 'config'))
 
 class BcryptHashinator {
   constructor() {
-    this.memory = process.env.HASHING_ARGON_MEMORY || 1024
-    this.time = process.env.HASHING_ARGON_TIME || 2
-    this.threads = process.env.HASHING_ARGON_THREADS || 2
+    this.memory = Config.get('hashing.argon.memory')
+    this.time = Config.get('hashing.argon.time')
+    this.threads = Config.get('hashing.argon.threads')
   }
 
   async make(value) {

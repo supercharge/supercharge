@@ -1,11 +1,12 @@
 'use strict'
 
-const BcryptHashinator = require('./bcrypt-hashinator')
-const ArgonHashinator = require('./argon-hashinator')
+const Config = require('./config')
+const ArgonHashinator = require('./hashing/argon-hashinator')
+const BcryptHashinator = require('./hashing/bcrypt-hashinator')
 
 class Hash {
   constructor() {
-    const driver = process.env.HASHING_DRIVER || 'bcrypt'
+    const driver = Config.get('hashing.driver') || 'bcrypt'
 
     if (driver === 'argon') {
       this.driver = ArgonHashinator
