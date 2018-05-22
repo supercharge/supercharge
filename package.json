@@ -50,6 +50,7 @@
     "nodemailer": "~4.6.3",
     "nodemailer-postmark-transport": "~1.3.0",
     "pino": "~4.16.1",
+    "require-all": "~2.2.0",
     "validator": "~10.1.0",
     "vision": "~5.3.1"
   },
