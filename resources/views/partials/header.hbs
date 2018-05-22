@@ -1,21 +1,24 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+    <a class="navbar-brand" href="/">
+        <img src="/images/boost-logo.png" alt="Future Studio Boost" width="64"> Future Studio Boost
+    </a>
 
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-                <img src="/images/aperture.svg" alt="Boost"> &nbsp; Boost
-            </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-            <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
-            <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
-            <button class="navbar-burger burger" data-target="navbarMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+        </ul>
 
-        {{> header-nav }}
-
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/signup">Sign up</a>
+            </li>
+        </ul>
     </div>
 </nav>

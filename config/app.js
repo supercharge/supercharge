@@ -49,19 +49,5 @@ module.exports = {
   | services your application utilizes. Set this in your ".env" file.
   |
   */
-  web: {
-    port: Env.get('PORT', 3000)
-  },
-
-  /*
-  |--------------------------------------------------------------------------
-  | API Port
-  |--------------------------------------------------------------------------
-  |
-  | TODO
-  |
-  */
-  api: {
-    port: Env.get('PORT', 3001)
-  }
+  port: Env.get('PORT', 3000)
 }
