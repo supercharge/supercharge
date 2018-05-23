@@ -144,11 +144,11 @@ class Bootstrap {
       engines: {
         hbs: Handlebars
       },
-      path: viewsPath,
-      layoutPath: Path.resolve(viewsPath, 'layouts'),
+      path: [viewsPath, Path.resolve(viewsPath, 'vendor', 'boost')],
+      layoutPath: [Path.resolve(viewsPath, 'layouts'), Path.resolve(viewsPath, 'vendor', 'boost', 'layouts')],
       layout: 'default',
       helpersPath: Path.resolve(viewsPath, 'helpers'),
-      partialsPath: Path.resolve(viewsPath, 'partials'),
+      partialsPath: [Path.resolve(viewsPath, 'partials'), Path.resolve(viewsPath, 'vendor', 'boost', 'partials')],
       isCached: Config.get('app.env') === 'production',
       context: {
         title: Config.get('app.name')

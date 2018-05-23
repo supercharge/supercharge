@@ -19,7 +19,7 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      return h.view('signup')
+      return h.view('auth/signup')
     }
   },
 
@@ -69,12 +69,12 @@ const Handler = {
         })
 
         // \o/ wohoo, sign up successful
-        return h.view('signup-success')
+        return h.view('auth/signup-success')
       } catch (err) {
         const status = err.isBoom ? err.output.statusCode : 400
 
         return h
-          .view('signup', {
+          .view('auth/signup', {
             email: payload.email,
             errors: err.data
           })
@@ -103,7 +103,7 @@ const Handler = {
         const email = request.payload.email
 
         return h
-          .view('signup', {
+          .view('auth/signup', {
             email,
             errors
           })
@@ -124,7 +124,7 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      return h.view('login')
+      return h.view('auth/login')
     }
   },
 
@@ -161,7 +161,7 @@ const Handler = {
         const status = err.isBoom ? err.output.statusCode : 400
 
         return h
-          .view('login', {
+          .view('auth/login', {
             email: payload.email,
             errors: err.data
           })
@@ -190,7 +190,7 @@ const Handler = {
         const email = request.payload.email
 
         return h
-          .view('login', {
+          .view('auth/login', {
             email,
             errors
           })
@@ -207,7 +207,7 @@ const Handler = {
       }
     },
     handler: (request, h) => {
-      return h.view('forgot-password')
+      return h.view('auth/forgot-password')
     }
   },
 
@@ -252,7 +252,7 @@ const Handler = {
           throw new Boom('We have issues sending the password reset email.')
         }
 
-        return h.view('forgot-password-email-sent')
+        return h.view('auth/forgot-password-email-sent')
       } catch (err) {
         const status = err.isBoom ? err.output.statusCode : 400
 
@@ -260,7 +260,7 @@ const Handler = {
         const errormessage = !err.data ? err.message : null
 
         return h
-          .view('forgot-password', {
+          .view('auth/forgot-password', {
             email: payload.email,
             errors: err.data,
             errormessage
@@ -284,7 +284,7 @@ const Handler = {
         const email = request.payload.email
 
         return h
-          .view('forgot-password', {
+          .view('auth/forgot-password', {
             email,
             errors
           })
@@ -305,7 +305,7 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      return h.view('reset-password')
+      return h.view('auth/reset-password')
     },
     validate: {
       params: {
@@ -323,7 +323,7 @@ const Handler = {
         const errors = ErrorExtractor(error)
 
         return h
-          .view('reset-password', {
+          .view('auth/reset-password', {
             errors
           })
           .code(400)
@@ -371,11 +371,11 @@ const Handler = {
 
         request.cookieAuth.set({ id: user.id })
 
-        return h.view('reset-password-success')
+        return h.view('auth/reset-password-success')
       } catch (err) {
         const status = err.isBoom ? err.output.statusCode : 400
 
-        return h.view('reset-password', { errors: err.data }).code(status)
+        return h.view('auth/reset-password', { errors: err.data }).code(status)
       }
     },
     validate: {
@@ -414,7 +414,7 @@ const Handler = {
         const errors = ErrorExtractor(error)
 
         return h
-          .view('reset-password', { errors })
+          .view('auth/reset-password', { errors })
           .code(400)
           .takeover()
       }

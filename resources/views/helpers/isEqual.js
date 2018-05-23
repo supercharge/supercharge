@@ -1,9 +1,15 @@
 'use strict'
 
-module.exports = (first, second, options) => {
+function isEqual(first, second, options) {
   if (arguments.length < 3) {
-    throw new Error('Handlebars Hhelper isEqual needs 2 parameters')
+    throw new Error('Handlebars Helper "isEqual" needs 2 parameters')
   }
 
-  return first !== second ? options.inverse(this) : options.fn(this)
+  if (first === second) {
+    return options.fn(this)
+  }
+
+  return options.inverse(this)
 }
+
+module.exports = isEqual

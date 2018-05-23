@@ -61,3 +61,10 @@ label {
   color: hsl(200, 10%, 75%) !important;
   opacity: 1;
 }
+
+.card {
+  border: none;
+  border-top: 5px solid #2436de;
+  box-shadow: 0 2px 4px 0 hsla(0, 0%, 0%, 0.1);
+}
+

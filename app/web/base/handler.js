@@ -19,7 +19,7 @@ const Handler = {
       }
     },
     handler: (request, h) => {
-      return h.view('404').code(404)
+      return h.view('errors/404').code(404)
     }
   },
 
