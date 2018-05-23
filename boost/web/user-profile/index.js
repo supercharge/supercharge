@@ -6,10 +6,10 @@ function register(server, options) {
   server.dependency(['vision'])
 
   server.route(Routes)
-  server.log('info', 'Plugin registered: user profile')
+  server.log('info', 'Web Plugin registered: user profile')
 }
 
 exports.plugin = {
-  name: 'web-user-profile',
+  name: 'boost-web-user-profile',
   register
 }

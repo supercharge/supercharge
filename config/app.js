@@ -6,17 +6,6 @@ const Env = require(Path.resolve(__dirname, '..', 'utils', 'env'))
 module.exports = {
   /*
   |--------------------------------------------------------------------------
-  | App Key
-  |--------------------------------------------------------------------------
-  |
-  | App key is a randomly generated 32 characters long string required
-  | to encrypted cookies, sessions and other sensitive data.
-  |
-  */
-  key: Env.get('APP_KEY'),
-
-  /*
-  |--------------------------------------------------------------------------
   | Application Name
   |--------------------------------------------------------------------------
   |
@@ -49,5 +38,26 @@ module.exports = {
   | services your application utilizes. Set this in your ".env" file.
   |
   */
-  port: Env.get('PORT', 3000)
+  port: Env.get('PORT', 3000),
+
+  /*
+  |--------------------------------------------------------------------------
+  | App Key
+  |--------------------------------------------------------------------------
+  |
+  | App key is a randomly generated 32 characters long string required
+  | to encrypted cookies, sessions and other sensitive data.
+  |
+  */
+  key: Env.get('APP_KEY'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | Encryption Algorithm
+  |--------------------------------------------------------------------------
+  |
+  | TODO
+  |
+  */
+  cipher: 'AES-256-CBC'
 }

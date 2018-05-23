@@ -7,7 +7,6 @@ const Inert = require('inert')
 const Vision = require('vision')
 const Globby = require('globby')
 const Handlebars = require('./views')
-const Caches = require(Path.resolve(__dirname, '..', 'app', 'cache'))
 const Config = require(Path.resolve(__dirname, '..', 'utils', 'config'))
 
 // configure logger
@@ -19,11 +18,8 @@ class Bootstrap {
     // add web’s connection information
     const web = new Hapi.Server({
       host: 'localhost',
-      port: Config.get('app.web.port')
+      port: Config.get('app.port')
     })
-
-    const webPath = Path.resolve(__dirname, '..', 'app', 'web')
-    const webPlugins = await this.loadHapiPluginsFromFolder(webPath)
 
     // register plugins to web instance
     await web.register([
@@ -58,14 +54,22 @@ class Bootstrap {
 
     this.configureViews(web)
 
-    await web.register(webPlugins)
+    const webPath = Path.resolve(__dirname, '..', 'boost', 'web')
+    const boostWebPluginsPath = await this.loadHapiPluginsFromFolder(webPath)
+    await web.register(boostWebPluginsPath)
+
+    // register Web plugins created by the user
+    const userWebPluginsPath = Path.resolve(__dirname, '..', 'app', 'web')
+    const userWebPlugins = await this.loadHapiPluginsFromFolder(userWebPluginsPath)
+    await web.register(userWebPlugins)
+
     await web.start()
   }
 
   async launchAPI() {
     const api = new Hapi.Server({
       host: 'localhost',
-      port: Config.get('app.api.port') || 3001,
+      port: Config.get('api.port') || 3001,
       routes: {
         validate: {
           failAction(request, h, error) {
@@ -98,11 +102,16 @@ class Bootstrap {
       }
     ])
 
-    // register custom API hapi plugins, created by the user
-    const apiPath = Path.resolve(__dirname, '..', 'app', 'api')
-    const plugins = await this.loadHapiPluginsFromFolder(apiPath)
+    // register Boost’s API plugins
+    const boostApiPluginsPath = Path.resolve(__dirname, '..', 'boost', 'api')
+    const boostApiPlugins = await this.loadHapiPluginsFromFolder(boostApiPluginsPath)
+    await api.register(boostApiPlugins)
 
-    await api.register(plugins)
+    // register API plugins created by the user
+    const userApiPluginsPath = Path.resolve(__dirname, '..', 'app', 'api')
+    const userApiPlugins = await this.loadHapiPluginsFromFolder(userApiPluginsPath)
+    await api.register(userApiPlugins)
+
     await api.start()
   }
 
@@ -110,7 +119,8 @@ class Bootstrap {
     const plugins = await Globby(path, {
       expandDirectories: {
         files: ['index'],
-        extensions: ['js']
+        extensions: ['js'],
+        filesOnly: true
       }
     })
 
@@ -148,10 +158,6 @@ class Bootstrap {
 
   async fireOff() {
     try {
-      // connect the cache clients
-      await Caches.start()
-
-      // start hapi instances
       await Promise.all([this.launchWeb(), this.launchAPI()])
     } catch (err) {
       console.error(err)

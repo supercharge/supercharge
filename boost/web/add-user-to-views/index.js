@@ -23,7 +23,7 @@ function register(server, options) {
 }
 
 exports.plugin = {
-  name: 'add-user-object-to-views',
+  name: 'boost-web-add-user-object-to-views',
   version: '1.0.0',
   register
 }
