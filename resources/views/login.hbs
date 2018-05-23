@@ -1,47 +1,48 @@
-<div class="col-6 offset-3">
-    <h1>
-        Login
-    </h1>
+<div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <div class="card">
+        <div class="card-body">
 
-    <hr>
+            <h1 class="h4 text-center mt-3 mb-4">
+                Log in to Boost
+            </h1>
+            <p class="lead text-center text-muted text-sm mb-5">
+                Don’t have an account?
+                <a href="/signup">Sign up</a>
 
-    {{#if errormessage}}
-        <p class="error">
-            {{errormessage}}
-        </p>
-    {{/if}}
+                <br> Forgot your password?
+                <a href="/forgot-password">Reset your password</a>
+            </p>
 
-    <form method="POST">
-        <input type="hidden" name="keepMeSafeFromCsrf" value="{{keepMeSafeFromCsrf}}">
+            {{#if errormessage}}
+                <p class="error">
+                    {{errormessage}}
+                </p>
+            {{/if}}
 
-        <div class="form-group">
-            <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">
-                {{#if errors.email}} {{errors.email.message}} {{else}}Email address{{/if}}
-            </label>
-            <input class="form-control {{#if errors.email}}is-invalid{{else}}{{#if email}}is-valid{{/if}}{{/if}}" type="email" placeholder="Your personal email address" id="email"
-                name="email" value="{{email}}">
+            <form method="POST" class="mb-3">
+                <input type="hidden" name="keepMeSafeFromCsrf" value="{{keepMeSafeFromCsrf}}">
+
+                <div class="form-group">
+                    <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">
+                        {{#if errors.email}} {{errors.email.message}} {{else}}Email address{{/if}}
+                    </label>
+                    <input class="form-control {{#if errors.email}}is-invalid{{else}}{{#if email}}is-valid{{/if}}{{/if}}" type="email" placeholder="Your personal email address"
+                        id="email" name="email" value="{{email}}">
+                </div>
+
+                <div class="form-group">
+                    <label class="label is-pulled-left {{#if errors.password}}text-danger{{/if}}" for="password">
+                        {{#if errors.password}} {{errors.password.message}} {{else}}Password{{/if}}
+                    </label>
+
+                    <input class="form-control {{#if errors.password}}is-invalid{{/if}}" type="password" placeholder="Your secure password" id="password"
+                        name="password">
+                </div>
+
+                <button class="btn btn-primary btn-block mt-4" type="submit">Log in</button>
+            </form>
+
         </div>
-
-        <div class="form-group">
-                <label class="label is-pulled-left {{#if errors.password}}text-danger{{/if}}" for="password">
-                    {{#if errors.password}} {{errors.password.message}} {{else}}Password{{/if}}
-                </label>
-
-                <input class="form-control {{#if errors.password}}is-invalid{{/if}}" type="password" placeholder="Your password" id="password" name="password">
-        </div>
-
-        <button class="btn btn-primary btn-sm" type="submit">Log in</button>
-        <a href="/forgot-password" class="btn btn-light float-right">Forgot Password?</a>
-
-    </form>
-
-    <br>
-
-    <hr>
-
-    <div class="text-center text-sm">
-        <br>
-        <a href="/signup">Create a new account</a>
     </div>
 
 </div>
