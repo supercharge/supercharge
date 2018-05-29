@@ -18,7 +18,8 @@ class PinoConsole {
             // this prints a message like: "1519227724068 info Your geeky log message"
             return `${Chalk.gray(time)} ${Color(label)} ${msg}`
           }
-        }
+        },
+        level: 'trace'
       },
       config
     )
