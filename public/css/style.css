@@ -63,8 +63,36 @@ label {
 }
 
 .card {
-  border: none;
-  border-top: 5px solid #2436de;
+  border: 1px solid hsl(200, 16%, 90%);
   box-shadow: 0 2px 4px 0 hsla(0, 0%, 0%, 0.1);
 }
 
+.card-bt-blue {
+  border-top: 5px solid #2436de;
+}
+
+.card-header {
+  background: hsl(200, 23%, 96%);
+  border-bottom: 1px solid hsl(200, 16%, 90%);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+}
+
+.nav-link img {
+  margin-right: 16px;
+}
+
+.nav-settings .nav-link {
+  color: hsl(200, 30%, 30%);
+  font-weight: 700;
+}
+
+.nav-settings .nav-link.disabled {
+  color: hsl(200, 8%, 64%);
+  font-weight: 700;
+}
+
+.nav-icon {
+  width: 20px;
+}
