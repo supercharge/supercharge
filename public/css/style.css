@@ -24,6 +24,10 @@ body {
   color: hsl(200, 15%, 60%) !important;
 }
 
+h2, h3, h4, h5 {
+    color: hsl(200, 30%, 20%);
+}
+
 a, a:visited, a:active {
   color: #2436de;
 }
@@ -63,7 +67,7 @@ label {
 }
 
 .card {
-  border: 1px solid hsl(200, 16%, 90%);
+  border: 1px solid hsl(200, 16%, 99%);
   box-shadow: 0 2px 4px 0 hsla(0, 0%, 0%, 0.1);
 }
 
@@ -72,8 +76,36 @@ label {
 }
 
 .card-header {
+  background: transparent;
+  border-bottom: none;
+  color: hsl(200, 30%, 20%);
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+}
+
+.card-header-icon {
+  display: inline-block;
+  position: relative;
   background: hsl(200, 23%, 96%);
-  border-bottom: 1px solid hsl(200, 16%, 90%);
+  border-radius: 50%;
+  height: 46px;
+  padding: 12px;
+  width: 46px;
+  margin-right: 12px;
+}
+
+.card-header-icon img {
+  height: 100%;
+  width: auto;
+  margin-left: 2px;
+  margin-top: -6px;
+}
+
+.card-footer {
+  background: hsl(200, 23%, 98%);
+  border-top: none;
   font-size: 1rem;
   font-weight: 500;
   padding: 1rem 1.25rem;
@@ -86,6 +118,10 @@ label {
 .nav-settings .nav-link {
   color: hsl(200, 30%, 30%);
   font-weight: 700;
+}
+
+.nav-settings .nav-link.active {
+  color: #2436de;
 }
 
 .nav-settings .nav-link.disabled {

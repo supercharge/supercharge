@@ -4,13 +4,16 @@
 
 <div class="col-8">
     <div class="card">
-        <div class="card-header">
-            Update Your Personal Data
-        </div>
+        <form method="POST">
+            <div class="card-header">
+                <div class="card-header-icon">
+                    <img src="/images/icons/user-check-blue.svg" alt="">
+                </div>
+                Update Your Personal Data
+            </div>
 
-        <div class="card-body">
+            <div class="card-body">
 
-            <form method="POST">
                 <input type="hidden" name="keepMeSafeFromCsrf" value="{{keepMeSafeFromCsrf}}">
 
                 <div class="form-group">
@@ -31,9 +34,12 @@
                         name="homepage" value="{{user.homepage}}">
                 </div>
 
-                <button class="btn btn-primary mt-4" type="submit">Update</button>
+            </div>
 
-            </form>
-        </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+
+        </form>
     </div>
 </div>
