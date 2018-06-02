@@ -1,10 +1,8 @@
 'use strict'
 
-const Fs = require('fs')
 const _ = require('lodash')
 const Path = require('path')
 const Dotenv = require('dotenv')
-const Logger = require('./logger')
 
 class Env {
   constructor() {
@@ -18,10 +16,7 @@ class Env {
     try {
       // import environment variables from local .env file
       Dotenv.config({ path })
-
-      Logger.info('%s environment file from %s', overwrite ? 'Merging' : 'Loading', path)
     } catch (err) {
-      Logger.error('Error while loading environment file')
       throw err
     }
   }

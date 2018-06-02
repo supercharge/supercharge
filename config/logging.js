@@ -11,7 +11,7 @@ module.exports = {
   |
   | Driver for log messages. At this point, Boost supports only a single driver
   |
-  | Available drivers: `console`
+  | Available drivers: `console`, `file`, `stacked`: log to file and console
   |
   */
   driver: Env.get('LOG_DRIVER', 'console')

@@ -2,7 +2,6 @@
 
 const Path = require('path')
 const _ = require('lodash')
-const Logger = require('./logger')
 const RequireAll = require('require-all')
 
 /**
@@ -21,8 +20,6 @@ class Config {
       dirname: this.configPath,
       filter: /(.*)\.js$/
     })
-
-    Logger.info(`Loaded all config files from ${this.configPath}`)
   }
 
   /**
