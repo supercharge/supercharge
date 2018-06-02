@@ -49,5 +49,6 @@ async function register(server, options) {
 
 exports.plugin = {
   name: 'boost-web-authentication',
-  register
+  register,
+  once: true
 }
