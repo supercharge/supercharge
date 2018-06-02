@@ -9,7 +9,7 @@ const Globby = require('globby')
 const Handlebars = require('./views')
 const Config = require(Path.resolve(__dirname, '..', 'utils', 'config'))
 
-// configure logger
+// configure hapi response logging format
 Laabr.format('log', ':time :level :message')
 
 class Bootstrap {
