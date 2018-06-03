@@ -29,7 +29,7 @@ h2, h3, h4, h5 {
 }
 
 a, a:visited, a:active {
-  color: #2436de;
+  color: #0176ff;
 }
 
 a:hover {
@@ -42,8 +42,9 @@ strong {
 
 .btn-primary {
   color: hsl(200, 23%, 96%);
-  background: #2436de;
-  border: 1px solid #2436de;
+  /* background: #2436de; */
+  background: #0176ff;
+  border: 1px solid #0176ff;
 }
 
 .btn-primary:hover {
@@ -52,13 +53,18 @@ strong {
   border: 1px solid #2957ff;
 }
 
+.form-group {
+  margin-bottom: 2rem;
+}
+
 label {
-  color: hsl(200, 30%, 20%);
-  font-weight: 500;
+  color: hsl(200, 10%, 40%);
+  font-size: 0.9125rem;
 }
 
 .form-control {
   border: 1px solid hsl(200, 23%, 96%);
+  color: hsl(200, 30%, 20%);
 }
 
 ::placeholder {
@@ -72,7 +78,7 @@ label {
 }
 
 .card-bt-blue {
-  border-top: 5px solid #2436de;
+  border-top: 5px solid #0176ff;
 }
 
 .card-header {
@@ -115,13 +121,17 @@ label {
   margin-right: 16px;
 }
 
+.nav-item .dropdown-toggle img {
+  margin-right: 8px;
+}
+
 .nav-settings .nav-link {
   color: hsl(200, 30%, 30%);
   font-weight: 700;
 }
 
 .nav-settings .nav-link.active {
-  color: #2436de;
+  color: #0176ff;
 }
 
 .nav-settings .nav-link.disabled {

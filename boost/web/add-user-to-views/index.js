@@ -10,6 +10,10 @@ function register(server, options) {
     if (response.variety && _.isEqual(response.variety, 'view')) {
       response.source.context = response.source.context || {}
 
+      if (response.source.context.user) {
+        return h.continue
+      }
+
       if (request.auth.isAuthenticated && request.user.id) {
         response.source.context.user = request.user
         return h.continue

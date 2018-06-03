@@ -17,21 +17,21 @@
                 <input type="hidden" name="keepMeSafeFromCsrf" value="{{keepMeSafeFromCsrf}}">
 
                 <div class="form-group">
-                    <label class="label {{#if errors.username}}text-danger{{/if}}" for="username">
-                        {{#if errors.username}} {{errors.username.message}} {{else}}Username {{/if}}
+                    <label class="label {{#if errors.name}}text-danger{{/if}}" for="name">
+                        {{#if errors.name}} {{errors.name.message}} {{else}}Name{{/if}}
                     </label>
-                    <input class="form-control {{#if errors.username}}is-invalid{{else}}{{#if
-                                 username}}is-valid{{/if}}{{/if}}" type="text" placeholder="Your personal username" id="username"
-                        name="username" value="{{user.username}}">
+                    <input class="form-control {{#if errors.name}}is-invalid{{else}}{{#if
+                                 name}}is-valid{{/if}}{{/if}}" type="text" placeholder="Your name" id="name" name="name"
+                        value="{{user.name}}">
                 </div>
 
                 <div class="form-group">
-                    <label class="label {{#if errors.homepage}}text-danger{{/if}}" for="homepage">
-                        {{#if errors.homepage}} {{errors.homepage.message}} {{else}}Homepage {{/if}}
+                    <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">
+                        {{#if errors.email}} {{errors.email.message}} {{else}}Email Address{{/if}}
                     </label>
-                    <input class="form-control {{#if errors.homepage}}is-invalid{{else}}{{#if
-                                 homepage}}is-valid{{/if}}{{/if}}" type="text" placeholder="Your homepage" id="homepage"
-                        name="homepage" value="{{user.homepage}}">
+                    <input class="form-control {{#if errors.email}}is-invalid{{else}}{{#if
+                                 email}}is-valid{{/if}}{{/if}}" type="text" placeholder="Your email address" id="email"
+                        name="email" value="{{user.email}}">
                 </div>
 
             </div>

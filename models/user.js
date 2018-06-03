@@ -1,22 +1,13 @@
 'use strict'
 
 const MD5 = require('md5')
-const _ = require('lodash')
 const Path = require('path')
 const Boom = require('boom')
 const Crypto = require('crypto')
 const Mongoose = require('mongoose')
 const Schema = Mongoose.Schema
 const Validator = require('validator')
-const Haikunator = require('haikunator')
 const Hash = require(Path.resolve(__dirname, '..', 'utils', 'hashinator'))
-
-// initialize haikunator to generate funky usernames
-// initialize to not append numbers to generated names
-// e.g. "proud-mode" instead of "proud-mode-4711"
-const haikunator = new Haikunator({
-  defaults: { tokenLength: 0 }
-})
 
 const userSchema = new Schema(
   {
@@ -32,16 +23,6 @@ const userSchema = new Schema(
       }
     },
     password: String,
-    username: {
-      type: String,
-      unique: true,
-      trim: true,
-      sparse: true // this makes sure the unique index applies to not null values only (= unique if not null)
-    },
-    homepage: {
-      type: String,
-      trim: true
-    },
     name: String,
     passwordResetToken: {
       type: String,
@@ -66,41 +47,6 @@ const userSchema = new Schema(
     toObject: { virtuals: true }
   }
 )
-
-/**
- * Mongoose Middlewares
- */
-
-/**
- * pre-save hook to generate a unique username
- */
-userSchema.pre('save', async function(next) {
-  if (this.isNew) {
-    // split email address at @ symbol and only return the first part
-    this.username = _.first(_.split(this.email, '@', 1))
-
-    // find existing user with the same username
-    const existingUser = await this.constructor.findOne({ username: this.username })
-
-    // TODO this can lead to duplicated keys if haikunate generates the same slug twice
-    if (existingUser) {
-      this.username = `${this.username}-${haikunator.haikunate()}`
-    }
-  }
-
-  // tell mongoose to proceed
-  next()
-})
-
-/**
- * Relations
- */
-userSchema.virtual('watchlist', {
-  ref: 'Watchlist',
-  localField: '_id',
-  foreignField: 'user',
-  justOne: true
-})
 
 /**
  * Statics

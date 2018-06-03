@@ -18,22 +18,22 @@ const Handler = {
     auth: 'session',
     handler: async (request, h) => {
       // shortcut
-      const payload = request.payload
+      const { email, name } = request.payload
       let user
 
       try {
         // check if the username is already chosen
         user = await User.findOne({
-          username: payload.username,
+          email,
           _id: { $ne: request.user._id }
         })
 
         if (user) {
           // create an error object that matches our error structure
-          const message = 'Username is already taken'
+          const message = 'Email Address is already taken'
           throw new Boom(message, {
             statusCode: 409,
-            data: { username: { message } }
+            data: { email: { message } }
           })
         }
 
@@ -43,10 +43,7 @@ const Handler = {
         user = await User.findOneAndUpdate(
           { _id: request.user._id }, // filters the document
           {
-            $set: {
-              username: payload.username,
-              homepage: payload.homepage
-            }
+            $set: { email, name }
           },
           {
             // returns the post-update document
@@ -63,9 +60,7 @@ const Handler = {
         return h.view('user/profile')
       } catch (err) {
         const status = err.isBoom ? err.output.statusCode : 400
-        const user = Object.assign({}, request.user, {
-          username: payload.username
-        })
+        const user = Object.assign({}, request.user.toObject(), { email, name })
 
         return h
           .view('user/profile', {
@@ -77,29 +72,19 @@ const Handler = {
     },
     validate: {
       payload: {
-        username: Joi.string()
-          .label('Username')
+        email: Joi.string()
+          .label('Email Address')
+          .trim(),
+        name: Joi.string()
+          .label('Name')
           .trim()
           .optional()
           .allow('')
-          .allow(null),
-        homepage: Joi.string()
-          .label('Homepage')
-          .trim()
-          .optional()
-          .allow('')
-          .allow(null)
-          .uri()
       },
       failAction: (request, h, error) => {
-        // prepare formatted error object
         const errors = ErrorExtractor(error)
-
-        // grab incoming payload values
-        const { username, homepage } = request.payload
-
-        // merge existing user data with incoming values
-        const user = Object.assign({}, request.user, { username, homepage })
+        const { email, name } = request.payload
+        const user = Object.assign({}, request.user, { email, name })
 
         return h
           .view('user/profile', {
