@@ -40,6 +40,14 @@ strong {
     color: hsl(200, 30%, 20%);
 }
 
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus, .btn:active:focus {
+  box-shadow: none;
+}
+
 .btn-primary {
   color: hsl(200, 23%, 96%);
   /* background: #2436de; */
@@ -122,7 +130,8 @@ label {
 }
 
 .nav-item .dropdown-toggle img {
-  margin-right: 8px;
+  margin-right: 2px;
+  width: 30px;
 }
 
 .nav-settings .nav-link {
