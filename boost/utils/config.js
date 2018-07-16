@@ -10,7 +10,7 @@ const RequireAll = require('require-all')
  */
 class Config {
   constructor(configPath) {
-    this.configPath = configPath || Path.resolve(__dirname, '..', 'config')
+    this.configPath = configPath || Path.resolve(__appRoot, 'config')
     this.config = {}
     this.syncWithConfigFiles()
   }

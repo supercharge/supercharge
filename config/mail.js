@@ -1,7 +1,6 @@
 'use strict'
 
-const Path = require('path')
-const Env = require(Path.resolve(__dirname, '..', 'utils', 'env'))
+const Env = util('env')
 
 module.exports = {
   /*
@@ -9,11 +8,11 @@ module.exports = {
   | Default Mail Driver
   |--------------------------------------------------------------------------
   |
-  | Driver for log messages. At this point, Boost supports only a single driver
+  | Driver for email sending.
   |
   | Available drivers: `mailgun`, `postmark`, `ses`
   | Basically any driver that nodemailer supports
   |
   */
-  driver: Env.get('MAIL_DRIVER')
+  driver: Env.get('MAIL_DRIVER', 'smtp')
 }

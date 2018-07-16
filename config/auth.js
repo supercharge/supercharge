@@ -1,7 +1,6 @@
 'use strict'
 
-const Path = require('path')
-const Env = require(Path.resolve(__dirname, '..', 'utils', 'env'))
+const Env = util('env')
 
 module.exports = {
   /*

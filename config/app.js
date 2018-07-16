@@ -1,7 +1,6 @@
 'use strict'
 
-const Path = require('path')
-const Env = require(Path.resolve(__dirname, '..', 'utils', 'env'))
+const Env = util('env')
 
 module.exports = {
   /*
@@ -26,7 +25,7 @@ module.exports = {
   | services your application utilizes. Set this in your ".env" file.
   |
   */
-  env: Env.get('APP_ENV', 'production'),
+  env: Env.get('NODE_ENV', 'production'),
 
   /*
   |--------------------------------------------------------------------------

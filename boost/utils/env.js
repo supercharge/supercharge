@@ -6,12 +6,11 @@ const Dotenv = require('dotenv')
 
 class Env {
   constructor() {
-    this.appRoot = Path.resolve(__dirname, '..')
     this.load(this.getEnvPath(), false)
   }
 
   load(filePath, overwrite = true) {
-    const path = Path.join(this.appRoot, filePath)
+    const path = Path.resolve(__appRoot, filePath)
 
     try {
       // import environment variables from local .env file

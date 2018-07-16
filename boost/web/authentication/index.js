@@ -3,7 +3,7 @@
 const Config = util('config')
 const { User } = frequire('app', 'models')
 
-async function register(server, options) {
+async function register(server) {
   await server.register([
     {
       plugin: require('hapi-auth-cookie')

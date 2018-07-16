@@ -13,4 +13,4 @@ global.__appRoot = Path.resolve(__dirname, '..')
 global.frequire = (...path) => require(Path.resolve(__appRoot, ...path))
 
 global.model = (...path) => require(Path.resolve(__appRoot, 'app', 'models', ...path))
-global.util = (...path) => require(Path.resolve(__appRoot, 'utils', ...path))
+global.util = (...path) => require(Path.resolve(__appRoot, 'boost', 'utils', ...path))
