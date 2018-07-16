@@ -1,72 +1,55 @@
 'use strict'
 
-const Pino = require('pino')
 const Chalk = require('chalk')
+const Winston = require('winston')
+const { combine, timestamp, printf } = Winston.format
 
-class PinoConsole {
+class WinstonConsoleLogger {
   constructor(config) {
-    const options = Object.assign(
-      {},
-      {
-        prettyPrint: {
-          // the "data" parameter (here destructured to { level, msg, time })
-          // contains the actual data to log
-          formatter: ({ level, msg, time }) => {
-            const label = Pino.levels.labels[level]
-            const Color = this.getChalkColor(label)
-
-            // this prints a message like: "1519227724068 info Your geeky log message"
-            return `${Chalk.gray(time)} ${Color(label)} ${msg}`
-          }
-        },
-        level: 'trace'
-      },
-      config
-    )
-
-    return new Pino(options)
+    return new Winston.transports.Console({
+      format: combine(
+        timestamp(),
+        printf(info => {
+          const Color = this.getColorForLevel(info.level)
+          const time = new Date(info.timestamp).getTime()
+          return `${Chalk.gray(time)} ${Color(info.level)} ${info.message}`
+        })
+      ),
+      level: 'debug'
+    })
   }
 
   /**
-   * Pino represents log levels as integers (e.g., 30, 40, etc.)
-   *
-   * trace = 10 (grey)
-   * debug = 20 (blue)
-   * info  = 30 (green)
-   * warn  = 40 (yellow)
-   * error = 50 (red)
-   * fatal = 60 (bold red)
-   *
    * Return a chalk function for the related log level,
-   * to print colored logs. E.g.,
+   * to print colored logs.
+   *
+   * E.g.,
    * info  => green
    * warn  => yellow
-   * error => red
+   * error => bold red
    *
-   * @param {integer} level - Pino log level in numbered format
+   * @param {integer} label - Winston log level as a string label
    */
-  getChalkColor(level) {
-    return this.color(level) || Chalk.white
-  }
+  getColorForLevel(label) {
+    const colors = this.colors()
 
-  color(level) {
-    return this.levelColors()[level]
+    return colors[label] || Chalk.white
   }
 
   /**
    * Color levels, ranked ascending
-   * from chilly to freakout
+   * from freakout to chilly
    */
-  levelColors() {
+  colors() {
     return {
-      trace: Chalk.grey,
-      debug: Chalk.blue,
-      info: Chalk.green,
+      error: Chalk.bold.red,
       warn: Chalk.yellow,
-      error: Chalk.red,
-      fatal: Chalk.bold.red
+      info: Chalk.green,
+      verbose: Chalk.blue,
+      debug: Chalk.yellow,
+      silly: Chalk.grey
     }
   }
 }
 
-module.exports = PinoConsole
+module.exports = WinstonConsoleLogger

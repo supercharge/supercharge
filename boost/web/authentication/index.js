@@ -1,8 +1,7 @@
 'use strict'
 
-const Path = require('path')
-const { User } = require(Path.resolve(__dirname, '..', '..', '..', 'models'))
-const Config = require(Path.resolve(__dirname, '..', '..', '..', 'utils', 'config'))
+const Config = util('config')
+const { User } = frequire('app', 'models')
 
 async function register(server, options) {
   await server.register([

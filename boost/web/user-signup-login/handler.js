@@ -2,10 +2,9 @@
 
 const Joi = require('joi')
 const Boom = require('boom')
-const Path = require('path')
-const { User } = require(Path.resolve(__dirname, '..', '..', '..', 'models'))
-const Mailer = require(Path.resolve(__dirname, '..', '..', '..', 'utils', 'mailer'))
-const ErrorExtractor = require(Path.resolve(__dirname, '..', '..', '..', 'utils', 'error-extractor'))
+const Mailer = util('mailer')
+const { User } = frequire('app', 'models')
+const ErrorExtractor = util('error-extractor')
 
 const Handler = {
   showSignup: {

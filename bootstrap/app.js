@@ -1,5 +1,7 @@
 'use strict'
 
+require('./globals')
+
 const Hapi = require('hapi')
 const Path = require('path')
 const Laabr = require('laabr')
@@ -7,7 +9,7 @@ const Inert = require('inert')
 const Vision = require('vision')
 const Globby = require('globby')
 const Handlebars = require('./views')
-const Config = require(Path.resolve(__dirname, '..', 'utils', 'config'))
+const Config = util('config')
 
 // configure hapi response logging format
 Laabr.format('log', ':time :level :message')
@@ -66,55 +68,6 @@ class Bootstrap {
     await web.start()
   }
 
-  async launchAPI() {
-    const api = new Hapi.Server({
-      host: 'localhost',
-      port: Config.get('api.port') || 3001,
-      routes: {
-        validate: {
-          failAction(request, h, error) {
-            // hapi v17 generates a default error response hiding all validation error details
-            // this will always throw the validation error
-            // the thrown validation error will be transformed within the `error-interceptor` plugin
-            throw error
-          }
-        }
-      }
-    })
-
-    // register default API plugins
-    await api.register([
-      {
-        plugin: require('hapi-dev-errors'),
-        options: {
-          showErrors: Config.get('app.env') !== 'production',
-          useYouch: true
-        }
-      },
-      {
-        plugin: Laabr.plugin,
-        options: {
-          colored: true,
-          hapiPino: {
-            logPayload: false
-          }
-        }
-      }
-    ])
-
-    // register Boost’s API plugins
-    const boostApiPluginsPath = Path.resolve(__dirname, '..', 'boost', 'api')
-    const boostApiPlugins = await this.loadHapiPluginsFromFolder(boostApiPluginsPath)
-    await api.register(boostApiPlugins)
-
-    // register API plugins created by the user
-    const userApiPluginsPath = Path.resolve(__dirname, '..', 'app', 'api')
-    const userApiPlugins = await this.loadHapiPluginsFromFolder(userApiPluginsPath)
-    await api.register(userApiPlugins)
-
-    await api.start()
-  }
-
   async loadHapiPluginsFromFolder(path) {
     const plugins = await Globby(path, {
       expandDirectories: {
@@ -158,7 +111,7 @@ class Bootstrap {
 
   async fireOff() {
     try {
-      await Promise.all([this.launchWeb(), this.launchAPI()])
+      await Promise.all([this.launchWeb()])
     } catch (err) {
       console.error(err)
       process.exit(1)

@@ -1,7 +1,7 @@
 'use strict'
 
-const Path = require('path')
 const _ = require('lodash')
+const Path = require('path')
 const RequireAll = require('require-all')
 
 /**

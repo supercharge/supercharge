@@ -1,53 +1,23 @@
 'use strict'
 
-const Config = require('./config')
-const FileLogger = require('./logging/file-logger')
-const ConsoleLogger = require('./logging/console-logger')
+const Config = util('./config')
+const Winston = require('winston')
+const WinstonFile = require('./logging/file-logger')
+const WinstonConsole = require('./logging/console-logger')
 
 class Logger {
-  constructor(options) {
+  constructor() {
+    this.logger = Winston.createLogger({
+      transports: [new WinstonConsole()]
+    })
+
     const driver = Config.get('logging.driver')
-    this.drivers = []
 
     if (driver === 'stacked') {
-      this.drivers = [new ConsoleLogger(options), new FileLogger(options)]
+      this.logger.add(new WinstonFile())
     }
 
-    if (driver === 'console') {
-      this.drivers = [new ConsoleLogger(options)]
-    }
-
-    if (driver === 'file') {
-      this.drivers = [new FileLogger(options)]
-    }
-  }
-
-  trace(msg) {
-    this.drivers.forEach(driver => driver.trace(msg))
-  }
-
-  debug(msg) {
-    this.drivers.forEach(driver => driver.debug(msg))
-  }
-
-  info(msg) {
-    this.drivers.forEach(driver => driver.info(msg))
-  }
-
-  warn(msg) {
-    this.drivers.forEach(driver => driver.warn(msg))
-  }
-
-  error(msg) {
-    this.drivers.forEach(driver => driver.error(msg))
-  }
-
-  fatal(msg) {
-    this.drivers.forEach(driver => driver.fatal(msg))
-  }
-
-  critical(msg) {
-    this.fatal(msg)
+    return this.logger
   }
 }
 

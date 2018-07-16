@@ -1,26 +1,29 @@
 'use strict'
 
-const Fs = require('fs')
 const Path = require('path')
-const Pino = require('pino')
-const PinoNoir = require('pino-noir')
+const Config = util('config')
+const Winston = require('winston')
+const { combine, timestamp, printf } = Winston.format
 
-const logfile = Path.resolve(__dirname, '..', '..', 'storage', 'logs', 'ops_logs.out')
+const logFileName = Config.get('logging.logfile')
+const logfile = Path.resolve(__appRoot, 'storage', 'logs', logFileName)
 
-class PinoFileLogger {
-  constructor(config) {
-    const options = Object.assign(
-      {},
-      {
-        level: 'trace',
-        serializerserializers: PinoNoir(['password', 'authToken'])
-      },
-      config
-    )
+class WinstonFileLogger {
+  constructor() {
+    console.log('adding file logger')
 
-    const logStream = Fs.createWriteStream(logfile, { flags: 'a' })
-    return new Pino(options, logStream)
+    return new Winston.transports.File({
+      filename: logfile,
+      level: 'debug',
+      format: combine(
+        timestamp(),
+        printf(info => {
+          const time = new Date(info.timestamp).getTime()
+          return JSON.stringify(Object.assign(info, { time }))
+        })
+      )
+    })
   }
 }
 
-module.exports = PinoFileLogger
+module.exports = WinstonFileLogger

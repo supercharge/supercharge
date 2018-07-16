@@ -1,13 +1,12 @@
 'use strict'
 
 const MD5 = require('md5')
-const Path = require('path')
 const Boom = require('boom')
 const Crypto = require('crypto')
 const Mongoose = require('mongoose')
 const Schema = Mongoose.Schema
 const Validator = require('validator')
-const Hash = require(Path.resolve(__dirname, '..', 'utils', 'hashinator'))
+const Hash = util('hashinator')
 
 const userSchema = new Schema(
   {

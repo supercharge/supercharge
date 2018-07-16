@@ -2,7 +2,7 @@
 
 const _ = require('lodash')
 
-function register(server, options) {
+function register(server) {
   server.ext('onPreResponse', (request, h) => {
     const response = request.response
 
@@ -29,5 +29,6 @@ function register(server, options) {
 exports.plugin = {
   name: 'boost-web-add-user-object-to-views',
   version: '1.0.0',
-  register
+  register,
+  once: true
 }

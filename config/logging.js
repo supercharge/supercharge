@@ -14,5 +14,15 @@ module.exports = {
   | Available drivers: `console`, `file`, `stacked`: log to file and console
   |
   */
-  driver: Env.get('LOG_DRIVER', 'console')
+  driver: Env.get('LOG_DRIVER', 'stacked'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | App Log File
+  |--------------------------------------------------------------------------
+  |
+  | The app's log file. This is where all log messages go
+  |
+  */
+  logfile: Env.get('LOG_FILE', 'app.log')
 }
