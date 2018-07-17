@@ -4,12 +4,12 @@ require('./globals')
 
 const Hapi = require('hapi')
 const Path = require('path')
+const Config = util('config')
 const Laabr = require('laabr')
 const Inert = require('inert')
 const Vision = require('vision')
 const Globby = require('globby')
 const Handlebars = require('./views')
-const Config = util('config')
 
 // configure hapi response logging format
 Laabr.format('log', ':time :level :message')
@@ -82,7 +82,7 @@ class Bootstrap {
 
   configureViews(server) {
     // view configuration
-    const viewsPath = Path.resolve(__dirname, '..', 'resources', 'views')
+    const viewsPath = Path.resolve(__appRoot, 'resources', 'views')
 
     server.views({
       engines: {
