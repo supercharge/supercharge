@@ -1,21 +1,19 @@
 'use strict'
 
-const _ = require('lodash')
-
 function register(server) {
   server.ext('onPreResponse', (request, h) => {
-    const response = request.response
+    const { variety, source } = request.response
 
     // rendering a view? then add the user object
-    if (response.variety && _.isEqual(response.variety, 'view')) {
-      response.source.context = response.source.context || {}
+    if (variety && variety === 'view') {
+      source.context = source.context || {}
 
-      if (response.source.context.user) {
+      if (source.context.user) {
         return h.continue
       }
 
       if (request.auth.isAuthenticated && request.user.id) {
-        response.source.context.user = request.user
+        source.context.user = request.user
         return h.continue
       }
     }
@@ -23,7 +21,7 @@ function register(server) {
     return h.continue
   })
 
-  server.log('info', 'Plugin registered: add user model data to views')
+  server.log('info', 'Plugin registered: add user model to view context')
 }
 
 exports.plugin = {
