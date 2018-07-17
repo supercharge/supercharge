@@ -47,12 +47,12 @@ class Bootstrap {
 
     this.configureViews(web)
 
-    const webPath = Path.resolve(__dirname, '..', 'boost', 'web')
-    const boostWebPluginsPath = await this.loadHapiPluginsFromFolder(webPath)
-    await web.register(boostWebPluginsPath)
+    const middlewarePath = Path.resolve(__appRoot, 'boost', 'middleware')
+    const boostMiddlewares = await this.loadHapiPluginsFromFolder(middlewarePath)
+    await web.register(boostMiddlewares)
 
     // register Web plugins created by the user
-    const userWebPluginsPath = Path.resolve(__dirname, '..', 'app', 'web')
+    const userWebPluginsPath = Path.resolve(__appRoot, 'app', 'web')
     const userWebPlugins = await this.loadHapiPluginsFromFolder(userWebPluginsPath)
     await web.register(userWebPlugins)
 

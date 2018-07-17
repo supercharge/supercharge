@@ -2,10 +2,10 @@
 
 function register(server) {
   server.ext('onPreResponse', (request, h) => {
-    const { variety, source } = request.response
+    const { variety = '', source } = request.response
 
     // rendering a view? then add the user object
-    if (variety && variety === 'view') {
+    if (variety === 'view') {
       source.context = source.context || {}
 
       if (source.context.user) {
