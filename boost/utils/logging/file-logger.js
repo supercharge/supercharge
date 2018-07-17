@@ -10,8 +10,6 @@ const logfile = Path.resolve(__appRoot, 'storage', 'logs', logFileName)
 
 class WinstonFileLogger {
   constructor() {
-    console.log('adding file logger')
-
     return new Winston.transports.File({
       filename: logfile,
       level: 'debug',

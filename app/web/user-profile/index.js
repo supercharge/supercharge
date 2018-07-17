@@ -2,7 +2,7 @@
 
 const Path = require('path')
 const Routes = require('./routes')
-const Authentication = require(Path.resolve(__dirname, '..', 'authentication'))
+const Authentication = require(Path.resolve(__appRoot, 'boost', 'middleware', 'authentication'))
 
 async function register(server, options) {
   await server.register(Authentication)

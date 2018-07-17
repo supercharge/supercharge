@@ -7,17 +7,27 @@ const WinstonConsole = require('./logging/console-logger')
 
 class Logger {
   constructor() {
-    this.logger = Winston.createLogger({
-      transports: [new WinstonConsole()]
-    })
+    this.driver = Config.get('logging.driver')
+    this.logger = this.logger = Winston.createLogger()
 
-    const driver = Config.get('logging.driver')
+    this.loadDrivers()
 
-    if (driver === 'stacked') {
+    return this.logger
+  }
+
+  loadDrivers() {
+    if (this.driver === 'console') {
+      this.logger.add(new WinstonConsole())
+    }
+
+    if (this.driver === 'file') {
       this.logger.add(new WinstonFile())
     }
 
-    return this.logger
+    if (this.driver === 'stacked') {
+      this.logger.add(new WinstonConsole())
+      this.logger.add(new WinstonFile())
+    }
   }
 }
 

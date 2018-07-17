@@ -1,7 +1,5 @@
 'use strict'
 
-const Logger = util('logger')
-
 const Handler = {
   index: {
     plugins: {
@@ -10,7 +8,6 @@ const Handler = {
       }
     },
     handler: async function(request, h) {
-      Logger.warn('this is a warning message')
       return h.view('index', null, { layout: 'hero' })
     }
   },

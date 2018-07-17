@@ -28,15 +28,6 @@ class Bootstrap {
       Inert,
       Vision,
       {
-        plugin: require('crumb'),
-        options: {
-          key: 'keepMeSafeFromCsrf',
-          cookieOptions: {
-            isSecure: Config.get('app.env') === 'production'
-          }
-        }
-      },
-      {
         plugin: require('hapi-dev-errors'),
         options: {
           showErrors: Config.get('app.env') !== 'production',

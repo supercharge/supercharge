@@ -6,7 +6,7 @@ const BcryptHashinator = require('./hashing/bcrypt-hashinator')
 
 class Hash {
   constructor() {
-    const driver = Config.get('hashing.driver') || 'bcrypt'
+    const driver = Config.get('hashing.driver')
 
     if (driver === 'argon') {
       this.driver = ArgonHashinator

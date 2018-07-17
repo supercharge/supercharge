@@ -12,10 +12,15 @@ class Config {
   constructor(configPath) {
     this.configPath = configPath || Path.resolve(__appRoot, 'config')
     this.config = {}
-    this.syncWithConfigFiles()
+
+    this.syncConfigFiles()
   }
 
-  syncWithConfigFiles() {
+  /**
+   * Imports the app configuration files
+   * from the "config" folder.
+   */
+  syncConfigFiles() {
     this.config = RequireAll({
       dirname: this.configPath,
       filter: /(.*)\.js$/
@@ -23,24 +28,15 @@ class Config {
   }
 
   /**
+   * Returns the requested config value
+   *
    * @example
    * ```
    * Config.get('database.mysql')
-   *
-   * // referenced
-   * {
-   *   prodMysql: 'self::database.mysql'
-   * }
-   * Config.get('database.prodMysql')
    * ```
    */
   get(key, defaultValue) {
     return _.get(this.config, key, defaultValue)
-  }
-
-  merge(key, defaultValues, customizer) {
-    const value = this.get(key, {})
-    return _.mergeWith(defaultValues, value, customizer)
   }
 }
 
