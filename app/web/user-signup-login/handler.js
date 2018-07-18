@@ -68,7 +68,7 @@ const Handler = {
         })
 
         // \o/ wohoo, sign up successful
-        return h.view('auth/signup-success')
+        return h.view('home')
       } catch (err) {
         const status = err.isBoom ? err.output.statusCode : 400
 
@@ -424,6 +424,7 @@ const Handler = {
     auth: 'session',
     handler: (request, h) => {
       request.cookieAuth.clear()
+
       return h.redirect('/')
     }
   }

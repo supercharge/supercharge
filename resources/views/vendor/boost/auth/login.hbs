@@ -20,7 +20,7 @@
             {{/if}}
 
             <form method="POST" class="mb-3">
-                <input type="hidden" name="keepMeSafeFromCsrf" value="{{keepMeSafeFromCsrf}}">
+                {{csrf}}
 
                 <div class="form-group">
                     <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">

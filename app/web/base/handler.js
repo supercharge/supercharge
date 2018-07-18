@@ -8,7 +8,7 @@ const Handler = {
       }
     },
     handler: async function(request, h) {
-      return h.view('index', null, { layout: 'hero' })
+      return h.view('welcome')
     }
   },
 

@@ -91,7 +91,7 @@ class Bootstrap {
       path: [viewsPath, Path.resolve(viewsPath, 'vendor', 'boost')],
       layoutPath: [Path.resolve(viewsPath, 'layouts'), Path.resolve(viewsPath, 'vendor', 'boost', 'layouts')],
       layout: 'default',
-      helpersPath: Path.resolve(viewsPath, 'helpers'),
+      helpersPath: [Path.resolve(viewsPath, 'helpers'), Path.resolve(viewsPath, 'vendor', 'boost', 'helpers')],
       partialsPath: [Path.resolve(viewsPath, 'partials'), Path.resolve(viewsPath, 'vendor', 'boost', 'partials')],
       isCached: Config.get('app.env') === 'production',
       context: {

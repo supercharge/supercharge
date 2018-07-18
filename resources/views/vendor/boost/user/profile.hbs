@@ -13,8 +13,7 @@
             </div>
 
             <div class="card-body">
-
-                <input type="hidden" name="keepMeSafeFromCsrf" value="{{keepMeSafeFromCsrf}}">
+                {{csrf}}
 
                 <div class="form-group">
                     <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">

@@ -7,7 +7,7 @@ async function register(server) {
     {
       plugin: require('crumb'),
       options: {
-        key: 'csrf-token',
+        key: Config.get('session.token'),
         cookieOptions: {
           password: Config.get('app.key'),
           isSecure: Config.get('app.env') === 'production'

@@ -18,10 +18,12 @@ async function register(server) {
    * the logged in user
    */
   server.auth.strategy('session', 'cookie', {
-    redirectTo: '/login',
+    cookie: Config.get('session.cookie'),
     password: Config.get('app.key'),
     isSecure: Config.get('app.env') === 'production',
+    redirectTo: '/login',
     appendNext: true,
+    ttl: Config.get('session.lifetime'),
     validateFunc: async (request, session) => {
       // there is only the user’s id in the session
       const userId = session.id

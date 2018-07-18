@@ -1,24 +1,25 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom mb-5">
-    <a class="navbar-brand" href="/">
-        <img src="/images/boost-logo.png" alt="Future Studio Boost" width="64"> Future Studio Boost
-    </a>
+<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom mb-5">
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
+    <div class="navbar-collapse collapse w-100">
+        <a class="navbar-brand" href="/">
+            <img src="/images/boost-logo.png" alt="Future Studio Boost" width="48"> Future Studio Boost
+        </a>
+
+        <ul class="nav navbar-nav">
             {{> nav/nav-left}}
         </ul>
-
-        <ul class="navbar-nav mx-auto">
-            {{> nav/nav-center}}
-        </ul>
-
-        <ul class="nav justify-content-end">
-            {{> nav/nav-right}}
-        </ul>
     </div>
+
+    <ul class="nav navbar-nav justify-content-center">
+        {{> nav/nav-center}}
+    </ul>
+
+    <ul class="nav navbar-nav w-100 justify-content-end">
+        {{> nav/nav-right}}
+    </ul>
 </nav>
