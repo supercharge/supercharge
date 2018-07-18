@@ -4,6 +4,7 @@ const Path = require('path')
 
 global.__appRoot = Path.resolve(__dirname, '..')
 global.__storagePath = Path.resolve(__appRoot, 'storage')
+global.__resourcePath = Path.resolve(__appRoot, 'resources')
 
 /**
  * Simplify imports with a global function that
