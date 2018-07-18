@@ -138,7 +138,7 @@ label {
 }
 
 .nav-link .user-profile-picture {
-  border: 1px solid hsl(200, 10%, 96%);
+  border: 3px solid hsl(200, 10%, 96%);
 }
 
 .nav-item .dropdown-toggle img {
