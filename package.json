@@ -18,6 +18,7 @@
     }
   ],
   "dependencies": {
+    "@sindresorhus/slugify": "~0.3.0",
     "argon2": "~0.19.3",
     "axios": "~0.18.0",
     "bcryptjs": "~2.4.3",
@@ -37,7 +38,7 @@
     "hapi-auth-basic": "~5.0.0",
     "hapi-auth-cookie": "~9.0.0",
     "hapi-auth-jwt2": "~8.1.0",
-    "hapi-dev-errors": "~2.3.0",
+    "hapi-dev-errors": "~3.0.0",
     "hapi-request-user": "~1.0.0",
     "hoek": "~5.0.3",
     "html-to-text": "~4.0.0",
