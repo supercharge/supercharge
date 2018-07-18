@@ -93,9 +93,9 @@ label {
   background: transparent;
   border-bottom: none;
   color: hsl(200, 30%, 20%);
-  font-size: 1.125rem;
+  font-size: 16px;
   line-height: 1.5rem;
-  font-weight: 500;
+  font-weight: 700;
   padding: 1rem 1.25rem;
 }
 
@@ -110,11 +110,8 @@ label {
   margin-right: 12px;
 }
 
-.card-header-icon img {
-  height: 100%;
-  width: auto;
-  margin-left: 2px;
-  margin-top: -5px;
+.card-header-icon i {
+  margin-left: 3px;
 }
 
 .card-footer {
