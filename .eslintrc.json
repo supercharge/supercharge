@@ -14,6 +14,8 @@
   ],
   "globals": {
     "__appRoot": false,
+    "__storagePath": false,
+    "__resourcePath": false,
     "frequire": false,
     "model": false,
     "util": false

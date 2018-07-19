@@ -1,6 +1,8 @@
 'use strict'
 
-const Path = require('path')
-const Bootstrap = require(Path.resolve(__dirname, 'bootstrap', 'app'))
+const { Launch } = require('./start')
 
-Bootstrap.fireOff()
+/**
+ *
+ */
+new Launch({ appRoot: __dirname }).withFullSpeed()
