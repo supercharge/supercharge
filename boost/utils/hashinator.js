@@ -4,7 +4,7 @@ const Config = require('./config')
 const ArgonHashinator = require('./hashing/argon-hashinator')
 const BcryptHashinator = require('./hashing/bcrypt-hashinator')
 
-class Hash {
+class Hashinator {
   constructor() {
     const driver = Config.get('hashing.driver')
 
@@ -29,4 +29,4 @@ class Hash {
   }
 }
 
-module.exports = new Hash()
+module.exports = new Hashinator()
