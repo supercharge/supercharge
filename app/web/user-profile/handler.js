@@ -6,14 +6,12 @@ const { User } = frequire('app', 'models')
 const ErrorExtractor = util('error-extractor')
 
 const Handler = {
-  profile: {
+  showProfile: {
     auth: 'session',
-    handler: (request, h) => {
-      return h.view('user/profile')
-    }
+    handler: (_, h) => h.view('user/profile')
   },
 
-  update: {
+  updateProfile: {
     auth: 'session',
     handler: async (request, h) => {
       // shortcut
@@ -88,6 +86,73 @@ const Handler = {
         return h
           .view('user/profile', {
             user,
+            errors
+          })
+          .code(400)
+          .takeover()
+      }
+    }
+  },
+
+  showChangePassword: {
+    auth: 'session',
+    handler: (_, h) => h.view('user/change-password')
+  },
+
+  updateChangePassword: {
+    auth: 'session',
+    handler: async (request, h) => {
+      let user = request.user
+      const { password, newPassword } = request.payload
+
+      try {
+        await user.comparePassword(password)
+
+        user.password = newPassword
+        await request.user.hashPassword()
+        await user.save()
+
+        return h.view('user/change-password', {
+          successMessage: 'Password changed.'
+        })
+      } catch (err) {
+        const status = err.isBoom ? err.output.statusCode : 400
+
+        return h
+          .view('user/change-password', {
+            errors: err.data
+          })
+          .code(status)
+      }
+    },
+    validate: {
+      payload: {
+        password: Joi.string()
+          .min(6)
+          .required()
+          .label('Current Password'),
+        newPassword: Joi.string()
+          .min(6)
+          .required()
+          .label('New Password'),
+        newPasswordConfirm: Joi.string()
+          .min(6)
+          .required()
+          .label('New Password Confirm')
+          .valid(Joi.ref('newPassword'))
+          .options({
+            language: {
+              any: {
+                allowOnly: '!!New Password and Confirm do not match'
+              }
+            }
+          })
+      },
+      failAction: (_, h, error) => {
+        const errors = ErrorExtractor(error)
+
+        return h
+          .view('user/change-password', {
             errors
           })
           .code(400)

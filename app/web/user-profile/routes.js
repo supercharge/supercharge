@@ -6,12 +6,22 @@ const Routes = [
   {
     method: 'GET',
     path: '/profile',
-    config: Handler.profile
+    config: Handler.showProfile
   },
   {
     method: 'POST',
     path: '/profile',
-    config: Handler.update
+    config: Handler.updateProfile
+  },
+  {
+    method: 'GET',
+    path: '/change-password',
+    config: Handler.showChangePassword
+  },
+  {
+    method: 'POST',
+    path: '/change-password',
+    config: Handler.updateChangePassword
   }
 ]
 
