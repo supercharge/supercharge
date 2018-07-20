@@ -25,7 +25,7 @@ module.exports = {
   | services your application utilizes. Set this in your ".env" file.
   |
   */
-  env: Env.get('NODE_ENV', 'development'),
+  env: Env.get('NODE_ENV', 'development').toLowerCase(),
 
   /*
   |--------------------------------------------------------------------------

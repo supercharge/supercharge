@@ -1,7 +1,7 @@
 'use strict'
 
 const Env = util('env')
-const Slugify = require('@sindresorhus/slugify')
+const Slug = require('@sindresorhus/slugify')
 
 module.exports = {
   /*
@@ -12,7 +12,7 @@ module.exports = {
   | TBA.
   |
   */
-  cookie: Env.get('SESSION_COOKIE', `${Slugify(Env.get('APP_NAME', 'boost'))}_session`),
+  cookie: Env.get('SESSION_COOKIE', `${Slug(Env.get('APP_NAME', 'boost'))}_session`),
 
   /*
   |--------------------------------------------------------------------------
