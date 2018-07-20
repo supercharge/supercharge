@@ -37,7 +37,7 @@ class Encryption {
   }
 
   /**
-   * Encrypt the given value
+   * Encrypt the given value.
    *
    * @param {mixed} value
    * @returns string
@@ -60,6 +60,7 @@ class Encryption {
    * Calculate the HMAC of the given string.
    *
    * @param {string} string
+   * @returns string
    */
   hmac(string) {
     return this.encryptor.hmac(string)
@@ -76,7 +77,7 @@ class Encryption {
   }
 
   /**
-   * Decode a base64 encoded string
+   * Decode a base64 encoded string.
    *
    * @param {mixed} value
    * @returns string
