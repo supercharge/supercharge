@@ -13,7 +13,7 @@ class Encryption {
    */
   constructor(key = Config.get('app.key'), options) {
     this.key = key
-    this.encryptor = new Encryptor(Object.assign({ key }, options))
+    this.encryptor = Encryptor(Object.assign({ key }, options))
   }
 
   /**
@@ -54,6 +54,15 @@ class Encryption {
    */
   decrypt(value) {
     return this.encryptor.decrypt(value)
+  }
+
+  /**
+   * Calculate the HMAC of the given string.
+   *
+   * @param {string} string
+   */
+  hmac(string) {
+    return this.encryptor.hmac(string)
   }
 
   /**
