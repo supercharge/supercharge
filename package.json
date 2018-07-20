@@ -53,6 +53,7 @@
     "nodemailer": "~4.6.7",
     "nodemailer-postmark-transport": "~1.3.0",
     "require-all": "~2.2.0",
+    "simple-encryptor": "~1.4.0",
     "validator": "~10.4.0",
     "vision": "~5.3.3",
     "winston": "~3.0.0"
