@@ -5,7 +5,7 @@ const Boom = require('boom')
 const Querystring = require('querystring')
 
 class Paginator {
-  constructor(request, totalCount, perPage = 8) {
+  constructor({ request, totalCount, perPage = 8 }) {
     if (!request) {
       throw new Boom('Request object required as first parameter in paginator')
     }
@@ -23,7 +23,6 @@ class Paginator {
     const prev = this.getPrevious(request, currentPage)
     const next = this.getNext(request, currentPage, lastPage)
 
-    // respond a pagination JS object
     return {
       total: totalCount,
       perPage,
@@ -88,7 +87,7 @@ class Paginator {
     const protocol = proxyProtocol || request.server.info.protocol || 'http'
 
     // compose URL for given page
-    const queryParams = Object.assign(request.query, { page })
+    const queryParams = Object.assign({}, request.query, { page })
     const query = Querystring.stringify(queryParams)
 
     return `${protocol}://${request.info.host}${request.path}?${query}`
