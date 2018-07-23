@@ -1,12 +1,11 @@
 'use strict'
 
-const MD5 = require('md5')
 const Boom = require('boom')
+const Hash = util('hashinator')
 const Crypto = require('crypto')
 const Mongoose = require('mongoose')
 const Schema = Mongoose.Schema
 const Validator = require('validator')
-const Hash = util('hashinator')
 
 const userSchema = new Schema(
   {
@@ -127,7 +126,7 @@ userSchema.methods.comparePasswordResetToken = async function(resetToken) {
  */
 userSchema.virtual('gravatar').get(function() {
   // create the MD5 hash from the user’s email address
-  const hash = MD5(this.email)
+  const hash = Hash.md5(this.email)
   // return the ready-to-load avatar URL
   return `https://gravatar.com/avatar/${hash}?s=200`
 })
