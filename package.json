@@ -35,6 +35,7 @@
     "haikunator": "~2.0.0",
     "handlebars": "~4.0.11",
     "handlebars-helper-repeat": "~2.0.0",
+    "handlebars-helpers": "~0.10.0",
     "hapi": "~17.5.2",
     "hapi-auth-basic": "~5.0.0",
     "hapi-auth-cookie": "~9.0.0",
