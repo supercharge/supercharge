@@ -10,9 +10,6 @@ const middleware = [
   },
   {
     plugin: require(Path.resolve(middlewarePath, 'verify-csrf-token'))
-  },
-  {
-    plugin: require(Path.resolve(middlewarePath, 'add-user-to-view-context'))
   }
 ]
 

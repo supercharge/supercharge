@@ -3,12 +3,20 @@
 const Path = require('path')
 const Config = util('config')
 const Handlebars = require('handlebars')
+const HandlebarsHelpers = require('handlebars-helpers')
 
 class Views {
+  /**
+   * Create the hapi view configuration object. This
+   * configuration includes the Handlebars render
+   * engine and view configurations.
+   *
+   * @returns {Object}
+   */
   load() {
     return {
       engines: {
-        hbs: Handlebars
+        hbs: this.handlebars()
       },
       path: this.viewPaths(),
       layoutPath: this.layoutLocations(),
@@ -16,18 +24,49 @@ class Views {
       helpersPath: this.helpersLocations(),
       partialsPath: this.partialsLocations(),
       isCached: Config.get('app.env') === 'production',
-      context: {
-        title: Config.get('app.name')
+      context: function(request) {
+        return {
+          request,
+          title: Config.get('app.name'),
+          user: request.auth.credentials
+        }
       }
     }
   }
 
-  viewsResourcePath() {
+  /**
+   * Create a Handlebars instance for view rendering.
+   * Enrich the Handlebars instance to include
+   * dozens of useful layout helpers.
+   *
+   * @returns {Object}
+   */
+  handlebars() {
+    HandlebarsHelpers({
+      handlebars: Handlebars
+    })
+
+    return Handlebars
+  }
+
+  /**
+   * Resolve the path to view files. This defaults
+   * to `<project-root>/resources/views`.
+   *
+   * @returns {String}
+   */
+  viewsPath() {
     return resourcePath('views')
   }
 
+  /**
+   * Return an array of folders that contain the
+   * Handlebars views.
+   *
+   * @returns {Array}
+   */
   viewPaths() {
-    const views = this.viewsResourcePath()
+    const views = this.viewsPath()
 
     // eslint-disable-next-line
     return [
@@ -36,8 +75,14 @@ class Views {
     ]
   }
 
+  /**
+   * Return an array of folders that contain
+   * Handlebars layouts.
+   *
+   * @returns {Array}
+   */
   layoutLocations() {
-    const views = this.viewsResourcePath()
+    const views = this.viewsPath()
 
     // eslint-disable-next-line
     return [
@@ -46,8 +91,14 @@ class Views {
     ]
   }
 
+  /**
+   * Return an array of folders that contain
+   * Handlebars helpers.
+   *
+   * @returns {Array}
+   */
   helpersLocations() {
-    const views = this.viewsResourcePath()
+    const views = this.viewsPath()
 
     // eslint-disable-next-line
     return [
@@ -56,8 +107,14 @@ class Views {
     ]
   }
 
+  /**
+   * Return an array of folders that contain
+   * Handlebars partial views.
+   *
+   * @returns {Array}
+   */
   partialsLocations() {
-    const views = this.viewsResourcePath()
+    const views = this.viewsPath()
 
     // eslint-disable-next-line
     return [
