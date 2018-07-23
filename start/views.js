@@ -5,8 +5,8 @@ const Config = util('config')
 const Handlebars = require('handlebars')
 
 class Views {
-  configure(server) {
-    server.views({
+  load() {
+    return {
       engines: {
         hbs: Handlebars
       },
@@ -19,11 +19,11 @@ class Views {
       context: {
         title: Config.get('app.name')
       }
-    })
+    }
   }
 
   viewsResourcePath() {
-    return __resourcePath('views')
+    return resourcePath('views')
   }
 
   viewPaths() {
@@ -67,4 +67,4 @@ class Views {
   }
 }
 
-module.exports = new Views()
+module.exports = new Views().load()

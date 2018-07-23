@@ -43,14 +43,14 @@ class Globals {
    * Absolute path to the storage directory.
    */
   storagePath() {
-    global.__storagePath = (...path) => Path.resolve(this.appRoot, 'storage', ...path)
+    global.storagePath = (...path) => Path.resolve(this.appRoot, 'storage', ...path)
   }
 
   /**
    * Absolute path to the resources directory.
    */
   resourcePath() {
-    global.__resourcePath = (...path) => Path.resolve(this.appRoot, 'resources', ...path)
+    global.resourcePath = (...path) => Path.resolve(this.appRoot, 'resources', ...path)
   }
 
   /**

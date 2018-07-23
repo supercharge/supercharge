@@ -32,23 +32,23 @@ class Launch {
   }
 
   async warmUpCore(server) {
-    const Core = require('./core')
-    await Core.warmUp(server)
+    const core = require('./core')
+    await server.register(core)
   }
 
   configureViews(server) {
-    const Views = require('./views')
-    Views.configure(server)
+    const config = require('./views')
+    server.views(config)
   }
 
   async loadMiddleware(server) {
-    const Middleware = require('./middleware')
-    await Middleware.load(server)
+    const middleware = require('./middleware')
+    await server.register(middleware)
   }
 
   async loadAppPlugins(server) {
-    const App = require('./app')
-    await App.load(server)
+    const plugins = require('./app')
+    await server.register(plugins)
   }
 }
 
