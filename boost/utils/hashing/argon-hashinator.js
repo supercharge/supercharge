@@ -1,8 +1,7 @@
 'use strict'
 
-const Path = require('path')
+const Config = util('config')
 const Argon = require('argon2')
-const Config = require(Path.resolve(__dirname, '..', 'config'))
 
 class BcryptHashinator {
   constructor() {

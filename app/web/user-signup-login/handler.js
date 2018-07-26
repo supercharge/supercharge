@@ -33,15 +33,13 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      // shortcut
-      const payload = request.payload
+      const { email, password } = request.payload
 
       try {
-        // check whether the email address is already registered
-        let user = await User.findByEmail(payload.email)
+        let user = await User.findByEmail(email)
 
         if (user) {
-          // create an error object that matches our error structure
+          // create an error object that matches the views error handling structure
           const message = 'Email address is already registered'
           throw new Boom(message, {
             statusCode: 409,
@@ -49,14 +47,11 @@ const Handler = {
           })
         }
 
-        // create a new user
         const newUser = new User({
-          email: payload.email,
-          password: payload.password,
-          scope: ['user']
+          email,
+          password
         })
 
-        // don’t store the plain password in your DB, hash it!
         user = await newUser.hashPassword()
         user = await user.save()
 
@@ -74,7 +69,7 @@ const Handler = {
 
         return h
           .view('auth/signup', {
-            email: payload.email,
+            email,
             errors: err.data
           })
           .code(status)
@@ -96,14 +91,11 @@ const Handler = {
           .label('Password')
       },
       failAction: (request, h, error) => {
-        // prepare formatted error object
         const errors = ErrorExtractor(error)
-        // remember the user’s email address and pre-fill for comfort reasons
-        const email = request.payload.email
 
         return h
           .view('auth/signup', {
-            email,
+            email: request.payload.email,
             errors
           })
           .code(400)
@@ -138,11 +130,10 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      // shortcut
-      const payload = request.payload
+      const { email, password } = request.payload
 
       try {
-        let user = await User.findByEmail(payload.email)
+        let user = await User.findByEmail(email)
 
         if (!user) {
           const message = 'Email address is not registered'
@@ -152,7 +143,7 @@ const Handler = {
           })
         }
 
-        await user.comparePassword(payload.password)
+        await user.comparePassword(password)
         request.cookieAuth.set({ id: user.id })
 
         return h.redirect('/profile')
@@ -161,7 +152,7 @@ const Handler = {
 
         return h
           .view('auth/login', {
-            email: payload.email,
+            email,
             errors: err.data
           })
           .code(status)
@@ -183,14 +174,11 @@ const Handler = {
           .label('Password')
       },
       failAction: async (request, h, error) => {
-        // prepare formatted error object
         const errors = ErrorExtractor(error)
-        // remember the user’s email address and pre-fill for comfort reasons
-        const email = request.payload.email
 
         return h
           .view('auth/login', {
-            email,
+            email: request.payload.email,
             errors
           })
           .code(400)
@@ -205,9 +193,8 @@ const Handler = {
         redirectTo: false
       }
     },
-    handler: (request, h) => {
-      return h.view('auth/forgot-password')
-    }
+    // handler: (_, h) => h.view('auth/forgot-password')
+    handler: (_, h) => h.view('auth/forgot-password-email-sent')
   },
 
   forgotPassword: {
@@ -221,11 +208,10 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      // shortcut
-      const payload = request.payload
+      const { email } = request.payload
 
       try {
-        let user = await User.findByEmail(payload.email)
+        let user = await User.findByEmail(email)
 
         if (!user) {
           const message = 'Email address is not registered'
@@ -236,16 +222,11 @@ const Handler = {
         }
 
         const passwordResetToken = await user.resetPassword()
-
-        // encode email address to avoid issues with characters like "@"
         const encodedEmail = encodeURIComponent(user.email)
-
-        // compose the user specific password reset URL
-        const resetURL = `http://${request.headers.host}/reset-password/${encodedEmail}/${passwordResetToken}`
 
         try {
           await Mailer.send('password-reset', user, 'Boost - Password Reset', {
-            resetURL
+            resetURL: `http://${request.headers.host}/reset-password/${encodedEmail}/${passwordResetToken}`
           })
         } catch (err) {
           throw new Boom('We have issues sending the password reset email.')
@@ -254,13 +235,11 @@ const Handler = {
         return h.view('auth/forgot-password-email-sent')
       } catch (err) {
         const status = err.isBoom ? err.output.statusCode : 400
-
-        // check if thrown error has
-        const errormessage = !err.data ? err.message : null
+        const errormessage = err.data ? null : err.message
 
         return h
           .view('auth/forgot-password', {
-            email: payload.email,
+            email,
             errors: err.data,
             errormessage
           })
@@ -280,11 +259,10 @@ const Handler = {
       },
       failAction: (request, h, error) => {
         const errors = ErrorExtractor(error)
-        const email = request.payload.email
 
         return h
           .view('auth/forgot-password', {
-            email,
+            email: request.payload.email,
             errors
           })
           .code(400)
@@ -342,9 +320,8 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      // shortcut
-      const params = request.params
-      const email = decodeURIComponent(params.email)
+      const { resetToken } = request.params
+      const email = decodeURIComponent(request.params.email)
 
       try {
         let user = await User.findByEmail(email)
@@ -357,12 +334,10 @@ const Handler = {
           })
         }
 
-        user = user.comparePasswordResetToken(params.resetToken)
+        user = user.comparePasswordResetToken(resetToken)
 
-        // remove password reset related data from user
         user.passwordResetToken = undefined
         user.passwordResetDeadline = undefined
-        // set new password
         user.password = request.payload.password
 
         await user.hashPassword()
