@@ -107,18 +107,17 @@ userSchema.methods.resetPassword = async function() {
 }
 
 userSchema.methods.comparePasswordResetToken = async function(resetToken) {
+  if (this.passwordResetDeadline < Date.now()) {
+    throw Boom.badRequest('Your password reset token is invalid, please request a new one.')
+  }
+
   const isMatch = await Hash.check(resetToken, this.passwordResetToken)
 
   if (isMatch) {
     return this
   }
 
-  const message = 'Your password reset token is invalid, please request a new one.'
-
-  throw new Boom(message, {
-    statusCode: 400,
-    data: { password: { message } }
-  })
+  throw Boom.badRequest('Your password reset token is invalid, please request a new one.')
 }
 
 /**

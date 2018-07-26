@@ -144,6 +144,7 @@ const Handler = {
         }
 
         await user.comparePassword(password)
+
         request.cookieAuth.set({ id: user.id })
 
         return h.redirect('/profile')
@@ -193,8 +194,7 @@ const Handler = {
         redirectTo: false
       }
     },
-    // handler: (_, h) => h.view('auth/forgot-password')
-    handler: (_, h) => h.view('auth/forgot-password-email-sent')
+    handler: (_, h) => h.view('auth/forgot-password')
   },
 
   forgotPassword: {
@@ -334,7 +334,7 @@ const Handler = {
           })
         }
 
-        user = user.comparePasswordResetToken(resetToken)
+        user = await user.comparePasswordResetToken(resetToken)
 
         user.passwordResetToken = undefined
         user.passwordResetDeadline = undefined
@@ -345,11 +345,12 @@ const Handler = {
 
         request.cookieAuth.set({ id: user.id })
 
-        return h.view('auth/reset-password-success')
+        return h.view('auth/reset-password-success', { user })
       } catch (err) {
         const status = err.isBoom ? err.output.statusCode : 400
+        const errormessage = err.data ? null : err.message
 
-        return h.view('auth/reset-password', { errors: err.data }).code(status)
+        return h.view('auth/reset-password', { errors: err.data, errormessage }).code(status)
       }
     },
     validate: {
@@ -379,7 +380,7 @@ const Handler = {
           .required()
           .options({
             language: {
-              any: { allowOnly: 'must match password' }
+              any: { allowOnly: 'must match your new password' }
             }
           })
           .label('Confirm password')
