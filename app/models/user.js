@@ -29,7 +29,7 @@ const userSchema = new Schema(
       sparse: true // this makes sure the unique index applies to not null values only (= unique if not null)
     },
     passwordResetDeadline: Date,
-    scope: [String]
+    scope: { type: [String], default: ['user'] }
   },
   {
     toJSON: {
