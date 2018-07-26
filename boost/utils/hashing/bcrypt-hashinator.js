@@ -5,7 +5,7 @@ const Bcrypt = require('bcryptjs')
 
 class BcryptHashinator {
   constructor() {
-    this.rounds = Config.get('hashing.bcrypt.rounds') || 12
+    this.rounds = Config.get('hashing.bcrypt.rounds')
   }
 
   async make(value) {
