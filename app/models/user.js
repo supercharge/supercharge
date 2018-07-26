@@ -4,8 +4,8 @@ const Boom = require('boom')
 const Hash = util('hashinator')
 const Crypto = require('crypto')
 const Mongoose = require('mongoose')
-const Schema = Mongoose.Schema
 const Validator = require('validator')
+const Schema = Mongoose.Schema
 
 const userSchema = new Schema(
   {
@@ -25,7 +25,7 @@ const userSchema = new Schema(
     passwordResetToken: {
       type: String,
       trim: true,
-      unique: true, // creates an index in MongoDB, making sure for unique values
+      unique: true,
       sparse: true // this makes sure the unique index applies to not null values only (= unique if not null)
     },
     passwordResetDeadline: Date,
@@ -125,9 +125,8 @@ userSchema.methods.comparePasswordResetToken = async function(resetToken) {
  * Virtuals
  */
 userSchema.virtual('gravatar').get(function() {
-  // create the MD5 hash from the user’s email address
   const hash = Hash.md5(this.email)
-  // return the ready-to-load avatar URL
+
   return `https://gravatar.com/avatar/${hash}?s=200`
 })
 
