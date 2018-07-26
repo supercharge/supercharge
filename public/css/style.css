@@ -8,6 +8,10 @@ body {
   color: hsl(200, 30%, 30%);
 }
 
+p {
+  margin-bottom: 1.5rem;
+}
+
 .lead {
   color: hsl(200, 15%, 15%);
 }

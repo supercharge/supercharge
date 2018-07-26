@@ -193,7 +193,8 @@ const Handler = {
         redirectTo: false
       }
     },
-    handler: (_, h) => h.view('auth/forgot-password')
+    // handler: (_, h) => h.view('auth/forgot-password')
+    handler: (_, h) => h.view('auth/forgot-password-email-sent')
   },
 
   forgotPassword: {
