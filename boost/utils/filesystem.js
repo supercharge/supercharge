@@ -152,6 +152,43 @@ class Filesystem {
   }
 
   /**
+   * Changes the permissions of a `file`.
+   * The `mode` is a numeric bitmask and
+   * can be an integer or string.
+   *
+   * @param {String} file
+   * @param {String|Integer} mode
+   */
+  chmod(file, mode) {
+    return Fs.chmod(file, mode)
+  }
+
+  /**
+   * Ensures that the link from source to
+   * destination exists. If the directory
+   * structure does not exist, it is created.
+   *
+   * @param {String} src
+   * @param {String} dest
+   */
+  ensureLink(src, dest) {
+    return Fs.ensureLink(src, dest)
+  }
+
+  /**
+   * Ensures that the symlink from source to
+   * destination exists. If the directory
+   * structure does not exist, it is created.
+   *
+   * @param {String} src
+   * @param {String} dest
+   * @param {String} type
+   */
+  ensureSymlink(src, dest, type) {
+    return Fs.ensureSymlink(src, dest, type)
+  }
+
+  /**
    * Acquire a file lock on the specified `file` path.
    *
    * @param {String} file
