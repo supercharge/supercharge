@@ -20,6 +20,7 @@ class Globals {
 
     // these globals build on frequire
     this.util()
+    this.viewsPath()
     this.storagePath()
     this.resourcePath()
   }
@@ -40,18 +41,26 @@ class Globals {
   }
 
   /**
+   * Absolute path to the resources/views directory.
+   */
+  viewsPath() {
+    global.__viewsPath = (...path) => Path.resolve(this.appRoot, 'resources', 'views', ...path)
+  }
+
+  /**
    * Absolute path to the storage directory.
    */
   storagePath() {
-    global.storagePath = (...path) => Path.resolve(this.appRoot, 'storage', ...path)
+    global.__storagePath = (...path) => Path.resolve(this.appRoot, 'storage', ...path)
   }
 
   /**
    * Absolute path to the resources directory.
    */
   resourcePath() {
-    global.resourcePath = (...path) => Path.resolve(this.appRoot, 'resources', ...path)
+    global.__resourcePath = (...path) => Path.resolve(this.appRoot, 'resources', ...path)
   }
+
 
   /**
    * Shorthand function to quickly import Boost
