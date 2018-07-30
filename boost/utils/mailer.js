@@ -4,45 +4,55 @@ const Fs = require('fs')
 const Path = require('path')
 const Boom = require('boom')
 const Util = require('util')
+const Config = util('config')
 const Bounce = require('bounce')
 const Logger = require('./logger')
-const Nodemailer = require('nodemailer')
+const Templates = resourcePath('emails')
 const Handlebars = require('handlebars')
+const Message = require('./mail/message')
 const HtmlToText = require('html-to-text')
 const ReadFile = Util.promisify(Fs.readFile)
-const PostmarkTransport = require('nodemailer-postmark-transport')
-const Transporter = Nodemailer.createTransport(
-  PostmarkTransport({
-    auth: {
-      apiKey: process.env.POSTMARK_API_KEY
-    }
-  })
-)
-const Templates = resourcePath('emails')
+const Transports = require('./mail/transports')
 
 class Mailer {
-  /**
-   * Send an email using Nodemailer
-   *
-   * @param {String} template the template name which will be used to render an HTML mail
-   * @param {Object} user     the user model, required for the recipient
-   * @param {String} subject  subject line
-   * @param {Object} data     view specific data that will be rendered into the view
-   *
-   * @throws
-   */
-  async send(template, user, subject, data) {
-    const { html, text } = await this._prepareTemplate(template, data)
-    const mailOptions = {
-      from: `Marcus Poehls <marcus@futurestud.io>`,
-      to: user.email,
-      subject: subject,
+  constructor() {
+    const driver = Config.get('mail.driver')
+    const drivers = Config.get('mail.drivers')
+    const transporterOptions = drivers[driver]
+
+    const Transporter = Transports[driver]
+    this.transporter = new Transporter(transporterOptions)
+  }
+
+  to(users) {
+    return new Message(this).to(users)
+  }
+
+  cc(users) {
+    return new Message(this).cc(users)
+  }
+
+  bcc(users) {
+    return new Message(this).bcc(users)
+  }
+
+  async send(mailable = {}) {
+    const from = Config.get('mail.from')
+    const { view, viewData, to, cc, bcc, subject } = mailable
+    const { html, text } = await this._prepareTemplate(view, viewData)
+
+    const message = {
+      from,
+      to,
+      cc,
+      bcc,
+      subject,
       html,
       text
     }
 
     try {
-      await Transporter.sendMail(mailOptions)
+      await this.transporter.sendMail(message)
     } catch (err) {
       Logger.error(err.message)
       throw err
@@ -67,16 +77,19 @@ class Mailer {
    * filename: email template name, without ".html" file ending. Email templates are located within "resources/emails"
    * options: data which will be used to replace the placeholders within the template
    **/
-  async _prepareTemplate(filename, options = {}) {
+  async _prepareTemplate(viewName, viewData) {
     try {
-      const templatePath = Path.resolve(Templates, `${filename}.html`)
+      const filename = viewName.split('.').join('/')
+      console.log(filename)
+      const templatePath = __viewsPath(`${filename}.hbs`)
+      console.log(templatePath)
       const content = await ReadFile(templatePath, 'utf8')
 
       // use handlebars to render the email template
       // handlebars allows more complex templates with conditionals and nested objects, etc.
       // this way we have much more options to customize the templates based on given data
       const template = Handlebars.compile(content)
-      const html = template(options)
+      const html = template(viewData)
 
       // generate a plain-text version of the same email
       const text = HtmlToText.fromString(html)
