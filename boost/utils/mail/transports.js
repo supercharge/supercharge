@@ -1,9 +1,9 @@
 'use strict'
 
-const smtp = require('./transport-smtp')
-const postmark = require('./transport-postmark')
-
 module.exports = {
-  smtp,
-  postmark
+  ses: require('./transport-ses'),
+  smtp: require('./transport-smtp'),
+  mailgun: require('./transport-mailgun'),
+  postmark: require('./transport-postmark'),
+  sparkpost: require('./transport-sparkpost')
 }
