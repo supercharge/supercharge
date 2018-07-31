@@ -61,7 +61,6 @@ class Globals {
     global.__resourcePath = (...path) => Path.resolve(this.appRoot, 'resources', ...path)
   }
 
-
   /**
    * Shorthand function to quickly import Boost
    * utilities. The utilities are part of the

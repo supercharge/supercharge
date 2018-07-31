@@ -56,7 +56,7 @@ class Views {
    * @returns {String}
    */
   viewsPath() {
-    return resourcePath('views')
+    return __resourcePath('views')
   }
 
   /**

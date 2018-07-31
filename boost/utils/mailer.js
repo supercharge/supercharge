@@ -18,7 +18,7 @@ const Transporter = Nodemailer.createTransport(
     }
   })
 )
-const Templates = resourcePath('emails')
+const Templates = __resourcePath('emails')
 
 class Mailer {
   /**
