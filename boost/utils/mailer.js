@@ -3,10 +3,12 @@
 const Config = util('config')
 const Bounce = require('bounce')
 const Logger = require('./logger')
-const Message = require('./mail/message')
-const Transports = require('./mail/transports')
+const { Message, Transports } = require('./mail')
 
 class Mailer {
+  /**
+   * Create a new mailer instance.
+   */
   constructor() {
     this.from = Config.get('mail.from')
     this.replyTo = Config.get('mail.from')
@@ -19,22 +21,54 @@ class Mailer {
     this.transporter = new Transporter(transporterOptions)
   }
 
+  /**
+   * Start the mail sending process of a
+   * mailable class instance.
+   *
+   * @param {String|Object|Array} users
+   */
   to(users) {
     return new Message(this).to(users)
   }
 
+  /**
+   * Start the mail sending process of a
+   * mailable class instance.
+   *
+   * @param {String|Object|Array} users
+   */
   cc(users) {
     return new Message(this).cc(users)
   }
 
+  /**
+   * Start the mail sending process of a
+   * mailable class instance.
+   *
+   * @param {String|Object|Array} users
+   */
   bcc(users) {
     return new Message(this).bcc(users)
   }
 
+  /**
+   * Start the mail sending process of a
+   * mailable class instance.
+   *
+   * @param {String|Object|Array} address
+   * @param {String} name
+   */
   from(address, name) {
     return new Message(this).from(address, name)
   }
 
+  /**
+   * Start the mail sending process of a
+   * mailable class instance.
+   *
+   * @param {String|Object|Array} address
+   * @param {String} name
+   */
   replyTo(address, name) {
     return new Message(this).replyTo(address, name)
   }
@@ -52,6 +86,11 @@ class Mailer {
     }
   }
 
+  /**
+   * Send a message using the mailable instance.
+   *
+   * @param {Object} mailable
+   */
   async send(mailable = {}) {
     if (Object.getPrototypeOf(mailable.constructor).name !== 'Mailable') {
       throw new Error('Pass a Mailable instance to the Mailer.send(mailable) method.')
