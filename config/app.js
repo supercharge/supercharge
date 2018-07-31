@@ -3,60 +3,63 @@
 const Env = util('env')
 
 module.exports = {
-  /*
-  |--------------------------------------------------------------------------
-  | Application Name
-  |--------------------------------------------------------------------------
-  |
-  | This value is the name of your application. This value is used when the
-  | framework needs to place the application's name in a notification or
-  | any other location as required by the application or its packages.
-  |
-  */
+  /**
+   * --------------------------------------------------------------------------
+   * Application Name
+   * --------------------------------------------------------------------------
+   *
+   * This is the name of your application. Boost will use it whenever
+   * your app needs idenfication, like in email subject lines or
+   * notifcations.
+   *
+   */
   name: Env.get('APP_NAME', 'Future Studio Boost'),
 
-  /*
-  |--------------------------------------------------------------------------
-  | Application Environment
-  |--------------------------------------------------------------------------
-  |
-  | This value determines the "environment" your application is currently
-  | running in. This may determine how you prefer to configure various
-  | services your application utilizes. Set this in your ".env" file.
-  |
-  */
+  /**
+   * --------------------------------------------------------------------------
+   * Application Environment
+   * --------------------------------------------------------------------------
+   *
+   * This is the environment your app runs in. Usually, youwant your
+   * app to behave differently in production and development, like
+   * caching views in production but not during development.
+   *
+   */
   env: Env.get('NODE_ENV', 'development').toLowerCase(),
 
-  /*
-  |--------------------------------------------------------------------------
-  | Web Application Port
-  |--------------------------------------------------------------------------
-  |
-  | This value determines the "environment" your application is currently
-  | running in. This may determine how you prefer to configure various
-  | services your application utilizes. Set this in your ".env" file.
-  |
-  */
+  /**
+   * --------------------------------------------------------------------------
+   * Web Application Port
+   * --------------------------------------------------------------------------
+   *
+   * This is default port your hapi web server will bind to. Define
+   * a value that is not in use on your host machine to avoid
+   * port collisions.
+   *
+   */
   port: Env.get('PORT', 3000),
 
-  /*
-  |--------------------------------------------------------------------------
-  | App Key
-  |--------------------------------------------------------------------------
-  |
-  | App key is a randomly generated 32 characters long string required
-  | to encrypted cookies, sessions and other sensitive data.
-  |
-  */
+  /**
+   * --------------------------------------------------------------------------
+   * Application Key
+   * --------------------------------------------------------------------------
+   *
+   * This is your personal application key, at least 32 characters
+   * long. It is used to encrypted cookies, sessions and also by
+   * the encryptor utility to keep your sensitive data safe.
+   *
+   */
   key: Env.get('APP_KEY'),
 
-  /*
-  |--------------------------------------------------------------------------
-  | Encryption Algorithm
-  |--------------------------------------------------------------------------
-  |
-  | TODO
-  |
-  */
+  /**
+   * --------------------------------------------------------------------------
+   * Encryption Algorithm
+   * --------------------------------------------------------------------------
+   *
+   * This defines the default encryption cipher used by the
+   * encryptor utility. This AES-256 cipher requires an
+   * application key of at least 32 characters.
+   *
+   */
   cipher: 'AES-256-CBC'
 }

@@ -3,45 +3,44 @@
 const Env = util('env')
 
 module.exports = {
-  /*
-    |--------------------------------------------------------------------------
-    | Default Hash Driver
-    |--------------------------------------------------------------------------
-    |
-    | TODO
-    |
-    | Supported: "bcrypt", "argon"
-    |
-    */
-
+  /**
+   * --------------------------------------------------------------------------
+   * Default Hash Driver
+   * --------------------------------------------------------------------------
+   *
+   * This controls the default hash driver that is used
+   * by the hashing utility. The default hasing driver
+   * is bcrypt.
+   *
+   * Supported drivers: `bcrypt`, `argon`
+   *
+   */
   driver: Env.get('HASH_DRIVER', 'bcrypt'),
 
-  /*
-    |--------------------------------------------------------------------------
-    | Bcrypt Options
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify the configuration options that should be used when
-    | passwords are hashed using the Bcrypt algorithm. This will allow you
-    | to control the amount of time it takes to hash the given password.
-    |
-    */
-
+  /**
+   * --------------------------------------------------------------------------
+   * Bcrypt Options
+   * --------------------------------------------------------------------------
+   *
+   * Customize the bcrypt hashing configuration. The bcrypt hashing
+   * driver allows you to customize the rounds. A higher number for
+   * rounds increases the amount of time a to create a hash.
+   *
+   */
   bcrypt: {
     rounds: Env.get('BCRYPT_ROUNDS', 12)
   },
 
-  /*
-    |--------------------------------------------------------------------------
-    | Argon Options
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify the configuration options that should be used when
-    | passwords are hashed using the Argon algorithm. These will allow you
-    | to control the amount of time it takes to hash the given password.
-    |
-    */
-
+  /**
+   * --------------------------------------------------------------------------
+   * Argon Options
+   * --------------------------------------------------------------------------
+   *
+   * Customize the argon hashing configuration. The argon hashing driver
+   * allows you to customize memory, time and threads. The values depend
+   * on your system's resources and control the time to create a hash.
+   *
+   */
   argon: {
     memory: Env.get('HASH_ARGON_MEMORY', 1024),
     time: Env.get('HASH_ARGON_TIME', 2),

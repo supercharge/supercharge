@@ -3,18 +3,16 @@
 const Env = util('env')
 
 module.exports = {
-  /*
-  |--------------------------------------------------------------------------
-  | JWT Auth
-  |--------------------------------------------------------------------------
-  |
-  | You can generate your JWT secret with Node.js’ crypo module.
-  | Paste and run the following line into your terminal. Copy the
-  | resulting key into the JWT secret variable
-  | node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
-
-  |
-  */
+  /**
+   * --------------------------------------------------------------------------
+   * JWT Auth
+   * --------------------------------------------------------------------------
+   *
+   * This configuration is used to for JWT authentication.
+   * The secret key is used to encrypt the JSON web tokens
+   * that are only decryptable by your application.
+   *
+   */
   jwt: {
     secret: Env.get('JWT_SECRET_KEY')
   }
