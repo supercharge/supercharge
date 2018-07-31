@@ -19,7 +19,8 @@
     "__resourcePath": false,
     "frequire": false,
     "model": false,
-    "util": false
+    "util": false,
+    "mail": false
   },
   "parserOptions": {
     "ecmaVersion": 8

@@ -4,7 +4,9 @@ const Joi = require('joi')
 const Boom = require('boom')
 const Mailer = util('mailer')
 const { User } = frequire('app', 'models')
+const WelcomeMail = mail('welcome')
 const ErrorExtractor = util('error-extractor')
+const PasswordResetMail = mail('password-reset')
 
 const Handler = {
   showSignup: {
@@ -57,10 +59,7 @@ const Handler = {
 
         request.cookieAuth.set({ id: user.id })
 
-        const discoverURL = `http://${request.headers.host}/discover`
-        Mailer.fireAndForget('welcome', user, 'Boost — Great to see you!', {
-          discoverURL
-        })
+        await Mailer.fireAndForget(new WelcomeMail(user))
 
         // \o/ wohoo, sign up successful
         return h.view('home')
@@ -223,11 +222,10 @@ const Handler = {
 
         const passwordResetToken = await user.resetPassword()
         const encodedEmail = encodeURIComponent(user.email)
+        const resetURL = `http://${request.headers.host}/reset-password/${encodedEmail}/${passwordResetToken}`
 
         try {
-          await Mailer.send('password-reset', user, 'Boost - Password Reset', {
-            resetURL: `http://${request.headers.host}/reset-password/${encodedEmail}/${passwordResetToken}`
-          })
+          await Mailer.send(new PasswordResetMail({ user, resetURL }))
         } catch (err) {
           throw new Boom('We have issues sending the password reset email.')
         }
