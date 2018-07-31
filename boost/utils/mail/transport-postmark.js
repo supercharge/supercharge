@@ -3,10 +3,10 @@
 const Nodemailer = require('nodemailer')
 const PostmarkTransport = require('nodemailer-postmark-transport')
 
-class Transporter {
+class PostmarkTransporter {
   constructor(options) {
     return Nodemailer.createTransport(PostmarkTransport(options))
   }
 }
 
-module.exports = Transporter
+module.exports = PostmarkTransporter

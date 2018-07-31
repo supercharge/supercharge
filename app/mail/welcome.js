@@ -9,7 +9,7 @@ class WelcomeMail extends Mailable {
     this.user = user
   }
 
-  build() {
+  create() {
     this.to(this.user.email)
       .view('emails.welcome')
       .subject(`Welcome to ${Config.get('app.name')}!`)

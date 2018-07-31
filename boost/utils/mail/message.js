@@ -42,7 +42,16 @@ class Message {
   }
 
   send(mailable) {
-    return this.mailer.send(mailable)
+    return this.mailer.send(this.fill(mailable))
+  }
+
+  fill(mailable) {
+    return mailable
+      .to(this.to)
+      .cc(this.cc)
+      .bcc(this.bcc)
+      .from(this.from)
+      .replyTo(this.replyTo)
   }
 }
 

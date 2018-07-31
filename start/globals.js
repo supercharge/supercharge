@@ -20,6 +20,7 @@ class Globals {
 
     // these globals build on frequire
     this.util()
+    this.mail()
     this.viewsPath()
     this.storagePath()
     this.resourcePath()
@@ -61,7 +62,6 @@ class Globals {
     global.__resourcePath = (...path) => Path.resolve(this.appRoot, 'resources', ...path)
   }
 
-
   /**
    * Shorthand function to quickly import Boost
    * utilities. The utilities are part of the
@@ -69,6 +69,14 @@ class Globals {
    */
   util() {
     global.util = (...path) => require(Path.resolve(this.appRoot, 'boost', 'utils', ...path))
+  }
+
+  /**
+   * Shorthand function to quickly import Boost
+   * mailables.
+   */
+  mail() {
+    global.mail = (...path) => require(Path.resolve(this.appRoot, 'app', 'mail', ...path))
   }
 }
 
