@@ -16,7 +16,7 @@ class Views {
   load() {
     return {
       engines: {
-        hbs: this.handlebars()
+        hbs: Views.handlebars()
       },
       path: this.viewPaths(),
       layoutPath: this.layoutLocations(),
@@ -41,7 +41,7 @@ class Views {
    *
    * @returns {Object}
    */
-  handlebars() {
+  static handlebars() {
     HandlebarsHelpers({
       handlebars: Handlebars
     })

@@ -7,6 +7,40 @@ class Mailable {
     throw new Error(`Make sure to implement the "build" method in your ${this.constructor.name} mailable`)
   }
 
+  from(address, name) {
+    if (!name) {
+      this.from = address
+      return this
+    }
+
+    this.from = {
+      address,
+      name
+    }
+
+    return this
+  }
+
+  replyTo(address, name) {
+    if (!name) {
+      this.replyTo = address
+      return this
+    }
+
+    this.replyTo = {
+      address,
+      name
+    }
+
+    return this
+  }
+
+  subject(subject) {
+    this.subject = subject
+
+    return this
+  }
+
   view(view) {
     this.view = view
 
@@ -15,12 +49,6 @@ class Mailable {
 
   text(textView) {
     this.textView = textView
-
-    return this
-  }
-
-  subject(subject) {
-    this.subject = subject
 
     return this
   }

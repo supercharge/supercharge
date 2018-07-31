@@ -1,18 +1,16 @@
 'use strict'
 
 const Fs = require('fs')
-const Path = require('path')
 const Boom = require('boom')
 const Util = require('util')
 const Config = util('config')
 const Bounce = require('bounce')
 const Logger = require('./logger')
-const Templates = resourcePath('emails')
-const Handlebars = require('handlebars')
 const Message = require('./mail/message')
 const HtmlToText = require('html-to-text')
 const ReadFile = Util.promisify(Fs.readFile)
 const Transports = require('./mail/transports')
+const Handlebars = frequire(__appRoot, 'start', 'views').handlebars()
 
 class Mailer {
   constructor() {
@@ -37,7 +35,7 @@ class Mailer {
   }
 
   async send(mailable = {}) {
-    const from = Config.get('mail.from')
+    const from = this.from || Config.get('mail.from')
     const { view, viewData, to, cc, bcc, subject } = mailable
     const { html, text } = await this._prepareTemplate(view, viewData)
 
@@ -73,23 +71,30 @@ class Mailer {
     }
   }
 
-  /**
-   * filename: email template name, without ".html" file ending. Email templates are located within "resources/emails"
-   * options: data which will be used to replace the placeholders within the template
-   **/
+  templatePath(viewName) {
+    const filename = viewName.split('.').join('/')
+    console.log(filename)
+
+    return __viewsPath(`${filename}.hbs`)
+  }
+
+  async readTemplate(viewName) {
+    const templatePath = this.templatePath(viewName)
+    console.log(templatePath)
+
+    return ReadFile(templatePath, 'utf8')
+  }
+
+  createHtml(viewName, viewData) {
+    const template = this.readTemplate(viewName)
+    const render = Handlebars.compile(template)
+
+    return render(viewData)
+  }
+
   async _prepareTemplate(viewName, viewData) {
     try {
-      const filename = viewName.split('.').join('/')
-      console.log(filename)
-      const templatePath = __viewsPath(`${filename}.hbs`)
-      console.log(templatePath)
-      const content = await ReadFile(templatePath, 'utf8')
-
-      // use handlebars to render the email template
-      // handlebars allows more complex templates with conditionals and nested objects, etc.
-      // this way we have much more options to customize the templates based on given data
-      const template = Handlebars.compile(content)
-      const html = template(viewData)
+      const html = this.createHtml(viewName, viewData)
 
       // generate a plain-text version of the same email
       const text = HtmlToText.fromString(html)

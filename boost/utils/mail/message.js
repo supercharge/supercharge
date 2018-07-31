@@ -23,6 +23,24 @@ class Message {
     return this
   }
 
+  from(address, name) {
+    this.from = {
+      address,
+      name
+    }
+
+    return this
+  }
+
+  replyTo(address, name) {
+    this.replyTo = {
+      address,
+      name
+    }
+
+    return this
+  }
+
   send(mailable) {
     return this.mailer.send(mailable)
   }
