@@ -15,9 +15,7 @@ function stack(name, context) {
   const content = contentStack
     .reduce(
       (stack, { mode, data }) => {
-        if (mode === 'replace') {
-          stack = data
-        } else if (mode === 'append') {
+        if (mode === 'append') {
           stack.push(data)
         } else if (mode === 'prepend') {
           stack.unshift(data)
