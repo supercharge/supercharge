@@ -38,7 +38,7 @@ class Launch {
 
   configureViews(server) {
     const config = require('./views')
-    server.views(config)
+    server.views(config.load())
   }
 
   async loadMiddleware(server) {

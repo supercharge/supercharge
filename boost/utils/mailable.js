@@ -5,7 +5,7 @@ const _ = require('lodash')
 const Util = require('util')
 const HtmlToText = require('html-to-text')
 const ReadFile = Util.promisify(Fs.readFile)
-const Handlebars = frequire('start', 'views').engines.hbs
+const Handlebars = frequire('start', 'views').handlebars()
 
 class Mailable {
   /**

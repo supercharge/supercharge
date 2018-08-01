@@ -124,4 +124,4 @@ class Views {
   }
 }
 
-module.exports = new Views().load()
+module.exports = new Views()
