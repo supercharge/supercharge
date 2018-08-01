@@ -8,11 +8,11 @@ module.exports = {
    * Default Mail Driver
    * --------------------------------------------------------------------------
    *
-   * Driver for email sending.
+   * This defines the transport driver for sending emails. Boost
+   * uses the `nodemailer` package to send emails and supports
+   * basically any driver that is supported by nodemailer.
    *
    * Available drivers: `smtp`, `postmark`, `mailgun`, `sparkpost`, `ses`
-   *
-   * Basically any driver that nodemailer supports
    *
    */
   driver: Env.get('MAIL_DRIVER', 'smtp'),
@@ -22,9 +22,9 @@ module.exports = {
    * Global "From" Address
    * --------------------------------------------------------------------------
    *
-   * You may wish for all e-mails sent by your application to be sent from
-   * the same address. Here, you may specify a name and address that is
-   * used globally for all e-mails that are sent by your application.
+   * This defines an object to use as the default "from" address
+   * when sending mails with Boost's mailer. This global value
+   * is used as the default "from" attribute.
    *
    */
   from: {
@@ -38,27 +38,34 @@ module.exports = {
      * SMTP
      * --------------------------------------------------------------------------
      *
-     * Tbd.
+     * This defines the SMTP connection details used by
+     * nodemailer to send emails via this transport.
+     * Adjust the settings to your needs.
      *
      */
     smtp: {
-      pool: true,
       host: Env.get('MAIL_SMTP_HOST'),
       port: Env.get('MAIL_SMTP_PORT', 587),
       auth: {
         user: Env.get('MAIL_SMTP_USERNAME'),
         pass: Env.get('MAIL_SMTP_PASSWORD')
-      },
-      maxConnections: 5,
-      maxMessages: 100,
-      rateLimit: 10
+      }
+      // secure: true, // use TLS
+      // proxy: '',
+      // pool: true,
+      // maxConnections: 5,
+      // maxMessages: 100,
+      // rateLimit: 10
     },
 
     /**
      * --------------------------------------------------------------------------
      * Postmark
      * --------------------------------------------------------------------------
-     * Tbd.
+     *
+     * This defines the Postmark connection details used by
+     * nodemailer to send emails via this transport.
+     * Adjust the settings to your needs.
      *
      */
     postmark: {
@@ -72,7 +79,10 @@ module.exports = {
      * --------------------------------------------------------------------------
      * Mailgun
      * --------------------------------------------------------------------------
-     * Tbd.
+     *
+     * This defines the Mailgun connection details used by
+     * nodemailer to send emails via this transport.
+     * Adjust the settings to your needs.
      *
      */
     mailgun: {
@@ -87,7 +97,10 @@ module.exports = {
      * --------------------------------------------------------------------------
      * Sparkpost
      * --------------------------------------------------------------------------
-     * Tbd.
+     *
+     * This defines the Sparkpost connection details used by
+     * nodemailer to send emails via this transport.
+     * Adjust the settings to your needs.
      *
      */
     sparkpost: {
@@ -106,7 +119,10 @@ module.exports = {
      * --------------------------------------------------------------------------
      * SES
      * --------------------------------------------------------------------------
-     * Tbd.
+     *
+     * This defines the SES connection details used by
+     * nodemailer to send emails via this transport.
+     * Adjust the settings to your needs.
      *
      */
     ses: {
