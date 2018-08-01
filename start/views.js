@@ -7,6 +7,26 @@ const HandlebarsHelpers = require('handlebars-helpers')
 
 class Views {
   /**
+   * Create a Handlebars instance for view rendering.
+   * Enrich the Handlebars instance to include
+   * dozens of useful layout helpers.
+   */
+  constructor() {
+    this.handlebarsInstance = this.initializeHandlebars()
+  }
+
+  /**
+   * Initialize an extended handlebars instance that
+   * contains hundrets of additional helpers.
+   */
+  initializeHandlebars() {
+    HandlebarsHelpers({
+      handlebars: Handlebars
+    })
+
+    return Handlebars
+  }
+  /**
    * Create the hapi view configuration object. This
    * configuration includes the Handlebars render
    * engine and view configurations.
@@ -35,18 +55,12 @@ class Views {
   }
 
   /**
-   * Create a Handlebars instance for view rendering.
-   * Enrich the Handlebars instance to include
-   * dozens of useful layout helpers.
+   * Returns the handlebars instance.
    *
    * @returns {Object}
    */
   handlebars() {
-    HandlebarsHelpers({
-      handlebars: Handlebars
-    })
-
-    return Handlebars
+    return this.handlebarsInstance
   }
 
   /**
