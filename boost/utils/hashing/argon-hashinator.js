@@ -10,6 +10,13 @@ class BcryptHashinator {
     this.threads = Config.get('hashing.argon.threads')
   }
 
+  /**
+   * Hash the given `value`.
+   *
+   * @param {String} value
+   *
+   * @returns {String}
+   */
   async make(value) {
     return Argon.hash(value, {
       timeCost: this.time,
@@ -18,6 +25,15 @@ class BcryptHashinator {
     })
   }
 
+  /**
+   * Compare a the plain-text `value` against an
+   * existing hash.
+   *
+   * @param {String} value
+   * @param {String} hash
+   *
+   * @returns {Boolean}
+   */
   async check(value, hash) {
     return Argon.verify(value, hash)
   }

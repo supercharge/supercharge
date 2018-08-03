@@ -5,20 +5,25 @@ const Path = require('path')
 const RequireAll = require('require-all')
 
 /**
- * Manages configuration by recursively reading all
+ * This is the central application configuration.
+ * Manage the configuraiton by reading all
  * `.js` files from the `config` folder.
  */
 class Config {
-  constructor(configPath) {
-    this.configPath = configPath || Path.resolve(__appRoot, 'config')
+  /**
+   * Initialize the application configuration
+   * by setting the configuration path and
+   * reading all config files.
+   */
+  constructor() {
+    this.configPath = Path.resolve(__appRoot, 'config')
     this.config = {}
 
     this.syncConfigFiles()
   }
 
   /**
-   * Imports the app configuration files
-   * from the "config" folder.
+   * Import all application configurations.
    */
   syncConfigFiles() {
     this.config = RequireAll({
@@ -28,12 +33,12 @@ class Config {
   }
 
   /**
-   * Returns the requested config value
+   * Returns the requested config value.
    *
-   * @example
-   * ```
-   * Config.get('database.mysql')
-   * ```
+   * @param {String} key
+   * @param {defaultValue} defaultValue
+   *
+   * @returns {Mixed}
    */
   get(key, defaultValue) {
     return _.get(this.config, key, defaultValue)

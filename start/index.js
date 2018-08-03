@@ -4,6 +4,10 @@ const Hapi = require('hapi')
 const Config = util('config')
 
 class Launch {
+  /**
+   * Initialize the hapi server to run
+   * your application.
+   */
   async withFullSpeed() {
     const server = this.createHapiServer()
 
@@ -15,6 +19,11 @@ class Launch {
     await this.start(server)
   }
 
+  /**
+   * Start the hapi server.
+   *
+   * @param {Object} server
+   */
   async start(server) {
     try {
       await server.start()
@@ -24,6 +33,9 @@ class Launch {
     }
   }
 
+  /**
+   * Create a new hapi server instance.
+   */
   createHapiServer() {
     return new Hapi.Server({
       host: 'localhost',
@@ -31,21 +43,41 @@ class Launch {
     })
   }
 
+  /**
+   * Register the Boost core dependencies.
+   *
+   * @param {Object} server
+   */
   async warmUpCore(server) {
     const core = require('./core')
     await server.register(core)
   }
 
+  /**
+   * Configure the Boost view engine.
+   *
+   * @param {Object} server
+   */
   configureViews(server) {
     const config = require('./views')
     server.views(config.load())
   }
 
+  /**
+   * Register all middleware.
+   *
+   * @param {Object} server
+   */
   async loadMiddleware(server) {
     const middleware = require('./middleware')
     await server.register(middleware)
   }
 
+  /**
+   * Register all application plugins.
+   *
+   * @param {Object} server
+   */
   async loadAppPlugins(server) {
     const plugins = require('./app')
     await server.register(plugins)

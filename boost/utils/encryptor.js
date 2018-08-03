@@ -8,8 +8,8 @@ class Encryption {
   /**
    * Create a new Encrypter instance.
    *
-   * @param {string} key
-   * @param {object} options
+   * @param {String} key
+   * @param {Object} options
    */
   constructor(key = Config.get('app.key'), options) {
     this.key = key
@@ -19,10 +19,11 @@ class Encryption {
   /**
    * Create an encryption key for the given cipher.
    *
-   * @param {string} cipher
-   * @returns string
+   * @param {String} cipher
+   *
+   * @returns {String}
    */
-  static generateKey(cipher) {
+  static generateKey(cipher = Config.get('app.cipher')) {
     const bytes = cipher === 'AES-128-CBC' ? 16 : 32
     return Crypto.randomBytes(bytes).toString('base64')
   }
@@ -30,7 +31,7 @@ class Encryption {
   /**
    * Get the encryption key.
    *
-   * @returns string
+   * @returns {String}
    */
   getKey() {
     return this.key
@@ -39,8 +40,9 @@ class Encryption {
   /**
    * Encrypt the given value.
    *
-   * @param {mixed} value
-   * @returns string
+   * @param {Mixed} value
+   *
+   * @returns {String}
    */
   encrypt(value) {
     return this.encryptor.encrypt(value)
@@ -49,8 +51,9 @@ class Encryption {
   /**
    * Decrypt the given value.
    *
-   * @param {string} value
-   * @returns {mixed}
+   * @param {String} value
+   *
+   * @returns {Mixed}
    */
   decrypt(value) {
     return this.encryptor.decrypt(value)
@@ -59,8 +62,9 @@ class Encryption {
   /**
    * Calculate the HMAC of the given string.
    *
-   * @param {string} string
-   * @returns string
+   * @param {String} string
+   *
+   * @returns {String}
    */
   hmac(string) {
     return this.encryptor.hmac(string)
@@ -69,8 +73,9 @@ class Encryption {
   /**
    * Base64 encode the given value.
    *
-   * @param {mixed} value
-   * @returns string
+   * @param {Mixed} value
+   *
+   * @returns {String}
    */
   base64Encode(value) {
     return Buffer.from(value).toString('base64')
@@ -79,8 +84,9 @@ class Encryption {
   /**
    * Decode a base64 encoded string.
    *
-   * @param {mixed} value
-   * @returns string
+   * @param {Mixed} value
+   *
+   * @returns {String}
    */
   base64Decode(value) {
     const buffer = Buffer.isBuffer(value) ? value : Buffer.from(value, 'base64')

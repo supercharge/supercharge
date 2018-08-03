@@ -1,5 +1,8 @@
 'use strict'
 
+/**
+ * Barrel export all transports
+ */
 module.exports = {
   ses: require('./transports/ses'),
   smtp: require('./transports/smtp'),

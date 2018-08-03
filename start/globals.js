@@ -8,11 +8,20 @@ class Globals {
     return this
   }
 
+  /**
+   * Defines the project's app root directory.
+   *
+   * @param {String} appRoot
+   */
   fromAppRoot(appRoot) {
     this.appRoot = appRoot
     return this
   }
 
+  /**
+   * Create the globals in the application
+   * environment
+   */
   create() {
     global.__appRoot = Path.resolve(this.appRoot)
 

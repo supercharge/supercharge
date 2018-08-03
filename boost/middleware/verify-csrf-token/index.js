@@ -2,6 +2,9 @@
 
 const Config = util('config')
 
+/**
+ * Configure CSRF protection.
+ */
 async function register(server) {
   await server.register([
     {
@@ -19,6 +22,6 @@ async function register(server) {
 
 exports.plugin = {
   name: 'boost-verify-csrf-token',
-  register,
-  once: true
+  once: true,
+  register
 }

@@ -4,8 +4,13 @@ const Chalk = require('chalk')
 const Winston = require('winston')
 const { combine, timestamp, printf } = Winston.format
 
+/**
+ * Configure the Winston console logger with the
+ * desired log file and a custom log format
+ * that includes the ISO date time.
+ */
 class WinstonConsoleLogger {
-  constructor(config) {
+  constructor() {
     return new Winston.transports.Console({
       format: combine(
         timestamp(),

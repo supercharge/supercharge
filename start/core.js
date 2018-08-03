@@ -6,6 +6,10 @@ const Laabr = require('laabr')
 // configure hapi response logging format
 Laabr.format('log', ':time :level :message')
 
+/**
+ * This is the list of core plugins for Boost.
+ * Add any core plugins if needed.
+ */
 const core = [
   {
     plugin: require('inert')

@@ -42,10 +42,6 @@ class Hashinator {
    * @returns {Boolean}
    */
   async check(value, hash) {
-    if (!hash) {
-      return false
-    }
-
     return this.driver.check(value, hash)
   }
 

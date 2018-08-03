@@ -3,6 +3,11 @@
 const Config = util('config')
 const { User } = frequire('app', 'models')
 
+/**
+ * Register authentication plugins and configure the middleware
+ * to authenticate requests based on a session cookie. Shortcut
+ * the authenticated user to `request.user`.
+ */
 async function register(server) {
   await server.register([
     {
@@ -13,10 +18,6 @@ async function register(server) {
     }
   ])
 
-  /**
-   * Register cookie-based session auth to remember
-   * the logged in user
-   */
   server.auth.strategy('session', 'cookie', {
     cookie: Config.get('session.cookie'),
     password: Config.get('app.key'),
@@ -25,7 +26,6 @@ async function register(server) {
     appendNext: true,
     ttl: Config.get('session.lifetime'),
     validateFunc: async (request, session) => {
-      // there is only the user’s id in the session
       const userId = session.id
 
       if (!userId) {
@@ -50,6 +50,6 @@ async function register(server) {
 
 exports.plugin = {
   name: 'boost-authentication',
-  register,
-  once: true
+  once: true,
+  register
 }
