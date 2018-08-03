@@ -21,7 +21,7 @@
                 {{csrf}}
 
                 <div class="form-group">
-                    <label class="label {{#if errors.email}}is-danger{{/if}}" for="email">
+                    <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">
                         {{#if errors.email}} {{errors.email.message}} {{else}}Email address{{/if}}
                     </label>
                     <input class="form-control {{#if errors.email}}text-danger{{else}}{{#if
