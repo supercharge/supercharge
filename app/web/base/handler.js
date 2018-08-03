@@ -10,27 +10,19 @@ const Handler = {
   },
 
   css: {
-    handler: {
-      directory: { path: './public/css' }
-    }
+    handler: { directory: { path: './public/css' } }
   },
 
   js: {
-    handler: {
-      directory: { path: './public/js' }
-    }
-  },
-
-  favicon: {
-    handler: {
-      file: { path: './public/favicon.ico' }
-    }
+    handler: { directory: { path: './public/js' } }
   },
 
   images: {
-    handler: {
-      directory: { path: './public/images' }
-    }
+    handler: { directory: { path: './public/images' } }
+  },
+
+  favicon: {
+    handler: { file: { path: './public/favicon.ico' } }
   }
 }
 
