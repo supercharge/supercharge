@@ -3,18 +3,13 @@
 const Joi = require('joi')
 const Boom = require('boom')
 const Mailer = util('mailer')
-const { User } = frequire('app', 'models')
 const WelcomeMail = mail('welcome')
+const { User } = frequire('app', 'models')
 const ErrorExtractor = util('error-extractor')
 const PasswordResetMail = mail('password-reset')
 
 const Handler = {
   showSignup: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     handler: (request, h) => {
       if (request.auth.isAuthenticated) {
         return h.redirect('/profile')
@@ -25,11 +20,6 @@ const Handler = {
   },
 
   signup: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     handler: async (request, h) => {
       if (request.auth.isAuthenticated) {
         return h.redirect('/profile')
@@ -104,11 +94,6 @@ const Handler = {
   },
 
   showLogin: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     handler: (request, h) => {
       if (request.auth.isAuthenticated) {
         return h.redirect('/profile')
@@ -119,11 +104,6 @@ const Handler = {
   },
 
   login: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     handler: async (request, h) => {
       if (request.auth.isAuthenticated) {
         return h.redirect('/profile')
@@ -188,20 +168,10 @@ const Handler = {
   },
 
   showForgotPassword: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     handler: (_, h) => h.view('auth/forgot-password')
   },
 
   forgotPassword: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     handler: async (request, h) => {
       if (request.auth.isAuthenticated) {
         return h.redirect('/profile')
@@ -270,11 +240,6 @@ const Handler = {
   },
 
   showResetPassword: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     handler: (request, h) => {
       if (request.auth.isAuthenticated) {
         return h.redirect('/profile')
@@ -308,17 +273,11 @@ const Handler = {
   },
 
   resetPassword: {
-    plugins: {
-      'hapi-auth-cookie': {
-        redirectTo: false
-      }
-    },
     handler: async (request, h) => {
       if (request.auth.isAuthenticated) {
         return h.redirect('/profile')
       }
 
-      const { resetToken } = request.params
       const email = decodeURIComponent(request.params.email)
 
       try {
@@ -332,7 +291,7 @@ const Handler = {
           })
         }
 
-        user = await user.comparePasswordResetToken(resetToken)
+        user = await user.comparePasswordResetToken(request.params.resetToken)
 
         user.passwordResetToken = undefined
         user.passwordResetDeadline = undefined
