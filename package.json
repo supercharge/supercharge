@@ -36,6 +36,8 @@
     "hapi-auth-cookie": "~9.0.0",
     "hapi-dev-errors": "~3.0.0",
     "hapi-request-user": "~1.0.0",
+    "hapi-request-utilities": "~1.0.2",
+    "hapi-response-utilities": "~1.0.0",
     "html-to-text": "~4.0.0",
     "inert": "~5.1.0",
     "joi": "~13.5.2",

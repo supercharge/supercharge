@@ -18,6 +18,12 @@ const core = [
     plugin: require('vision')
   },
   {
+    plugin: require('hapi-request-utilities')
+  },
+  {
+    plugin: require('hapi-response-utilities')
+  },
+  {
     plugin: require('hapi-dev-errors'),
     options: {
       showErrors: Config.get('app.env') !== 'production'
