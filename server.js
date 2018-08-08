@@ -6,12 +6,12 @@
  * globals to quickly access project files.
  */
 const Globals = require('./start/globals')
-new Globals().fromAppRoot(__dirname).create()
+new Globals().fromAppRoot(__dirname)
 
 /**
  * Kick off the Boost hapi server. This binds to
  * a local address and port. The default logger
  * prints the server's address to the terminal.
  */
-const Launch = require('./start')
-new Launch().withFullSpeed()
+const Server = require('./start')
+new Server().launchWithFullSpeed()

@@ -8,7 +8,7 @@ class Launch {
    * Initialize the hapi server to run
    * your application.
    */
-  async withFullSpeed() {
+  async launchWithFullSpeed() {
     const server = this.createHapiServer()
 
     await this.warmUpCore(server)

@@ -3,9 +3,9 @@
 const Path = require('path')
 
 class Globals {
-  constructor(appRoot) {
+  constructor({ fromAppRoot: appRoot } = {}) {
     this.appRoot = appRoot || __dirname
-    return this
+    this.create()
   }
 
   /**
@@ -15,6 +15,8 @@ class Globals {
    */
   fromAppRoot(appRoot) {
     this.appRoot = appRoot
+    this.create()
+
     return this
   }
 
