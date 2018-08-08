@@ -1,6 +1,7 @@
 'use strict'
 
 const Env = util('env')
+const Pkg = frequire('package.json')
 
 module.exports = {
   /**
@@ -50,6 +51,18 @@ module.exports = {
    *
    */
   key: Env.get('APP_KEY'),
+
+  /**
+   * --------------------------------------------------------------------------
+   * Application Version
+   * --------------------------------------------------------------------------
+   *
+   * This is the current version of your application. Create
+   * application releases in “semver” style by increasing
+   * the version in your package.json file.
+   *
+   */
+  version: Pkg.version,
 
   /**
    * --------------------------------------------------------------------------
