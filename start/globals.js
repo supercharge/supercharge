@@ -28,8 +28,6 @@ class Globals {
     global.__appRoot = Path.resolve(this.appRoot)
 
     this.frequire()
-
-    // these globals build on frequire
     this.util()
     this.mail()
     this.viewsPath()
