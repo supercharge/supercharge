@@ -1,6 +1,7 @@
 'use strict'
 
 const Hapi = require('hapi')
+const Boom = require('boom')
 const Config = util('config')
 
 class Launch {
@@ -39,8 +40,29 @@ class Launch {
   createHapiServer() {
     return new Hapi.Server({
       host: 'localhost',
-      port: Config.get('app.port')
+      port: Config.get('app.port'),
+      routes: {
+        validate: {
+          options: {
+            abortEarly: false
+          },
+          failAction: this.failAction
+        }
+      }
     })
+  }
+
+  failAction(_, __, error) {
+    const errors = error.details.reduce((collector, { path, message }) => {
+      const field = path[path.length - 1]
+
+      return {
+        ...collector,
+        [field]: message.replace(/"/g, '')
+      }
+    }, {})
+
+    throw Boom.badRequest(error.message, errors)
   }
 
   /**

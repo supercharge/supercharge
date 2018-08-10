@@ -15,9 +15,15 @@
             <div class="card-body">
                 {{csrf}}
 
+                {{#if successMessage}}
+                    <div class="alert alert-success text-md mb-5">
+                        {{successMessage}}
+                    </div>
+                {{/if}}
+
                 <div class="form-group">
                     <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">
-                        {{#if errors.email}} {{errors.email.message}} {{else}}Email Address{{/if}}
+                        {{#if errors.email}} {{errors.email}} {{else}}Email Address{{/if}}
                     </label>
                     <input class="form-control {{#if errors.email}}is-invalid{{else}}{{#if
                                  email}}is-valid{{/if}}{{/if}}" type="text" placeholder="Your email address" id="email"
@@ -26,7 +32,7 @@
 
                 <div class="form-group">
                     <label class="label {{#if errors.name}}text-danger{{/if}}" for="name">
-                        {{#if errors.name}} {{errors.name.message}} {{else}}Name{{/if}}
+                        {{#if errors.name}} {{errors.name}} {{else}}Name{{/if}}
                     </label>
                     <input class="form-control {{#if errors.name}}is-invalid{{else}}{{#if
                                  name}}is-valid{{/if}}{{/if}}" type="text" placeholder="Your name" id="name" name="name"

@@ -3,12 +3,14 @@
 const errorExtractor = error => {
   let errors = {}
 
-  error.details.forEach(err => {
-    const errorKey = err.context.key
-    errors[errorKey] = {
-      message: err.message.replace(/"/g, '')
-    }
-  })
+  if (error.details) {
+    error.details.forEach(err => {
+      const errorKey = err.context.key
+      errors[errorKey] = {
+        message: err.message.replace(/"/g, '')
+      }
+    })
+  }
 
   return errors
 }
