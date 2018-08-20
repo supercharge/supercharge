@@ -81,8 +81,8 @@ const Handler = {
         name: Joi.string()
           .label('Name')
           .trim()
-        // .optional()
-        // .allow('')
+          .optional()
+          .allow('')
       }
     }
   },
