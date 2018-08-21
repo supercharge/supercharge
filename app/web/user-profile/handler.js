@@ -35,12 +35,8 @@ const Handler = {
       // "findOneAndUpdate" just gives you more filter options
       user = await User.findOneAndUpdate(
         { _id: request.user._id }, // filters the document
-        {
-          $set: { email, name }
-        },
-        {
-          new: true // returns the post-update document
-        }
+        { $set: { email, name } },
+        { new: true } // returns the post-update document
       )
 
       return h.view('user/profile', {

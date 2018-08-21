@@ -18,7 +18,6 @@ class Config {
   constructor() {
     this.configPath = Path.resolve(__appRoot, 'config')
     this.config = {}
-
     this.syncConfigFiles()
   }
 
