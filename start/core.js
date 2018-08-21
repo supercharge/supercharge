@@ -2,6 +2,7 @@
 
 const Config = util('config')
 const Laabr = require('laabr')
+const DatabaseManager = util('database')
 
 // configure hapi response logging format
 Laabr.format('log', ':time :level :message')
@@ -26,7 +27,16 @@ const core = [
   {
     plugin: require('hapi-dev-errors'),
     options: {
-      showErrors: Config.get('app.env') !== 'production'
+      showErrors: Config.get('app.env') !== 'production',
+      toTerminal: false
+    }
+  },
+  {
+    plugin: require('hapi-pulse'),
+    options: {
+      onSignal: async function() {
+        await DatabaseManager.close()
+      }
     }
   },
   {

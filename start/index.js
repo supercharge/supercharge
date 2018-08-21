@@ -3,6 +3,7 @@
 const Hapi = require('hapi')
 const Boom = require('boom')
 const Config = util('config')
+const DatabaseManager = util('database')
 
 class Launch {
   /**
@@ -16,6 +17,7 @@ class Launch {
     await this.configureViews(server)
     await this.loadMiddleware(server)
     await this.loadAppPlugins(server)
+    await this.connectDatabases()
 
     await this.start(server)
   }
@@ -103,6 +105,10 @@ class Launch {
   async loadAppPlugins(server) {
     const plugins = require('./app')
     await server.register(plugins)
+  }
+
+  async connectDatabases() {
+    await DatabaseManager.connect()
   }
 }
 
