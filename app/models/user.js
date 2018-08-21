@@ -5,9 +5,8 @@ const Hash = util('hashinator')
 const Crypto = require('crypto')
 const Mongoose = require('mongoose')
 const Validator = require('validator')
-const Schema = Mongoose.Schema
 
-const userSchema = new Schema(
+const userSchema = new Mongoose.Schema(
   {
     email: {
       type: String,
@@ -34,7 +33,7 @@ const userSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
-      transform: function(doc, ret, options) {
+      transform: function(_, ret) {
         delete ret._id
         delete ret.password
 
