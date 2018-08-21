@@ -18,8 +18,7 @@ class Launch {
     await this.loadMiddleware(server)
     await this.loadAppPlugins(server)
     await this.connectDatabases()
-
-    await this.start(server)
+    await this.launch(server)
   }
 
   /**
@@ -27,7 +26,7 @@ class Launch {
    *
    * @param {Object} server
    */
-  async start(server) {
+  async launch(server) {
     try {
       await server.start()
     } catch (err) {
