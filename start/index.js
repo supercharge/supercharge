@@ -45,6 +45,7 @@ class Launch {
       routes: {
         validate: {
           options: {
+            stripUnknown: true,
             abortEarly: false
           },
           failAction: this.failAction
