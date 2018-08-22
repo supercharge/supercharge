@@ -9,7 +9,7 @@
   </p>
   <br/>
   <p>
-    <a href="https://boost.futurestud.io/docs"><strong>Docs</strong></a>
+    <a href="https://boost.futurestud.io/docs"><strong>Boost Docs</strong></a>
   </p>
   <br/>
 </div>
