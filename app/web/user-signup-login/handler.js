@@ -28,9 +28,7 @@ const Handler = {
       const { email, password } = request.payload
 
       try {
-        let user = await User.findByEmail(email)
-
-        if (user) {
+        if (await User.findByEmail(email)) {
           // create an error object that matches the views error handling structure
           const message = 'Email address is already registered'
           throw new Boom(message, {
@@ -39,13 +37,9 @@ const Handler = {
           })
         }
 
-        const newUser = new User({
-          email,
-          password
-        })
-
-        user = await newUser.hashPassword()
-        user = await user.save()
+        const user = new User({ email, password })
+        await user.hashPassword()
+        await user.save()
 
         request.cookieAuth.set({ id: user.id })
 
@@ -72,12 +66,13 @@ const Handler = {
       payload: {
         email: Joi.string()
           .email({ minDomainAtoms: 2 })
-          .required()
-          .label('Email address'),
+          .label('Email address')
+          .trim()
+          .required(),
         password: Joi.string()
           .min(6)
-          .required()
           .label('Password')
+          .required()
       },
       failAction: (request, h, error) => {
         const errors = ErrorExtractor(error)
@@ -146,12 +141,13 @@ const Handler = {
       payload: {
         email: Joi.string()
           .email({ minDomainAtoms: 2 })
-          .required()
-          .label('Email address'),
+          .label('Email address')
+          .trim()
+          .required(),
         password: Joi.string()
           .min(6)
-          .required()
           .label('Password')
+          .required()
       },
       failAction: async (request, h, error) => {
         const errors = ErrorExtractor(error)
@@ -222,8 +218,9 @@ const Handler = {
       payload: {
         email: Joi.string()
           .email({ minDomainAtoms: 2 })
-          .required()
           .label('Email address')
+          .trim()
+          .required()
       },
       failAction: (request, h, error) => {
         const errors = ErrorExtractor(error)
@@ -251,13 +248,13 @@ const Handler = {
       params: {
         email: Joi.string()
           .email({ minDomainAtoms: 2 })
-          .required()
+          .label('Email address')
           .trim()
-          .label('Email address'),
+          .required(),
         resetToken: Joi.string()
-          .required()
-          .trim()
           .label('Password reset token')
+          .trim()
+          .required()
       },
       failAction: (request, h, error) => {
         const errors = ErrorExtractor(error)
@@ -292,7 +289,6 @@ const Handler = {
         }
 
         user = await user.comparePasswordResetToken(request.params.resetToken)
-
         user.passwordResetToken = undefined
         user.passwordResetDeadline = undefined
         user.password = request.payload.password
@@ -318,29 +314,29 @@ const Handler = {
       params: {
         email: Joi.string()
           .email({ minDomainAtoms: 2 })
-          .required()
+          .label('Email address')
           .trim()
-          .label('Email address'),
+          .required(),
         resetToken: Joi.string()
-          .required()
-          .trim()
           .label('Password reset token')
+          .trim()
+          .required()
       },
       payload: {
         password: Joi.string()
+          .label('Password')
           .min(6)
-          .required()
-          .label('Password'),
+          .required(),
         passwordConfirm: Joi.string()
+          .label('Confirm password')
           .min(6)
           .valid(Joi.ref('password'))
-          .required()
           .options({
             language: {
               any: { allowOnly: 'must match your new password' }
             }
           })
-          .label('Confirm password')
+          .required()
       },
       failAction: (request, h, error) => {
         const errors = ErrorExtractor(error)
