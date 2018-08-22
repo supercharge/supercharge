@@ -59,19 +59,15 @@ const Handler = {
       }
     },
     validate: {
-      options: {
-        stripUnknown: true,
-        abortEarly: false
-      },
       payload: {
         email: Joi.string()
-          .email({ minDomainAtoms: 2 })
           .label('Email address')
+          .email({ minDomainAtoms: 2 })
           .trim()
           .required(),
         password: Joi.string()
-          .min(6)
           .label('Password')
+          .min(6)
           .required()
       },
       failAction: (request, h, error) => {
@@ -134,19 +130,15 @@ const Handler = {
       }
     },
     validate: {
-      options: {
-        stripUnknown: true,
-        abortEarly: false
-      },
       payload: {
         email: Joi.string()
-          .email({ minDomainAtoms: 2 })
           .label('Email address')
+          .email({ minDomainAtoms: 2 })
           .trim()
           .required(),
         password: Joi.string()
-          .min(6)
           .label('Password')
+          .min(6)
           .required()
       },
       failAction: async (request, h, error) => {
@@ -211,14 +203,10 @@ const Handler = {
       }
     },
     validate: {
-      options: {
-        stripUnknown: true,
-        abortEarly: false
-      },
       payload: {
         email: Joi.string()
-          .email({ minDomainAtoms: 2 })
           .label('Email address')
+          .email({ minDomainAtoms: 2 })
           .trim()
           .required()
       },
@@ -307,14 +295,10 @@ const Handler = {
       }
     },
     validate: {
-      options: {
-        stripUnknown: true,
-        abortEarly: false
-      },
       params: {
         email: Joi.string()
-          .email({ minDomainAtoms: 2 })
           .label('Email address')
+          .email({ minDomainAtoms: 2 })
           .trim()
           .required(),
         resetToken: Joi.string()

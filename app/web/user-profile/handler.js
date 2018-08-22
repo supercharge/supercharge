@@ -65,8 +65,8 @@ const Handler = {
     validate: {
       payload: {
         email: Joi.string()
-          .email({ minDomainAtoms: 2 })
           .label('Email Address')
+          .email({ minDomainAtoms: 2 })
           .trim(),
         name: Joi.string()
           .label('Name')
@@ -112,17 +112,16 @@ const Handler = {
     validate: {
       payload: {
         password: Joi.string()
+          .label('Current Password')
           .min(6)
-          .required()
-          .label('Current Password'),
+          .required(),
         newPassword: Joi.string()
+          .label('New Password')
           .min(6)
-          .required()
-          .label('New Password'),
+          .required(),
         newPasswordConfirm: Joi.string()
-          .min(6)
-          .required()
           .label('New Password Confirm')
+          .min(6)
           .valid(Joi.ref('newPassword'))
           .options({
             language: {
@@ -131,6 +130,7 @@ const Handler = {
               }
             }
           })
+          .required()
       },
       failAction: (_, h, error) => {
         const errors = ErrorExtractor(error)
