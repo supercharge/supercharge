@@ -5,7 +5,6 @@ const Boom = require('boom')
 const Mailer = util('mailer')
 const WelcomeMail = mail('welcome')
 const { User } = frequire('app', 'models')
-const ErrorExtractor = util('error-extractor')
 const PasswordResetMail = mail('password-reset')
 
 const Handler = {
@@ -27,35 +26,38 @@ const Handler = {
 
       const { email, password } = request.payload
 
-      try {
-        if (await User.findByEmail(email)) {
-          // create an error object that matches the views error handling structure
-          const message = 'Email address is already registered'
-          throw new Boom(message, {
-            statusCode: 409,
-            data: { email: { message } }
-          })
+      if (await User.findByEmail(email)) {
+        // create an error object that matches the views error handling structure
+        const message = 'Email address is already registered'
+        throw Boom.conflict(message, { email: message })
+      }
+
+      const user = new User({ email, password })
+      await user.hashPassword()
+      await user.save()
+
+      request.cookieAuth.set({ id: user.id })
+
+      await Mailer.fireAndForget(new WelcomeMail(user))
+
+      return h.view('home')
+    },
+    ext: {
+      onPreResponse: {
+        method: async function(request, h) {
+          const response = request.response
+
+          if (!response.isBoom) {
+            return h.continue
+          }
+
+          return h
+            .view('auth/signup', {
+              email: request.payload.email,
+              errors: response.data
+            })
+            .code(response.output.statusCode)
         }
-
-        const user = new User({ email, password })
-        await user.hashPassword()
-        await user.save()
-
-        request.cookieAuth.set({ id: user.id })
-
-        await Mailer.fireAndForget(new WelcomeMail(user))
-
-        // \o/ wohoo, sign up successful
-        return h.view('home')
-      } catch (err) {
-        const status = err.isBoom ? err.output.statusCode : 400
-
-        return h
-          .view('auth/signup', {
-            email,
-            errors: err.data
-          })
-          .code(status)
       }
     },
     validate: {
@@ -69,17 +71,6 @@ const Handler = {
           .label('Password')
           .min(6)
           .required()
-      },
-      failAction: (request, h, error) => {
-        const errors = ErrorExtractor(error)
-
-        return h
-          .view('auth/signup', {
-            email: request.payload.email,
-            errors
-          })
-          .code(400)
-          .takeover()
       }
     }
   },
@@ -101,32 +92,35 @@ const Handler = {
       }
 
       const { email, password } = request.payload
+      let user = await User.findByEmail(email)
 
-      try {
-        let user = await User.findByEmail(email)
+      if (!user) {
+        const message = 'Email address is not registered'
+        throw Boom.notFound(message, { email: message })
+      }
 
-        if (!user) {
-          const message = 'Email address is not registered'
-          throw new Boom(message, {
-            statusCode: 404,
-            data: { email: { message } }
-          })
+      await user.comparePassword(password)
+
+      request.cookieAuth.set({ id: user.id })
+
+      return h.redirect('/profile')
+    },
+    ext: {
+      onPreResponse: {
+        method: async function(request, h) {
+          const response = request.response
+
+          if (!response.isBoom) {
+            return h.continue
+          }
+
+          return h
+            .view('auth/login', {
+              email: request.payload.email,
+              errors: response.data
+            })
+            .code(response.output.statusCode)
         }
-
-        await user.comparePassword(password)
-
-        request.cookieAuth.set({ id: user.id })
-
-        return h.redirect('/profile')
-      } catch (err) {
-        const status = err.isBoom ? err.output.statusCode : 400
-
-        return h
-          .view('auth/login', {
-            email,
-            errors: err.data
-          })
-          .code(status)
       }
     },
     validate: {
@@ -140,17 +134,6 @@ const Handler = {
           .label('Password')
           .min(6)
           .required()
-      },
-      failAction: async (request, h, error) => {
-        const errors = ErrorExtractor(error)
-
-        return h
-          .view('auth/login', {
-            email: request.payload.email,
-            errors
-          })
-          .code(400)
-          .takeover()
       }
     }
   },
@@ -166,40 +149,45 @@ const Handler = {
       }
 
       const { email } = request.payload
+      let user = await User.findByEmail(email)
+
+      if (!user) {
+        const message = 'Email address is not registered'
+        throw new Boom(message, {
+          statusCode: 404,
+          data: { email: { message } }
+        })
+      }
+
+      const passwordResetToken = await user.resetPassword()
+      const encodedEmail = encodeURIComponent(user.email)
+      const resetURL = `http://${request.headers.host}/reset-password/${encodedEmail}/${passwordResetToken}`
 
       try {
-        let user = await User.findByEmail(email)
-
-        if (!user) {
-          const message = 'Email address is not registered'
-          throw new Boom(message, {
-            statusCode: 404,
-            data: { email: { message } }
-          })
-        }
-
-        const passwordResetToken = await user.resetPassword()
-        const encodedEmail = encodeURIComponent(user.email)
-        const resetURL = `http://${request.headers.host}/reset-password/${encodedEmail}/${passwordResetToken}`
-
-        try {
-          await Mailer.send(new PasswordResetMail({ user, resetURL }))
-        } catch (err) {
-          throw new Boom('We have issues sending the password reset email.')
-        }
-
-        return h.view('auth/forgot-password-email-sent')
+        await Mailer.send(new PasswordResetMail({ user, resetURL }))
       } catch (err) {
-        const status = err.isBoom ? err.output.statusCode : 400
-        const errormessage = err.data ? null : err.message
+        throw new Boom('We have issues sending the password reset email.')
+      }
 
-        return h
-          .view('auth/forgot-password', {
-            email,
-            errors: err.data,
-            errormessage
-          })
-          .code(status)
+      return h.view('auth/forgot-password-email-sent')
+    },
+    ext: {
+      onPreResponse: {
+        method: async function(request, h) {
+          const response = request.response
+
+          if (!response.isBoom) {
+            return h.continue
+          }
+
+          return h
+            .view('auth/forgot-password', {
+              email: request.payload.email,
+              errors: response.data,
+              errormessage: response.data ? null : response.message // this would be be a generic error message, like "Mailer has issues"
+            })
+            .code(response.output.statusCode)
+        }
       }
     },
     validate: {
@@ -209,17 +197,6 @@ const Handler = {
           .email({ minDomainAtoms: 2 })
           .trim()
           .required()
-      },
-      failAction: (request, h, error) => {
-        const errors = ErrorExtractor(error)
-
-        return h
-          .view('auth/forgot-password', {
-            email: request.payload.email,
-            errors
-          })
-          .code(400)
-          .takeover()
       }
     }
   },
@@ -232,6 +209,19 @@ const Handler = {
 
       return h.view('auth/reset-password')
     },
+    ext: {
+      onPreResponse: {
+        method: async function(request, h) {
+          const response = request.response
+
+          if (!response.isBoom) {
+            return h.continue
+          }
+
+          return h.view('auth/reset-password', { errors: response.data }).code(response.output.statusCode)
+        }
+      }
+    },
     validate: {
       params: {
         email: Joi.string()
@@ -243,16 +233,6 @@ const Handler = {
           .label('Password reset token')
           .trim()
           .required()
-      },
-      failAction: (request, h, error) => {
-        const errors = ErrorExtractor(error)
-
-        return h
-          .view('auth/reset-password', {
-            errors
-          })
-          .code(400)
-          .takeover()
       }
     }
   },
@@ -264,34 +244,39 @@ const Handler = {
       }
 
       const email = decodeURIComponent(request.params.email)
+      let user = await User.findByEmail(email)
 
-      try {
-        let user = await User.findByEmail(email)
+      if (!user) {
+        const message = 'Sorry, we can’t find a user with the credentials.'
+        throw new Boom(message, {
+          statusCode: 404,
+          data: { email: { message } }
+        })
+      }
 
-        if (!user) {
-          const message = 'Sorry, we can’t find a user with the credentials.'
-          throw new Boom(message, {
-            statusCode: 404,
-            data: { email: { message } }
-          })
+      user = await user.comparePasswordResetToken(request.params.resetToken)
+      user.passwordResetToken = undefined
+      user.passwordResetDeadline = undefined
+      user.password = request.payload.password
+
+      await user.hashPassword()
+      await user.save()
+
+      request.cookieAuth.set({ id: user.id })
+
+      return h.view('auth/reset-password-success', { user })
+    },
+    ext: {
+      onPreResponse: {
+        method: async function(request, h) {
+          const response = request.response
+
+          if (!response.isBoom) {
+            return h.continue
+          }
+
+          return h.view('auth/reset-password', { errors: response.data }).code(response.output.statusCode)
         }
-
-        user = await user.comparePasswordResetToken(request.params.resetToken)
-        user.passwordResetToken = undefined
-        user.passwordResetDeadline = undefined
-        user.password = request.payload.password
-
-        await user.hashPassword()
-        await user.save()
-
-        request.cookieAuth.set({ id: user.id })
-
-        return h.view('auth/reset-password-success', { user })
-      } catch (err) {
-        const status = err.isBoom ? err.output.statusCode : 400
-        const errormessage = err.data ? null : err.message
-
-        return h.view('auth/reset-password', { errors: err.data, errormessage }).code(status)
       }
     },
     validate: {
@@ -321,14 +306,6 @@ const Handler = {
             }
           })
           .required()
-      },
-      failAction: (request, h, error) => {
-        const errors = ErrorExtractor(error)
-
-        return h
-          .view('auth/reset-password', { errors })
-          .code(400)
-          .takeover()
       }
     }
   },

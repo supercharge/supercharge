@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                     <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">
-                        {{#if errors.email}} {{errors.email.message}} {{else}}Email address{{/if}}
+                        {{#if errors.email}} {{errors.email}} {{else}}Email address{{/if}}
                     </label>
                     <input class="form-control {{#if errors.email}}is-invalid{{else}}{{#if email}}is-valid{{/if}}{{/if}}" type="email" placeholder="Your personal email address"
                         id="email" name="email" value="{{email}}">
@@ -29,7 +29,7 @@
 
                 <div class="form-group">
                     <label class="label is-pulled-left {{#if errors.password}}text-danger{{/if}}" for="password">
-                        {{#if errors.password}} {{errors.password.message}} {{else}}Password{{/if}}
+                        {{#if errors.password}} {{errors.password}} {{else}}Password{{/if}}
                     </label>
 
                     <input class="form-control {{#if errors.password}}is-invalid{{/if}}" type="password" placeholder="Your secure password" id="password"

@@ -3,7 +3,6 @@
 const Joi = require('joi')
 const Boom = require('boom')
 const { User } = frequire('app', 'models')
-const ErrorExtractor = util('error-extractor')
 
 const Handler = {
   showProfile: {
@@ -24,10 +23,7 @@ const Handler = {
       if (user) {
         // create an error object that matches our error structure
         const message = 'Email Address is already taken'
-        throw new Boom(message, {
-          statusCode: 409,
-          data: { email: { message } }
-        })
+        throw Boom.conflict(message, { email: message })
       }
 
       user = await User.findOneAndUpdate(
@@ -50,15 +46,12 @@ const Handler = {
             return h.continue
           }
 
-          const { email, name } = request.payload
-          const status = response.output.statusCode || 400
-
           return h
             .view('user/profile', {
-              user: Object.assign({}, request.user.toObject(), { email, name }),
+              user: Object.assign({}, request.user.toObject(), request.only(['email', 'name'])),
               errors: response.data
             })
-            .code(status)
+            .code(response.output.statusCode)
         }
       }
     },
@@ -88,25 +81,28 @@ const Handler = {
       let user = request.user
       const { password, newPassword } = request.payload
 
-      try {
-        await user.comparePassword(password)
+      await user.comparePassword(password)
 
-        user.password = newPassword
-        await user.hashPassword()
-        await user.save()
+      user.password = newPassword
+      await user.hashPassword()
+      await user.save()
 
-        return h.view('user/change-password', {
-          user,
-          successMessage: 'Wohoo! Your new password is set and ready to go.'
-        })
-      } catch (err) {
-        const status = err.isBoom ? err.output.statusCode : 400
+      return h.view('user/change-password', {
+        user,
+        successMessage: 'Wohoo! Your new password is set and ready to go.'
+      })
+    },
+    ext: {
+      onPreResponse: {
+        method: async function(request, h) {
+          const response = request.response
 
-        return h
-          .view('user/change-password', {
-            errors: err.data
-          })
-          .code(status)
+          if (!response.isBoom) {
+            return h.continue
+          }
+
+          return h.view('user/change-password', { errors: response.data }).code(response.output.statusCode)
+        }
       }
     },
     validate: {
@@ -131,16 +127,6 @@ const Handler = {
             }
           })
           .required()
-      },
-      failAction: (_, h, error) => {
-        const errors = ErrorExtractor(error)
-
-        return h
-          .view('user/change-password', {
-            errors
-          })
-          .code(400)
-          .takeover()
       }
     }
   }
