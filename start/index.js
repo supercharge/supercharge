@@ -54,6 +54,17 @@ class Launch {
     })
   }
 
+  /**
+   * The hapi server throws validation errors by default.
+   * This makes the detailed error messages available.
+   * The reducer composes an object with the errors.
+   *
+   * @param {Object} _ - request (not used)
+   * @param {Object} __ - h (not used)
+   * @param {Object} error
+   *
+   * @throws
+   */
   failAction(_, __, error) {
     const errors = error.details.reduce((collector, { path, message }) => {
       const field = path[path.length - 1]
