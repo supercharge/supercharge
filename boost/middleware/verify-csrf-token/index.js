@@ -8,7 +8,6 @@ const Config = util('config')
  * make sure the CSRF token is added to every view.
  */
 async function register(server) {
-  // register
   server.ext('onPreStart', async () => {
     await server.register([
       {
