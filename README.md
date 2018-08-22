@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://boost.futurestud.io">
-    <img src="https://docs.google.com/uc?id=1-wRsRNxiP0EwkH86WodhBeT77GDJOosk" />
+    <img width="471" style="max-width:100%;" src="https://docs.google.com/uc?id=1-wRsRNxiP0EwkH86WodhBeT77GDJOosk" />
   </a>
   <br/>
   <br/>
@@ -12,6 +12,7 @@
     <a href="https://boost.futurestud.io/docs"><strong>Docs</strong></a>
   </p>
   <br/>
+</div>
 
 ---
 
