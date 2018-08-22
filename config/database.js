@@ -8,7 +8,8 @@ module.exports = {
    * Default Database Connection
    * --------------------------------------------------------------------------
    *
-   * tba.
+   * This option specifies which of the below defined database
+   * connections you wish to use as your default connection.
    *
    */
   default: Env.get('DB_CONNECTION', 'mongodb'),

@@ -106,6 +106,10 @@ class Launch {
     await server.register(plugins)
   }
 
+  /**
+   * Connect to the default database that is configured
+   * in the `config/database.js` configuration file.
+   */
   async connectDatabases() {
     await DatabaseManager.connect()
   }
