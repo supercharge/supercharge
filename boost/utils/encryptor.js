@@ -13,7 +13,7 @@ class Encryption {
    */
   constructor(key = Config.get('app.key'), options) {
     this.key = key
-    this.encryptor = Encryptor(Object.assign({ key }, options))
+    this.encryptor = Encryptor(Object.assign({}, { key }, options))
   }
 
   /**
@@ -25,6 +25,17 @@ class Encryption {
    */
   static generateKey(cipher = Config.get('app.cipher')) {
     const bytes = cipher === 'AES-128-CBC' ? 16 : 32
+    return Encryption.randomKey(bytes)
+  }
+
+  /**
+   * Generate a random key with the given length in bytes.
+   *
+   * @param {String} bytes
+   *
+   * @returns {String}
+   */
+  static randomKey(bytes = 20) {
     return Crypto.randomBytes(bytes).toString('base64')
   }
 

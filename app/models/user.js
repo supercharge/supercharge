@@ -2,7 +2,7 @@
 
 const Boom = require('boom')
 const Hash = util('hashinator')
-const Crypto = require('crypto')
+const Encryptor = util('encryptor')
 const Mongoose = require('mongoose')
 const Validator = require('validator')
 
@@ -49,7 +49,7 @@ const userSchema = new Mongoose.Schema(
  * Statics
  *
  * use the “User” model in your app and static methods to find documents
- * like: const user = await User.findByEmail('marcus@futurestud.io')
+ * like `const user = await User.findByEmail('marcus@futurestud.io')`
  */
 userSchema.statics.findByEmail = function(email) {
   return this.findOne({ email })
@@ -66,27 +66,23 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   }
 
   const message = 'The entered password is incorrect'
-  throw new Boom(message, {
-    statusCode: 400,
-    data: { password: { message } }
-  })
+  throw Boom.badRequest(message, { password: message })
 }
 
 userSchema.methods.hashPassword = async function() {
   const hash = await Hash.make(this.password)
-
   this.password = hash
   return this
 }
 
 userSchema.methods.generateAuthToken = async function() {
-  this.authToken = Crypto.randomBytes(20).toString('hex')
+  this.authToken = Encryptor.randomKey(20)
   return this
 }
 
 userSchema.methods.resetPassword = async function() {
   try {
-    const passwordResetToken = Crypto.randomBytes(20).toString('hex')
+    const passwordResetToken = Encryptor.randomKey(20)
     const hash = await Hash.make(passwordResetToken)
 
     this.passwordResetToken = hash
@@ -97,11 +93,7 @@ userSchema.methods.resetPassword = async function() {
     return passwordResetToken
   } catch (ignoreError) {
     const message = 'An error occurred while hashing your password reset token.'
-
-    throw new Boom(message, {
-      statusCode: 400,
-      data: { password: { message } }
-    })
+    throw Boom.badRequest(message, { password: message })
   }
 }
 
@@ -116,7 +108,8 @@ userSchema.methods.comparePasswordResetToken = async function(resetToken) {
     return this
   }
 
-  throw Boom.badRequest('Your password reset token is invalid, please request a new one.')
+  const message = 'Your password reset token is invalid, please request a new one.'
+  throw Boom.badRequest(message, { resetToken: message })
 }
 
 /**
@@ -124,7 +117,6 @@ userSchema.methods.comparePasswordResetToken = async function(resetToken) {
  */
 userSchema.virtual('gravatar').get(function() {
   const hash = Hash.md5(this.email)
-
   return `https://gravatar.com/avatar/${hash}?s=200`
 })
 
