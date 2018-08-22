@@ -3,21 +3,26 @@
 const Config = util('config')
 
 /**
- * Configure CSRF protection.
+ * Configure CSRF protection based on the `crumb` hapi plugin.
+ * Register `crumb` as the last plugin in the server to
+ * make sure the CSRF token is added to every view.
  */
 async function register(server) {
-  await server.register([
-    {
-      plugin: require('crumb'),
-      options: {
-        key: Config.get('session.token'),
-        cookieOptions: {
-          password: Config.get('app.key'),
-          isSecure: Config.get('app.env') === 'production'
+  // register
+  server.ext('onPreStart', async () => {
+    await server.register([
+      {
+        plugin: require('crumb'),
+        options: {
+          key: Config.get('session.token'),
+          cookieOptions: {
+            password: Config.get('app.key'),
+            isSecure: Config.get('app.env') === 'production'
+          }
         }
       }
-    }
-  ])
+    ])
+  })
 }
 
 exports.plugin = {

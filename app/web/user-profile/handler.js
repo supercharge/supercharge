@@ -30,9 +30,6 @@ const Handler = {
         })
       }
 
-      // process the actual user update
-      // you can also use "findByIdAndUpdate"
-      // "findOneAndUpdate" just gives you more filter options
       user = await User.findOneAndUpdate(
         { _id: request.user._id }, // filters the document
         { $set: { email, name } },
@@ -46,9 +43,6 @@ const Handler = {
     },
     ext: {
       onPreResponse: {
-        options: {
-          before: ['crumb']
-        },
         method: async function(request, h) {
           const response = request.response
 
