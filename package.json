@@ -43,7 +43,6 @@
     "inert": "~5.1.0",
     "joi": "~13.5.2",
     "laabr": "~3.1.6",
-    "listr": "~0.13.0",
     "lockfile": "~1.0.4",
     "lodash": "~4.17.10",
     "md5": "~2.2.1",
@@ -59,6 +58,7 @@
     "winston": "~3.0.0"
   },
   "devDependencies": {
+    "@adonisjs/ace": "~5.0.4",
     "code": "~5.2.0",
     "cross-env": "~5.2.0",
     "eslint": "~4.19.1",
@@ -69,7 +69,9 @@
     "eslint-plugin-prettier": "~2.6.2",
     "eslint-plugin-promise": "~3.8.0",
     "eslint-plugin-standard": "~3.1.0",
+    "execa": "~0.11.0",
     "lab": "~15.5.0",
+    "listr": "~0.13.0",
     "prettier": "~1.13.7"
   },
   "engines": {

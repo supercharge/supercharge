@@ -1,0 +1,17 @@
+'use strict'
+
+/**
+ * Register custom Node.js globals before launching
+ * the Boost hapi server. Boost heavily uses
+ * globals to quickly access project files.
+ */
+const Globals = require('./start/globals')
+new Globals().fromAppRoot(__dirname)
+
+/**
+ * Kick off the Boost command line helper called "craft".
+ * Craft provides helpers to quickly set up a new
+ * project or scaffold project files.
+ */
+const Cli = require('./boost/cli')
+new Cli().makeItHappen()
