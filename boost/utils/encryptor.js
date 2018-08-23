@@ -36,7 +36,9 @@ class Encryption {
    * @returns {String}
    */
   static randomKey(bytes = 20) {
-    return Crypto.randomBytes(bytes).toString('base64')
+    return Crypto.randomBytes(Math.ceil(bytes / 2))
+      .toString('hex')
+      .slice(0, bytes)
   }
 
   /**
