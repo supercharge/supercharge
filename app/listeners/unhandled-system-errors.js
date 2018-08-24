@@ -4,7 +4,7 @@ const Youch = require('youch')
 const Listener = util('Listener')
 const forTerminal = require('youch-terminal')
 
-class HandleSystemErrors extends Listener {
+class UnhandledSystemErrors extends Listener {
   on() {
     return ['unhandledRejection', 'uncaughtException']
   }
@@ -19,4 +19,4 @@ class HandleSystemErrors extends Listener {
   }
 }
 
-module.exports = HandleSystemErrors
+module.exports = UnhandledSystemErrors
