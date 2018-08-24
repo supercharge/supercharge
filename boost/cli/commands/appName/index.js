@@ -17,9 +17,9 @@ class AppName extends BaseCommand {
 
   async handle({ name }, { env }) {
     await this.run(async () => {
-      const pathToEnv = this.getEnvPath(env)
+      const pathToEnv = await this.getEnvPath(env)
       const envContent = await this.getEnvContent(pathToEnv)
-      await this.updateEnvContents(pathToEnv, Object.assign({}, envContent, { APP_NAME: name }))
+      await this.updateEnvContents(pathToEnv, Object.assign({}, envContent, { APP_NAME: `"${name}"` }))
 
       this.completed('updated', `Your application name is now: ${name}`)
     })

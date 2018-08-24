@@ -30,7 +30,13 @@ class BaseCommand extends Command {
     }
   }
 
-  getEnvPath(file = 'new.env') {
+  async getEnvPath(file) {
+    file = file || 'secrets.env'
+    return this.getAbsolutePath(file)
+  }
+
+  async getAbsolutePath(file) {
+    await this.ensureFile(file)
     return Path.isAbsolute(file) ? file : Path.join(process.cwd(), file)
   }
 
@@ -39,9 +45,9 @@ class BaseCommand extends Command {
     return Dotenv.parse(content)
   }
 
-  async updateEnvContents(envPath, envHash) {
-    const updatedContents = Object.keys(envHash)
-      .map(key => `${key}=${envHash[key]}`)
+  async updateEnvContents(envPath, newEnvContent) {
+    const updatedContents = Object.keys(newEnvContent)
+      .map(key => `${key}=${newEnvContent[key]}`)
       .join('\n')
 
     await this.writeFile(envPath, updatedContents)

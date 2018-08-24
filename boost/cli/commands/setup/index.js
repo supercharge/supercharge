@@ -10,7 +10,7 @@ class Setup extends BaseCommand {
   static get signature() {
     return `
     setup
-    { name?: Your application name }
+    { -n, --name=@value: Your application name }
     `
   }
 
@@ -18,7 +18,7 @@ class Setup extends BaseCommand {
     return 'Automated setup for your new Boost application'
   }
 
-  async handle({ name: appName }) {
+  async handle(_, { name: appName }) {
     console.log(this.chalk.green(`Initialize your Boost application.\n`))
 
     const tasks = new Listr([
@@ -38,7 +38,7 @@ class Setup extends BaseCommand {
       },
       {
         title: 'Set application name',
-        enabled: !!appName,
+        enabled: () => !!appName,
         task: async () => {
           await this.setAppName(appName)
         }
@@ -64,7 +64,7 @@ class Setup extends BaseCommand {
     /* eslint-disable-next-line */
     await Fs.copy(
       Path.join(__appRoot, '.env.example'),
-      Path.join(__appRoot, 'new.env')
+      Path.join(__appRoot, 'secrets.env')
     )
   }
 
@@ -72,8 +72,8 @@ class Setup extends BaseCommand {
     await Execa('node', ['craft', 'key:generate'], { cwd: __appRoot })
   }
 
-  async setAppName() {
-    await Execa('node', ['craft', 'app:name'], { cwd: __appRoot })
+  async setAppName(name) {
+    await Execa('node', ['craft', 'app:name', name], { cwd: __appRoot })
   }
 
   finalNote(appName = 'Boost') {

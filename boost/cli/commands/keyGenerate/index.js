@@ -22,15 +22,15 @@ class KeyGenerate extends BaseCommand {
     const key = Encryption.generateKey()
 
     if (echo) {
-      console.log(`APP_KEY=${key}`)
+      return this.completed('generated', `application key: ${key}`)
     }
 
     await this.run(async () => {
-      const pathToEnv = this.getEnvPath(env)
+      const pathToEnv = await this.getEnvPath(env)
       const envContent = await this.getEnvContent(pathToEnv)
       await this.updateEnvContents(pathToEnv, Object.assign({}, envContent, { APP_KEY: key }))
 
-      this.completed('generated', 'unique APP_KEY')
+      this.completed('generated', `application key [${key}] and set as APP_KEY in your .env file`)
     })
   }
 }
