@@ -11,6 +11,7 @@ class Setup extends BaseCommand {
     return `
     setup
     { -n, --name=@value: Your application name }
+    { -f, --force: Force a fresh application setup }
     `
   }
 
@@ -18,7 +19,7 @@ class Setup extends BaseCommand {
     return 'Automated setup for your new Boost application'
   }
 
-  async handle(_, { name: appName }) {
+  async handle(_, { force: forceSetup, name: appName }) {
     console.log(this.chalk.green(`Initialize your Boost application.\n`))
 
     const tasks = new Listr([
@@ -28,7 +29,9 @@ class Setup extends BaseCommand {
       },
       {
         title: 'Prepare .env file',
-        task: this.copyEnvFile
+        task: async () => {
+          await this.copyEnvFile(forceSetup)
+        }
       },
       {
         title: 'Generate application key',
@@ -47,11 +50,10 @@ class Setup extends BaseCommand {
 
     try {
       await tasks.run()
+      this.finalNote(appName)
     } catch (error) {
-      console.log(error)
+      // console.error(error)
     }
-
-    this.finalNote(appName)
   }
 
   async installDependencies() {
@@ -60,12 +62,22 @@ class Setup extends BaseCommand {
     await child
   }
 
-  async copyEnvFile() {
-    /* eslint-disable-next-line */
-    await Fs.copy(
-      Path.join(__appRoot, '.env.example'),
-      Path.join(__appRoot, 'secrets.env')
-    )
+  async copyEnvFile(forceSetup) {
+    const isFresh = await this.isFreshInstall()
+
+    if (isFresh || forceSetup) {
+      /* eslint-disable-next-line */
+      return Fs.copy(
+        Path.join(__appRoot, '.env.example'),
+        Path.join(__appRoot, 'secrets.env')
+      )
+    }
+
+    throw new Error('You application is already initialized. Use the "--force" flag for a fresh setup.')
+  }
+
+  async isFreshInstall() {
+    return !this.pathExists(Path.join(__appRoot, '.env'))
   }
 
   async generateAppKey() {
