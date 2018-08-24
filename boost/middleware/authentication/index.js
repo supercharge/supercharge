@@ -18,6 +18,10 @@ async function register(server) {
     }
   ])
 
+  if (!Config.get('app.key')) {
+    throw new Error('No application key available. Make sure to define the APP_KEY value in your .env file.')
+  }
+
   server.auth.strategy('session', 'cookie', {
     cookie: Config.get('session.cookie'),
     password: Config.get('app.key'),
@@ -25,7 +29,7 @@ async function register(server) {
     redirectTo: '/login',
     appendNext: true,
     ttl: Config.get('session.lifetime'),
-    validateFunc: async (request, session) => {
+    validateFunc: async (_, session) => {
       const userId = session.id
 
       if (!userId) {
