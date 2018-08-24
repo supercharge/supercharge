@@ -31,7 +31,7 @@ class BaseCommand extends Command {
   }
 
   async getEnvPath(file) {
-    file = file || 'secrets.env'
+    file = file || '.env'
     return this.getAbsolutePath(file)
   }
 

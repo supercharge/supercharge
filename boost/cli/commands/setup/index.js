@@ -63,21 +63,21 @@ class Setup extends BaseCommand {
   }
 
   async copyEnvFile(forceSetup) {
-    const isFresh = await this.isFreshInstall()
+    const isInstalled = await this.isInstalled()
 
-    if (isFresh || forceSetup) {
+    if (!isInstalled || forceSetup) {
       /* eslint-disable-next-line */
       return Fs.copy(
         Path.join(__appRoot, '.env.example'),
-        Path.join(__appRoot, 'secrets.env')
+        Path.join(__appRoot, '.env')
       )
     }
 
     throw new Error('You application is already initialized. Use the "--force" flag for a fresh setup.')
   }
 
-  async isFreshInstall() {
-    return !this.pathExists(Path.join(__appRoot, '.env'))
+  async isInstalled() {
+    return this.pathExists(Path.join(__appRoot, '.env'))
   }
 
   async generateAppKey() {
