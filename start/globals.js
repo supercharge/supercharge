@@ -85,7 +85,7 @@ class Globals {
    * mailables.
    */
   mail() {
-    global.mail = (...path) => require(Path.resolve(this.appRoot, 'app', 'mail', ...path))
+    global.mail = (...path) => require(Path.resolve(this.appRoot, 'app', 'mails', ...path))
   }
 }
 
