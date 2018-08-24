@@ -13,6 +13,7 @@ class Launch {
   async launchWithFullSpeed() {
     const server = this.createHapiServer()
 
+    await this.registerEventHandling()
     await this.warmUpCore(server)
     await this.configureViews(server)
     await this.loadMiddleware(server)
@@ -76,6 +77,12 @@ class Launch {
     }, {})
 
     throw Boom.badRequest(error.message, errors)
+  }
+
+  async registerEventHandling() {
+    const StartupEventHandler = require('./events')
+    const handler = new StartupEventHandler()
+    await handler.listen()
   }
 
   /**
