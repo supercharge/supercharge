@@ -220,4 +220,4 @@ class Filesystem {
   }
 }
 
-module.exports = Filesystem
+module.exports = new Filesystem()
