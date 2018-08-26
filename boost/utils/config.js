@@ -6,7 +6,7 @@ const RequireAll = require('require-all')
 
 /**
  * This is the central application configuration.
- * Manage the configuraiton by reading all
+ * Manage the configuration by reading all
  * `.js` files from the `config` folder.
  */
 class Config {

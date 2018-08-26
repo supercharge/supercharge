@@ -19,7 +19,7 @@
 ## About Boost
 Boost is a Node.js framework that makes it a lot more convenient to build your next app than using a common Node.js web framework.
 
-Boot builds on top of the hapi.js web framework and adds dozens utilities, like configuration and database management, mailing, logging, encryptiong, hashing, pagination and more. It also integrates a powerful ORM for intuitive database interactions.
+Boost builds on top of the hapi.js web framework and adds dozens utilities, like configuration and database management, mailing, logging, encryptiong, hashing, pagination, and more. It also integrates a powerful ORM for intuitive database interactions.
 
 
 ## Learning
