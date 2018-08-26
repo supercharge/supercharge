@@ -14,7 +14,7 @@ module.exports = {
    * notifcations.
    *
    */
-  name: Env.get('APP_NAME', 'Future Studio Boost'),
+  name: Env.get('APP_NAME', 'Boost'),
 
   /**
    * --------------------------------------------------------------------------
