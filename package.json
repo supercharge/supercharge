@@ -28,6 +28,7 @@
     "chalk": "~2.4.1",
     "crumb": "~7.1.0",
     "dotenv": "~6.0.0",
+    "dotenv-expand": "~4.2.0",
     "edit-dotenv": "~1.0.4",
     "fs-extra": "~7.0.0",
     "handlebars": "~4.0.11",
@@ -73,7 +74,7 @@
     "eslint-plugin-prettier": "~2.6.2",
     "eslint-plugin-promise": "~3.8.0",
     "eslint-plugin-standard": "~3.1.0",
-    "execa": "~0.11.0",
+    "execa": "~1.0.0",
     "lab": "~15.5.0",
     "listr": "~0.14.1",
     "prettier": "~1.13.7"
