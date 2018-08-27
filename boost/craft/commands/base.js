@@ -1,12 +1,15 @@
 'use strict'
 
 const Path = require('path')
-const Dotenv = require('dotenv')
+const DotenvEdit = require('edit-dotenv')
 const { Command } = require('@adonisjs/ace')
 
 class BaseCommand extends Command {
   async run(callback) {
+    this.chalk.enabled = true
+
     try {
+      await this.ensureInProjectRoot()
       await callback()
     } catch (error) {
       this.printError(error)
@@ -15,11 +18,17 @@ class BaseCommand extends Command {
   }
 
   printError(error) {
-    console.log(`\n  ${this.chalk.bgRed(' ERROR ')} ${error.message}\n`)
+    console.log(`\n  ${this.chalk.bold.red('Error:')} ${this.chalk.red(error.message)}\n`)
+  }
 
-    if (error.hint) {
-      console.log(`\n  ${this.chalk.bgRed(' HELP ')} ${error.hint}\n`)
+  async ensureNotInstalled(force) {
+    const exists = await this.pathExists(Path.join(__appRoot, '.env'))
+
+    if (!exists || force) {
+      return Promise.resolve()
     }
+
+    throw new Error('Your project already includes a .env file. Use the "--force" flag for a fresh setup.')
   }
 
   async ensureInProjectRoot() {
@@ -41,16 +50,14 @@ class BaseCommand extends Command {
   }
 
   async getEnvContent(envPath) {
-    const content = await this.readFile(envPath)
-    return Dotenv.parse(content)
+    return this.readFile(envPath, 'utf8')
   }
 
-  async updateEnvContents(envPath, newEnvContent) {
-    const updatedContents = Object.keys(newEnvContent)
-      .map(key => `${key}=${newEnvContent[key]}`)
-      .join('\n')
+  async updateEnvContents(envPath, changes) {
+    const dotenvContent = await this.getEnvContent(envPath)
+    const updatedContent = DotenvEdit(dotenvContent, changes)
 
-    await this.writeFile(envPath, updatedContents)
+    await this.writeFile(envPath, updatedContent)
   }
 }
 

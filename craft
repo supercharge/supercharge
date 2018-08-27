@@ -13,5 +13,5 @@ new Globals().fromAppRoot(__dirname)
  * Craft provides helpers to quickly set up a new
  * project or scaffold project files.
  */
-const Cli = require('./boost/cli')
-new Cli().makeItHappen()
+const Craft = require('./boost/craft')
+new Craft().makeItHappen()

@@ -26,9 +26,8 @@ class KeyGenerate extends BaseCommand {
     }
 
     await this.run(async () => {
-      const pathToEnv = await this.getEnvPath(env)
-      const envContent = await this.getEnvContent(pathToEnv)
-      await this.updateEnvContents(pathToEnv, Object.assign({}, envContent, { APP_KEY: key }))
+      const envPath = await this.getEnvPath(env)
+      await this.updateEnvContents(envPath, { APP_KEY: key })
 
       this.completed('generated', `application key [${key}] and set as APP_KEY in your .env file`)
     })

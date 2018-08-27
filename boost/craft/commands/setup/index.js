@@ -1,7 +1,6 @@
 'use strict'
 
-const Path = require('path')
-const Fs = require('fs-extra')
+const Fs = util('filesystem')
 const Listr = require('listr')
 const Execa = require('execa')
 const BaseCommand = require('../base')
@@ -23,10 +22,6 @@ class Setup extends BaseCommand {
     console.log(this.chalk.green(`Initialize your Boost application.\n`))
 
     const tasks = new Listr([
-      {
-        title: 'Install project dependencies',
-        task: this.installDependencies
-      },
       {
         title: 'Prepare .env file',
         task: async () => {
@@ -51,33 +46,16 @@ class Setup extends BaseCommand {
     try {
       await tasks.run()
       this.finalNote(appName)
-    } catch (error) {
-      // console.error(error)
-    }
-  }
-
-  async installDependencies() {
-    const child = Execa('npm', ['install'])
-    // child.stdout.pipe(process.stdout)
-    await child
+    } catch (ignoreErr) {}
   }
 
   async copyEnvFile(forceSetup) {
-    const isInstalled = await this.isInstalled()
+    await this.ensureNotInstalled(forceSetup)
 
-    if (!isInstalled || forceSetup) {
-      /* eslint-disable-next-line */
-      return Fs.copy(
-        Path.join(__appRoot, '.env.example'),
-        Path.join(__appRoot, '.env')
-      )
-    }
+    const source = await this.getEnvPath('.env.example')
+    const destination = await this.getEnvPath()
 
-    throw new Error('You application is already initialized. Use the "--force" flag for a fresh setup.')
-  }
-
-  async isInstalled() {
-    return this.pathExists(Path.join(__appRoot, '.env'))
+    return Fs.copy(source, destination)
   }
 
   async generateAppKey() {
@@ -88,7 +66,9 @@ class Setup extends BaseCommand {
     await Execa('node', ['craft', 'app:name', name], { cwd: __appRoot })
   }
 
-  finalNote(appName = 'Boost') {
+  finalNote(appName) {
+    appName = appName || 'Boost'
+
     const lines = [
       '',
       '🚀  Your project is ready for take off',
