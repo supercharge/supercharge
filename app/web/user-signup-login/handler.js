@@ -40,7 +40,7 @@ const Handler = {
 
       await Mailer.fireAndForget(new WelcomeMail(user))
 
-      return h.view('home')
+      return h.view('home', { user })
     },
     ext: {
       onPreResponse: {
