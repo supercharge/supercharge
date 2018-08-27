@@ -3,6 +3,7 @@
 const _ = require('lodash')
 const Path = require('path')
 const Dotenv = require('dotenv')
+const DotenvExpand = require('dotenv-expand')
 
 /**
  * Manage the application's environment variables.
@@ -36,7 +37,8 @@ class Env {
     const path = Path.resolve(__appRoot, filename)
 
     try {
-      Dotenv.config({ path })
+      const config = Dotenv.config({ path })
+      DotenvExpand(config)
     } catch (err) {
       throw err
     }
