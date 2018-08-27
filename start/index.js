@@ -3,6 +3,7 @@
 const Hapi = require('hapi')
 const Boom = require('boom')
 const Config = util('config')
+const Dispatcher = util('./dispatcher')
 const DatabaseManager = util('database')
 
 class Launch {
@@ -13,7 +14,7 @@ class Launch {
   async launchWithFullSpeed() {
     const server = this.createHapiServer()
 
-    await this.registerEventHandling()
+    await this.initializeEventDispatcher()
     await this.warmUpCore(server)
     await this.configureViews(server)
     await this.loadMiddleware(server)
@@ -79,10 +80,8 @@ class Launch {
     throw Boom.badRequest(error.message, errors)
   }
 
-  async registerEventHandling() {
-    const StartupEventHandler = require('./events')
-    const handler = new StartupEventHandler()
-    await handler.listen()
+  async initializeEventDispatcher() {
+    await Dispatcher.init()
   }
 
   /**

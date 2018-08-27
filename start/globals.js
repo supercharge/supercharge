@@ -27,9 +27,10 @@ class Globals {
   create() {
     global.__appRoot = Path.resolve(this.appRoot)
 
-    this.frequire()
     this.util()
     this.mail()
+    this.event()
+    this.frequire()
     this.viewsPath()
     this.storagePath()
     this.resourcePath()
@@ -86,6 +87,14 @@ class Globals {
    */
   mail() {
     global.mail = (...path) => require(Path.resolve(this.appRoot, 'app', 'mails', ...path))
+  }
+
+  /**
+   * Shorthand function to quickly import Boost
+   * events.
+   */
+  event() {
+    global.event = (...path) => require(Path.resolve(this.appRoot, 'app', 'events', ...path))
   }
 }
 

@@ -20,7 +20,8 @@
     "frequire": false,
     "model": false,
     "util": false,
-    "mail": false
+    "mail": false,
+    "event": false
   },
   "parserOptions": {
     "ecmaVersion": 8
