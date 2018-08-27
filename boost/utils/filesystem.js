@@ -43,6 +43,18 @@ class Filesystem {
   }
 
   /**
+   * Shortcut for `pathExists` to check whether a given file
+   * or directory exists on the file system.
+   *
+   * @param {String} file
+   *
+   * @returns {Boolean}
+   */
+  exists(file) {
+    return this.pathExists(file)
+  }
+
+  /**
    * Ensure that the `file` exists. If the requested file and
    * directories do not exist, they are created. If the file
    * already exists, it is NOT modified.
