@@ -13,7 +13,7 @@ class Dispatcher {
 
     this.events = {}
     this.listeners = {}
-    this.podium = new Podium()
+    this.emitter = new Podium()
   }
 
   async init() {
@@ -21,6 +21,10 @@ class Dispatcher {
     await this.loadListeners()
     await this.registerUserEvents()
     await this.registerSystemEvents()
+  }
+
+  on(eventName, handler) {
+    this.listen(eventName, handler)
   }
 
   listen(eventName, handler) {
@@ -40,11 +44,11 @@ class Dispatcher {
     this.registerUserListenerForEvent(eventName, handler)
   }
 
-  fire(event, data) {
+  fire(event, ...data) {
     if (typeof event === 'string') {
-      this.podium.emit(event, data)
+      this.emitter.emit(event, ...data)
     } else {
-      this.podium.emit(event.emits(), event)
+      this.emitter.emit(event.emits(), event)
     }
   }
 
@@ -129,11 +133,11 @@ class Dispatcher {
   }
 
   async registerUserEvent(eventName) {
-    this.podium.registerEvent(eventName)
+    this.emitter.registerEvent(eventName)
   }
 
   registerUserListenerForEvent(eventName, handler) {
-    this.podium.addListener(eventName, handler)
+    this.emitter.addListener(eventName, handler)
   }
 
   async registerSystemEvent(event, handler) {
