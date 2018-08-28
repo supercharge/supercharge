@@ -65,13 +65,20 @@ class DatabaseManager {
       return this.connections[name]
     }
 
+    this.createConnector(name)
+
+    return this.connections[name]
+  }
+
+  createConnector(name) {
     const config = this.configuration(name)
 
     if (name === 'mongodb') {
-      this.connections[name] = new MongooseConnection(config)
+      this.addConnection(name, new MongooseConnection(config))
+      return
     }
 
-    return this.connections[name]
+    throw new Error(`No database connector available for ${name}`)
   }
 
   /**
@@ -84,10 +91,10 @@ class DatabaseManager {
    * @throws
    */
   configuration(name = this.defaultConnection()) {
-    const config = Config.get(`database.${name}`)
+    const config = Config.get(`database.connections.${name}`)
 
     if (!config) {
-      throw new Error(`Database ${name} is not configured.`)
+      throw new Error(`Database connection ${name} is not configured.`)
     }
 
     return config
@@ -98,6 +105,18 @@ class DatabaseManager {
    */
   defaultConnection() {
     return Config.get('database.default')
+  }
+
+  addConnection(name, connector) {
+    if (this.connections[name]) {
+      throw new Error(`Cannot add database connection ${name} more than once.`)
+    }
+
+    if (!connector) {
+      throw new Error('Database connector instance is required but missing.')
+    }
+
+    this.connections[name] = connector
   }
 }
 

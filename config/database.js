@@ -24,16 +24,18 @@ module.exports = {
    * scale with support for multi-node clusters.
    *
    */
-  mongodb: {
-    host: Env.get('MONGODB_HOST', 'localhost'),
-    port: Env.get('MONGODB_PORT', 27017),
-    database: Env.get('MONGODB_DATABASE', 'boost'),
-    options: {
-      // auth: {
-      //   user: Env.get('MONGODB_USERNAME'),
-      //   password: Env.get('MONGODB_PASSWORD')
-      // },
-      useNewUrlParser: true
+  connections: {
+    mongodb: {
+      host: Env.get('MONGODB_HOST', 'localhost'),
+      port: Env.get('MONGODB_PORT', 27017),
+      database: Env.get('MONGODB_DATABASE', 'boost'),
+      options: {
+        // auth: {
+        //   user: Env.get('MONGODB_USERNAME'),
+        //   password: Env.get('MONGODB_PASSWORD')
+        // },
+        useNewUrlParser: true
+      }
     }
   }
 }
