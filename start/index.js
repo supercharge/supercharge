@@ -3,7 +3,7 @@
 const Hapi = require('hapi')
 const Boom = require('boom')
 const Config = util('config')
-const Dispatcher = util('./dispatcher')
+const Dispatcher = util('dispatcher')
 const DatabaseManager = util('database')
 
 class Launch {
@@ -80,6 +80,10 @@ class Launch {
     throw Boom.badRequest(error.message, errors)
   }
 
+  /**
+   * Register all application events and
+   * assign listeners.
+   */
   async initializeEventDispatcher() {
     await Dispatcher.init()
   }
