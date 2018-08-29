@@ -174,7 +174,7 @@ const Handler = {
         throw new Boom('We have issues sending the password reset email.')
       }
 
-      return h.view('auth/forgot-password-email-sent')
+      return h.view('auth/forgot-password-email-sent', null, { layout: 'clean' })
     },
     ext: {
       onPreResponse: {
