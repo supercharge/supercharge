@@ -70,12 +70,20 @@ class DatabaseManager {
     return this.connections[name]
   }
 
+  /**
+   * Create a new connection instance base on
+   * a connector shipped with Boost. Throws
+   * if no connector matches the name.
+   *
+   * @param {String} name
+   *
+   * @throws
+   */
   createConnector(name) {
     const config = this.configuration(name)
 
     if (name === 'mongodb') {
-      this.addConnection(name, new MongooseConnection(config))
-      return
+      return this.addConnection(name, new MongooseConnection(config))
     }
 
     throw new Error(`No database connector available for ${name}`)
@@ -101,22 +109,33 @@ class DatabaseManager {
   }
 
   /**
-   * Returns the name of the default database configuration.
+   * Returns the name of the default database
+   * configuration.
    */
   defaultConnection() {
     return Config.get('database.default')
   }
 
-  addConnection(name, connector) {
+  /**
+   * Adds a new connection to the database manager.
+   * Throws if there is a connection with the same
+   * name or the connection's value is undefined.
+   *
+   * @param {String} name
+   * @param {Object} connection
+   *
+   * @throws
+   */
+  addConnection(name, connection) {
     if (this.connections[name]) {
       throw new Error(`Cannot add database connection ${name} more than once.`)
     }
 
-    if (!connector) {
+    if (!connection) {
       throw new Error('Database connector instance is required but missing.')
     }
 
-    this.connections[name] = connector
+    this.connections[name] = connection
   }
 }
 
