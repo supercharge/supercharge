@@ -14,7 +14,7 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      return h.view('auth/signup')
+      return h.view('auth/signup', null, { layout: 'clean' })
     }
   },
 
@@ -52,10 +52,14 @@ const Handler = {
           }
 
           return h
-            .view('auth/signup', {
-              email: request.payload.email,
-              errors: response.data
-            })
+            .view(
+              'auth/signup',
+              {
+                email: request.payload.email,
+                errors: response.data
+              },
+              { layout: 'clean' }
+            )
             .code(response.output.statusCode)
         }
       }
@@ -81,7 +85,7 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      return h.view('auth/login')
+      return h.view('auth/login', null, { layout: 'clean' })
     }
   },
 
@@ -115,10 +119,14 @@ const Handler = {
           }
 
           return h
-            .view('auth/login', {
-              email: request.payload.email,
-              errors: response.data
-            })
+            .view(
+              'auth/login',
+              {
+                email: request.payload.email,
+                errors: response.data
+              },
+              { layout: 'clean' }
+            )
             .code(response.output.statusCode)
         }
       }
@@ -139,7 +147,7 @@ const Handler = {
   },
 
   showForgotPassword: {
-    handler: (_, h) => h.view('auth/forgot-password')
+    handler: (_, h) => h.view('auth/forgot-password', null, { layout: 'clean' })
   },
 
   forgotPassword: {
@@ -153,10 +161,7 @@ const Handler = {
 
       if (!user) {
         const message = 'Email address is not registered'
-        throw new Boom(message, {
-          statusCode: 404,
-          data: { email: { message } }
-        })
+        throw Boom.notFound(message, { email: message })
       }
 
       const passwordResetToken = await user.resetPassword()
@@ -181,11 +186,15 @@ const Handler = {
           }
 
           return h
-            .view('auth/forgot-password', {
-              email: request.payload.email,
-              errors: response.data,
-              errormessage: response.data ? null : response.message // this would be be a generic error message, like "Mailer has issues"
-            })
+            .view(
+              'auth/forgot-password',
+              {
+                email: request.payload.email,
+                errors: response.data,
+                errormessage: response.data ? null : response.message // this would be be a generic error message, like "Mailer has issues"
+              },
+              { layout: 'clean' }
+            )
             .code(response.output.statusCode)
         }
       }
@@ -207,7 +216,7 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      return h.view('auth/reset-password')
+      return h.view('auth/reset-password', null, { layout: 'clean' })
     },
     ext: {
       onPreResponse: {
@@ -218,7 +227,9 @@ const Handler = {
             return h.continue
           }
 
-          return h.view('auth/reset-password', { errors: response.data }).code(response.output.statusCode)
+          return h
+            .view('auth/reset-password', { errors: response.data }, { layout: 'clean' })
+            .code(response.output.statusCode)
         }
       }
     },
@@ -248,10 +259,7 @@ const Handler = {
 
       if (!user) {
         const message = 'Sorry, we can’t find a user with the credentials.'
-        throw new Boom(message, {
-          statusCode: 404,
-          data: { email: { message } }
-        })
+        throw Boom.notFound(message, { email: message })
       }
 
       user = await user.comparePasswordResetToken(request.params.resetToken)
@@ -275,7 +283,9 @@ const Handler = {
             return h.continue
           }
 
-          return h.view('auth/reset-password', { errors: response.data }).code(response.output.statusCode)
+          return h
+            .view('auth/reset-password', { errors: response.data }, { layout: 'clean' })
+            .code(response.output.statusCode)
         }
       }
     },
