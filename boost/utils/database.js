@@ -1,7 +1,7 @@
 'use strict'
 
 const Config = require('./config')
-const MongooseConnection = require('./database/mongoose-connector')
+const MongooseConnector = require('./database/mongoose-connector')
 
 /**
  * The database manager is responsible to manage the database
@@ -65,7 +65,7 @@ class DatabaseManager {
       return this.connections[name]
     }
 
-    this.createConnector(name)
+    this.createNewConnection(name)
 
     return this.connections[name]
   }
@@ -79,14 +79,43 @@ class DatabaseManager {
    *
    * @throws
    */
-  createConnector(name) {
-    const config = this.configuration(name)
-
-    if (name === 'mongodb') {
-      return this.addConnection(name, new MongooseConnection(config))
+  createNewConnection(name) {
+    if (!this.availableConnectors(name)) {
+      throw new Error(`No database connector available for ${name}`)
     }
 
-    throw new Error(`No database connector available for ${name}`)
+    const connector = this.connector(name)
+    this.addConnection(name, connector)
+  }
+
+  /**
+   * Creates a connector instance.
+   *
+   * @param {String} name
+   */
+  connector(name) {
+    const config = this.configuration(name)
+    const Connector = this.connectors()[name]
+
+    return new Connector(config)
+  }
+
+  /**
+   * Returns an object of available connectors
+   * shipped with Boost.
+   */
+  connectors() {
+    return {
+      mongodb: MongooseConnector
+    }
+  }
+
+  /**
+   * Returns a list of connector names
+   * available with Boost.
+   */
+  availableConnectors() {
+    return Object.keys(this.connectors())
   }
 
   /**
