@@ -8,7 +8,7 @@ class UserRegistered extends Event {
     this.user = user
   }
 
-  emits() {
+  emit() {
     return 'user.registered'
   }
 }

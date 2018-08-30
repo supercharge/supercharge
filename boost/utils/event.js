@@ -4,7 +4,7 @@ const _ = require('lodash')
 const Dispatcher = require('./dispatcher')
 
 class Event {
-  emits() {
+  emit() {
     return _.kebabCase(this.constructor.name).replace('-', '.')
   }
 
