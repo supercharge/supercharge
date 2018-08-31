@@ -1,26 +1,33 @@
 <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-5">
+
   <p class="text-center mb-5">
     <a href="/">
       <img src="/images/logo-text.png" class="img-fluid w-50" alt="{{title}}">
     </a>
   </p>
+
   <div class="card card-bt-blue">
     <div class="card-body">
+
       <h1 class="h4 text-center mt-3 mb-4">
         Create your account
       </h1>
+
       <p class="lead text-center text-muted text-sm mb-5">
         Already have an account?
         <a href="/login">Log in</a>
       </p>
+
       {{#if errormessage}}
         <hr>
         <p class="error">
           {{errormessage}}
         </p>
       {{/if}}
+
       <form method="POST" class="mb-3">
         {{csrf}}
+
         <div class="form-group">
           <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">
             {{#if errors.email}} {{errors.email}} {{else}}Email address{{/if}}
@@ -34,6 +41,7 @@
             </small>
           {{/unless}}
         </div>
+
         <div class="form-group mt-4">
           <label class="label {{#if errors.password}}text-danger{{/if}}" for="password">
             {{#if errors.password}} {{errors.password}} {{else}}Password {{/if}}
@@ -44,7 +52,11 @@
             Minimum of 6 characters
           </small>
         </div>
+
         <button class="btn btn-primary btn-block mt-4" type="submit">Create Account</button>
+
       </form>
+
     </div>
   </div>
+</div>

@@ -1,25 +1,32 @@
 <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-5">
+
   <p class="text-center mb-5">
     <a href="/">
       <img src="/images/logo-text.png" class="img-fluid w-50" alt="{{title}}">
     </a>
   </p>
+
   <div class="card card-bt-blue">
     <div class="card-body">
+
       <h1 class="h4 text-center mt-3 mb-4">
         Log in
       </h1>
+
       <p class="lead text-center text-muted text-sm mb-5">
         Don’t have an account?
         <a href="/signup">Sign up</a>
       </p>
+
       {{#if errormessage}}
         <p class="error">
           {{errormessage}}
         </p>
       {{/if}}
+
       <form method="POST" class="mb-3">
         {{csrf}}
+
         <div class="form-group">
           <label class="label {{#if errors.email}}text-danger{{/if}}" for="email">
             {{#if errors.email}} {{errors.email}} {{else}}Email address{{/if}}
@@ -27,6 +34,7 @@
           <input class="form-control {{#if errors.email}}is-invalid{{else}}{{#if email}}is-valid{{/if}}{{/if}}" type="email" placeholder="Your personal email address"
             id="email" name="email" value="{{email}}" autofocus>
         </div>
+
         <div class="form-group">
           <label class="label is-pulled-left {{#if errors.password}}text-danger{{/if}}" for="password">
             {{#if errors.password}} {{errors.password}} {{else}}Password{{/if}}
@@ -34,12 +42,16 @@
           <input class="form-control {{#if errors.password}}is-invalid{{/if}}" type="password" placeholder="Your secure password" id="password"
             name="password">
         </div>
+
         <button class="btn btn-primary btn-block mt-4" type="submit">Log in</button>
+
       </form>
     </div>
   </div>
+
   <div class="text-center text-md mt-4">
     Forgot your password?
     <a href="/forgot-password">Reset your password.</a>
   </div>
+
 </div>
