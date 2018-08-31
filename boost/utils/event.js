@@ -1,7 +1,7 @@
 'use strict'
 
 const _ = require('lodash')
-const Dispatcher = require('./dispatcher')
+const Dispatcher = require('./event/dispatcher')
 
 /**
  * The base class for custom events. Each event

@@ -3,8 +3,8 @@
 const Hapi = require('hapi')
 const Boom = require('boom')
 const Config = util('config')
-const Dispatcher = util('dispatcher')
 const DatabaseManager = util('database')
+const Dispatcher = util('event/dispatcher')
 
 class Launch {
   /**
@@ -14,7 +14,7 @@ class Launch {
   async launchWithFullSpeed() {
     const server = this.createHapiServer()
 
-    await this.initializeEventDispatcher()
+    await this.initializeEvents()
     await this.warmUpCore(server)
     await this.configureViews(server)
     await this.loadMiddleware(server)
@@ -84,7 +84,7 @@ class Launch {
    * Register all application events and
    * assign listeners.
    */
-  async initializeEventDispatcher() {
+  async initializeEvents() {
     await Dispatcher.init()
   }
 
