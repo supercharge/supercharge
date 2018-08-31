@@ -1,3 +1,15 @@
+/*
+ * This is Boost's CSS file for custom styles. At this point,
+ * there is no build pipeline from SCSS/SASS to CSS and this
+ * CSS file is the source of truth.
+ *
+ * Go ahead and feel free to add any CSS classes you need.
+ *
+ * You can also introduce a CSS setup and pipeline
+ * yourself by adding the needed dependencies :)
+ * Have fun!
+ */
+
 @import url("https://rsms.me/inter/inter-ui.css");
 
 body {
