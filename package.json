@@ -98,9 +98,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "setup": "npm run pumpitup",
-    "pumpitup": "node ./data/load-sample-data.js",
-    "test": "cross-env NODE_ENV=test lab --assert code --leaks --coverage --lint",
-    "lint": "./node_modules/eslint/bin/eslint.js . --fix --ext .js"
+    "test": "cross-env NODE_ENV=test lab --assert code --leaks --coverage --lint"
   }
 }
