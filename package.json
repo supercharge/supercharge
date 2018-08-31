@@ -98,6 +98,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "setup": "node craft setup",
     "test": "cross-env NODE_ENV=test lab --assert code --leaks --coverage --lint"
   }
 }
