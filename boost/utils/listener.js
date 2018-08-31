@@ -1,18 +1,37 @@
 'use strict'
 
-const _ = require('lodash')
-
+/**
+ * The base class for event listeners. Each listener
+ * in the `app/listeners` folder must implement
+ * this class.
+ */
 class Listener {
+  /**
+   * Returns the event name or an array of event
+   * names to listen on.
+   *
+   * @returns {String|Array}
+   */
   on() {
-    return _.camelCase(this.constructor.name)
+    throw new Error(`${this.contructor.name} must implement the on() function.`)
   }
 
-  type() {
-    return 'user'
-  }
-
+  /**
+   * Implement your event handling in this `handle`
+   * method. Implement it as an async function.
+   */
   async handle() {
     throw new Error('Your event listener must implement the async handle() function')
+  }
+
+  /**
+   * The event dispatcher supports the `user`
+   * and `system` types. Use the type
+   * `system` for Node.js process listeners,
+   * type `user` for your custom events.
+   */
+  type() {
+    return 'user'
   }
 }
 
