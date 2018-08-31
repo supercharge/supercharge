@@ -89,24 +89,31 @@ class Dispatcher {
    * Load all events from the file system.
    */
   async loadEvents() {
-    if (await Fs.pathExists(this.eventsFolder)) {
-      this.events = RequireAll({
-        dirname: this.eventsFolder,
-        filter: /(.*)\.js$/
-      })
-    }
+    this.events = await this.loadFiles(this.eventsFolder)
   }
 
   /**
    * Load all listeners from the file system.
    */
   async loadListeners() {
-    if (await Fs.pathExists(this.listenersFolder)) {
-      this.listeners = RequireAll({
-        dirname: this.listenersFolder,
+    this.listeners = await this.loadFiles(this.listenersFolder)
+  }
+
+  /**
+   * Load event or listener files from there
+   * related folder on the filesystem.
+   *
+   * @param {String} folder
+   */
+  async loadFiles(folder) {
+    if (await Fs.pathExists(folder)) {
+      return RequireAll({
+        dirname: folder,
         filter: /(.*)\.js$/
       })
     }
+
+    return {}
   }
 
   /**
@@ -164,6 +171,7 @@ class Dispatcher {
     _.forEach(this.events, async Event => {
       const event = new Event()
       this.ensureEvent(event)
+      this.registerUserEvent(event.emit())
 
       const listeners = this.getListenersByEventName(event.emit())
       this.registerListeners(event.emit(), listeners)
@@ -186,16 +194,14 @@ class Dispatcher {
    * Register the array of event listeners to
    * the event.
    *
-   * @param {String} eventName
+   * @param {String} eventNames
    * @param {Array|Object} listeners
    */
-  registerListeners(eventName, listeners) {
-    const events = Array.isArray(eventName) ? eventName : [eventName]
+  registerListeners(eventNames, listeners) {
+    const events = Array.isArray(eventNames) ? eventNames : [eventNames]
     listeners = Array.isArray(listeners) ? listeners : [listeners]
 
     _.forEach(events, eventName => {
-      this.registerUserEvent(eventName)
-
       _.forEach(listeners, listener => {
         listener.type() === 'user'
           ? this.registerUserListenerForEvent(eventName, listener.handle)

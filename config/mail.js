@@ -15,7 +15,7 @@ module.exports = {
    * Available drivers: `smtp`, `postmark`, `mailgun`, `sparkpost`, `ses`
    *
    */
-  driver: Env.get('MAIL_DRIVER', 'smtp'),
+  driver: Env.get('MAIL_DRIVER', 'postmark'),
 
   /**
    * --------------------------------------------------------------------------
