@@ -10,21 +10,21 @@ const Dispatcher = require('./event/dispatcher')
  */
 class Event {
   /**
-   * Returns the event name. By default, this
-   * returns a transformed class name.
+   * Returns the event name. By default, it
+   * returns the class name.
    *
    * Example
    * ```
    * class UserRegistered extens Event {}
    * const event = new UserRegistered()
    * console.log(event.emit())
-   * -> out put is "user.registered"
+   * -> output is "UserRegistered"
    * ```
    *
    * @returns {String}
    */
   emit() {
-    return _.kebabCase(this.constructor.name).replace('-', '.')
+    return this.constructor.name
   }
 
   /**
