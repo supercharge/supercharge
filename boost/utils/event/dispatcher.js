@@ -3,7 +3,7 @@
 const _ = require('lodash')
 const Path = require('path')
 const Fs = util('filesystem')
-const Podium = require('podium')
+const EventEmitter = require('events')
 const RequireAll = require('require-all')
 
 /**
@@ -21,7 +21,7 @@ class Dispatcher {
 
     this.events = {}
     this.listeners = {}
-    this.emitter = new Podium()
+    this.emitter = new EventEmitter()
   }
 
   /**
@@ -238,6 +238,40 @@ class Dispatcher {
    */
   async registerSystemEvent(eventName, listener) {
     process.on(eventName, await listener)
+  }
+
+  /**
+   * Remove `listener` from the given `event`.
+   * This removes only user listeners, because
+   * system listeners can’t be turned off.
+   *
+   * @param {String} event
+   * @param {Object} listener
+   */
+  forget(event, listener) {
+    if (!listener) {
+      listener = event
+      this.ensureListener(listener)
+      event = listener.on()
+    }
+
+    this.forgetUserListener(event, listener)
+  }
+
+  /**
+   * Turn off and remove the event listener.
+   *
+   * @param {String} event
+   * @param {Object} listener
+   */
+  forgetUserListener(event, listener) {
+    const events = Array.isArray(event) ? event : [event]
+
+    _.forEach(events, eventName => {
+      if (listener.type() === 'user') {
+        this.emitter.off(eventName, listener)
+      }
+    })
   }
 }
 

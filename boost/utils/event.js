@@ -1,6 +1,5 @@
 'use strict'
 
-const _ = require('lodash')
 const Dispatcher = require('./event/dispatcher')
 
 /**
@@ -56,6 +55,28 @@ class Event {
    */
   static listen(event, handler) {
     Dispatcher.listen(event, handler)
+  }
+
+  /**
+   * Remove the `listener` from the given
+   * `event` name.
+   *
+   * @param {String} event
+   * @param {Object} listener
+   */
+  static off(event, listener) {
+    Dispatcher.forget(event, listener)
+  }
+
+  /**
+   * Remove the `listener` from the given
+   * `event` name.
+   *
+   * @param {String} event
+   * @param {Object} listener
+   */
+  static forget(event, listener) {
+    Dispatcher.forget(event, listener)
   }
 }
 
