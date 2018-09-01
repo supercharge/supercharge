@@ -67,7 +67,6 @@ class Dispatcher {
       )
     }
 
-    this.registerUserEvent(eventName)
     this.registerUserListenerForEvent(eventName, handler)
   }
 
@@ -171,7 +170,6 @@ class Dispatcher {
     _.forEach(this.events, async Event => {
       const event = new Event()
       this.ensureEvent(event)
-      this.registerUserEvent(event.emit())
 
       const listeners = this.getListenersByEventName(event.emit())
       this.registerListeners(event.emit(), listeners)
@@ -216,7 +214,7 @@ class Dispatcher {
    * @param {String} eventName
    */
   async registerUserEvent(eventName) {
-    this.emitter.registerEvent(eventName)
+    this.emitter.on(eventName)
   }
 
   /**
@@ -227,7 +225,7 @@ class Dispatcher {
    * @param {Object} listener
    */
   registerUserListenerForEvent(eventName, listener) {
-    this.emitter.addListener(eventName, listener)
+    this.emitter.on(eventName, listener)
   }
 
   /**
