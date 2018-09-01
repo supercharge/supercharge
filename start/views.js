@@ -47,8 +47,9 @@ class Views {
       context: function(request) {
         return {
           request,
+          user: request.auth.credentials,
           title: Config.get('app.name'),
-          user: request.auth.credentials
+          description: Config.get('app.description')
         }
       }
     }
