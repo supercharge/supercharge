@@ -18,6 +18,18 @@ module.exports = {
 
   /**
    * --------------------------------------------------------------------------
+   * Application Description
+   * --------------------------------------------------------------------------
+   *
+   * This is the description of your application. Use this to shortly
+   * describe your app and give more identiy. This is useful for
+   * page descriptions in terms meta tags for SEO optimizations.
+   *
+   */
+  description: Env.get('APP_DESCRIPTION'),
+
+  /**
+   * --------------------------------------------------------------------------
    * Application Environment
    * --------------------------------------------------------------------------
    *
