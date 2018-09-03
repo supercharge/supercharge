@@ -2,7 +2,7 @@
 
 const Handler = {
   index: {
-    handler: async (_, h) => h.view('welcome')
+    handler: async (_, h) => h.view('startpage', _, { layout: 'clean' })
   },
 
   missing: {

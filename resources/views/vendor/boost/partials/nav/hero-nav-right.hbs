@@ -1,0 +1,22 @@
+{{!-- Right side of the navbar --}}
+{{#if user}}
+    <li class="nav-item dropdown profile-dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{{user.gravatar}}" class="rounded-circle user-profile-picture" alt="Profile picture for {{user.email}}">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+            <a class="dropdown-item" href="/profile">Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/logout">
+                Logout
+            </a>
+        </div>
+    </li>
+{{else}}
+    <li class="nav-item">
+        <a class="btn btn-outline-primary" href="/login">Login</a>
+    </li>
+    <li class="nav-item pl-4">
+        <a class="btn btn-outline-primary" href="/signup">Sign up</a>
+    </li>
+{{/if}}
