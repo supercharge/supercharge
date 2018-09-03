@@ -79,6 +79,18 @@ class Filesystem {
   }
 
   /**
+   * Read the contents of a directory with the given `path`.
+   * Returns an array of the names of the files in the
+   * directory excluding `.` and `..`.
+   *
+   * @param {String} path
+   * @param {String} encoding
+   */
+  readDir(path, encoding) {
+    return Fs.readdir(path, encoding)
+  }
+
+  /**
    * Write file to a given location if parent
    * directory/directories does not exists
    * they will be created.
