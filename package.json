@@ -56,6 +56,7 @@
     "nodemailer-sparkpost-transport": "~2.1.0",
     "require-all": "~3.0.0",
     "simple-encryptor": "~2.0.0",
+    "tempy": "~0.2.1",
     "validator": "~10.7.0",
     "vision": "~5.4.0",
     "winston": "~3.0.0",

@@ -1,6 +1,7 @@
 'use strict'
 
 const Fs = require('fs-extra')
+const Tempy = require('tempy')
 const Lockfile = require('lockfile')
 const { promisify: Promisify } = require('util')
 
@@ -229,6 +230,24 @@ class Filesystem {
    */
   isFileLocked(file, options) {
     return isFileLocked(file, options)
+  }
+
+  /**
+   * Create a random temporary file path
+   * you can write to.
+   *
+   * @param {Object} options
+   */
+  async tempFile({ extension, name } = {}) {
+    return Tempy.file({ extension, name })
+  }
+
+  /**
+   * Create a temporary directory path.
+   * The directory is created for you.
+   */
+  async tempDir() {
+    return Tempy.directory()
   }
 }
 
