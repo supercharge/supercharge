@@ -124,7 +124,8 @@ class Launch {
    * @param {Object} server
    */
   async loadAppPlugins(server) {
-    const plugins = require('./app')
+    const loadAppPlugins = require('./app')
+    const plugins = await loadAppPlugins()
     await server.register(plugins)
   }
 

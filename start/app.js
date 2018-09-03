@@ -1,25 +1,20 @@
 'use strict'
 
 const Path = require('path')
-
+const Fs = util('filesystem')
 const pluginPath = Path.resolve(__appRoot, 'app', 'web')
 
 /**
  * Register your hapi application plugins here.
  */
-const appPlugins = [
-  {
-    plugin: require(Path.resolve(pluginPath, 'base'))
-  },
-  {
-    plugin: require(Path.resolve(pluginPath, 'user-profile'))
-  },
-  {
-    plugin: require(Path.resolve(pluginPath, 'user-dashboard'))
-  },
-  {
-    plugin: require(Path.resolve(pluginPath, 'user-signup-login'))
-  }
-]
+async function loadAppPlugins() {
+  const plugins = await Fs.readDir(pluginPath)
 
-module.exports = appPlugins
+  return plugins.map(plugin => {
+    return {
+      plugin: require(Path.resolve(pluginPath, plugin))
+    }
+  })
+}
+
+module.exports = loadAppPlugins
