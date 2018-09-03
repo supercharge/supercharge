@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@adonisjs/ace": "~5.0.4",
-    "code": "~5.2.0",
+    "ava": "~1.0.0-beta.8",
     "cross-env": "~5.2.0",
     "eslint": "~4.19.1",
     "eslint-config-prettier": "~2.9.0",
@@ -76,7 +76,6 @@
     "eslint-plugin-promise": "~3.8.0",
     "eslint-plugin-standard": "~3.1.0",
     "execa": "~1.0.0",
-    "lab": "~15.5.0",
     "listr": "~0.14.2",
     "prettier": "~1.13.7"
   },
@@ -100,6 +99,12 @@
   "private": true,
   "scripts": {
     "setup": "node craft setup",
-    "test": "cross-env NODE_ENV=test lab --assert code --leaks --coverage --lint"
+    "test": "cross-env NODE_ENV=test ava"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.js",
+      "!**/base-test.js"
+    ]
   }
 }
