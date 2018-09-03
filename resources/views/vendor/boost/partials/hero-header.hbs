@@ -1,23 +1,23 @@
-<nav class="navbar navbar-expand-md">
+<nav class="navbar navbar-expand-md navbar-light">
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    {{> logo }}
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar" aria-controls="collapsingNavbar"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="navbar-collapse collapse w-100">
-        {{> logo }}
-
-        <ul class="nav navbar-nav">
+    <div class="navbar-collapse collapse w-100" id="collapsingNavbar">
+        <div class="col-4 nav navbar-nav">
             {{> nav/nav-left}}
-        </ul>
+        </div>
+
+        <div class="col-4 nav navbar-nav justify-content-center">
+            {{> nav/nav-center}}
+        </div>
+
+        <div class="col-4 nav navbar-nav justify-content-end">
+            {{> nav/hero-nav-right}}
+        </div>
     </div>
-
-    <ul class="nav navbar-nav w-100 justify-content-center">
-        {{> nav/nav-center}}
-    </ul>
-
-    <ul class="nav navbar-nav w-100 justify-content-end">
-        {{> nav/hero-nav-right}}
-    </ul>
 </nav>
