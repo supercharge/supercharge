@@ -15,6 +15,9 @@ const appPlugins = [
     plugin: require(Path.resolve(pluginPath, 'user-profile'))
   },
   {
+    plugin: require(Path.resolve(pluginPath, 'user-dashboard'))
+  },
+  {
     plugin: require(Path.resolve(pluginPath, 'user-signup-login'))
   }
 ]

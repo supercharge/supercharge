@@ -92,7 +92,7 @@ const Handler = {
   login: {
     handler: async (request, h) => {
       if (request.auth.isAuthenticated) {
-        return h.redirect('/profile')
+        return h.redirect('/home')
       }
 
       const { email, password } = request.payload
@@ -107,7 +107,7 @@ const Handler = {
 
       request.cookieAuth.set({ id: user.id })
 
-      return h.redirect('/profile')
+      return h.redirect('/home')
     },
     ext: {
       onPreResponse: {
