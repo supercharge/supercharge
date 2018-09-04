@@ -32,4 +32,5 @@ coverage
 # VS Code
 .vscode
 
-data
+# Code coverage
+.nyc_output
