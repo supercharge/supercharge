@@ -57,6 +57,7 @@
     "require-all": "~3.0.0",
     "simple-encryptor": "~2.0.0",
     "tempy": "~0.2.1",
+    "uuid": "~3.3.2",
     "validator": "~10.7.1",
     "vision": "~5.4.0",
     "winston": "~3.0.0",
