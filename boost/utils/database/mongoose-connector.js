@@ -19,6 +19,9 @@ class MongooseConnector {
   constructor(config) {
     this.config = config
 
+    // to avoid "ensureIndex" deprecation warning
+    Mongoose.set('useCreateIndex', true)
+
     Mongoose.Promise = global.Promise
     Mongoose.connection.on('error', err => {
       console.error(`⚡️ 🚨 ⚡️ 🚨 ⚡️ 🚨 Mongoose Error → ${err.message}`)
