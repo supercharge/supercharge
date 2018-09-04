@@ -3,25 +3,25 @@
 const BaseTest = require('../../base-test')
 
 class LoginTest extends BaseTest {
-  async beforeEach() {
-    console.log('is this before everything else?')
+  async before() {}
+  async beforeEach(t) {}
+  async after() {}
+  async afterEach() {}
+
+  async skipFailsToLoginWithoutPassword() {
+    // start method name with "skip": skip this test
   }
 
-  async showLogin(t) {
-    console.log('login')
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    t.fail()
+  async todoTask() {
+    // start method name with "todo": mark as todo
   }
 
-  async bar(t) {
-    console.log('bar')
-    const bar = Promise.resolve('bar')
-    await new Promise(resolve => setTimeout(resolve, 500))
-    t.is(await bar, 'bar')
+  async showLoginPage(t) {
+    t.pass()
   }
 
-  async after() {
-    console.log('is this before everything else?')
+  async succeedLogin(t) {
+    t.pass()
   }
 }
 

@@ -102,9 +102,13 @@
     "test": "cross-env NODE_ENV=test ava"
   },
   "ava": {
+    "require": [
+      "./test/test-setup.js"
+    ],
     "files": [
       "test/**/*.js",
-      "!**/base-test.js"
+      "!**/base-test.js",
+      "!**/test-setup.js"
     ]
   }
 }
