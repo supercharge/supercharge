@@ -99,12 +99,16 @@
   "private": true,
   "scripts": {
     "setup": "node craft setup",
-    "test": "cross-env NODE_ENV=test ava"
+    "test": "cross-env NODE_ENV=test ava",
+    "test-boost": "cross-env NODE_ENV=test ava boost/test/**/*.js"
   },
   "ava": {
+    "require": [
+      "./test/pre-test-setup.js"
+    ],
     "files": [
       "test/**/*.js",
-      "!**/base-test.js"
+      "!**/pre-test-setup.js"
     ]
   }
 }
