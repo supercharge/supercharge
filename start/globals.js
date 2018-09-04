@@ -25,7 +25,7 @@ class Globals {
    * environment
    */
   create() {
-    global.__appRoot = Path.resolve(this.appRoot)
+    this.setAppRoot()
 
     this.util()
     this.mail()
@@ -34,6 +34,13 @@ class Globals {
     this.viewsPath()
     this.storagePath()
     this.resourcePath()
+  }
+
+  /**
+   * Absolute path to the application's root directory.
+   */
+  setAppRoot() {
+    global.__appRoot = Path.resolve(this.appRoot)
   }
 
   /**
