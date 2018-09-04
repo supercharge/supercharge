@@ -1,5 +1,6 @@
 'use strict'
 
+const _ = require('lodash')
 const Path = require('path')
 
 class Globals {
@@ -30,6 +31,7 @@ class Globals {
     this.util()
     this.mail()
     this.event()
+    this.model()
     this.frequire()
     this.viewsPath()
     this.storagePath()
@@ -94,6 +96,17 @@ class Globals {
    */
   mail() {
     global.mail = (...path) => require(Path.resolve(this.appRoot, 'app', 'mails', ...path))
+  }
+
+  /**
+   * Shorthand function to quickly import Boost
+   * events.
+   */
+  model() {
+    global.model = name => {
+      const Models = require(Path.resolve(this.appRoot, 'app', 'models'))
+      return Models[_.upperFirst(name)]
+    }
   }
 
   /**
