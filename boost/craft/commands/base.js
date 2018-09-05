@@ -51,7 +51,13 @@ class BaseCommand extends Command {
   async ensureNotInstalled(force) {
     const exists = await this.pathExists(Path.join(__appRoot, '.env'))
 
-    if (!exists || force) {
+    if (!exists) {
+      return Promise.resolve()
+    }
+
+    if (force) {
+      console.log(this.chalk.red('Found existing app setup. Forcefully overriding it.\n'))
+
       return Promise.resolve()
     }
 
