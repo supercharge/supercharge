@@ -3,13 +3,17 @@
 const BaseTest = require('../../base-test')
 
 class LoginTest extends BaseTest {
-  async before() {}
-  async beforeEach(t) {}
-  async after() {}
-  async afterEach() {}
+  before() {}
+  beforeEach() {}
+  after() {}
+  afterEach() {}
 
   async skipFailsToLoginWithoutPassword() {
     // start method name with "skip": skip this test
+  }
+
+  async _thisMethodIsIgnored() {
+    console.log('this is ignored')
   }
 
   async todoTask() {

@@ -9,22 +9,31 @@ class TestRunner {
 
     this.methods()
       .filter(this.shouldInclude, this)
-      .map(method => {
+      .forEach(method => {
         const name = this.getTestName(method)
 
         /**
-         * All tests starting with an underscore
+         * All methods starting with an underscore
+         * are seen as private and ignored
+         * by the test runner
+         */
+        if (_.startsWith(method, '_')) {
+          return
+        }
+
+        /**
+         * All methods starting with "skip"
          * will be skipped.
          */
-        if (_.startsWith(method, '_') || _.startsWith(method, 'skip')) {
+        if (_.startsWith(method, 'skip')) {
           return this.skip(name, method)
         }
 
         /**
-         * All tests ending with an underscore
+         * All methods starting with "todo"
          * will be marked as TODO.
          */
-        if (_.endsWith(method, '_') || _.startsWith(method, 'todo')) {
+        if (_.startsWith(method, 'todo')) {
           return this.todo(name)
         }
 
