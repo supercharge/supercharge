@@ -125,7 +125,8 @@ class Launch {
    * @param {Object} server
    */
   async loadMiddleware(server) {
-    const middleware = require('./middleware')
+    const loadMiddleware = require('./middleware')
+    const middleware = await loadMiddleware()
     await server.register(middleware)
   }
 
