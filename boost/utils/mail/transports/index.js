@@ -4,9 +4,9 @@
  * Barrel export all transports
  */
 module.exports = {
-  ses: require('./transports/ses'),
-  smtp: require('./transports/smtp'),
-  mailgun: require('./transports/mailgun'),
-  postmark: require('./transports/postmark'),
-  sparkpost: require('./transports/sparkpost')
+  ses: require('./ses'),
+  smtp: require('./smtp'),
+  mailgun: require('./mailgun'),
+  postmark: require('./postmark'),
+  sparkpost: require('./sparkpost')
 }
