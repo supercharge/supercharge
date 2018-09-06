@@ -20,7 +20,7 @@
   "dependencies": {
     "@sindresorhus/slugify": "~0.3.0",
     "argon2": "~0.19.3",
-    "aws-sdk": "~2.307.0",
+    "aws-sdk": "^2.309.0",
     "axios": "~0.18.0",
     "bcryptjs": "~2.4.3",
     "boom": "~7.2.0",
@@ -32,7 +32,7 @@
     "edit-dotenv": "~1.0.4",
     "events": "~3.0.0",
     "fs-extra": "~7.0.0",
-    "handlebars": "~4.0.11",
+    "handlebars": "~4.0.12",
     "handlebars-helper-repeat": "~2.0.0",
     "handlebars-helpers": "~0.10.0",
     "hapi": "~17.5.4",
@@ -60,12 +60,12 @@
     "uuid": "~3.3.2",
     "validator": "~10.7.1",
     "vision": "~5.4.0",
-    "winston": "~3.0.0",
+    "winston": "~3.1.0",
     "youch": "~2.0.9",
     "youch-terminal": "~1.0.0"
   },
   "devDependencies": {
-    "@adonisjs/ace": "~5.0.4",
+    "@adonisjs/ace": "~5.0.5",
     "ava": "~1.0.0-beta.8",
     "cross-env": "~5.2.0",
     "eslint": "~4.19.1",
