@@ -13,14 +13,25 @@ class Launch {
    */
   async launchWithFullSpeed() {
     const server = this.createHapiServer()
+    await this.initializeServer(server)
+    await this.launch(server)
+  }
 
+  /**
+   * Initialize the hapi server instance and
+   * register core plugins, middleware, app
+   * plugins and configure views.
+   *
+   * @param {Object} server
+   */
+  async initializeServer(server) {
     await this.initializeEvents()
     await this.warmUpCore(server)
     await this.configureViews(server)
     await this.loadMiddleware(server)
     await this.loadAppPlugins(server)
     await this.connectDatabases()
-    await this.launch(server)
+    await server.initialize()
   }
 
   /**
