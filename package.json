@@ -112,7 +112,6 @@
     ],
     "files": [
       "test/**/*.js",
-      "!**/base-test.js",
       "!**/test-setup.js"
     ]
   }

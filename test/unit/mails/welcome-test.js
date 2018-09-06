@@ -1,26 +1,28 @@
 'use strict'
 
-const User = model('user')
-const Test = require('ava')
 const Config = util('config')
-const Uuid = require('uuid/v4')
+const BaseTest = util('base-test')
 const WelcomeMail = mail('welcome')
 
-Test.beforeEach(async ({ context }) => {
-  context.user = new User({ email: `user-${Uuid()}@mail.com` })
-})
+class WelcomeTest extends BaseTest {
+  async beforeEach({ context }) {
+    context.user = this.fakeUser()
+  }
 
-Test('email contains the name of the registered user', async t => {
-  const mail = new WelcomeMail(t.context.user)
-  const { to, html } = await mail.buildMessage()
+  async emailContainsTheNameOfTheRegisteredUser(t) {
+    const mail = new WelcomeMail(t.context.user)
+    const { to, html } = await mail.buildMessage()
 
-  t.true(to.includes(t.context.user.email))
-  t.true(html.includes(t.context.user.email))
-})
+    t.true(to.includes(t.context.user.email))
+    t.true(html.includes(t.context.user.email))
+  }
 
-Test('email has the correct subject', async t => {
-  const mail = new WelcomeMail(t.context.user)
-  const { subject } = await mail.buildMessage()
+  async emailHasTheCorrectSubject(t) {
+    const mail = new WelcomeMail(t.context.user)
+    const { subject } = await mail.buildMessage()
 
-  t.is(subject, `Welcome to ${Config.get('app.name')}!`)
-})
+    t.is(subject, `Welcome to ${Config.get('app.name')}!`)
+  }
+}
+
+module.exports = new WelcomeTest()
