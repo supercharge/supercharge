@@ -25,7 +25,7 @@ class Message {
   /**
    * Set the recepients of this message.
    *
-   * @param {Mixed} users
+   * @param {String|Object|Array} users
    */
   cc(users) {
     this.cc = users
@@ -37,7 +37,7 @@ class Message {
    * Set the recepients of this message
    * in blind copy.
    *
-   * @param {Mixed} users
+   * @param {String|Object|Array} users
    */
   bcc(users) {
     this.bcc = users
@@ -52,10 +52,7 @@ class Message {
    * @param {String} name
    */
   from(address, name) {
-    this.from = {
-      address,
-      name
-    }
+    this.from = { address, name }
 
     return this
   }
@@ -67,10 +64,7 @@ class Message {
    * @param {String} name
    */
   replyTo(address, name) {
-    this.replyTo = {
-      address,
-      name
-    }
+    this.replyTo = { address, name }
 
     return this
   }

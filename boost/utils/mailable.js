@@ -61,6 +61,30 @@ class Mailable {
   }
 
   /**
+   * Set the recepients of this message.
+   *
+   * @param {String|Object|Array} address
+   * @param {String} name
+   */
+  cc(address, name) {
+    this.setAddress('cc', address, name)
+
+    return this
+  }
+
+  /**
+   * Set the recepients of this message.
+   *
+   * @param {String|Object|Array} address
+   * @param {String} name
+   */
+  bcc(address, name) {
+    this.setAddress('bcc', address, name)
+
+    return this
+  }
+
+  /**
    * Set the subject line of this message.
    *
    * @param {String} subject

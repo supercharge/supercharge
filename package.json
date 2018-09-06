@@ -108,11 +108,12 @@
   },
   "ava": {
     "require": [
-      "./test/pre-test-setup.js"
+      "./test/test-setup.js"
     ],
     "files": [
       "test/**/*.js",
-      "!**/pre-test-setup.js"
+      "!**/base-test.js",
+      "!**/test-setup.js"
     ]
   }
 }
