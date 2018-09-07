@@ -122,9 +122,7 @@ class BaseTest extends Concerns {
    * @param {String} methodName
    */
   addTest(name, methodName) {
-    Ava(name, async t => {
-      return this[methodName](t)
-    })
+    Ava(name, async t => this[methodName](t))
   }
 
   /**
@@ -143,9 +141,7 @@ class BaseTest extends Concerns {
    * @param {String} methodName
    */
   skip(name, methodName) {
-    Ava.skip(name, async t => {
-      return this[methodName](t)
-    })
+    Ava.skip(name, async t => this[methodName](t))
   }
 
   /**
@@ -157,9 +153,7 @@ class BaseTest extends Concerns {
    * @param {String} methodName
    */
   only(name, methodName) {
-    Ava.only(name, async t => {
-      return this[methodName](t)
-    })
+    Ava.only(name, async t => this[methodName](t))
   }
 
   /**
@@ -169,9 +163,7 @@ class BaseTest extends Concerns {
    * @param {String} methodName
    */
   serial(name, methodName) {
-    Ava.serial(name, async t => {
-      return this[methodName](t)
-    })
+    Ava.serial(name, async t => this[methodName](t))
   }
 
   /**
@@ -181,9 +173,7 @@ class BaseTest extends Concerns {
    * @param {String} methodName
    */
   failing(name, methodName) {
-    Ava.failing(name, async t => {
-      return this[methodName](t)
-    })
+    Ava.failing(name, async t => this[methodName](t))
   }
 
   /**
