@@ -13,7 +13,7 @@ class Launch {
    */
   async launchWithFullSpeed() {
     const server = this.createHapiServer()
-    await this.initializeServer(server)
+    await this.initialize(server)
     await this.launch(server)
   }
 
@@ -24,7 +24,7 @@ class Launch {
    *
    * @param {Object} server
    */
-  async initializeServer(server) {
+  async initialize(server) {
     await this.initializeEvents()
     await this.warmUpCore(server)
     await this.configureViews(server)
