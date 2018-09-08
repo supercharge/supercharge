@@ -31,6 +31,7 @@
     "dotenv-expand": "~4.2.0",
     "edit-dotenv": "~1.0.4",
     "events": "~3.0.0",
+    "extends-classes": "~1.0.5",
     "fs-extra": "~7.0.0",
     "handlebars": "~4.0.12",
     "handlebars-helper-repeat": "~2.0.0",
