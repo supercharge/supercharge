@@ -102,10 +102,11 @@
   "private": true,
   "scripts": {
     "setup": "node craft setup",
-    "test": "cross-env NODE_ENV=test ava",
+    "test": "cross-env NODE_ENV=testing ava",
+    "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js",
     "cov": "npm run coverage",
-    "coverage": "cross-env NODE_ENV=test nyc ava",
-    "cov-boost": "cross-env NODE_ENV=test ava boost/test/**/*.js"
+    "coverage": "cross-env NODE_ENV=testing nyc ava",
+    "cov-boost": "cross-env NODE_ENV=testing nyc ava boost/test/**/*.js"
   },
   "ava": {
     "require": [

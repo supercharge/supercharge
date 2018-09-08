@@ -24,24 +24,29 @@ class Env {
    * the project's root directory.
    */
   getEnvPath() {
+    if (process.env.ENV_PATH) {
+      return process.env.ENV_PATH
+    }
+
+    if (process.env.NODE_ENV === 'testing') {
+      return '.env.testing'
+    }
+
     return '.env'
   }
 
   /**
    * Load the `.env` file to resolve all
-   * environment variables.
+   * environment variables. DotenvExpand
+   * resolves dynamic values inside of
+   * the .env file.
    *
    * @param {String} filename
    */
   load(filename) {
     const path = Path.resolve(__appRoot, filename)
-
-    try {
-      const config = Dotenv.config({ path })
-      DotenvExpand(config)
-    } catch (err) {
-      throw err
-    }
+    const config = Dotenv.config({ path })
+    DotenvExpand(config)
   }
 
   /**
