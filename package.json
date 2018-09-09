@@ -3,6 +3,15 @@
   "description": "Boost is a framework and app starter kit making it easy to develop your next idea.",
   "version": "0.0.0",
   "author": "Future Studio <info@futurestud.io>",
+  "ava": {
+    "require": [
+      "./test/test-setup.js"
+    ],
+    "files": [
+      "test/**/*.js",
+      "!**/test-setup.js"
+    ]
+  },
   "contributors": [
     {
       "name": "Marcus Poehls",
@@ -85,35 +94,26 @@
   "homepage": "https://boost.futurestud.io",
   "keywords": [
     "boost",
-    "saas",
-    "saas-starter-kit",
+    "bootstrap",
     "hapi",
     "hapi.js",
     "mongodb",
     "mongoose",
     "node",
     "node.js",
-    "bootstrap"
+    "saas",
+    "saas-starter-kit"
   ],
   "license": "MIT",
   "private": true,
   "scripts": {
+    "cov": "npm run coverage",
+    "cov-boost": "cross-env NODE_ENV=testing nyc ava boost/test/**/*.js",
+    "coverage": "cross-env NODE_ENV=testing nyc ava",
+    "lint": "eslint **/*js.js",
+    "lint-boost": "eslint 'boost/**/*js.js'",
     "setup": "node craft setup",
     "test": "cross-env NODE_ENV=testing ava",
-    "lint": "eslint **/*js.js",
-    "cov": "npm run coverage",
-    "coverage": "cross-env NODE_ENV=testing nyc ava",
-    "lint-boost": "eslint 'boost/**/*js.js'",
-    "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js",
-    "cov-boost": "cross-env NODE_ENV=testing nyc ava boost/test/**/*.js"
-  },
-  "ava": {
-    "require": [
-      "./test/test-setup.js"
-    ],
-    "files": [
-      "test/**/*.js",
-      "!**/test-setup.js"
-    ]
+    "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js"
   }
 }
