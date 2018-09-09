@@ -39,7 +39,7 @@ const Handler = {
     },
     ext: {
       onPreResponse: {
-        method: async function(request, h) {
+        method: async function (request, h) {
           const response = request.response
 
           if (!response.isBoom) {
@@ -94,7 +94,7 @@ const Handler = {
     },
     ext: {
       onPreResponse: {
-        method: async function(request, h) {
+        method: async function (request, h) {
           const response = request.response
 
           if (!response.isBoom) {

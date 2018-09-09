@@ -8,7 +8,7 @@ const { User } = frequire('app', 'models')
  * to authenticate requests based on a session cookie. Shortcut
  * the authenticated user to `request.user`.
  */
-async function register(server) {
+async function register (server) {
   await server.register([
     {
       plugin: require('hapi-auth-cookie')

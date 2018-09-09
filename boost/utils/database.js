@@ -13,7 +13,7 @@ class DatabaseManager {
    * Create a new DatabaseManager instance and
    * initialize an empty connections object.
    */
-  constructor() {
+  constructor () {
     this.connections = {}
   }
 
@@ -24,7 +24,7 @@ class DatabaseManager {
    *
    * @param {String} name
    */
-  async connect(name) {
+  async connect (name) {
     await this.connection(name).connect()
   }
 
@@ -35,7 +35,7 @@ class DatabaseManager {
    *
    * @param {String|Array} name
    */
-  async close(name) {
+  async close (name) {
     let connections = name || Object.keys(this.connections)
     connections = Array.isArray(connections) ? connections : [connections]
 
@@ -60,7 +60,7 @@ class DatabaseManager {
    *
    * @returns {Object}
    */
-  connection(name = this.defaultConnection()) {
+  connection (name = this.defaultConnection()) {
     if (this.connections[name]) {
       return this.connections[name]
     }
@@ -79,7 +79,7 @@ class DatabaseManager {
    *
    * @throws
    */
-  createNewConnection(name) {
+  createNewConnection (name) {
     if (!this.availableConnectors(name)) {
       throw new Error(`No database connector available for ${name}`)
     }
@@ -93,7 +93,7 @@ class DatabaseManager {
    *
    * @param {String} name
    */
-  connector(name) {
+  connector (name) {
     const config = this.configuration(name)
     const Connector = this.connectors()[name]
 
@@ -104,7 +104,7 @@ class DatabaseManager {
    * Returns an object of available connectors
    * shipped with Boost.
    */
-  connectors() {
+  connectors () {
     return {
       mongodb: MongooseConnector
     }
@@ -114,7 +114,7 @@ class DatabaseManager {
    * Returns a list of connector names
    * available with Boost.
    */
-  availableConnectors() {
+  availableConnectors () {
     return Object.keys(this.connectors())
   }
 
@@ -127,7 +127,7 @@ class DatabaseManager {
    *
    * @throws
    */
-  configuration(name = this.defaultConnection()) {
+  configuration (name = this.defaultConnection()) {
     const config = Config.get(`database.connections.${name}`)
 
     if (!config) {
@@ -141,7 +141,7 @@ class DatabaseManager {
    * Returns the name of the default database
    * configuration.
    */
-  defaultConnection() {
+  defaultConnection () {
     return Config.get('database.default')
   }
 
@@ -155,7 +155,7 @@ class DatabaseManager {
    *
    * @throws
    */
-  addConnection(name, connection) {
+  addConnection (name, connection) {
     if (this.connections[name]) {
       throw new Error(`Cannot add database connection ${name} more than once.`)
     }

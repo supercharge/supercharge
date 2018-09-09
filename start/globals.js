@@ -4,7 +4,7 @@ const _ = require('lodash')
 const Path = require('path')
 
 class Globals {
-  constructor({ fromAppRoot: appRoot } = {}) {
+  constructor ({ fromAppRoot: appRoot } = {}) {
     this.appRoot = appRoot || __dirname
     this.create()
   }
@@ -14,7 +14,7 @@ class Globals {
    *
    * @param {String} appRoot
    */
-  fromAppRoot(appRoot) {
+  fromAppRoot (appRoot) {
     this.appRoot = appRoot
     this.create()
 
@@ -25,7 +25,7 @@ class Globals {
    * Create the globals in the application
    * environment
    */
-  create() {
+  create () {
     this.setAppRoot()
 
     this.util()
@@ -41,7 +41,7 @@ class Globals {
   /**
    * Absolute path to the application's root directory.
    */
-  setAppRoot() {
+  setAppRoot () {
     global.__appRoot = Path.resolve(this.appRoot)
   }
 
@@ -56,28 +56,28 @@ class Globals {
    * const { Logger } = frequire('boost/utils/logger')
    * ```
    */
-  frequire() {
+  frequire () {
     global.frequire = (...path) => require(Path.resolve(this.appRoot, ...path))
   }
 
   /**
    * Absolute path to the resources/views directory.
    */
-  viewsPath() {
+  viewsPath () {
     global.__viewsPath = (...path) => Path.resolve(this.appRoot, 'resources', 'views', ...path)
   }
 
   /**
    * Absolute path to the storage directory.
    */
-  storagePath() {
+  storagePath () {
     global.__storagePath = (...path) => Path.resolve(this.appRoot, 'storage', ...path)
   }
 
   /**
    * Absolute path to the resources directory.
    */
-  resourcePath() {
+  resourcePath () {
     global.__resourcePath = (...path) => Path.resolve(this.appRoot, 'resources', ...path)
   }
 
@@ -86,7 +86,7 @@ class Globals {
    * utilities. The utilities are part of the
    * Boost installation
    */
-  util() {
+  util () {
     global.util = (...path) => require(Path.resolve(this.appRoot, 'boost', 'utils', ...path))
   }
 
@@ -94,7 +94,7 @@ class Globals {
    * Shorthand function to quickly import Boost
    * mailables.
    */
-  mail() {
+  mail () {
     global.mail = (...path) => require(Path.resolve(this.appRoot, 'app', 'mails', ...path))
   }
 
@@ -102,7 +102,7 @@ class Globals {
    * Shorthand function to quickly import Boost
    * events.
    */
-  model() {
+  model () {
     global.model = name => {
       const Models = require(Path.resolve(this.appRoot, 'app', 'models'))
       return Models[_.upperFirst(name)]
@@ -113,7 +113,7 @@ class Globals {
    * Shorthand function to quickly import Boost
    * events.
    */
-  event() {
+  event () {
     global.event = (...path) => require(Path.resolve(this.appRoot, 'app', 'events', ...path))
   }
 }

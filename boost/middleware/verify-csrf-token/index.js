@@ -7,7 +7,7 @@ const Config = util('config')
  * Register `crumb` as the last plugin in the server to
  * make sure the CSRF token is added to every view.
  */
-async function register(server) {
+async function register (server) {
   server.ext('onPreStart', async () => {
     await server.register([
       {

@@ -14,7 +14,7 @@ class UserRegistered extends Event {
    *
    * @param {Object} user
    */
-  constructor(user) {
+  constructor (user) {
     super()
     this.user = user
   }
@@ -24,7 +24,7 @@ class UserRegistered extends Event {
    * listener for this event must return the
    * same value in there `on()` method.
    */
-  emit() {
+  emit () {
     return 'user.registered'
   }
 }

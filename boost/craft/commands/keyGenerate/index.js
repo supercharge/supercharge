@@ -12,7 +12,7 @@ class KeyGenerate extends BaseCommand {
    * override an existing application key
    * or only echo the key on the CLI.
    */
-  static get signature() {
+  static get signature () {
     return `
     key:generate
     { -f, --force: Override any existing application key }
@@ -25,7 +25,7 @@ class KeyGenerate extends BaseCommand {
   /**
    * Returns the command description.
    */
-  static get description() {
+  static get description () {
     return 'Generate a secret application key'
   }
 
@@ -36,7 +36,7 @@ class KeyGenerate extends BaseCommand {
    *
    * @param {Object} arguments
    */
-  async handle(_, { env, echo }) {
+  async handle (_, { env, echo }) {
     const key = Encryption.generateKey()
 
     if (echo) {

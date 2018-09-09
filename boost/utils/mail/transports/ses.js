@@ -8,7 +8,7 @@ const AWS = require('aws-sdk')
  * based on the application's configuration.
  */
 class SesTransporter {
-  constructor(options) {
+  constructor (options) {
     return Nodemailer.createTransport({
       SES: new AWS.SES(options)
     })

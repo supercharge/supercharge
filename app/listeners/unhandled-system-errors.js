@@ -5,15 +5,15 @@ const Listener = util('Listener')
 const forTerminal = require('youch-terminal')
 
 class UnhandledSystemErrors extends Listener {
-  on() {
+  on () {
     return ['unhandledRejection', 'uncaughtException']
   }
 
-  type() {
+  type () {
     return 'system'
   }
 
-  async handle(error) {
+  async handle (error) {
     const output = await new Youch(error).toJSON()
     console.log(forTerminal(output))
   }

@@ -11,7 +11,7 @@ class Launch {
    * Initialize the hapi server to run
    * your application.
    */
-  async launchWithFullSpeed() {
+  async launchWithFullSpeed () {
     const server = this.createHapiServer()
     await this.initialize(server)
     await this.launch(server)
@@ -24,7 +24,7 @@ class Launch {
    *
    * @param {Object} server
    */
-  async initialize(server) {
+  async initialize (server) {
     await this.initializeEvents()
     await this.warmUpCore(server)
     await this.configureViews(server)
@@ -39,7 +39,7 @@ class Launch {
    *
    * @param {Object} server
    */
-  async launch(server) {
+  async launch (server) {
     try {
       await server.start()
     } catch (err) {
@@ -51,7 +51,7 @@ class Launch {
   /**
    * Create a new hapi server instance.
    */
-  createHapiServer() {
+  createHapiServer () {
     return new Hapi.Server({
       host: 'localhost',
       port: Config.get('app.port'),
@@ -78,7 +78,7 @@ class Launch {
    *
    * @throws
    */
-  failAction(_, __, error) {
+  failAction (_, __, error) {
     const errors = error.details.reduce((collector, { path, message }) => {
       const field = path[path.length - 1]
 
@@ -95,7 +95,7 @@ class Launch {
    * Register all application events and
    * assign listeners.
    */
-  async initializeEvents() {
+  async initializeEvents () {
     await Dispatcher.init()
   }
 
@@ -104,7 +104,7 @@ class Launch {
    *
    * @param {Object} server
    */
-  async warmUpCore(server) {
+  async warmUpCore (server) {
     const core = require('./core')
     await server.register(core)
   }
@@ -114,7 +114,7 @@ class Launch {
    *
    * @param {Object} server
    */
-  configureViews(server) {
+  configureViews (server) {
     const config = require('./views')
     server.views(config.load())
   }
@@ -124,7 +124,7 @@ class Launch {
    *
    * @param {Object} server
    */
-  async loadMiddleware(server) {
+  async loadMiddleware (server) {
     const loadMiddleware = require('./middleware')
     const middleware = await loadMiddleware()
     await server.register(middleware)
@@ -135,7 +135,7 @@ class Launch {
    *
    * @param {Object} server
    */
-  async loadAppPlugins(server) {
+  async loadAppPlugins (server) {
     const loadAppPlugins = require('./app')
     const plugins = await loadAppPlugins()
     await server.register(plugins)
@@ -145,7 +145,7 @@ class Launch {
    * Connect to the default database that is configured
    * in the `config/database.js` configuration file.
    */
-  async connectDatabases() {
+  async connectDatabases () {
     await DatabaseManager.connect()
   }
 }

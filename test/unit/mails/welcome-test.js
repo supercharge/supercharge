@@ -5,11 +5,11 @@ const BaseTest = util('base-test')
 const WelcomeMail = mail('welcome')
 
 class WelcomeTest extends BaseTest {
-  async beforeEach({ context }) {
+  async beforeEach ({ context }) {
     context.user = this.fakeUser()
   }
 
-  async emailContainsTheNameOfTheRegisteredUser(t) {
+  async emailContainsTheNameOfTheRegisteredUser (t) {
     const mail = new WelcomeMail(t.context.user)
     const { to, html } = await mail.buildMessage()
 
@@ -17,7 +17,7 @@ class WelcomeTest extends BaseTest {
     t.true(html.includes(t.context.user.email))
   }
 
-  async emailHasTheCorrectSubject(t) {
+  async emailHasTheCorrectSubject (t) {
     const mail = new WelcomeMail(t.context.user)
     const { subject } = await mail.buildMessage()
 

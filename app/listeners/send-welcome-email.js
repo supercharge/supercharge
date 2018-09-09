@@ -15,11 +15,11 @@ class SendWelcomeMail extends Listener {
    * This value matches the emitted event
    * in the `user-registered` event file.
    */
-  on() {
+  on () {
     return 'user.registered'
   }
 
-  async handle(event) {
+  async handle (event) {
     /**
      * You can surely delete the following logger statement
      * as soon as your mailer is ready to rock.

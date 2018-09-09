@@ -16,7 +16,7 @@ class Filesystem {
    *
    * @param {String} file
    */
-  stat(file) {
+  stat (file) {
     return Fs.stat(file)
   }
 
@@ -28,7 +28,7 @@ class Filesystem {
    * @param {String} path  - file or directory path
    * @param {Integer} mode - defaults to `fs.constants.F_OK`
    */
-  access(path, mode) {
+  access (path, mode) {
     return Fs.access(path, mode)
   }
 
@@ -39,7 +39,7 @@ class Filesystem {
    *
    * @returns {Boolean}
    */
-  pathExists(file) {
+  pathExists (file) {
     return Fs.pathExists(file)
   }
 
@@ -51,7 +51,7 @@ class Filesystem {
    *
    * @returns {Boolean}
    */
-  exists(file) {
+  exists (file) {
     return this.pathExists(file)
   }
 
@@ -62,7 +62,7 @@ class Filesystem {
    *
    * @param {String} file
    */
-  ensureFile(file) {
+  ensureFile (file) {
     return Fs.ensureFile(file)
   }
 
@@ -74,7 +74,7 @@ class Filesystem {
    * @param {String} file
    * @param {String|Object} encoding
    */
-  readFile(file, encoding) {
+  readFile (file, encoding) {
     return Fs.readFile(file, encoding)
   }
 
@@ -86,7 +86,7 @@ class Filesystem {
    * @param {String} path
    * @param {String} encoding
    */
-  readDir(path, encoding) {
+  readDir (path, encoding) {
     return Fs.readdir(path, encoding)
   }
 
@@ -99,7 +99,7 @@ class Filesystem {
    * @param  {String} content
    * @param  {Object} options
    */
-  writeFile(file, content, options) {
+  writeFile (file, content, options) {
     return Fs.outputFile(file, content, options)
   }
 
@@ -108,7 +108,7 @@ class Filesystem {
    *
    * @param {String} file
    */
-  removeFile(file) {
+  removeFile (file) {
     return Fs.remove(file)
   }
 
@@ -125,7 +125,7 @@ class Filesystem {
    * @param {String} dest - destination path
    * @param {Object} options
    */
-  copy(src, dest, options) {
+  copy (src, dest, options) {
     return Fs.copy(src, dest, options)
   }
 
@@ -138,7 +138,7 @@ class Filesystem {
    * @param {String} dest - destination path
    * @param {Object} options
    */
-  move(src, dest, options) {
+  move (src, dest, options) {
     return Fs.move(src, dest, options)
   }
 
@@ -149,7 +149,7 @@ class Filesystem {
    *
    * @param {String} dir - directory path
    */
-  ensureDir(dir) {
+  ensureDir (dir) {
     return Fs.ensureDir(dir)
   }
 
@@ -160,7 +160,7 @@ class Filesystem {
    *
    * @param {String} dir - directory path
    */
-  removeDir(dir) {
+  removeDir (dir) {
     return Fs.remove(dir)
   }
 
@@ -172,7 +172,7 @@ class Filesystem {
    *
    * @param {String} dir
    */
-  emptyDir(dir) {
+  emptyDir (dir) {
     return Fs.emptyDir(dir)
   }
 
@@ -184,7 +184,7 @@ class Filesystem {
    * @param {String} file
    * @param {String|Integer} mode
    */
-  chmod(file, mode) {
+  chmod (file, mode) {
     return Fs.chmod(file, mode)
   }
 
@@ -196,7 +196,7 @@ class Filesystem {
    * @param {String} src
    * @param {String} dest
    */
-  ensureLink(src, dest) {
+  ensureLink (src, dest) {
     return Fs.ensureLink(src, dest)
   }
 
@@ -209,7 +209,7 @@ class Filesystem {
    * @param {String} dest
    * @param {String} type
    */
-  ensureSymlink(src, dest, type) {
+  ensureSymlink (src, dest, type) {
     return Fs.ensureSymlink(src, dest, type)
   }
 
@@ -219,7 +219,7 @@ class Filesystem {
    * @param {String} file
    * @param {Object} options
    */
-  lockFile(file, options) {
+  lockFile (file, options) {
     return lockFile(file, options)
   }
 
@@ -228,7 +228,7 @@ class Filesystem {
    *
    * @param {String} file
    */
-  unlockFile(file) {
+  unlockFile (file) {
     return unlockFile(file)
   }
 
@@ -240,7 +240,7 @@ class Filesystem {
    *
    * @returns {Boolean}
    */
-  isFileLocked(file, options) {
+  isFileLocked (file, options) {
     return isFileLocked(file, options)
   }
 
@@ -250,7 +250,7 @@ class Filesystem {
    *
    * @param {Object} options
    */
-  async tempFile({ extension, name } = {}) {
+  async tempFile ({ extension, name } = {}) {
     return Tempy.file({ extension, name })
   }
 
@@ -258,7 +258,7 @@ class Filesystem {
    * Create a temporary directory path.
    * The directory is created for you.
    */
-  async tempDir() {
+  async tempDir () {
     return Tempy.directory()
   }
 }

@@ -12,31 +12,31 @@ class RegistersHooks {
    * in the test class. This method
    * runs before `beforeEach`.
    */
-  async before() {}
+  async before () {}
 
   /**
    * Run actions before each test case
    * in the test class.
    */
-  async beforeEach() {}
+  async beforeEach () {}
 
   /**
    * Run actions after all test cases
    * in the test class. This method
    * runs after `afterEach`.
    */
-  async after() {}
+  async after () {}
 
   /**
    * Run actions after each test case
    * in the test class.
    */
-  async afterEach() {}
+  async afterEach () {}
 
   /**
    * Register hooks to the test runner.
    */
-  assignHooks() {
+  assignHooks () {
     this.assignBeforeHook()
     this.assignBeforeEachHook()
     this.assignAfterHook()
@@ -46,7 +46,7 @@ class RegistersHooks {
   /**
    * Register the `before` hook.
    */
-  assignBeforeHook() {
+  assignBeforeHook () {
     Ava.before(`${this.constructor.name}: before`, async t => {
       return this.before(t)
     })
@@ -55,7 +55,7 @@ class RegistersHooks {
   /**
    * Register the `beforeEach` hook.
    */
-  assignBeforeEachHook() {
+  assignBeforeEachHook () {
     Ava.beforeEach(`${this.constructor.name}: beforeEach`, async t => {
       return this.beforeEach(t)
     })
@@ -64,7 +64,7 @@ class RegistersHooks {
   /**
    * Register the `after` hook.
    */
-  assignAfterHook() {
+  assignAfterHook () {
     Ava.after(`${this.constructor.name}: after`, async t => {
       return this.after(t)
     })
@@ -73,7 +73,7 @@ class RegistersHooks {
   /**
    * Register the `afterEach` hook.
    */
-  assignAfterEachHook() {
+  assignAfterEachHook () {
     Ava.afterEach(`${this.constructor.name}: afterEach`, async t => {
       return this.afterEach(t)
     })

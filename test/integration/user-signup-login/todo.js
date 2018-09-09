@@ -3,23 +3,23 @@
 const BaseTest = util('base-test')
 
 class LoginTest extends BaseTest {
-  async skipFailsToLoginWithoutPassword() {
+  async skipFailsToLoginWithoutPassword () {
     // start method name with "skip": skip this test
   }
 
-  async _thisMethodIsIgnored() {
+  async _thisMethodIsIgnored () {
     console.log('this is ignored')
   }
 
-  async todoTask() {
+  async todoTask () {
     // start method name with "todo": mark as todo
   }
 
-  async showLoginPage(t) {
+  async showLoginPage (t) {
     t.pass()
   }
 
-  async succeedLogin(t) {
+  async succeedLogin (t) {
     t.pass()
   }
 }

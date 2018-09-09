@@ -17,7 +17,7 @@ class Concerns extends Many(Http, FakeData, RegistersHook) {
    *
    * @param {String} method
    */
-  __call(method) {
+  __call (method) {
     console.log(`'${method}()' is missing!`)
   }
 }

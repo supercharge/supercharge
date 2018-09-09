@@ -11,7 +11,7 @@ class AppName extends BaseCommand {
    * name as a parameter or ask for the
    * name afterwards.
    */
-  static get signature() {
+  static get signature () {
     return `
     app:name
     { name?: Your application name }
@@ -22,7 +22,7 @@ class AppName extends BaseCommand {
   /**
    * Returns the command description.
    */
-  static get description() {
+  static get description () {
     return 'Set your application name'
   }
 
@@ -30,7 +30,7 @@ class AppName extends BaseCommand {
    * Handle the command and set the aplication name
    * in the project's .env file.
    */
-  async handle({ name }, { env }) {
+  async handle ({ name }, { env }) {
     if (!name) {
       name = await this.ask('The name of your application:')
     }

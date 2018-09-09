@@ -8,7 +8,7 @@ const SparkpostTransport = require('nodemailer-sparkpost-transport')
  * based on the application's configuration.
  */
 class SparkpostTransporter {
-  constructor(options) {
+  constructor (options) {
     return Nodemailer.createTransport(SparkpostTransport(options))
   }
 }

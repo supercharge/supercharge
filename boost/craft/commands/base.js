@@ -17,7 +17,7 @@ class BaseCommand extends Command {
    *
    * @param {Function} callback
    */
-  async run(callback) {
+  async run (callback) {
     this.chalk.enabled = true
 
     try {
@@ -34,7 +34,7 @@ class BaseCommand extends Command {
    *
    * @param {Object} error
    */
-  prettyPrintError(error) {
+  prettyPrintError (error) {
     console.log(`\n  ${this.chalk.bold.red('Error:')} ${this.chalk.red(error.message)}\n`)
   }
 
@@ -48,7 +48,7 @@ class BaseCommand extends Command {
    *
    * @throws
    */
-  async ensureNotInstalled(force) {
+  async ensureNotInstalled (force) {
     const exists = await this.pathExists(Path.join(__appRoot, '.env'))
 
     if (!exists) {
@@ -72,7 +72,7 @@ class BaseCommand extends Command {
    *
    * @throws
    */
-  async ensureInProjectRoot() {
+  async ensureInProjectRoot () {
     const exists = await this.pathExists(Path.join(process.cwd(), 'craft'))
 
     if (!exists) {
@@ -89,7 +89,7 @@ class BaseCommand extends Command {
    *
    * @returns {String}
    */
-  async getEnvPath(file) {
+  async getEnvPath (file) {
     file = file || '.env'
 
     return this.getAbsolutePath(file)
@@ -102,7 +102,7 @@ class BaseCommand extends Command {
    *
    * @returns {String}
    */
-  async getAbsolutePath(file) {
+  async getAbsolutePath (file) {
     await this.ensureFile(file)
 
     return Path.isAbsolute(file) ? file : Path.join(process.cwd(), file)
@@ -115,7 +115,7 @@ class BaseCommand extends Command {
    *
    * @returns {String}
    */
-  async getFileContent(file) {
+  async getFileContent (file) {
     return this.readFile(file, 'utf8')
   }
 
@@ -127,7 +127,7 @@ class BaseCommand extends Command {
    * @param {String} envPath
    * @param {String} changes
    */
-  async updateEnvContents(envPath, changes) {
+  async updateEnvContents (envPath, changes) {
     const dotenvContent = await this.getFileContent(envPath)
     const updatedContent = DotenvEdit(dotenvContent, changes)
 

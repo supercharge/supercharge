@@ -15,7 +15,7 @@ class Dispatcher {
   /**
    * Initialize a new Dispatcher instance.
    */
-  constructor() {
+  constructor () {
     this.eventsFolder = Path.resolve(__appRoot, 'app', 'events')
     this.listenersFolder = Path.resolve(__appRoot, 'app', 'listeners')
 
@@ -29,7 +29,7 @@ class Dispatcher {
    * file system. Assign user and system
    * listeners to the related events.
    */
-  async init() {
+  async init () {
     await this.loadEvents()
     await this.loadListeners()
     await this.registerUserEvents()
@@ -42,7 +42,7 @@ class Dispatcher {
    * @param {String} eventName
    * @param {object} handler
    */
-  on(eventName, handler) {
+  on (eventName, handler) {
     this.listen(eventName, handler)
   }
 
@@ -54,7 +54,7 @@ class Dispatcher {
    * @param {String} eventName
    * @param {Object} handler
    */
-  listen(eventName, handler) {
+  listen (eventName, handler) {
     if (!eventName) {
       throw new Error(
         'Event name missing. Pass an event name as the first parameter to "Event.listen(eventName, listener)".'
@@ -76,7 +76,7 @@ class Dispatcher {
    * @param {String} event
    * @param  {...Mixed} data
    */
-  fire(event, ...data) {
+  fire (event, ...data) {
     if (typeof event === 'string') {
       this.emitter.emit(event, ...data)
     } else {
@@ -87,14 +87,14 @@ class Dispatcher {
   /**
    * Load all events from the file system.
    */
-  async loadEvents() {
+  async loadEvents () {
     this.events = await this.loadFiles(this.eventsFolder)
   }
 
   /**
    * Load all listeners from the file system.
    */
-  async loadListeners() {
+  async loadListeners () {
     this.listeners = await this.loadFiles(this.listenersFolder)
   }
 
@@ -104,7 +104,7 @@ class Dispatcher {
    *
    * @param {String} folder
    */
-  async loadFiles(folder) {
+  async loadFiles (folder) {
     if (await Fs.pathExists(folder)) {
       return RequireAll({
         dirname: folder,
@@ -119,7 +119,7 @@ class Dispatcher {
    * Ensure that the given instance extends the
    * `Event` class.
    */
-  ensureEvent(event) {
+  ensureEvent (event) {
     if (Object.getPrototypeOf(event.constructor).name !== 'Event') {
       throw new Error(`Your event "${event.constructor.name}" must extend the "Event" utility`)
     }
@@ -129,7 +129,7 @@ class Dispatcher {
    * Ensure that the given instance extends the
    * `Listener` class.
    */
-  ensureListener(listener) {
+  ensureListener (listener) {
     if (Object.getPrototypeOf(listener.constructor).name !== 'Listener') {
       throw new Error(`Your event listener "${listener.constructor.name}" must extend the "Listener" utility`)
     }
@@ -139,7 +139,7 @@ class Dispatcher {
    * Register listeners that listen for events
    * emitted by the Node.js process.
    */
-  async registerSystemEventListeners() {
+  async registerSystemEventListeners () {
     const listeners = this.getSystemEventListeners()
 
     _.forEach(listeners, listener => {
@@ -152,7 +152,7 @@ class Dispatcher {
    * files in the app directory should return
    * the type `user`.
    */
-  getSystemEventListeners() {
+  getSystemEventListeners () {
     return _.map(this.listeners, Listener => {
       const listener = new Listener()
       this.ensureListener(listener)
@@ -166,7 +166,7 @@ class Dispatcher {
    * Register user events and the assigned
    * listeners to the event emitter.
    */
-  async registerUserEvents() {
+  async registerUserEvents () {
     _.forEach(this.events, async Event => {
       const event = new Event()
       this.ensureEvent(event)
@@ -181,7 +181,7 @@ class Dispatcher {
    *
    * @param {String} eventName
    */
-  getListenersByEventName(eventName) {
+  getListenersByEventName (eventName) {
     return _.map(this.listeners, Listener => {
       const listener = new Listener()
       return listener.on().includes(eventName) ? listener : null
@@ -195,7 +195,7 @@ class Dispatcher {
    * @param {String} eventNames
    * @param {Array|Object} listeners
    */
-  registerListeners(eventNames, listeners) {
+  registerListeners (eventNames, listeners) {
     const events = Array.isArray(eventNames) ? eventNames : [eventNames]
     listeners = Array.isArray(listeners) ? listeners : [listeners]
 
@@ -213,7 +213,7 @@ class Dispatcher {
    *
    * @param {String} eventName
    */
-  async registerUserEvent(eventName) {
+  async registerUserEvent (eventName) {
     this.emitter.on(eventName)
   }
 
@@ -224,7 +224,7 @@ class Dispatcher {
    * @param {String} eventName
    * @param {Object} listener
    */
-  registerUserListenerForEvent(eventName, listener) {
+  registerUserListenerForEvent (eventName, listener) {
     this.emitter.on(eventName, listener)
   }
 
@@ -234,7 +234,7 @@ class Dispatcher {
    * @param {String} eventName
    * @param {Object} listener
    */
-  async registerSystemEvent(eventName, listener) {
+  async registerSystemEvent (eventName, listener) {
     process.on(eventName, await listener)
   }
 
@@ -246,7 +246,7 @@ class Dispatcher {
    * @param {String} event
    * @param {Object} listener
    */
-  forget(event, listener) {
+  forget (event, listener) {
     if (!listener) {
       listener = event
       this.ensureListener(listener)
@@ -262,7 +262,7 @@ class Dispatcher {
    * @param {String} event
    * @param {Object} listener
    */
-  forgetUserListener(event, listener) {
+  forgetUserListener (event, listener) {
     const events = Array.isArray(event) ? event : [event]
 
     _.forEach(events, eventName => {

@@ -14,7 +14,7 @@ class Cli {
    * Create a new Craft instance and
    * register all Commands.
    */
-  constructor() {
+  constructor () {
     _.forEach(Commands, Command => Ace.addCommand(Command))
   }
 
@@ -22,7 +22,7 @@ class Cli {
    * Kick off Craft and run the
    * selected command.
    */
-  makeItHappen() {
+  makeItHappen () {
     Ace.wireUpWithCommander()
     Ace.invoke()
   }

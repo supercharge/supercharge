@@ -13,7 +13,7 @@ class CreatesFakeData {
    * Create a fake user instance without
    * saving it to the database.
    */
-  fakeUser() {
+  fakeUser () {
     return new User({ email: `user-${Uuid()}@mail.com` })
   }
 }

@@ -14,7 +14,7 @@ class Setup extends BaseCommand {
    * Convenience command to quickly set up
    * a Boost application.
    */
-  static get signature() {
+  static get signature () {
     return `
     setup
     { -n, --name=@value: Your application name }
@@ -25,7 +25,7 @@ class Setup extends BaseCommand {
   /**
    * Returns the command description.
    */
-  static get description() {
+  static get description () {
     return 'Automated setup for your new Boost application'
   }
 
@@ -36,7 +36,7 @@ class Setup extends BaseCommand {
    * @param {Object} _
    * @param {Object} arguments
    */
-  async handle(_, { force: forceSetup, name: appName }) {
+  async handle (_, { force: forceSetup, name: appName }) {
     console.log(this.chalk.green(`Initialize your Boost application.\n`))
 
     const tasks = new Listr([
@@ -72,7 +72,7 @@ class Setup extends BaseCommand {
    *
    * @param {Boolean} forceSetup
    */
-  async copyEnvFile(forceSetup) {
+  async copyEnvFile (forceSetup) {
     await this.ensureNotInstalled(forceSetup)
 
     const source = await this.getEnvPath('.env.example')
@@ -84,7 +84,7 @@ class Setup extends BaseCommand {
   /**
    * Generate an application key.
    */
-  async generateAppKey() {
+  async generateAppKey () {
     await Execa('node', ['craft', 'key:generate'], { cwd: __appRoot })
   }
 
@@ -93,7 +93,7 @@ class Setup extends BaseCommand {
    *
    * @param {String} name
    */
-  async setAppName(name) {
+  async setAppName (name) {
     await Execa('node', ['craft', 'app:name', name], { cwd: __appRoot })
   }
 
@@ -104,7 +104,7 @@ class Setup extends BaseCommand {
    *
    * @param {String} appName
    */
-  finalNote(appName) {
+  finalNote (appName) {
     appName = appName || 'Boost'
 
     const lines = [

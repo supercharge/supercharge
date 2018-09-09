@@ -16,7 +16,7 @@ class MongooseConnector {
    *
    * @param {Object} config
    */
-  constructor(config) {
+  constructor (config) {
     this.config = config
 
     // to avoid "ensureIndex" deprecation warning
@@ -31,7 +31,7 @@ class MongooseConnector {
   /**
    * Create the MongoDB connection.
    */
-  async connect() {
+  async connect () {
     await Mongoose.connect(
       this.connectionString(),
       {
@@ -50,7 +50,7 @@ class MongooseConnector {
   /**
    * Close the MongoDB connection.
    */
-  async close() {
+  async close () {
     await Mongoose.disconnect()
   }
 
@@ -58,7 +58,7 @@ class MongooseConnector {
    * Compose the database connection string from
    * the database configuration.
    */
-  connectionString() {
+  connectionString () {
     const { host, port, database } = this.config
     return `mongodb://${host}:${port}/${database}`
   }

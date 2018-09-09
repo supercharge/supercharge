@@ -34,7 +34,7 @@ const core = [
   {
     plugin: require('hapi-pulse'),
     options: {
-      onSignal: async function() {
+      onSignal: async function () {
         await DatabaseManager.close()
       }
     }

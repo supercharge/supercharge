@@ -14,7 +14,7 @@ const logfile = Path.resolve(__appRoot, 'storage', 'logs', logFileName)
  * that includes the ISO date time.
  */
 class WinstonFileLogger {
-  constructor() {
+  constructor () {
     return new Winston.transports.File({
       filename: logfile,
       level: 'debug',

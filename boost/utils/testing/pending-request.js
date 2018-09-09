@@ -4,7 +4,7 @@ const Path = require('path')
 const Launch = require(Path.resolve(__appRoot, 'start'))
 
 class PendingRequest {
-  constructor() {
+  constructor () {
     this.user = null
     this.server = null
     this.headers = {}
@@ -12,7 +12,7 @@ class PendingRequest {
     this.payload = {}
   }
 
-  async createServer() {
+  async createServer () {
     const launch = new Launch()
     const server = Launch.createHapiServer()
     await launch.initialize(server)
@@ -20,19 +20,19 @@ class PendingRequest {
     return server
   }
 
-  header(name, value) {
+  header (name, value) {
     this.headers[name] = value
 
     return this
   }
 
-  headers(headers) {
+  headers (headers) {
     Object.assign(this.headers, headers)
 
     return this
   }
 
-  withoutMiddleware(names) {
+  withoutMiddleware (names) {
     names = Array.isArray(names) ? names : [names]
 
     // TODO
@@ -40,47 +40,47 @@ class PendingRequest {
     return this
   }
 
-  actAs(user) {
+  actAs (user) {
     this.user = user
 
     return this
   }
 
-  get({ uri, headers }) {
+  get ({ uri, headers }) {
     this.headers(headers)
 
     return this.inject({ method: 'GET', uri })
   }
 
-  post({ uri, headers, payload }) {
+  post ({ uri, headers, payload }) {
     this.headers(headers)
     this.payload = payload
 
     return this.inject({ method: 'POST', uri })
   }
 
-  put({ uri, headers, payload }) {
+  put ({ uri, headers, payload }) {
     this.headers(headers)
     this.payload = payload
 
     return this.inject({ method: 'PUT', uri })
   }
 
-  patch({ uri, headers, payload }) {
+  patch ({ uri, headers, payload }) {
     this.headers(headers)
     this.payload = payload
 
     return this.inject({ method: 'PATCH', uri })
   }
 
-  delete({ uri, headers, payload }) {
+  delete ({ uri, headers, payload }) {
     this.headers = headers
     this.payload = payload
 
     return this.inject({ method: 'DELETE', uri })
   }
 
-  async inject({ method, uri }) {
+  async inject ({ method, uri }) {
     this.server = await this.createServer()
 
     await this.server.inject({

@@ -13,7 +13,7 @@ class BaseTest extends Concerns {
   /**
    * Create a new test case instance.
    */
-  constructor() {
+  constructor () {
     super()
 
     this.assignHooks()
@@ -25,7 +25,7 @@ class BaseTest extends Concerns {
    * is checked for being a private class method, a
    * test to skip, an actual test, and many more.
    */
-  registerTests() {
+  registerTests () {
     this.classMethods()
       .filter(this.shouldExclude, this)
       .forEach(methodName => {
@@ -36,7 +36,7 @@ class BaseTest extends Concerns {
   /**
    * Returns all methods from the test class
    */
-  classMethods() {
+  classMethods () {
     return Object.getOwnPropertyNames(Object.getPrototypeOf(this))
   }
 
@@ -46,7 +46,7 @@ class BaseTest extends Concerns {
    *
    * @param {String} methodName
    */
-  shouldExclude(methodName) {
+  shouldExclude (methodName) {
     return !this.methodsToSkip().includes(methodName)
   }
 
@@ -54,7 +54,7 @@ class BaseTest extends Concerns {
    * A list of methods that should not be
    * assigned as test cases.
    */
-  methodsToSkip() {
+  methodsToSkip () {
     return ['constructor', 'before', 'beforeEach', 'after', 'afterEach']
   }
 
@@ -63,7 +63,7 @@ class BaseTest extends Concerns {
    *
    * @param {String} methodName
    */
-  createTestFromMethod(methodName) {
+  createTestFromMethod (methodName) {
     const name = this.readableTestName(methodName)
 
     /**
@@ -121,7 +121,7 @@ class BaseTest extends Concerns {
    * @param {String} name
    * @param {String} methodName
    */
-  addTest(name, methodName) {
+  addTest (name, methodName) {
     Ava(name, async t => this[methodName](t))
   }
 
@@ -129,7 +129,7 @@ class BaseTest extends Concerns {
    * Create a test that is marked as todo.
    * @param {String} name
    */
-  todo(name) {
+  todo (name) {
     Ava.todo(name)
   }
 
@@ -140,7 +140,7 @@ class BaseTest extends Concerns {
    * @param {String} name
    * @param {String} methodName
    */
-  skip(name, methodName) {
+  skip (name, methodName) {
     Ava.skip(name, async t => this[methodName](t))
   }
 
@@ -152,7 +152,7 @@ class BaseTest extends Concerns {
    * @param {String} name
    * @param {String} methodName
    */
-  only(name, methodName) {
+  only (name, methodName) {
     Ava.only(name, async t => this[methodName](t))
   }
 
@@ -162,7 +162,7 @@ class BaseTest extends Concerns {
    * @param {String} name
    * @param {String} methodName
    */
-  serial(name, methodName) {
+  serial (name, methodName) {
     Ava.serial(name, async t => this[methodName](t))
   }
 
@@ -172,7 +172,7 @@ class BaseTest extends Concerns {
    * @param {String} name
    * @param {String} methodName
    */
-  failing(name, methodName) {
+  failing (name, methodName) {
     Ava.failing(name, async t => this[methodName](t))
   }
 
@@ -195,7 +195,7 @@ class BaseTest extends Concerns {
    *
    * @param {String} name
    */
-  readableTestName(name) {
+  readableTestName (name) {
     return _.chain(name)
       .kebabCase(name)
       .replace(/-/g, ' ')

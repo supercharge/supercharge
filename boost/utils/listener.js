@@ -12,7 +12,7 @@ class Listener {
    *
    * @returns {String|Array}
    */
-  on() {
+  on () {
     throw new Error(`${this.contructor.name} must implement the on() function.`)
   }
 
@@ -20,7 +20,7 @@ class Listener {
    * Implement your event handling in this `handle`
    * method. Implement it as an async function.
    */
-  async handle() {
+  async handle () {
     throw new Error('Your event listener must implement the async handle() function')
   }
 
@@ -30,7 +30,7 @@ class Listener {
    * `system` for Node.js process listeners,
    * type `user` for your custom events.
    */
-  type() {
+  type () {
     return 'user'
   }
 }

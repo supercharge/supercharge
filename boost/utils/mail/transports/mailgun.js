@@ -8,7 +8,7 @@ const MailgunTransport = require('nodemailer-mailgun-transport')
  * based on the application's configuration.
  */
 class MailgunTransporter {
-  constructor(options) {
+  constructor (options) {
     return Nodemailer.createTransport(MailgunTransport(options))
   }
 }

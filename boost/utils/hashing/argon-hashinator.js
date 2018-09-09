@@ -4,7 +4,7 @@ const Config = util('config')
 const Argon = require('argon2')
 
 class BcryptHashinator {
-  constructor() {
+  constructor () {
     this.memory = Config.get('hashing.argon.memory')
     this.time = Config.get('hashing.argon.time')
     this.threads = Config.get('hashing.argon.threads')
@@ -17,7 +17,7 @@ class BcryptHashinator {
    *
    * @returns {String}
    */
-  async make(value) {
+  async make (value) {
     return Argon.hash(value, {
       timeCost: this.time,
       memoryCost: this.memory,
@@ -34,7 +34,7 @@ class BcryptHashinator {
    *
    * @returns {Boolean}
    */
-  async check(value, hash) {
+  async check (value, hash) {
     return Argon.verify(value, hash)
   }
 }

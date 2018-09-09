@@ -8,7 +8,7 @@ const PostmarkTransport = require('nodemailer-postmark-transport')
  * based on the application's configuration.
  */
 class PostmarkTransporter {
-  constructor(options) {
+  constructor (options) {
     return Nodemailer.createTransport(PostmarkTransport(options))
   }
 }

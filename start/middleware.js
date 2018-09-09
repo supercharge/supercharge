@@ -8,7 +8,7 @@ const middlewarePath = Path.resolve(__appRoot, 'boost', 'middleware')
  * All Boost middlewares that apply to all
  * or a group of requests.
  */
-async function loadMiddleware({ exclude } = {}) {
+async function loadMiddleware ({ exclude } = {}) {
   const middleware = await Fs.readDir(middlewarePath)
   const excludes = Array.isArray(exclude) ? exclude : [exclude]
 

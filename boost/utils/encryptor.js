@@ -11,7 +11,7 @@ class Encryption {
    * @param {String} key
    * @param {Object} options
    */
-  constructor(key = Config.get('app.key'), options) {
+  constructor (key = Config.get('app.key'), options) {
     this.key = key
     this.encryptor = Encryptor(Object.assign({}, { key }, options))
   }
@@ -23,7 +23,7 @@ class Encryption {
    *
    * @returns {String}
    */
-  static generateKey(cipher = Config.get('app.cipher')) {
+  static generateKey (cipher = Config.get('app.cipher')) {
     const bytes = cipher === 'AES-128-CBC' ? 16 : 32
     return Encryption.randomKey(bytes)
   }
@@ -35,7 +35,7 @@ class Encryption {
    *
    * @returns {String}
    */
-  static randomKey(bytes = 20) {
+  static randomKey (bytes = 20) {
     return Crypto.randomBytes(Math.ceil(bytes / 2))
       .toString('hex')
       .slice(0, bytes)
@@ -46,7 +46,7 @@ class Encryption {
    *
    * @returns {String}
    */
-  getKey() {
+  getKey () {
     return this.key
   }
 
@@ -57,7 +57,7 @@ class Encryption {
    *
    * @returns {String}
    */
-  encrypt(value) {
+  encrypt (value) {
     return this.encryptor.encrypt(value)
   }
 
@@ -68,7 +68,7 @@ class Encryption {
    *
    * @returns {Mixed}
    */
-  decrypt(value) {
+  decrypt (value) {
     return this.encryptor.decrypt(value)
   }
 
@@ -79,7 +79,7 @@ class Encryption {
    *
    * @returns {String}
    */
-  hmac(string) {
+  hmac (string) {
     return this.encryptor.hmac(string)
   }
 
@@ -90,7 +90,7 @@ class Encryption {
    *
    * @returns {String}
    */
-  base64Encode(value) {
+  base64Encode (value) {
     return Buffer.from(value).toString('base64')
   }
 
@@ -101,7 +101,7 @@ class Encryption {
    *
    * @returns {String}
    */
-  base64Decode(value) {
+  base64Decode (value) {
     const buffer = Buffer.isBuffer(value) ? value : Buffer.from(value, 'base64')
     return buffer.toString('utf8')
   }

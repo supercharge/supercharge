@@ -9,7 +9,7 @@ class Mailer {
   /**
    * Create a new mailer instance.
    */
-  constructor() {
+  constructor () {
     this.from = Config.get('mail.from')
     this.replyTo = Config.get('mail.from')
 
@@ -27,7 +27,7 @@ class Mailer {
    *
    * @param {String|Object|Array} users
    */
-  to(users) {
+  to (users) {
     return new Message(this).to(users)
   }
 
@@ -37,7 +37,7 @@ class Mailer {
    *
    * @param {String|Object|Array} users
    */
-  cc(users) {
+  cc (users) {
     return new Message(this).cc(users)
   }
 
@@ -47,7 +47,7 @@ class Mailer {
    *
    * @param {String|Object|Array} users
    */
-  bcc(users) {
+  bcc (users) {
     return new Message(this).bcc(users)
   }
 
@@ -58,7 +58,7 @@ class Mailer {
    * @param {String|Object|Array} address
    * @param {String} name
    */
-  from(address, name) {
+  from (address, name) {
     return new Message(this).from(address, name)
   }
 
@@ -69,7 +69,7 @@ class Mailer {
    * @param {String|Object|Array} address
    * @param {String} name
    */
-  replyTo(address, name) {
+  replyTo (address, name) {
     return new Message(this).replyTo(address, name)
   }
 
@@ -78,7 +78,7 @@ class Mailer {
    * This catches application errors (we don’t care about),
    * but still throw system errors.
    */
-  async fireAndForget(mailable) {
+  async fireAndForget (mailable) {
     try {
       await this.send(mailable)
     } catch (err) {
@@ -91,7 +91,7 @@ class Mailer {
    *
    * @param {Object} mailable
    */
-  async send(mailable = {}) {
+  async send (mailable = {}) {
     if (Object.getPrototypeOf(mailable.constructor).name !== 'Mailable') {
       throw new Error('Pass a Mailable instance to the Mailer.send(mailable) method.')
     }

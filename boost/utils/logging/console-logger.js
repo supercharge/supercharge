@@ -10,7 +10,7 @@ const { combine, timestamp, printf } = Winston.format
  * that includes the ISO date time.
  */
 class WinstonConsoleLogger {
-  constructor() {
+  constructor () {
     return new Winston.transports.Console({
       format: combine(
         timestamp(),
@@ -35,7 +35,7 @@ class WinstonConsoleLogger {
    *
    * @param {integer} label - Winston log level as a string label
    */
-  getColorForLevel(label) {
+  getColorForLevel (label) {
     const colors = this.colors()
 
     return colors[label] || Chalk.white
@@ -45,7 +45,7 @@ class WinstonConsoleLogger {
    * Color levels, ranked ascending
    * from freakout to chilly
    */
-  colors() {
+  colors () {
     return {
       error: Chalk.bold.red,
       warn: Chalk.yellow,

@@ -9,7 +9,7 @@ class Hashinator {
   /**
    * Initialize the hashing driver.
    */
-  constructor() {
+  constructor () {
     const driver = Config.get('hashing.driver')
 
     if (driver === 'argon') {
@@ -27,7 +27,7 @@ class Hashinator {
    *
    * @returns {String}
    */
-  async make(value) {
+  async make (value) {
     return this.driver.make(value)
   }
 
@@ -41,7 +41,7 @@ class Hashinator {
    *
    * @returns {Boolean}
    */
-  async check(value, hash) {
+  async check (value, hash) {
     return this.driver.check(value, hash)
   }
 
@@ -50,7 +50,7 @@ class Hashinator {
    *
    * @param {String|Buffer} value
    */
-  md5(value) {
+  md5 (value) {
     return MD5(value)
   }
 }

@@ -11,7 +11,7 @@ class Mailable {
   /**
    * Initialize a new mailable instance.
    */
-  constructor() {
+  constructor () {
     this.message = {}
   }
 
@@ -20,7 +20,7 @@ class Mailable {
    * method. This default will force a custom
    * `create` method or it throws an error.
    */
-  create() {
+  create () {
     throw new Error(`Make sure to implement the "create" method in your ${this.constructor.name} mailable.`)
   }
 
@@ -30,7 +30,7 @@ class Mailable {
    * @param {String|Object|Array} address
    * @param {String} name
    */
-  to(address, name) {
+  to (address, name) {
     this.setAddress('to', address, name)
 
     return this
@@ -42,7 +42,7 @@ class Mailable {
    * @param {String|Object|Array} address
    * @param {String} name
    */
-  from(address, name) {
+  from (address, name) {
     this.setAddress('from', address, name)
 
     return this
@@ -54,7 +54,7 @@ class Mailable {
    * @param {String|Object|Array} address
    * @param {String} name
    */
-  replyTo(address, name) {
+  replyTo (address, name) {
     this.setAddress('replyTo', address, name)
 
     return this
@@ -66,7 +66,7 @@ class Mailable {
    * @param {String|Object|Array} address
    * @param {String} name
    */
-  cc(address, name) {
+  cc (address, name) {
     this.setAddress('cc', address, name)
 
     return this
@@ -78,7 +78,7 @@ class Mailable {
    * @param {String|Object|Array} address
    * @param {String} name
    */
-  bcc(address, name) {
+  bcc (address, name) {
     this.setAddress('bcc', address, name)
 
     return this
@@ -89,7 +89,7 @@ class Mailable {
    *
    * @param {String} subject
    */
-  subject(subject) {
+  subject (subject) {
     this.message.subject = subject
 
     return this
@@ -100,7 +100,7 @@ class Mailable {
    *
    * @param {String} html
    */
-  html(html) {
+  html (html) {
     this.message.html = html
 
     return this
@@ -111,7 +111,7 @@ class Mailable {
    *
    * @param {String} view
    */
-  view(view) {
+  view (view) {
     this.view = view
 
     return this
@@ -122,7 +122,7 @@ class Mailable {
    *
    * @param {String} view
    */
-  text(textView) {
+  text (textView) {
     this.textView = textView
 
     return this
@@ -134,7 +134,7 @@ class Mailable {
    * @param {String|Object} key
    * @param {String} value
    */
-  with(key, value) {
+  with (key, value) {
     this.viewData = this.viewData || {}
 
     if (_.isObject(key)) {
@@ -151,7 +151,7 @@ class Mailable {
    *
    * @returns {Object}
    */
-  async buildMessage() {
+  async buildMessage () {
     this.create()
     await this.render()
 
@@ -162,7 +162,7 @@ class Mailable {
    * Renders the message's content. Read and render
    * the HTML view and plain text.
    */
-  async render() {
+  async render () {
     this.message.html = await this.buildView(this.view, this.viewData)
 
     if (!this.textView) {
@@ -181,7 +181,7 @@ class Mailable {
 
    * @returns {String}
    */
-  async buildView(viewName, viewData) {
+  async buildView (viewName, viewData) {
     const template = await this.readTemplate(viewName)
     const render = Handlebars.compile(template)
 
@@ -195,7 +195,7 @@ class Mailable {
    *
    * @returns {String}
    */
-  async readTemplate(viewName) {
+  async readTemplate (viewName) {
     return ReadFile(this.getTemplatePath(viewName), 'utf8')
   }
 
@@ -206,7 +206,7 @@ class Mailable {
    *
    * @returns {String}
    */
-  getTemplatePath(viewName) {
+  getTemplatePath (viewName) {
     const filename = viewName.split('.').join('/')
 
     return __viewsPath(`${filename}.hbs`)
@@ -217,7 +217,7 @@ class Mailable {
    * This will always create an array of address objects. If
    * `address` is an array of objects, it will concat them.
    */
-  setAddress(field, address, name) {
+  setAddress (field, address, name) {
     this.message[field] = this.message[field] || []
 
     if (address instanceof Array === true) {

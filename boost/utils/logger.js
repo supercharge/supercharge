@@ -16,7 +16,7 @@ class Logger {
    * and configure the desired transports
    * based on the application config.
    */
-  constructor() {
+  constructor () {
     this.driver = Config.get('logging.driver')
     this.logger = this.logger = Winston.createLogger()
 
@@ -28,7 +28,7 @@ class Logger {
   /**
    * Load and register the logger transports.
    */
-  loadDrivers() {
+  loadDrivers () {
     if (this.driver === 'console') {
       this.logger.add(new WinstonConsole())
     }

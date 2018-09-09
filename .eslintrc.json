@@ -4,12 +4,9 @@
     "node": true
   },
   "extends": [
-    "standard",
-    "prettier",
-    "prettier/standard"
+    "standard"
   ],
   "plugins": [
-    "prettier",
     "standard"
   ],
   "globals": {
@@ -25,15 +22,5 @@
   },
   "parserOptions": {
     "ecmaVersion": 8
-  },
-  "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "semi": false,
-        "singleQuote": true,
-        "printWidth": 120
-      }
-    ]
   }
 }

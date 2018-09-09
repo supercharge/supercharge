@@ -4,12 +4,12 @@ const Config = util('config')
 const Mailable = util('mailable')
 
 class WelcomeMail extends Mailable {
-  constructor(user) {
+  constructor (user) {
     super()
     this.user = user
   }
 
-  create() {
+  create () {
     this.to(this.user.email)
       .view('emails.welcome')
       .subject(`Welcome to ${Config.get('app.name')}!`)

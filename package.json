@@ -70,17 +70,14 @@
     "ava": "~1.0.0-beta.8",
     "cross-env": "~5.2.0",
     "eslint": "~4.19.1",
-    "eslint-config-prettier": "~2.9.0",
     "eslint-config-standard": "~11.0.0",
     "eslint-plugin-import": "~2.13.0",
     "eslint-plugin-node": "~6.0.1",
-    "eslint-plugin-prettier": "~2.6.2",
     "eslint-plugin-promise": "~3.8.0",
     "eslint-plugin-standard": "~3.1.0",
     "execa": "~1.0.0",
     "listr": "~0.14.2",
-    "nyc": "~13.0.1",
-    "prettier": "~1.13.7"
+    "nyc": "~13.0.1"
   },
   "engines": {
     "node": ">= 8.9.0"
@@ -103,9 +100,10 @@
   "scripts": {
     "setup": "node craft setup",
     "test": "cross-env NODE_ENV=testing ava",
-    "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js",
+    "lint": "eslint 'boost/**.js'",
     "cov": "npm run coverage",
     "coverage": "cross-env NODE_ENV=testing nyc ava",
+    "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js",
     "cov-boost": "cross-env NODE_ENV=testing nyc ava boost/test/**/*.js"
   },
   "ava": {

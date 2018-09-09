@@ -7,7 +7,7 @@ const pluginPath = Path.resolve(__appRoot, 'app', 'web')
 /**
  * Register your hapi application plugins here.
  */
-async function loadAppPlugins() {
+async function loadAppPlugins () {
   const plugins = await Fs.readDir(pluginPath)
 
   return plugins.map(plugin => {

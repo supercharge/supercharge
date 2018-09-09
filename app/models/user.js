@@ -33,7 +33,7 @@ const userSchema = new Mongoose.Schema(
   {
     toJSON: {
       virtuals: true,
-      transform: function(_, ret) {
+      transform: function (_, ret) {
         delete ret._id
         delete ret.password
 
@@ -51,14 +51,14 @@ const userSchema = new Mongoose.Schema(
  * use the “User” model in your app and static methods to find documents
  * like `const user = await User.findByEmail('marcus@futurestud.io')`
  */
-userSchema.statics.findByEmail = function(email) {
+userSchema.statics.findByEmail = function (email) {
   return this.findOne({ email })
 }
 
 /**
  * Instance Methods
  */
-userSchema.methods.comparePassword = async function(candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   const isMatch = await Hash.check(candidatePassword, this.password)
 
   if (isMatch) {
@@ -69,18 +69,18 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   throw Boom.badRequest(message, { password: message })
 }
 
-userSchema.methods.hashPassword = async function() {
+userSchema.methods.hashPassword = async function () {
   const hash = await Hash.make(this.password)
   this.password = hash
   return this
 }
 
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function () {
   this.authToken = Encryptor.randomKey(20)
   return this
 }
 
-userSchema.methods.resetPassword = async function() {
+userSchema.methods.resetPassword = async function () {
   try {
     const passwordResetToken = Encryptor.randomKey(20)
     const hash = await Hash.make(passwordResetToken)
@@ -97,7 +97,7 @@ userSchema.methods.resetPassword = async function() {
   }
 }
 
-userSchema.methods.comparePasswordResetToken = async function(resetToken) {
+userSchema.methods.comparePasswordResetToken = async function (resetToken) {
   if (this.passwordResetDeadline < Date.now()) {
     throw Boom.badRequest('Your password reset token is invalid, please request a new one.')
   }
@@ -115,7 +115,7 @@ userSchema.methods.comparePasswordResetToken = async function(resetToken) {
 /**
  * Virtuals
  */
-userSchema.virtual('gravatar').get(function() {
+userSchema.virtual('gravatar').get(function () {
   const hash = Hash.md5(this.email)
   return `https://gravatar.com/avatar/${hash}?s=200`
 })

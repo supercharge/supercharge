@@ -11,7 +11,7 @@ class Views {
    * Enrich the Handlebars instance to include
    * dozens of useful layout helpers.
    */
-  constructor() {
+  constructor () {
     this.handlebarsInstance = this.initializeHandlebars()
   }
 
@@ -19,7 +19,7 @@ class Views {
    * Initialize an extended handlebars instance that
    * contains hundrets of additional helpers.
    */
-  initializeHandlebars() {
+  initializeHandlebars () {
     HandlebarsHelpers({
       handlebars: Handlebars
     })
@@ -33,7 +33,7 @@ class Views {
    *
    * @returns {Object}
    */
-  load() {
+  load () {
     return {
       engines: {
         hbs: this.handlebars()
@@ -44,7 +44,7 @@ class Views {
       helpersPath: this.helpersLocations(),
       partialsPath: this.partialsLocations(),
       isCached: Config.get('app.env') === 'production',
-      context: function(request) {
+      context: function (request) {
         return {
           request,
           user: request.auth.credentials,
@@ -60,7 +60,7 @@ class Views {
    *
    * @returns {Object}
    */
-  handlebars() {
+  handlebars () {
     return this.handlebarsInstance
   }
 
@@ -70,7 +70,7 @@ class Views {
    *
    * @returns {String}
    */
-  viewsPath() {
+  viewsPath () {
     return __resourcePath('views')
   }
 
@@ -80,7 +80,7 @@ class Views {
    *
    * @returns {Array}
    */
-  viewPaths() {
+  viewPaths () {
     const views = this.viewsPath()
 
     // eslint-disable-next-line
@@ -96,7 +96,7 @@ class Views {
    *
    * @returns {Array}
    */
-  layoutLocations() {
+  layoutLocations () {
     const views = this.viewsPath()
 
     // eslint-disable-next-line
@@ -112,7 +112,7 @@ class Views {
    *
    * @returns {Array}
    */
-  helpersLocations() {
+  helpersLocations () {
     const views = this.viewsPath()
 
     // eslint-disable-next-line
@@ -128,7 +128,7 @@ class Views {
    *
    * @returns {Array}
    */
-  partialsLocations() {
+  partialsLocations () {
     const views = this.viewsPath()
 
     // eslint-disable-next-line

@@ -22,7 +22,7 @@ class Event {
    *
    * @returns {String}
    */
-  emit() {
+  emit () {
     return this.constructor.name
   }
 
@@ -33,7 +33,7 @@ class Event {
    *
    * @param {object|String} event
    */
-  static fire(event) {
+  static fire (event) {
     Dispatcher.fire(event)
   }
 
@@ -43,7 +43,7 @@ class Event {
    * @param {String} event
    * @param {Object} handler
    */
-  static on(event, handler) {
+  static on (event, handler) {
     Dispatcher.listen(event, handler)
   }
 
@@ -53,7 +53,7 @@ class Event {
    * @param {String} event
    * @param {Object} handler
    */
-  static listen(event, handler) {
+  static listen (event, handler) {
     Dispatcher.listen(event, handler)
   }
 
@@ -64,7 +64,7 @@ class Event {
    * @param {String} event
    * @param {Object} listener
    */
-  static off(event, listener) {
+  static off (event, listener) {
     Dispatcher.forget(event, listener)
   }
 
@@ -75,7 +75,7 @@ class Event {
    * @param {String} event
    * @param {Object} listener
    */
-  static forget(event, listener) {
+  static forget (event, listener) {
     Dispatcher.forget(event, listener)
   }
 }

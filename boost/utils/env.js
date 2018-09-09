@@ -15,7 +15,7 @@ class Env {
    * Initialize the applications environment by
    * reading the .env file.
    */
-  constructor() {
+  constructor () {
     this.load(this.getEnvPath())
   }
 
@@ -23,7 +23,7 @@ class Env {
    * Returns the `.env` file path and name in
    * the project's root directory.
    */
-  getEnvPath() {
+  getEnvPath () {
     if (process.env.ENV_PATH) {
       return process.env.ENV_PATH
     }
@@ -43,7 +43,7 @@ class Env {
    *
    * @param {String} filename
    */
-  load(filename) {
+  load (filename) {
     const path = Path.resolve(__appRoot, filename)
     const config = Dotenv.config({ path })
     DotenvExpand(config)
@@ -56,7 +56,7 @@ class Env {
    * @param {String} key
    * @param {String} defaultValue
    */
-  get(key, defaultValue = null) {
+  get (key, defaultValue = null) {
     return _.get(process.env, key, defaultValue)
   }
 
@@ -66,7 +66,7 @@ class Env {
    * @param {String} key
    * @param {String} value
    */
-  set(key, value) {
+  set (key, value) {
     _.set(process.env, key, value)
   }
 }

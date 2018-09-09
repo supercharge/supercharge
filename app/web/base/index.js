@@ -2,7 +2,7 @@
 
 const Routes = require('./routes')
 
-function register(server) {
+function register (server) {
   server.route(Routes)
   server.log('info', 'Plugin registered: base routes & assets')
 }

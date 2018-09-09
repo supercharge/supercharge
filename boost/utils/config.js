@@ -15,7 +15,7 @@ class Config {
    * by setting the configuration path and
    * reading all config files.
    */
-  constructor() {
+  constructor () {
     this.configPath = Path.resolve(__appRoot, 'config')
     this.config = {}
     this.syncConfigFiles()
@@ -24,7 +24,7 @@ class Config {
   /**
    * Import all application configurations.
    */
-  syncConfigFiles() {
+  syncConfigFiles () {
     this.config = RequireAll({
       dirname: this.configPath,
       filter: /(.*)\.js$/
@@ -39,7 +39,7 @@ class Config {
    *
    * @returns {Mixed}
    */
-  get(key, defaultValue) {
+  get (key, defaultValue) {
     return _.get(this.config, key, defaultValue)
   }
 }
