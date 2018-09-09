@@ -100,9 +100,10 @@
   "scripts": {
     "setup": "node craft setup",
     "test": "cross-env NODE_ENV=testing ava",
-    "lint": "eslint 'boost/**.js'",
+    "lint": "eslint **/*js.js",
     "cov": "npm run coverage",
     "coverage": "cross-env NODE_ENV=testing nyc ava",
+    "lint-boost": "eslint 'boost/**/*js.js'",
     "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js",
     "cov-boost": "cross-env NODE_ENV=testing nyc ava boost/test/**/*.js"
   },
