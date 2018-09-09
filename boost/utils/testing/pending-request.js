@@ -20,19 +20,21 @@ class PendingRequest {
     return server
   }
 
-  withHeader(name, value) {
+  header(name, value) {
     this.headers[name] = value
 
     return this
   }
 
-  withHeaders(headers) {
+  headers(headers) {
     Object.assign(this.headers, headers)
 
     return this
   }
 
-  withoutMiddleware() {
+  withoutMiddleware(names) {
+    names = Array.isArray(names) ? names : [names]
+
     // TODO
 
     return this
@@ -45,27 +47,27 @@ class PendingRequest {
   }
 
   get({ uri, headers }) {
-    this.withHeaders(headers)
+    this.headers(headers)
 
     return this.inject({ method: 'GET', uri })
   }
 
   post({ uri, headers, payload }) {
-    this.withHeaders(headers)
+    this.headers(headers)
     this.payload = payload
 
     return this.inject({ method: 'POST', uri })
   }
 
   put({ uri, headers, payload }) {
-    this.withHeaders(headers)
+    this.headers(headers)
     this.payload = payload
 
     return this.inject({ method: 'PUT', uri })
   }
 
   patch({ uri, headers, payload }) {
-    this.withHeaders(headers)
+    this.headers(headers)
     this.payload = payload
 
     return this.inject({ method: 'PATCH', uri })

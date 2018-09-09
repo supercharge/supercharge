@@ -1,6 +1,6 @@
 'use strict'
 
-const PendingRequest = require('./pending-request')
+const PendingRequest = require('./../pending-request')
 
 class MakesHttpRequests {
   actAs(user) {
@@ -8,67 +8,35 @@ class MakesHttpRequests {
   }
 
   withHeader(name, value) {
-    return new PendingRequest().withHeader(name, value)
+    return new PendingRequest().header(name, value)
   }
 
   withHeaders(headers) {
-    return new PendingRequest().withHeaders(headers)
+    return new PendingRequest().headers(headers)
   }
 
   withoutMiddleware(names) {
-    return new PendingRequest().withoutMiddleware()
-  }
-
-  actAs(user) {
-    this.user = user
-
-    return this
+    return new PendingRequest().withoutMiddleware(names)
   }
 
   get({ uri, headers }) {
-    this.withHeaders(headers)
-
-    return this.inject({ method: 'GET', uri })
+    return new PendingRequest().headers(headers).inject({ method: 'GET', uri })
   }
 
   post({ uri, headers, payload }) {
-    this.withHeaders(headers)
-    this.payload = payload
-
-    return this.inject({ method: 'POST', uri })
+    return new PendingRequest().headers(headers).inject({ method: 'POST', uri, payload })
   }
 
   put({ uri, headers, payload }) {
-    this.withHeaders(headers)
-    this.payload = payload
-
-    return this.inject({ method: 'PUT', uri })
+    return new PendingRequest().headers(headers).inject({ method: 'PUT', uri, payload })
   }
 
   patch({ uri, headers, payload }) {
-    this.withHeaders(headers)
-    this.payload = payload
-
-    return this.inject({ method: 'PATCH', uri })
+    return new PendingRequest().headers(headers).inject({ method: 'PATCH', uri, payload })
   }
 
   delete({ uri, headers, payload }) {
-    this.headers = headers
-    this.payload = payload
-
-    return this.inject({ method: 'DELETE', uri })
-  }
-
-  async inject({ method, uri }) {
-    this.server = await this.createServer()
-
-    await this.server.inject({
-      method,
-      url: uri,
-      headers: this.headers,
-      payload: this.payload,
-      credentials: this.user
-    })
+    return new PendingRequest().headers(headers).inject({ method: 'DELETE', uri, payload })
   }
 }
 
