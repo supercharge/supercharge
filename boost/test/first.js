@@ -1,7 +1,11 @@
 'use strict'
 
-const Test = require('ava')
+const BaseTest = util('base-test')
 
-Test('TODO', async t => {
-  t.pass()
-})
+class First extends BaseTest {
+  first (t) {
+    t.pass()
+  }
+}
+
+module.exports = new First()
