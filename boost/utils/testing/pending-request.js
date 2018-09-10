@@ -1,6 +1,8 @@
 'use strict'
 
+const _ = require('lodash')
 const Path = require('path')
+const Cookie = require('cookie')
 const Launch = require(Path.resolve(__appRoot, 'start'))
 
 class PendingRequest {
@@ -86,17 +88,24 @@ class PendingRequest {
     return this.inject({ method: 'DELETE', uri })
   }
 
-  async inject ({ method, uri }) {
+  async inject ({ method, url }) {
     this.server = await this.createServer()
 
-    // TODO transform cookies
+    const cookies = this.formatCookies()
+    const headers = Object.assign({}, this.headers, { cookie: cookies.join('; ') })
 
     await this.server.inject({
+      url,
       method,
-      url: uri,
-      headers: this.headers,
+      headers,
       payload: this.payload,
       credentials: this.user
+    })
+  }
+
+  formatCookies () {
+    return _.map(this.cookies, (value, name) => {
+      return Cookie.serialize(name, value)
     })
   }
 }
