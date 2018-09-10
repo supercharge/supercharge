@@ -19,24 +19,28 @@ class MakesHttpRequests {
     return new PendingRequest().withoutMiddleware(names)
   }
 
+  request (headers) {
+    return new PendingRequest().headers(headers)
+  }
+
   get ({ uri, headers }) {
-    return new PendingRequest().headers(headers).inject({ method: 'GET', uri })
+    return this.request(headers).inject({ method: 'GET', uri })
   }
 
   post ({ uri, headers, payload }) {
-    return new PendingRequest().headers(headers).inject({ method: 'POST', uri, payload })
+    return this.request(headers).inject({ method: 'POST', uri, payload })
   }
 
   put ({ uri, headers, payload }) {
-    return new PendingRequest().headers(headers).inject({ method: 'PUT', uri, payload })
+    return this.request(headers).inject({ method: 'PUT', uri, payload })
   }
 
   patch ({ uri, headers, payload }) {
-    return new PendingRequest().headers(headers).inject({ method: 'PATCH', uri, payload })
+    return this.request(headers).inject({ method: 'PATCH', uri, payload })
   }
 
   delete ({ uri, headers, payload }) {
-    return new PendingRequest().headers(headers).inject({ method: 'DELETE', uri, payload })
+    return this.request(headers).inject({ method: 'DELETE', uri, payload })
   }
 }
 

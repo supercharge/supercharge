@@ -32,6 +32,12 @@ class PendingRequest {
     return this
   }
 
+  cookie (name, value) {
+    this.cookies[name] = value
+
+    return this
+  }
+
   withoutMiddleware (names) {
     names = Array.isArray(names) ? names : [names]
 
@@ -82,6 +88,8 @@ class PendingRequest {
 
   async inject ({ method, uri }) {
     this.server = await this.createServer()
+
+    // TODO transform cookies
 
     await this.server.inject({
       method,
