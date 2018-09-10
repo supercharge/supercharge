@@ -7,12 +7,16 @@ class MakesHttpRequests {
     return new PendingRequest().actAs(user)
   }
 
-  withHeader (name, value) {
+  header (name, value) {
     return new PendingRequest().header(name, value)
   }
 
-  withHeaders (headers) {
+  headers (headers) {
     return new PendingRequest().headers(headers)
+  }
+
+  cookie (name, value) {
+    return new PendingRequest().cookie(name, value)
   }
 
   withoutMiddleware (names) {

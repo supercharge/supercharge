@@ -7,11 +7,21 @@ const RegistersHook = require('./concerns/registers-hooks')
 const RegistersTests = require('./concerns/registers-tests')
 
 /**
- * Create a base class that wraps up all
- * test concerns into a single class
- * which extends the base test.
+ * This is the base test class each test should
+ * implement. It provides reusable utilities
+ * to quickly create powerful test cases.
  */
-class Concerns extends Many(Http, FakeData, RegistersHook, RegistersTests) {
+class BaseTest extends Many(Http, FakeData, RegistersHook, RegistersTests) {
+  /**
+   * Create a new test case instance.
+   */
+  constructor () {
+    super()
+
+    this.assignHooks()
+    this.registerTests()
+  }
+
   /**
    * Prints out the method name that
    * is unavailable on a class.
@@ -23,4 +33,4 @@ class Concerns extends Many(Http, FakeData, RegistersHook, RegistersTests) {
   }
 }
 
-module.exports = Concerns
+module.exports = BaseTest
