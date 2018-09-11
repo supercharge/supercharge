@@ -7,42 +7,49 @@ const DatabaseManager = util('database')
 const Dispatcher = util('event/dispatcher')
 
 class Launch {
+  constructor () {
+    this.server = this.createHapiServer()
+  }
+
+  /**
+   * Returns the current hapi server instance.
+   */
+  getServer () {
+    return this.server
+  }
   /**
    * Initialize the hapi server to run
    * your application.
    */
   async launchWithFullSpeed () {
-    const server = this.createHapiServer()
-    await this.initialize(server)
-    await this.launch(server)
+    await this.initialize()
+    await this.launch()
   }
 
   /**
    * Initialize the hapi server instance and
    * register core plugins, middleware, app
    * plugins and configure views.
-   *
-   * @param {Object} server
    */
-  async initialize (server) {
+  async initialize () {
     await this.initializeEvents()
-    await this.warmUpCore(server)
-    await this.configureViews(server)
-    await this.loadMiddleware(server)
-    await this.loadAppPlugins(server)
+    await this.warmUpCore()
+    await this.configureViews()
+    await this.loadMiddleware()
+    await this.loadAppPlugins()
     await this.connectDatabases()
-    await server.initialize()
+    await this.server.initialize()
   }
 
   /**
    * Start the hapi server.
-   *
-   * @param {Object} server
    */
-  async launch (server) {
+  async launch () {
     try {
-      await server.start()
+      await this.server.start()
     } catch (err) {
+      this.server = null
+
       console.error(err)
       process.exit(1)
     }
@@ -101,44 +108,39 @@ class Launch {
 
   /**
    * Register the Boost core dependencies.
-   *
-   * @param {Object} server
    */
-  async warmUpCore (server) {
-    const core = require('./core')
-    await server.register(core)
+  async warmUpCore (options) {
+    const loadCore = require('./core')
+    const core = await loadCore(options)
+    await this.server.register(core)
   }
 
   /**
    * Configure the Boost view engine.
-   *
-   * @param {Object} server
    */
-  configureViews (server) {
+  configureViews () {
     const config = require('./views')
-    server.views(config.load())
+    this.server.views(config.load())
   }
 
   /**
    * Register all middleware.
    *
-   * @param {Object} server
+   * @param {Object} options
    */
-  async loadMiddleware (server) {
+  async loadMiddleware (options) {
     const loadMiddleware = require('./middleware')
-    const middleware = await loadMiddleware()
-    await server.register(middleware)
+    const middleware = await loadMiddleware(options)
+    await this.server.register(middleware)
   }
 
   /**
    * Register all application plugins.
-   *
-   * @param {Object} server
    */
-  async loadAppPlugins (server) {
+  async loadAppPlugins () {
     const loadAppPlugins = require('./app')
     const plugins = await loadAppPlugins()
-    await server.register(plugins)
+    await this.server.register(plugins)
   }
 
   /**

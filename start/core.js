@@ -1,38 +1,26 @@
 'use strict'
 
 const Config = util('config')
-const Laabr = require('laabr')
 const DatabaseManager = util('database')
-
-// configure hapi response logging format
-Laabr.format('log', ':time :level :message')
 
 /**
  * This is the list of core plugins for Boost.
  * Add any core plugins if needed.
  */
-const core = [
+const corePlugins = [
+  { plugin: 'inert' },
+  { plugin: 'vision' },
+  { plugin: 'hapi-request-utilities' },
+  { plugin: 'hapi-response-utilities' },
   {
-    plugin: require('inert')
-  },
-  {
-    plugin: require('vision')
-  },
-  {
-    plugin: require('hapi-request-utilities')
-  },
-  {
-    plugin: require('hapi-response-utilities')
-  },
-  {
-    plugin: require('hapi-dev-errors'),
+    plugin: 'hapi-dev-errors',
     options: {
       showErrors: Config.get('app.env') !== 'production',
       toTerminal: false
     }
   },
   {
-    plugin: require('hapi-pulse'),
+    plugin: 'hapi-pulse',
     options: {
       onSignal: async function () {
         await DatabaseManager.close()
@@ -40,8 +28,11 @@ const core = [
     }
   },
   {
-    plugin: Laabr.plugin,
+    plugin: 'laabr',
     options: {
+      formats: {
+        'log': ':time :level :message'
+      },
       colored: true,
       hapiPino: {
         logPayload: false
@@ -50,4 +41,26 @@ const core = [
   }
 ]
 
-module.exports = core
+/**
+ * The function to load core plugins allowing
+ * to exclude selected plugins. Useful during
+ * testing, like excluding the laabr logger.
+ *
+ * @param {Object} options
+ */
+async function loadCore ({ exclude } = {}) {
+  const excludes = Array.isArray(exclude) ? exclude : [exclude]
+
+  return corePlugins
+    .filter(({ plugin }) => {
+      return !excludes.includes(plugin)
+    })
+    .map(({ plugin, options }) => {
+      return {
+        plugin: require(plugin),
+        options
+      }
+    })
+}
+
+module.exports = loadCore
