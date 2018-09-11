@@ -34,6 +34,20 @@ class RegistersHooks {
   async afterEach () {}
 
   /**
+   * This methods always runs after
+   * the test cases, even if the
+   * tests fail.
+   */
+  async alwaysAfter () {}
+
+  /**
+   * This methods always runs after
+   * each of the test cases, even
+   * if the tests fail.
+   */
+  async alwaysAfterEach () {}
+
+  /**
    * Register hooks to the test runner.
    */
   assignHooks () {
@@ -41,6 +55,8 @@ class RegistersHooks {
     this.assignBeforeEachHook()
     this.assignAfterHook()
     this.assignAfterEachHook()
+    this.assignAlwaysAfterHook()
+    this.assignAlwaysAfterEachHook()
   }
 
   /**
@@ -76,6 +92,24 @@ class RegistersHooks {
   assignAfterEachHook () {
     Ava.afterEach(`${this.constructor.name}: afterEach`, async t => {
       return this.afterEach(t)
+    })
+  }
+
+  /**
+   * Register the `after.always` hook.
+   */
+  assignAlwaysAfterHook () {
+    Ava.after.always(`${this.constructor.name}: after.always`, async t => {
+      return this.alwaysAfter(t)
+    })
+  }
+
+  /**
+   * Register the `afterEach.always` hook.
+   */
+  assignAlwaysAfterEachHook () {
+    Ava.afterEach.always(`${this.constructor.name}: afterEach.always`, async t => {
+      return this.alwaysAfterEach(t)
     })
   }
 }

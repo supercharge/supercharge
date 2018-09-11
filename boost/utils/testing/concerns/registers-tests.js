@@ -43,7 +43,7 @@ class RegistersTests {
    * assigned as test cases.
    */
   methodsToSkip () {
-    return ['constructor', 'before', 'beforeEach', 'after', 'afterEach']
+    return ['constructor', 'before', 'beforeEach', 'after', 'afterEach', 'alwaysAfter', 'alwaysAfterEach']
   }
 
   /**
