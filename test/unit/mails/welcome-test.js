@@ -6,7 +6,7 @@ const WelcomeMail = mail('welcome')
 
 class WelcomeTest extends BaseTest {
   async beforeEach ({ context }) {
-    context.user = this.fakeUser()
+    context.user = await this.fakeUser()
   }
 
   async emailContainsTheNameOfTheRegisteredUser (t) {
