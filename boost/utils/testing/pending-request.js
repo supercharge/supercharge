@@ -16,7 +16,6 @@ class PendingRequest {
    */
   constructor () {
     this.user = null
-    this.server = null
     this.headers = {}
     this.cookies = {}
     this.payload = {}
@@ -28,10 +27,14 @@ class PendingRequest {
    */
   async createServer () {
     const launch = new Launch()
-    const server = Launch.createHapiServer()
-    await launch.initialize(server)
 
-    return server
+    await launch.initializeEvents()
+    await launch.warmUpCore({ exclude: ['laabr'] })
+    await launch.configureViews()
+    await launch.loadMiddleware({ exclude: ['verify-csrf-token'] })
+    await launch.loadAppPlugins()
+
+    return launch.server
   }
 
   /**
@@ -40,18 +43,18 @@ class PendingRequest {
    * @param {String} name
    * @param {String} value
    */
-  header (name, value) {
+  withHeader (name, value) {
     this.headers[name] = value
 
     return this
   }
 
   /**
-   * Add an object of request headers.
+   * Add request headers.
    *
    * @param {Object} headers
    */
-  headers (headers) {
+  withHeaders (headers) {
     Object.assign(this.headers, headers)
 
     return this
@@ -101,7 +104,7 @@ class PendingRequest {
    * @param {Object} arguments
    */
   get ({ uri, headers }) {
-    this.headers(headers)
+    this.withHeaders(headers)
 
     return this.inject({ method: 'GET', uri })
   }
@@ -112,7 +115,7 @@ class PendingRequest {
    * @param {Object} arguments
    */
   post ({ uri, headers, payload }) {
-    this.headers(headers)
+    this.withHeaders(headers)
     this.payload = payload
 
     return this.inject({ method: 'POST', uri })
@@ -124,7 +127,7 @@ class PendingRequest {
    * @param {Object} arguments
    */
   put ({ uri, headers, payload }) {
-    this.headers(headers)
+    this.withHeaders(headers)
     this.payload = payload
 
     return this.inject({ method: 'PUT', uri })
@@ -136,7 +139,7 @@ class PendingRequest {
    * @param {Object} arguments
    */
   patch ({ uri, headers, payload }) {
-    this.headers(headers)
+    this.withHeaders(headers)
     this.payload = payload
 
     return this.inject({ method: 'PATCH', uri })
@@ -148,7 +151,7 @@ class PendingRequest {
    * @param {Object} arguments
    */
   delete ({ uri, headers, payload }) {
-    this.headers = headers
+    this.withHeaders = headers
     this.payload = payload
 
     return this.inject({ method: 'DELETE', uri })
@@ -160,16 +163,16 @@ class PendingRequest {
    *
    * @param {arguments} arguments
    */
-  async inject ({ method, url }) {
-    this.server = await this.createServer()
-
+  async inject ({ method, uri: url }) {
     const cookies = this.formatCookies()
-    const headers = Object.assign({}, this.headers, { cookie: cookies.join('; ') })
+    this.withHeaders({ cookie: cookies.join('; ') })
 
-    await this.server.inject({
+    const server = await this.createServer()
+
+    return server.inject({
       url,
       method,
-      headers,
+      headers: this.headers,
       payload: this.payload,
       credentials: this.user
     })
