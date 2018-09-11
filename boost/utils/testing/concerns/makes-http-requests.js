@@ -57,6 +57,11 @@ class MakesHttpRequests {
     return new PendingRequest().withoutMiddleware(names)
   }
 
+  /**
+   * Create a pending request that can
+   * be extended before sending it
+   * against the server.
+   */
   request () {
     return new PendingRequest()
   }
