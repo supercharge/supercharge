@@ -66,6 +66,7 @@ class RegistersHooks {
   assignBeforeHook () {
     Ava.before(`${this.constructor.name}: before`, async t => {
       await Database.connect()
+
       return this.before(t)
     })
   }
@@ -103,6 +104,7 @@ class RegistersHooks {
   assignAlwaysAfterHook () {
     Ava.after.always(`${this.constructor.name}: after.always`, async t => {
       await Database.close()
+
       return this.alwaysAfter(t)
     })
   }
