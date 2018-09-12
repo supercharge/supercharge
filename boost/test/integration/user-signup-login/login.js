@@ -20,7 +20,8 @@ class LoginTest extends BaseTest {
   async suceedsLogin (t) {
     const user = t.context.user
 
-    const response = await this.post({ uri: '/login',
+    const response = await this.post({
+      uri: '/login',
       payload: {
         email: user.email,
         password: user.passwordPlain
