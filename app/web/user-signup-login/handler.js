@@ -2,6 +2,7 @@
 
 const Joi = require('joi')
 const Boom = require('boom')
+const Config = util('config')
 const Mailer = util('mailer')
 const WelcomeMail = mail('welcome')
 const { User } = frequire('app', 'models')
@@ -40,7 +41,7 @@ const Handler = {
 
       await Mailer.fireAndForget(new WelcomeMail(user))
 
-      return h.view('home', { user })
+      return h.redirect(Config.get('auth.redirects.signup'))
     },
     ext: {
       onPreResponse: {
@@ -107,7 +108,7 @@ const Handler = {
 
       request.cookieAuth.set({ id: user.id })
 
-      return h.redirect('/home')
+      return h.redirect(Config.get('auth.redirects.login'))
     },
     ext: {
       onPreResponse: {
@@ -248,6 +249,13 @@ const Handler = {
     }
   },
 
+  resetPasswordSuccess: {
+    auth: 'session',
+    handler: async (_, h) => {
+      return h.view('auth/reset-password-success')
+    }
+  },
+
   resetPassword: {
     handler: async (request, h) => {
       if (request.auth.isAuthenticated) {
@@ -272,7 +280,7 @@ const Handler = {
 
       request.cookieAuth.set({ id: user.id })
 
-      return h.view('auth/reset-password-success', { user })
+      return h.redirect(Config.get('auth.redirects.passwordReset'))
     },
     ext: {
       onPreResponse: {
