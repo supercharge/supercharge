@@ -62,6 +62,7 @@ class Setup extends BaseCommand {
     ])
 
     try {
+      await this.ensureNotInstalled(forceSetup)
       await tasks.run()
       this.finalNote(appName)
     } catch (ignoreErr) {}
@@ -69,12 +70,8 @@ class Setup extends BaseCommand {
 
   /**
    * Copy the `.env.example` file over to `.env`.
-   *
-   * @param {Boolean} forceSetup
    */
-  async copyEnvFile (forceSetup) {
-    await this.ensureNotInstalled(forceSetup)
-
+  async copyEnvFile () {
     const source = await this.getEnvPath('.env.example')
     const destination = await this.getEnvPath()
 
