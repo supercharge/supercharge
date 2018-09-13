@@ -15,7 +15,6 @@ class AppName extends BaseCommand {
     return `
     app:name
     { name?: Your application name }
-    { --env=@value: .env file location }
     `
   }
 
@@ -30,13 +29,13 @@ class AppName extends BaseCommand {
    * Handle the command and set the aplication name
    * in the project's .env file.
    */
-  async handle ({ name }, { env }) {
+  async handle ({ name }) {
     if (!name) {
       name = await this.ask('The name of your application:')
     }
 
     await this.run(async () => {
-      const envPath = await this.getEnvPath(env)
+      const envPath = await this.getEnvPath()
       await this.updateEnvContents(envPath, { APP_NAME: `"${name}"` })
 
       this.completed('updated', `Your application name is now: ${name}`)

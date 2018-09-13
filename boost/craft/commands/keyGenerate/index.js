@@ -16,7 +16,6 @@ class KeyGenerate extends BaseCommand {
     return `
     key:generate
     { -f, --force: Override any existing application key }
-    { --env=@value: .env file location }
     { --echo: Print the generated key to the terminal instead of writing it to the .env file }
     `
   }
@@ -35,7 +34,7 @@ class KeyGenerate extends BaseCommand {
    *
    * @param {Object} arguments
    */
-  async handle (_, { force, env, echo }) {
+  async handle (_, { force, echo }) {
     const key = Encryption.generateKey()
 
     if (echo) {
@@ -45,7 +44,7 @@ class KeyGenerate extends BaseCommand {
     await this.run(async () => {
       await this.ensureNotInstalled(force)
 
-      const envPath = await this.getEnvPath(env)
+      const envPath = await this.getEnvPath()
       await this.updateEnvContents(envPath, { APP_KEY: key })
 
       this.completed('generated', `Application key [${key}] set as APP_KEY in your .env file`)
