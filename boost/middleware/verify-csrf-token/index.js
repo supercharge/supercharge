@@ -16,7 +16,7 @@ async function register (server) {
           key: Config.get('session.token'),
           cookieOptions: {
             password: Config.get('app.key'),
-            isSecure: Config.get('app.env') === 'production'
+            isSecure: Config.get('app.isProduction')
           }
         }
       }

@@ -43,7 +43,7 @@ class Views {
       layout: 'default',
       helpersPath: this.helpersLocations(),
       partialsPath: this.partialsLocations(),
-      isCached: Config.get('app.env') === 'production',
+      isCached: Config.get('app.isProduction'),
       context: function (request) {
         return {
           request,

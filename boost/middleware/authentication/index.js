@@ -27,7 +27,7 @@ async function register (server) {
   server.auth.strategy('session', 'cookie', {
     cookie: Config.get('session.cookie'),
     password: Config.get('app.key'),
-    isSecure: Config.get('app.env') === 'production',
+    isSecure: Config.get('app.isProduction'),
     redirectTo: '/login',
     appendNext: true,
     ttl: Config.get('session.lifetime'),
