@@ -74,7 +74,7 @@ class Filesystem {
    * @param {String} file
    * @param {String|Object} encoding
    */
-  readFile (file, encoding) {
+  readFile (file, encoding = 'utf8') {
     return Fs.readFile(file, encoding)
   }
 
