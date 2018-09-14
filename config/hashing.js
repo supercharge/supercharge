@@ -15,7 +15,7 @@ module.exports = {
    * Supported drivers: `bcrypt`, `argon`
    *
    */
-  driver: Env.get('HASH_DRIVER', 'bcrypt'),
+  driver: Env.get('HASH_DRIVER', 'argon'),
 
   /**
    * --------------------------------------------------------------------------
@@ -37,11 +37,13 @@ module.exports = {
    * --------------------------------------------------------------------------
    *
    * Customize the argon hashing configuration. The argon hashing driver
-   * allows you to customize memory, time and threads. The values depend
-   * on your system's resources and control the time to create a hash.
+   * allows you to customize the type, memory, time and threads. The
+   * values depend on your system's resources.
    *
+   * Supported types: argon2i, argon2d, and argon2id
    */
   argon: {
+    type: Env.get('HASH_ARGON_TYPE', 'argon2i'),
     memory: Env.get('HASH_ARGON_MEMORY', 1024),
     time: Env.get('HASH_ARGON_TIME', 2),
     threads: Env.get('HASH_ARGON_THREADS', 2)
