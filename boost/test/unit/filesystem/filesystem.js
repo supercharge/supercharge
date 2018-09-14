@@ -27,19 +27,20 @@ class FilesystemTest extends BaseTest {
     return file
   }
 
-  async ensureFile (t) {
-    const file = this._tempFile()
-    await Filesystem.ensureFile(file)
-    const exists = Fs.existsSync(file)
+  async stat (t) {
+    const file = await this._ensureTempFile()
+    const stat = await Filesystem.stat(file)
+    const statSync = await Fs.statSync(file)
 
-    t.true(exists)
+    t.deepEqual(stat, statSync)
   }
 
-  async exists (t) {
+  async access (t) {
     const file = await this._ensureTempFile()
-    const exists = await Filesystem.exists(file)
+    const access = await Filesystem.access(file, Fs.constants.W_OK)
+    const accessSync = await Fs.accessSync(file, Fs.constants.W_OK)
 
-    t.true(exists)
+    t.deepEqual(access, accessSync)
   }
 
   async pathExists (t) {
@@ -49,12 +50,171 @@ class FilesystemTest extends BaseTest {
     t.true(pathExists)
   }
 
+  async exists (t) {
+    const file = await this._ensureTempFile()
+    const exists = await Filesystem.exists(file)
+
+    t.true(exists)
+  }
+
+  async ensureFile (t) {
+    const file = this._tempFile()
+    await Filesystem.ensureFile(file)
+    const exists = Fs.existsSync(file)
+
+    t.true(exists)
+  }
+
   async readFile (t) {
     const file = await this._ensureTempFile()
     Fs.writeFileSync(file, 'Hello Boost', 'utf8')
     const content = await Filesystem.readFile(file)
 
     t.is(content, 'Hello Boost')
+  }
+
+  async readDir (t) {
+    const dirPath = Path.resolve(this.tempDir, 'tempDir')
+    Fs.mkdirSync(dirPath)
+
+    const filePath = Path.resolve(dirPath, 'test.txt')
+    Fs.writeFileSync(filePath, 'Hello Boost', 'utf8')
+
+    const dirContent = await Filesystem.readDir(dirPath)
+
+    t.deepEqual(dirContent, ['test.txt'])
+  }
+
+  async writeFile (t) {
+    const file = await this._ensureTempFile()
+    await Filesystem.writeFile(file, 'Hello Boost')
+
+    const content = await Filesystem.readFile(file)
+
+    t.is(content, 'Hello Boost')
+  }
+
+  async removeFile (t) {
+    const file = await this._ensureTempFile()
+    await Filesystem.removeFile(file)
+
+    const exists = await Filesystem.exists(file)
+
+    t.false(exists)
+  }
+
+  async copy (t) {
+    const source = await this._ensureTempFile()
+    const destination = Path.resolve(this.tempDir, 'copy.txt')
+    await Filesystem.copy(source, destination)
+
+    const sourceExists = await Filesystem.exists(source)
+    const destExists = await Filesystem.exists(destination)
+
+    t.true(sourceExists)
+    t.true(destExists)
+  }
+
+  async move (t) {
+    const source = await this._ensureTempFile()
+    const destination = Path.resolve(this.tempDir, 'moved.txt')
+    await Filesystem.move(source, destination)
+
+    t.false(await Filesystem.exists(source))
+    t.true(await Filesystem.exists(destination))
+  }
+
+  async ensureDir (t) {
+    const dir = Path.resolve(this.tempDir, 'ensureDir')
+    await Filesystem.ensureDir(dir)
+
+    t.true(await Filesystem.exists(dir))
+  }
+
+  async removeDir (t) {
+    const dir = Path.resolve(this.tempDir, 'removeDir')
+    await Filesystem.ensureDir(dir)
+
+    t.true(await Filesystem.exists(dir))
+
+    await Filesystem.removeDir(dir)
+
+    t.false(await Filesystem.exists(dir))
+  }
+
+  async emptyDir (t) {
+    const dir = Path.resolve(this.tempDir, 'emptyDir')
+    await Filesystem.ensureDir(dir)
+
+    const file = Path.resolve(dir, 'test.txt')
+    await Filesystem.ensureFile(file)
+
+    await Filesystem.emptyDir(dir)
+
+    const dirContent = await Filesystem.readDir(dir)
+
+    t.deepEqual(dirContent, [])
+  }
+
+  async chmod (t) {
+    const file1 = await this._ensureTempFile()
+    await Filesystem.chmod(file1, '400') // read-only
+
+    const error = t.throwsAsync(Filesystem.access(file1, Fs.constants.W_OK))
+    t.true(!!error)
+
+    const file2 = await this._ensureTempFile()
+    await Filesystem.chmod(file2, '600') // read-write
+    await Filesystem.access(file2, Fs.constants.W_OK)
+
+    t.pass()
+  }
+
+  async ensureLink (t) {
+    const file = await this._ensureTempFile()
+    const link = Path.resolve(this.tempDir, 'links', 'link.txt')
+    await Filesystem.ensureLink(file, link)
+
+    const exists = await Filesystem.exists(link)
+    t.true(exists)
+  }
+
+  async ensureSymlink (t) {
+    const file = await this._ensureTempFile()
+    const link = Path.resolve(this.tempDir, 'links', 'symlink.txt')
+    await Filesystem.ensureLink(file, link)
+
+    const exists = await Filesystem.exists(link)
+    t.true(exists)
+  }
+
+  async lockFile (t) {
+    const file = await this._ensureTempFile()
+    t.false(await Filesystem.isLocked(file))
+
+    await Filesystem.lockFile(file)
+    t.true(await Filesystem.isLocked(file))
+  }
+
+  async unlockFile (t) {
+    const file = await this._ensureTempFile()
+    await Filesystem.lockFile(file)
+    t.true(await Filesystem.isLocked(file))
+
+    await Filesystem.unlockFile(file)
+    t.false(await Filesystem.isLocked(file))
+  }
+
+  // async todoisFileLocked (t) {}
+
+  async tempFile (t) {
+    const file = await Filesystem.tempFile()
+    t.not(file, null)
+  }
+
+  async tempDirectory (t) {
+    const dir = await Filesystem.tempDir()
+    t.true(await Filesystem.exists(dir))
   }
 }
 

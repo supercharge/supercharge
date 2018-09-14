@@ -1,5 +1,6 @@
 'use strict'
 
+const _ = require('lodash')
 const Fs = require('fs-extra')
 const Tempy = require('tempy')
 const Lockfile = require('lockfile')
@@ -138,7 +139,7 @@ class Filesystem {
    * @param {String} dest - destination path
    * @param {Object} options
    */
-  move (src, dest, options) {
+  move (src, dest, options = {}) {
     return Fs.move(src, dest, options)
   }
 
@@ -219,8 +220,8 @@ class Filesystem {
    * @param {String} file
    * @param {Object} options
    */
-  lockFile (file, options) {
-    return lockFile(file, options)
+  lockFile (file, options = {}) {
+    return lockFile(this.prepareLockFile(file), options)
   }
 
   /**
@@ -229,7 +230,7 @@ class Filesystem {
    * @param {String} file
    */
   unlockFile (file) {
-    return unlockFile(file)
+    return unlockFile(this.prepareLockFile(file))
   }
 
   /**
@@ -240,8 +241,16 @@ class Filesystem {
    *
    * @returns {Boolean}
    */
-  isFileLocked (file, options) {
-    return isFileLocked(file, options)
+  isLocked (file, options = {}) {
+    return isFileLocked(this.prepareLockFile(file), options)
+  }
+
+  prepareLockFile (file) {
+    if (!_.endsWith(file, '.lock')) {
+      file = `${file}.lock`
+    }
+
+    return file
   }
 
   /**
