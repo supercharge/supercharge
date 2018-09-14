@@ -15,7 +15,7 @@ module.exports = {
    * Supported drivers: `bcrypt`, `argon`
    *
    */
-  driver: Env.get('HASH_DRIVER', 'argon'),
+  driver: Env.get('HASH_DRIVER', 'bcrypt'),
 
   /**
    * --------------------------------------------------------------------------
