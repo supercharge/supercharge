@@ -3,11 +3,10 @@
 const Config = util('config')
 const Argon = require('argon2')
 
-class BcryptHashinator {
+class ArgonHashinator {
   constructor () {
-    this.memory = Config.get('hashing.argon.memory')
-    this.time = Config.get('hashing.argon.time')
-    this.threads = Config.get('hashing.argon.threads')
+    const config = Config.get('hashing.argon')
+    this.config = Object.assign({}, config, { type: Argon[Config.get('hashing.argon.type')] })
   }
 
   /**
@@ -18,11 +17,7 @@ class BcryptHashinator {
    * @returns {String}
    */
   async make (value) {
-    return Argon.hash(value, {
-      timeCost: this.time,
-      memoryCost: this.memory,
-      parallelism: this.threads
-    })
+    return Argon.hash(value, this.config)
   }
 
   /**
@@ -39,4 +34,4 @@ class BcryptHashinator {
   }
 }
 
-module.exports = new BcryptHashinator()
+module.exports = new ArgonHashinator()
