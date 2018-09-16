@@ -186,7 +186,7 @@ class Filesystem {
    * @param {String|Integer} mode
    */
   chmod (file, mode) {
-    return Fs.chmod(file, mode)
+    return Fs.chmod(file, parseInt(mode, 8))
   }
 
   /**

@@ -156,15 +156,27 @@ class FilesystemTest extends BaseTest {
     t.deepEqual(dirContent, [])
   }
 
-  async chmod (t) {
+  async chmodAsString (t) {
     const file1 = await this._ensureTempFile()
     await Filesystem.chmod(file1, '400') // read-only
 
-    const error = t.throwsAsync(Filesystem.access(file1, Fs.constants.W_OK))
-    t.true(!!error)
+    t.throwsAsync(Filesystem.access(file1, Fs.constants.W_OK))
 
     const file2 = await this._ensureTempFile()
     await Filesystem.chmod(file2, '600') // read-write
+    await Filesystem.access(file2, Fs.constants.W_OK)
+
+    t.pass()
+  }
+
+  async chmodAsInteger (t) {
+    const file1 = await this._ensureTempFile()
+    await Filesystem.chmod(file1, 400) // read-only
+
+    t.throwsAsync(Filesystem.access(file1, Fs.constants.W_OK))
+
+    const file2 = await this._ensureTempFile()
+    await Filesystem.chmod(file2, 600) // read-write
     await Filesystem.access(file2, Fs.constants.W_OK)
 
     t.pass()
