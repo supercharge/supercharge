@@ -245,12 +245,16 @@ class Filesystem {
     return isFileLocked(this.prepareLockFile(file), options)
   }
 
+  /**
+   * Append the `.lock` suffix to the file name
+   * if not existent.
+   *
+   * @param {String} file
+   *
+   * @returns {String}
+   */
   prepareLockFile (file) {
-    if (!_.endsWith(file, '.lock')) {
-      file = `${file}.lock`
-    }
-
-    return file
+    return _.endsWith(file, '.lock') ? file : `${file}.lock`
   }
 
   /**
