@@ -16,14 +16,17 @@ class Env {
    * reading the .env file.
    */
   constructor () {
-    this.load(this.getEnvPath())
+    this.load(this.getEnvName())
   }
 
   /**
-   * Returns the `.env` file path and name in
-   * the project's root directory.
+   * Returns the `.env` file name which should
+   * be located in the root directory of the
+   * project.
+   *
+   * @returns {String}
    */
-  getEnvPath () {
+  getEnvName () {
     if (process.env.ENV_PATH) {
       return process.env.ENV_PATH
     }
@@ -55,8 +58,10 @@ class Env {
    *
    * @param {String} key
    * @param {String} defaultValue
+   *
+   * @returns {Mixed}
    */
-  get (key, defaultValue = null) {
+  get (key, defaultValue) {
     return _.get(process.env, key, defaultValue)
   }
 
