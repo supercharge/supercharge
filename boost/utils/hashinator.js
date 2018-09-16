@@ -13,11 +13,11 @@ class Hashinator {
     const driver = Config.get('hashing.driver')
 
     if (driver === 'argon') {
-      this.driver = ArgonHashinator
+      this.driver = new ArgonHashinator()
       return
     }
 
-    this.driver = BcryptHashinator
+    this.driver = new BcryptHashinator()
   }
 
   /**
@@ -49,6 +49,8 @@ class Hashinator {
    * Create an MD5 hash of the given `value`.
    *
    * @param {String|Buffer} value
+   *
+   * @returns {String}
    */
   md5 (value) {
     return MD5(value)

@@ -4,6 +4,9 @@ const Config = util('config')
 const Bcrypt = require('bcryptjs')
 
 class BcryptHashinator {
+  /**
+   * Create a new Bcrypt hasher instance.
+   */
   constructor () {
     this.rounds = Config.get('hashing.bcrypt.rounds')
   }
@@ -33,4 +36,4 @@ class BcryptHashinator {
   }
 }
 
-module.exports = new BcryptHashinator()
+module.exports = BcryptHashinator

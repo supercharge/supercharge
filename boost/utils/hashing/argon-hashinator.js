@@ -4,6 +4,9 @@ const Config = util('config')
 const Argon = require('argon2')
 
 class ArgonHashinator {
+  /**
+   * Create a new Argon hasher instance.
+   */
   constructor () {
     const config = Config.get('hashing.argon')
     this.config = Object.assign({}, config, { type: Argon[Config.get('hashing.argon.type')] })
@@ -34,4 +37,4 @@ class ArgonHashinator {
   }
 }
 
-module.exports = new ArgonHashinator()
+module.exports = ArgonHashinator
