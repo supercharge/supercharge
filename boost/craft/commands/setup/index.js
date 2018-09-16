@@ -43,7 +43,7 @@ class Setup extends BaseCommand {
       {
         title: 'Prepare .env file',
         task: async () => {
-          await this.copyEnvFile(forceSetup)
+          await this.createEnvFileFromExample(forceSetup)
         }
       },
       {
@@ -71,7 +71,7 @@ class Setup extends BaseCommand {
   /**
    * Copy the `.env.example` file over to `.env`.
    */
-  async copyEnvFile () {
+  async createEnvFileFromExample () {
     const source = await this.getEnvPath('.env.example')
     const destination = await this.getEnvPath()
 
