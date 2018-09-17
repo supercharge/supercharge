@@ -16,15 +16,15 @@ class Config {
    * reading all config files.
    */
   constructor () {
-    this.configPath = Path.resolve(__appRoot, 'config')
     this.config = {}
-    this.syncConfigFiles()
+    this.configPath = Path.resolve(__appRoot, 'config')
+    this.loadConfigFiles()
   }
 
   /**
    * Import all application configurations.
    */
-  syncConfigFiles () {
+  loadConfigFiles () {
     this.config = RequireAll({
       dirname: this.configPath,
       filter: /(.*)\.js$/
