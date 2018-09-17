@@ -1,12 +1,8 @@
 'use strict'
 
-const Path = require('path')
 const Config = util('config')
 const Winston = require('winston')
 const { combine, timestamp, printf } = Winston.format
-
-const logFileName = Config.get('logging.logfile')
-const logfile = Path.resolve(__appRoot, 'storage', 'logs', logFileName)
 
 /**
  * Configure the Winston file logger with the
@@ -16,7 +12,7 @@ const logfile = Path.resolve(__appRoot, 'storage', 'logs', logFileName)
 class WinstonFileLogger {
   constructor () {
     return new Winston.transports.File({
-      filename: logfile,
+      filename: this.logFile(),
       level: 'debug',
       format: combine(
         timestamp(),
@@ -26,6 +22,10 @@ class WinstonFileLogger {
         })
       )
     })
+  }
+
+  logFile () {
+    return __storagePath('logs', Config.get('logging.logfile'))
   }
 }
 
