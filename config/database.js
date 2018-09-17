@@ -12,7 +12,7 @@ module.exports = {
    * connections you wish to use as your default connection.
    *
    */
-  default: Env.get('DB_CONNECTION', 'mongodb'),
+  default: Env.get('DB_CONNECTION', 'mongoose'),
 
   /**
    * --------------------------------------------------------------------------
@@ -25,7 +25,7 @@ module.exports = {
    *
    */
   connections: {
-    mongodb: {
+    mongoose: {
       host: Env.get('MONGODB_HOST', 'localhost'),
       port: Env.get('MONGODB_PORT', 27017),
       database: Env.get('MONGODB_DATABASE', 'boost'),

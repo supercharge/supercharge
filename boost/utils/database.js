@@ -80,10 +80,6 @@ class DatabaseManager {
    * @throws
    */
   createNewConnection (name) {
-    if (!this.availableConnectors(name)) {
-      throw new Error(`No database connector available for ${name}`)
-    }
-
     const connector = this.connector(name)
     this.addConnection(name, connector)
   }
@@ -97,6 +93,10 @@ class DatabaseManager {
     const config = this.configuration(name)
     const Connector = this.connectors()[name]
 
+    if (!Connector) {
+      throw new Error(`No database connector available for ${name}`)
+    }
+
     return new Connector(config)
   }
 
@@ -106,16 +106,8 @@ class DatabaseManager {
    */
   connectors () {
     return {
-      mongodb: MongooseConnector
+      mongoose: MongooseConnector
     }
-  }
-
-  /**
-   * Returns a list of connector names
-   * available with Boost.
-   */
-  availableConnectors () {
-    return Object.keys(this.connectors())
   }
 
   /**
@@ -131,7 +123,7 @@ class DatabaseManager {
     const config = Config.get(`database.connections.${name}`)
 
     if (!config) {
-      throw new Error(`Database connection ${name} is not configured.`)
+      throw new Error(`No database configuration available for ${name}.`)
     }
 
     return config
