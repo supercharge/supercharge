@@ -16,7 +16,7 @@ class Env {
    * reading the .env file.
    */
   constructor () {
-    this.load(this.getEnvName())
+    this.load(this.envFileName())
   }
 
   /**
@@ -26,7 +26,7 @@ class Env {
    *
    * @returns {String}
    */
-  getEnvName () {
+  envFileName () {
     if (process.env.ENV_PATH) {
       return process.env.ENV_PATH
     }
