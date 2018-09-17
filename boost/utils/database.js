@@ -94,7 +94,7 @@ class DatabaseManager {
     const Connector = this.connectors()[name]
 
     if (!Connector) {
-      throw new Error(`No database connector available for ${name}`)
+      throw new Error(`No database connector available for "${name}".`)
     }
 
     return new Connector(config)
@@ -123,7 +123,7 @@ class DatabaseManager {
     const config = Config.get(`database.connections.${name}`)
 
     if (!config) {
-      throw new Error(`No database configuration available for ${name}.`)
+      throw new Error(`No database configuration available for "${name}".`)
     }
 
     return config
