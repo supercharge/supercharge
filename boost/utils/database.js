@@ -149,7 +149,7 @@ class DatabaseManager {
    */
   addConnection (name, connection) {
     if (this.connections[name]) {
-      throw new Error(`Cannot add database connection ${name} more than once.`)
+      throw new Error(`Database connection with name "${name}" is already registered.`)
     }
 
     if (!connection) {
