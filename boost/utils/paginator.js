@@ -190,7 +190,7 @@ class Paginator {
       }
     })
 
-    return headers.join(', ') || undefined
+    return headers.join(', ')
   }
 }
 
