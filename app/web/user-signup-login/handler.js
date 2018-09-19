@@ -1,12 +1,13 @@
 'use strict'
 
 const Joi = require('joi')
+const User = model('user')
+const Event = util('event')
 const Boom = require('boom')
 const Config = util('config')
 const Mailer = util('mailer')
-const WelcomeMail = mail('welcome')
-const { User } = frequire('app', 'models')
 const PasswordResetMail = mail('password-reset')
+const UserRegisteredEvent = event('user-registered')
 
 const Handler = {
   showSignup: {
@@ -39,7 +40,7 @@ const Handler = {
 
       request.cookieAuth.set({ id: user.id })
 
-      await Mailer.fireAndForget(new WelcomeMail(user))
+      Event.fire(new UserRegisteredEvent(user))
 
       return h.redirect(Config.get('auth.redirects.signup'))
     },
