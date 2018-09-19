@@ -131,16 +131,6 @@ class Paginator {
   }
 
   /**
-   * Checks whether the request's query
-   * parameter has the current page.
-   *
-   * @returns {Boolean}
-   */
-  hasPage () {
-    return !_.isNil(this.request.query.page)
-  }
-
-  /**
    * Composes a pagination URL that references
    * given `page`. The URL is based on the
    * requests URI and parameters.
@@ -150,13 +140,24 @@ class Paginator {
    * @returns {String}
    */
   composeUrl (page) {
-    const protocol = this.request.headers['x-forwarded-proto'] || this.request.server.info.protocol || 'http'
-    const queryParams = Object.assign({}, this.request.query, { page })
-    const querystring = Querystring.stringify(queryParams)
+    const protocol = this.protocol()
+    const params = Object.assign({}, this.request.query, { page })
+    const querystring = Querystring.stringify(params)
 
     return `${protocol}://${this.request.info.host}${this.request.path}?${querystring}`
   }
 
+  protocol () {
+    return this.proxyProtocol() || this.serverProtocol() || 'http'
+  }
+
+  proxyProtocol () {
+    return _.get(this.request, "headers['x-forwarded-proto']")
+  }
+
+  serverProtocol () {
+    return _.get(this.request, 'server.info.protocol')
+  }
   /**
    * Creates a single String containing the
    * pagination URLs for individual pages.
