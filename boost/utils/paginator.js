@@ -4,7 +4,20 @@ const _ = require('lodash')
 const Boom = require('boom')
 const Querystring = require('querystring')
 
+/**
+ * This paginator class creates a pagination object
+ * based on the request and total amount
+ * of available pagination items.
+ */
 class Paginator {
+  /**
+   * Create a new paginator instance that
+   * returns the pagination object.
+   *
+   * @param {Object} params
+   *
+   * @returns {Object}
+   */
   constructor ({ request, totalCount, perPage = 8 }) {
     if (!request) {
       throw new Boom('Request object required as first parameter in paginator')
@@ -14,94 +27,159 @@ class Paginator {
       throw new Boom('Total count required as second parameter in paginator')
     }
 
-    const lastPage = Math.ceil(totalCount / perPage)
-    const currentPage = this.getCurrentPage(request)
-    const from = currentPage * perPage - perPage
+    this.request = request
+    this.lastPage = Math.ceil(totalCount / perPage)
+    this.currentPage = this.getCurrentPage()
+    this.from = this.currentPage * perPage - perPage
 
-    const first = this.getFirst(request, currentPage)
-    const last = this.getLast(request, lastPage)
-    const prev = this.getPrevious(request, currentPage)
-    const next = this.getNext(request, currentPage, lastPage)
+    const first = this.getFirst()
+    const last = this.getLast()
+    const prev = this.getPrevious()
+    const next = this.getNext()
 
     return {
       total: totalCount,
       perPage,
-      currentPage,
-      lastPage,
+      currentPage: this.currentPage,
+      lastPage: this.lastPage,
       first,
       prev,
       next,
       last,
-      from,
-      to: from + perPage,
+      from: this.from,
+      to: this.from + perPage,
       link: this.linkHeader(first, prev, next, last)
     }
   }
 
-  getCurrentPage (request) {
-    return parseFloat(request.query.page) || 1
+  /**
+   * Returns the current page from the request's
+   * `page` query parameter.
+   *
+   * @param {Object} request
+   *
+   * @returns {Integer}
+   */
+  getCurrentPage () {
+    return parseInt(this.request.query.page) || 1
   }
 
-  getFirst (request, currentPage) {
-    if (!this.isFirstPage(currentPage)) {
-      return this.composeUrl(request, 1)
+  /**
+   * Returns the URI for the first page.
+   *
+   * @returns {String}
+   */
+  getFirst () {
+    if (!this.isFirstPage()) {
+      return this.composeUrl(1)
     }
   }
 
-  getLast (request, lastPage) {
-    if (!this.isLastPage(this.getCurrentPage(request), lastPage)) {
-      return this.composeUrl(request, lastPage)
+  /**
+   * Returns the URI for the last page.
+   *
+   * @returns {String}
+   */
+  getLast () {
+    if (!this.isLastPage()) {
+      return this.composeUrl(this.lastPage)
     }
   }
 
-  getNext (request, currentPage, lastPage) {
-    // return if current page is the last one, there's no more
-    if (!this.isLastPage(currentPage, lastPage)) {
-      return this.composeUrl(request, currentPage + 1)
+  /**
+   * Returns the URI for next page
+   * based on the current page.
+   *
+   * @returns {String}
+   */
+  getNext () {
+    if (!this.isLastPage()) {
+      return this.composeUrl(this.currentPage + 1)
     }
   }
 
-  getPrevious (request, currentPage) {
-    // return if current page is the first one, there's no zero :)
-    if (!this.isFirstPage(currentPage)) {
-      return this.composeUrl(request, currentPage - 1)
+  /**
+   * Returns the URI for previous page
+   * based on the current page.
+   *
+   * @returns {String}
+   */
+  getPrevious () {
+    if (!this.isFirstPage()) {
+      return this.composeUrl(this.currentPage - 1)
     }
   }
 
-  isFirstPage (currentPage) {
-    return currentPage === 1
+  /**
+   * Checks whether the current page is
+   * the first page.
+   *
+   * @returns {Boolean}
+   */
+  isFirstPage () {
+    return this.currentPage === 1
   }
 
-  isLastPage (currentPage, lastPage) {
-    return currentPage === lastPage
+  /**
+   * Checks whether the current page is
+   * the last page.
+   *
+   * @returns {Boolean}
+   */
+  isLastPage () {
+    return this.currentPage === this.lastPage
   }
 
-  hasPage (request) {
-    return !_.isNil(request.query.page)
+  /**
+   * Checks whether the request's query
+   * parameter has the current page.
+   *
+   * @returns {Boolean}
+   */
+  hasPage () {
+    return !_.isNil(this.request.query.page)
   }
 
-  composeUrl (request, page) {
-    // fetch HTTP protocol from reverse proxy
-    const proxyProtocol = request.headers && request.headers['x-forwarded-proto']
-    // protocol hierarchy: proxy, server, default 'http'
-    const protocol = proxyProtocol || request.server.info.protocol || 'http'
+  /**
+   * Composes a pagination URL that references
+   * given `page`. The URL is based on the
+   * requests URI and parameters.
+   *
+   * @param {Integer} page
+   *
+   * @returns {String}
+   */
+  composeUrl (page) {
+    const protocol = this.request.headers['x-forwarded-proto'] || this.request.server.info.protocol || 'http'
+    const queryParams = Object.assign({}, this.request.query, { page })
+    const querystring = Querystring.stringify(queryParams)
 
-    // compose URL for given page
-    const queryParams = Object.assign({}, request.query, { page })
-    const query = Querystring.stringify(queryParams)
-
-    return `${protocol}://${request.info.host}${request.path}?${query}`
+    return `${protocol}://${this.request.info.host}${this.request.path}?${querystring}`
   }
 
+  /**
+   * Creates a single String containing the
+   * pagination URLs for individual pages.
+   *
+   * @param {String} first
+   * @param {String} prev
+   * @param {String} next
+   * @param {String} last
+   *
+   * @returns {String}
+   */
   linkHeader (first, prev, next, last) {
-    return this.createLinkHeader({
-      first,
-      prev,
-      next,
-      last
-    })
+    return this.createLinkHeader({ first, prev, next, last })
   }
 
+  /**
+   * Creates a single String containing the
+   * pagination URLs for individual pages.
+   *
+   * @param {Object} links
+   *
+   * @returns {String}
+   */
   createLinkHeader (links) {
     const headers = []
 
