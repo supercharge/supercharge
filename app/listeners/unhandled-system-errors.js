@@ -16,6 +16,7 @@ class UnhandledSystemErrors extends Listener {
   async handle (error) {
     const output = await new Youch(error).toJSON()
     console.log(forTerminal(output))
+    process.exit(1)
   }
 }
 
