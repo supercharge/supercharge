@@ -25,7 +25,7 @@ class SendWelcomeMail extends Listener {
      * as soon as your mailer is ready to rock.
      */
     Logger.info(
-      `Have a look at the ${this.constructor.name} listener. This event handler should send the welcome email to ${
+      `SendWelcomeMail listener: user registered. This event handler should send the welcome email to ${
         event.user.email
       }`
     )
