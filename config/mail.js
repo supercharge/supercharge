@@ -28,11 +28,11 @@ module.exports = {
    *
    */
   from: {
-    address: Env.get('MAIL_FROM_ADDRESS', 'hello@example.com'),
-    name: Env.get('MAIL_FROM_NAME', 'Example')
+    address: Env.get('MAIL_FROM_ADDRESS', 'marcus@futurestud.io'),
+    name: Env.get('MAIL_FROM_NAME', 'Marcus Poehls')
   },
 
-  drivers: {
+  transports: {
     /**
      * --------------------------------------------------------------------------
      * SMTP

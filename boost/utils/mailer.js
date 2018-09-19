@@ -14,8 +14,8 @@ class Mailer {
     this.replyTo = Config.get('mail.from')
 
     const driver = Config.get('mail.driver')
-    const drivers = Config.get('mail.drivers')
-    const transporterOptions = drivers[driver]
+    const transports = Config.get('mail.transports')
+    const transporterOptions = transports[driver]
 
     const Transporter = Transports[driver]
     this.transporter = new Transporter(transporterOptions)
