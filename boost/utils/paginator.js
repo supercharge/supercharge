@@ -148,7 +148,7 @@ class Paginator {
   }
 
   /**
-   * Return the request's protocol
+   * Return the request's protocol.
    *
    * @returns {String}
    */
