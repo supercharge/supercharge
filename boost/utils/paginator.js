@@ -147,14 +147,31 @@ class Paginator {
     return `${protocol}://${this.request.info.host}${this.request.path}?${querystring}`
   }
 
+  /**
+   * Return the request's protocol
+   *
+   * @returns {String}
+   */
   protocol () {
     return this.proxyProtocol() || this.serverProtocol() || 'http'
   }
 
+  /**
+   * Returns the protocol stored in the
+   * `x-forwarded-proto` request
+   * heade field.
+   *
+   * @returns {String}
+   */
   proxyProtocol () {
     return _.get(this.request, "headers['x-forwarded-proto']")
   }
 
+  /**
+   * Returns the server protocol.
+   *
+   * @returns {String}
+   */
   serverProtocol () {
     return _.get(this.request, 'server.info.protocol')
   }
