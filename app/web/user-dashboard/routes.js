@@ -6,7 +6,7 @@ const Routes = [
   {
     method: 'GET',
     path: '/home',
-    config: Handler.home
+    options: Handler.home
   }
 ]
 

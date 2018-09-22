@@ -6,52 +6,52 @@ const Routes = [
   {
     method: 'GET',
     path: '/signup',
-    config: Handler.showSignup
+    options: Handler.showSignup
   },
   {
     method: 'POST',
     path: '/signup',
-    config: Handler.signup
+    options: Handler.signup
   },
   {
     method: 'GET',
     path: '/login',
-    config: Handler.showLogin
+    options: Handler.showLogin
   },
   {
     method: 'POST',
     path: '/login',
-    config: Handler.login
+    options: Handler.login
   },
   {
     method: 'GET',
     path: '/logout',
-    config: Handler.logout
+    options: Handler.logout
   },
   {
     method: 'GET',
     path: '/forgot-password',
-    config: Handler.showForgotPassword
+    options: Handler.showForgotPassword
   },
   {
     method: 'POST',
     path: '/forgot-password',
-    config: Handler.forgotPassword
+    options: Handler.forgotPassword
   },
   {
     method: 'GET',
     path: '/reset-password/{email}/{resetToken}',
-    config: Handler.showResetPassword
+    options: Handler.showResetPassword
   },
   {
     method: 'POST',
     path: '/reset-password/{email}/{resetToken}',
-    config: Handler.resetPassword
+    options: Handler.resetPassword
   },
   {
     method: 'GET',
     path: '/reset-password-success',
-    config: Handler.resetPasswordSuccess
+    options: Handler.resetPasswordSuccess
   }
 ]
 

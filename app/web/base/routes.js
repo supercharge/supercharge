@@ -6,32 +6,32 @@ const Routes = [
   {
     method: 'GET',
     path: '/',
-    config: Handler.index
+    options: Handler.index
   },
   {
     method: 'GET',
     path: '/js/{path*}',
-    config: Handler.js
+    options: Handler.js
   },
   {
     method: 'GET',
     path: '/css/{path*}',
-    config: Handler.css
+    options: Handler.css
   },
   {
     method: 'GET',
     path: '/favicon*',
-    config: Handler.favicon
+    options: Handler.favicon
   },
   {
     method: 'GET',
     path: '/images/{path*}',
-    config: Handler.images
+    options: Handler.images
   },
   {
     method: ['GET'],
     path: '/{path*}',
-    config: Handler.missing
+    options: Handler.missing
   }
 ]
 
