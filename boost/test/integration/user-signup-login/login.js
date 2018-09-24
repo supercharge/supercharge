@@ -31,6 +31,22 @@ class LoginTest extends BaseTest {
     t.is(response.statusCode, 302)
     t.is(response.headers['location'], '/home')
   }
+
+  async todofailsToLoginWithUnregisteredEmail (t) {
+    t.pass()
+  }
+
+  async todofailsToLoginWithWrongPassword (t) {
+    t.pass()
+  }
+
+  async todofailsToLoginWithoutEmail (t) {
+    t.pass()
+  }
+
+  async todofailsToLoginWithoutPassword (t) {
+    t.pass()
+  }
 }
 
 module.exports = new LoginTest()
