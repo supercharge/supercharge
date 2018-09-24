@@ -3,8 +3,8 @@
 const Fs = require('fs')
 const Path = require('path')
 const Uuid = require('uuid/v4')
-const Filesystem = util('filesystem')
 const BaseTest = util('base-test')
+const Filesystem = util('filesystem')
 
 class FilesystemTest extends BaseTest {
   async before () {
