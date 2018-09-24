@@ -103,7 +103,12 @@ class PendingRequest {
    *
    * @param {Object} arguments
    */
-  get ({ uri, headers }) {
+  get (params) {
+    if (typeof params === 'string') {
+      return this.inject({ uri: params })
+    }
+
+    const { headers, uri } = params
     this.withHeaders(headers)
 
     return this.inject({ method: 'GET', uri })

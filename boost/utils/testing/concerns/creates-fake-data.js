@@ -29,7 +29,8 @@ class CreatesFakeData {
    * Delete all users.
    */
   async deleteUsers () {
-    await User.deleteMany()
+    // TODO wait for all users to be deleted
+    User.remove().exec()
   }
 
   /**
