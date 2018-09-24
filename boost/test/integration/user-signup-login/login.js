@@ -32,20 +32,72 @@ class LoginTest extends BaseTest {
     t.is(response.headers['location'], '/home')
   }
 
-  async todofailsToLoginWithUnregisteredEmail (t) {
-    t.pass()
+  async failsToLoginWithUnregisteredEmail (t) {
+    const response = await this.post({
+      uri: '/login',
+      payload: {
+        email: 'unregistered@futurestud.io',
+        password: t.context.user.passwordPlain
+      }
+    })
+
+    t.is(response.statusCode, 404)
   }
 
-  async todofailsToLoginWithWrongPassword (t) {
-    t.pass()
+  async failsToLoginWithWrongPassword (t) {
+    const response = await this.post({
+      uri: '/login',
+      payload: {
+        email: t.context.user.email,
+        password: 'wrong-password'
+      }
+    })
+
+    t.is(response.statusCode, 400)
   }
 
-  async todofailsToLoginWithoutEmail (t) {
-    t.pass()
+  async failsToLoginWithoutEmail (t) {
+    const response = await this.post({
+      uri: '/login',
+      payload: {
+        // email: t.context.user.email,
+        password: t.context.user.passwordPlain
+      }
+    })
+
+    t.is(response.statusCode, 400)
   }
 
-  async todofailsToLoginWithoutPassword (t) {
-    t.pass()
+  async failsToLoginWithoutPassword (t) {
+    const response = await this.post({
+      uri: '/login',
+      payload: {
+        email: t.context.user.email
+        // password: t.context.user.passwordPlain
+      }
+    })
+
+    t.is(response.statusCode, 400)
+  }
+
+  async redirectsAuthenticatedUserWhenRequestingLoginView (t) {
+    const response = await this.actAs(t.context.user).get('/login')
+
+    t.is(response.statusCode, 302)
+  }
+
+  async redirectsAuthenticatedUser (t) {
+    const user = t.context.user
+
+    const response = await this.actAs(user).post({
+      uri: '/login',
+      payload: {
+        email: user.email,
+        password: user.passwordPlain
+      }
+    })
+
+    t.is(response.statusCode, 302)
   }
 }
 

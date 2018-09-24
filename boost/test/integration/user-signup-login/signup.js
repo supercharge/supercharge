@@ -18,22 +18,42 @@ class SignupTest extends BaseTest {
     // t.is(response.headers['location'], '/home')
   }
 
-  async todofailsDueToMissingEmail (t) {
-    // t.is(response.statusCode, 400)
+  async failsDueToMissingEmail (t) {
+    const response = await this.post({
+      uri: '/signup',
+      payload: {
+        // email: 'marcus@futurestud.io',
+        password: 'password'
+      }
+    })
 
-    t.pass()
+    t.is(response.statusCode, 400)
   }
 
-  async todofailsDueToMissingPassword (t) {
-    // t.is(response.statusCode, 400)
+  async failsDueToMissingPassword (t) {
+    const response = await this.post({
+      uri: '/signup',
+      payload: {
+        email: 'marcus@futurestud.io'
+        // password: 'password'
+      }
+    })
 
-    t.pass()
+    t.is(response.statusCode, 400)
   }
 
-  async todofailsDueToExistingEmail (t) {
-    // t.is(response.statusCode, 400)
+  async failsDueToExistingEmail (t) {
+    const user = this.fakeUser()
 
-    t.pass()
+    const response = await this.post({
+      uri: '/signup',
+      payload: {
+        email: user.email,
+        password: user.passwordPlain
+      }
+    })
+
+    t.is(response.statusCode, 400)
   }
 }
 
