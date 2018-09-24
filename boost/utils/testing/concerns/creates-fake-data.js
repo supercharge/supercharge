@@ -25,11 +25,40 @@ class CreatesFakeData {
     return Object.assign(created, { passwordPlain: password })
   }
 
-  async deleteUser ({ _id }) {
+  /**
+   * Delete all users.
+   */
+  async deleteUsers () {
+    await User.deleteMany()
+  }
+
+  /**
+   * Delete the given `user`.
+   *
+   * @param {Object} user
+   *
+   * @throws
+   */
+  async deleteUser ({ _id } = {}) {
+    if (!_id) {
+      throw new Error('Missing user ID. Pass a user object to "deleteUser(user)".')
+    }
+
     await this.deleteUserById(_id)
   }
 
+  /**
+   * Delete a user identified by the given `id`.
+   *
+   * @param {String} id
+   *
+   * @throws
+   */
   async deleteUserById (id) {
+    if (!id) {
+      throw new Error('Missing user ID. Pass an ID to "deleteUserById(id)".')
+    }
+
     await User.findOneAndDelete({ _id: id })
   }
 }
