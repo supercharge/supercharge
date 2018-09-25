@@ -8,7 +8,7 @@ function register (server) {
 }
 
 exports.plugin = {
-  name: 'boost-user-signup-login-password-reset',
+  name: 'user-signup-login',
   dependencies: ['vision'],
   register
 }
