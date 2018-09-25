@@ -1,10 +1,16 @@
 'use strict'
 
+const User = model('user')
 const BaseTest = util('base-test')
 
 class SignupTest extends BaseTest {
-  async alwaysAfter () {
-    await this.deleteUsers()
+  async before ({ context }) {
+    context.users = []
+  }
+
+  async alwaysAfter ({ context }) {
+    const deletions = context.users.map(async user => this.deleteUser(user))
+    await Promise.all(deletions)
   }
 
   async showsSignupPage (t) {
@@ -13,9 +19,44 @@ class SignupTest extends BaseTest {
     t.is(response.statusCode, 200)
   }
 
-  async todosuceedsSignup (t) {
-    // t.is(response.statusCode, 302)
-    // t.is(response.headers['location'], '/home')
+  async redirectsAuthenticatedUserWhenRequestingSignupView (t) {
+    const user = await this.fakeUser()
+    t.context.users.push(user)
+
+    const response = await this.actAs(user).get('/signup')
+
+    t.is(response.statusCode, 302)
+  }
+
+  async redirectsAuthenticatedUser (t) {
+    const user = await this.fakeUser()
+    t.context.users.push(user)
+
+    const response = await this.actAs(user).post({
+      uri: '/signup',
+      payload: {
+        email: user.email,
+        password: user.passwordPlain
+      }
+    })
+
+    t.is(response.statusCode, 302)
+  }
+
+  async suceedsSignup (t) {
+    const response = await this.post({
+      uri: '/signup',
+      payload: {
+        email: 'marcus@futurestud.io',
+        password: 'password'
+      }
+    })
+
+    t.is(response.statusCode, 302)
+    t.is(response.headers['location'], '/home')
+
+    const user = await User.findOne({ email: 'marcus@futurestud.io' })
+    t.context.users.push(user)
   }
 
   async failsDueToMissingEmail (t) {
@@ -43,7 +84,8 @@ class SignupTest extends BaseTest {
   }
 
   async failsDueToExistingEmail (t) {
-    const user = this.fakeUser()
+    const user = await this.fakeUser()
+    t.context.users.push(user)
 
     const response = await this.post({
       uri: '/signup',
@@ -53,7 +95,7 @@ class SignupTest extends BaseTest {
       }
     })
 
-    t.is(response.statusCode, 400)
+    t.is(response.statusCode, 409)
   }
 }
 
