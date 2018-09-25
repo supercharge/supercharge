@@ -9,7 +9,8 @@
     ],
     "files": [
       "test/**/*.js",
-      "!**/test-setup.js"
+      "!**/test-setup.js",
+      "boost/test/**/*.js"
     ]
   },
   "contributors": [
@@ -115,6 +116,7 @@
     "lint-boost": "eslint 'boost/**/*js.js'",
     "setup": "node craft setup",
     "test": "cross-env NODE_ENV=testing ava",
-    "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js"
+    "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js",
+    "test-boost-single": "cross-env NODE_ENV=testing ava boost/test/**/*.js --match"
   }
 }
