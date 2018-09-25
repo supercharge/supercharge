@@ -52,8 +52,6 @@ class RegistersTests {
    * @param {String} methodName
    */
   createTestFromMethod (methodName) {
-    const name = this.readableTestName(methodName)
-
     /**
      * Ignore all methods starting with an underscore.
      */
@@ -65,41 +63,41 @@ class RegistersTests {
      * Skip methods starting with "skip*".
      */
     if (_.startsWith(methodName, 'skip')) {
-      return this.skip(name, methodName)
+      return this.skip(methodName)
     }
 
     /**
      * Mark method as TODO when starting with "todo*".
      */
     if (_.startsWith(methodName, 'todo')) {
-      return this.todo(name)
+      return this.todo(methodName)
     }
 
     /**
      * Mark method as the only one to execute.
      */
     if (_.startsWith(methodName, 'only')) {
-      return this.only(name, methodName)
+      return this.only(methodName)
     }
 
     /**
      * Mark method as failing.
      */
     if (_.startsWith(methodName, 'failing')) {
-      return this.failing(name, methodName)
+      return this.failing(methodName)
     }
 
     /**
      * Serial execution for this method.
      */
     if (_.startsWith(methodName, 'serial')) {
-      return this.serial(name, methodName)
+      return this.serial(methodName)
     }
 
     /**
      * Create a test that can run in a worker.
      */
-    this.addTest(name, methodName)
+    this.addTest(methodName)
   }
 
   /**
@@ -107,10 +105,9 @@ class RegistersTests {
    * implementation.
    *
    * @param {String} name
-   * @param {String} methodName
    */
-  addTest (name, methodName) {
-    Ava(name, async t => this[methodName](t))
+  addTest (name) {
+    Ava(name, async t => this[name](t))
   }
 
   /**
@@ -126,10 +123,9 @@ class RegistersTests {
    * during the test run.
    *
    * @param {String} name
-   * @param {String} methodName
    */
-  skip (name, methodName) {
-    Ava.skip(name, async t => this[methodName](t))
+  skip (name) {
+    Ava.skip(name, async t => this[name](t))
   }
 
   /**
@@ -138,30 +134,27 @@ class RegistersTests {
    * in this file are ignored.
    *
    * @param {String} name
-   * @param {String} methodName
    */
-  only (name, methodName) {
-    Ava.only(name, async t => this[methodName](t))
+  only (name) {
+    Ava.only(name, async t => this[name](t))
   }
 
   /**
    * Create a test method that runs in sequence.
    *
    * @param {String} name
-   * @param {String} methodName
    */
-  serial (name, methodName) {
-    Ava.serial(name, async t => this[methodName](t))
+  serial (name) {
+    Ava.serial(name, async t => this[name](t))
   }
 
   /**
    * Create test method that is expected to fail.
    *
    * @param {String} name
-   * @param {String} methodName
    */
-  failing (name, methodName) {
-    Ava.failing(name, async t => this[methodName](t))
+  failing (name) {
+    Ava.failing(name, async t => this[name](t))
   }
 
   /**

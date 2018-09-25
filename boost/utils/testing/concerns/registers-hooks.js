@@ -103,9 +103,10 @@ class RegistersHooks {
    */
   assignAlwaysAfterHook () {
     Ava.after.always(`${this.constructor.name}: after.always`, async t => {
-      await Database.close()
+      await this.alwaysAfter(t)
 
-      return this.alwaysAfter(t)
+      // closing the database connection must be the last action
+      await Database.close()
     })
   }
 
