@@ -4,7 +4,7 @@ const Handler = {
   home: {
     auth: 'session',
     handler: (_, h) => {
-      return h.view('user/dashboard')
+      return h.view('user/home')
     }
   }
 }
