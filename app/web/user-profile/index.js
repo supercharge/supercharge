@@ -8,6 +8,6 @@ async function register (server) {
 }
 
 exports.plugin = {
-  name: 'boost-user-profile',
+  name: 'user-profile',
   register
 }
