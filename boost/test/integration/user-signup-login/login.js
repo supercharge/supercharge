@@ -17,6 +17,12 @@ class LoginTest extends BaseTest {
     t.is(response.statusCode, 200)
   }
 
+  async redirectsAuthenticatedUserWhenRequestingLoginView (t) {
+    const response = await this.actAs(t.context.user).get('/login')
+
+    t.is(response.statusCode, 302)
+  }
+
   async suceedsLogin (t) {
     const user = t.context.user
 
@@ -78,12 +84,6 @@ class LoginTest extends BaseTest {
     })
 
     t.is(response.statusCode, 400)
-  }
-
-  async redirectsAuthenticatedUserWhenRequestingLoginView (t) {
-    const response = await this.actAs(t.context.user).get('/login')
-
-    t.is(response.statusCode, 302)
   }
 
   async redirectsAuthenticatedUser (t) {
