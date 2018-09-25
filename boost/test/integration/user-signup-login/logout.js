@@ -12,12 +12,17 @@ class LoginTest extends BaseTest {
   }
 
   async suceedsLogout (t) {
-    const user = t.context.user
-
-    const response = await this.actAs(user).get('/logout')
+    const response = await this.actAs(t.context.user).get('/logout')
 
     t.is(response.statusCode, 302)
     t.is(response.headers['location'], '/')
+  }
+
+  async redirectsToLoginWhenNotLoggedIn (t) {
+    const response = await this.get('/logout')
+
+    t.is(response.statusCode, 302)
+    t.is(response.headers['location'], `/login?next=${encodeURIComponent('/logout')}`)
   }
 }
 
