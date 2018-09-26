@@ -71,17 +71,8 @@ class MakesHttpRequests {
    *
    * @param {String|Object} options
    */
-  get (args = {}) {
-    if (typeof args === 'string') {
-      return this.request().inject({ uri: args })
-    }
-
-    if (typeof args === 'object') {
-      const { headers, uri } = args
-      return this.request(headers).get({ uri })
-    }
-
-    throw new Error('The HTTP "get" method accepts only a string or an object.')
+  get (params) {
+    this.request().get(params)
   }
 
   /**
@@ -89,8 +80,8 @@ class MakesHttpRequests {
    *
    * @param {Object} arguments
    */
-  post ({ uri, headers, payload }) {
-    return this.request().post({ uri, headers, payload })
+  post (params) {
+    return this.request().post(params)
   }
 
   /**
@@ -98,8 +89,8 @@ class MakesHttpRequests {
    *
    * @param {Object} arguments
    */
-  put ({ uri, headers, payload }) {
-    return this.request().inject({ uri, headers, payload })
+  put (params) {
+    return this.request().put(params)
   }
 
   /**
@@ -107,8 +98,8 @@ class MakesHttpRequests {
    *
    * @param {Object} arguments
    */
-  patch ({ uri, headers, payload }) {
-    return this.request().inject({ uri, headers, payload })
+  patch (params) {
+    return this.request().patch(params)
   }
 
   /**
@@ -116,8 +107,8 @@ class MakesHttpRequests {
    *
    * @param {Object} arguments
    */
-  delete ({ uri, headers, payload }) {
-    return this.request().inject({ uri, headers, payload })
+  delete (params) {
+    return this.request().delete(params)
   }
 }
 
