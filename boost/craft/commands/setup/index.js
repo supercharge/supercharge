@@ -70,6 +70,8 @@ class Setup extends BaseCommand {
 
   /**
    * Copy the `.env.example` file over to `.env`.
+   *
+   * @returns {Promise}
    */
   async createEnvFileFromExample () {
     const source = await this.getEnvPath('.env.example')
