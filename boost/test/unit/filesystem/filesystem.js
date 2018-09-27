@@ -16,12 +16,12 @@ class FilesystemTest extends BaseTest {
     await Filesystem.removeDir(this.tempDir)
   }
 
-  _tempFile (file = `${Uuid()}.txt`) {
+  async _tempFile (file = `${Uuid()}.txt`) {
     return Path.resolve(this.tempDir, file)
   }
 
   async _ensureTempFile (filename = `${Uuid()}.txt`) {
-    const file = this._tempFile(filename)
+    const file = await this._tempFile(filename)
     await Filesystem.ensureFile(file)
 
     return file
@@ -58,7 +58,7 @@ class FilesystemTest extends BaseTest {
   }
 
   async ensureFile (t) {
-    const file = this._tempFile()
+    const file = await this._tempFile()
     await Filesystem.ensureFile(file)
     const exists = Fs.existsSync(file)
 
