@@ -72,7 +72,7 @@ class MakesHttpRequests {
    * @param {String|Object} options
    */
   get (params) {
-    this.request().get(params)
+    return this.request().get(params)
   }
 
   /**
