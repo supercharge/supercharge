@@ -17,6 +17,7 @@ class Env {
    */
   constructor () {
     this.load(this.envFileName())
+    this.load('.env')
   }
 
   /**
@@ -31,11 +32,9 @@ class Env {
       return process.env.ENV_PATH
     }
 
-    if (process.env.NODE_ENV === 'testing') {
-      return '.env.testing'
-    }
+    const envName = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : ''
 
-    return '.env'
+    return `.env.${envName}`
   }
 
   /**
