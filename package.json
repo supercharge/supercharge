@@ -10,7 +10,7 @@
     "files": [
       "test/**/*.js",
       "!**/test-setup.js",
-      "boost/test/**/*.js"
+      "!boost/test/**/*.js"
     ]
   },
   "contributors": [
@@ -112,10 +112,10 @@
     "cov": "npm run coverage",
     "lint": "eslint **/*js.js",
     "setup": "node craft setup",
+    "lint-boost": "eslint 'boost/**/*js.js'",
     "test": "cross-env NODE_ENV=testing ava",
     "coverage": "cross-env NODE_ENV=testing nyc ava",
     "test-single": "cross-env NODE_ENV=testing ava --match",
-    "lint-boost": "eslint 'boost/**/*js.js'",
     "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js",
     "cov-boost": "cross-env NODE_ENV=testing nyc ava boost/test/**/*.js",
     "test-boost-single": "cross-env NODE_ENV=testing ava boost/test/**/*.js --match"
