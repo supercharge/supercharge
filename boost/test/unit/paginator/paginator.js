@@ -30,6 +30,58 @@ class PaginatorTest extends BaseTest {
     t.deepEqual(expected, pagination)
   }
 
+  async generatesCorrectLinks (t) {
+    const request = {
+      path: '/posts',
+      query: { page: 1 },
+      info: { host: 'localhost' }
+    }
+
+    const pagination = new Paginator({ request, totalCount: 2, perPage: 5 })
+
+    const expected = {
+      total: 2,
+      perPage: 5,
+      currentPage: 1,
+      lastPage: 1,
+      first: undefined,
+      prev: undefined,
+      next: undefined,
+      last: undefined,
+      from: 0,
+      to: 5,
+      link: ''
+    }
+
+    t.deepEqual(expected, pagination)
+  }
+
+  async defaultsToFirstPage (t) {
+    const request = {
+      path: '/posts',
+      query: { },
+      info: { host: 'localhost' }
+    }
+
+    const pagination = new Paginator({ request, totalCount: 2, perPage: 5 })
+
+    const expected = {
+      total: 2,
+      perPage: 5,
+      currentPage: 1,
+      lastPage: 1,
+      first: undefined,
+      prev: undefined,
+      next: undefined,
+      last: undefined,
+      from: 0,
+      to: 5,
+      link: ''
+    }
+
+    t.deepEqual(expected, pagination)
+  }
+
   async failsWithoutRequest (t) {
     t.throws(() => new Paginator({ request: null, totalCount: 10 }))
     t.throws(() => new Paginator({ request: undefined, totalCount: 10 }))
