@@ -152,6 +152,10 @@ class DatabaseManager {
       throw new Error(`Database connection with name "${name}" is already registered.`)
     }
 
+    if (!name) {
+      throw new Error(`Database connector name is required but missing.`)
+    }
+
     if (!connection) {
       throw new Error('Database connector instance is required but missing.')
     }
