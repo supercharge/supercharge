@@ -210,7 +210,7 @@ class Filesystem {
    * @param {String} dest
    * @param {String} type
    */
-  ensureSymlink (src, dest, type) {
+  ensureSymlink (src, dest, type = 'file') {
     return Fs.ensureSymlink(src, dest, type)
   }
 

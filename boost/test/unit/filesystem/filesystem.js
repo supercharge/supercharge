@@ -194,7 +194,7 @@ class FilesystemTest extends BaseTest {
   async ensureSymlink (t) {
     const file = await this._ensureTempFile()
     const link = Path.resolve(this.tempDir, 'links', 'symlink.txt')
-    await Filesystem.ensureLink(file, link)
+    await Filesystem.ensureSymlink(file, link)
 
     const exists = await Filesystem.exists(link)
     t.true(exists)
