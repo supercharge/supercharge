@@ -32,7 +32,11 @@ class Env {
       return process.env.ENV_PATH
     }
 
-    const envName = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : ''
+    if (!process.env.NODE_ENV) {
+      return '.env'
+    }
+
+    const envName = process.env.NODE_ENV.toLowerCase()
 
     return `.env.${envName}`
   }
