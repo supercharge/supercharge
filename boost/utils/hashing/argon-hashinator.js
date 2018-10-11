@@ -33,7 +33,7 @@ class ArgonHashinator {
    * @returns {Boolean}
    */
   async check (value, hash) {
-    return Argon.verify(value, hash)
+    return Argon.verify(hash, value)
   }
 }
 
