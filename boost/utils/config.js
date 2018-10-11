@@ -35,7 +35,7 @@ class Config {
    * Returns the requested config value.
    *
    * @param {String} key
-   * @param {defaultValue} defaultValue
+   * @param {Mixed} defaultValue
    *
    * @returns {Mixed}
    */
