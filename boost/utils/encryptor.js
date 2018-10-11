@@ -12,6 +12,10 @@ class Encryptor {
    * @param {Object} options
    */
   constructor (key = Config.get('app.key'), options) {
+    if (!key) {
+      throw new Error('Encryption key missing. Define the app key in your config/app.js file.')
+    }
+
     this.key = key
     this.encryptor = Encrypter(Object.assign({}, { key }, options))
   }
