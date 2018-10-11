@@ -13,11 +13,11 @@ class Hashinator {
     const driver = Config.get('hashing.driver')
 
     if (driver === 'argon') {
-      this.driver = new ArgonHashinator()
+      this.hasher = new ArgonHashinator()
       return
     }
 
-    this.driver = new BcryptHashinator()
+    this.hasher = new BcryptHashinator()
   }
 
   /**
@@ -28,7 +28,7 @@ class Hashinator {
    * @returns {String}
    */
   async make (value) {
-    return this.driver.make(value)
+    return this.hasher.make(value)
   }
 
   /**
@@ -42,7 +42,7 @@ class Hashinator {
    * @returns {Boolean}
    */
   async check (value, hash) {
-    return this.driver.check(value, hash)
+    return this.hasher.check(value, hash)
   }
 
   /**
