@@ -5,13 +5,14 @@ const Http = require('./concerns/makes-http-requests')
 const FakeData = require('./concerns/creates-fake-data')
 const RegistersHook = require('./concerns/registers-hooks')
 const RegistersTests = require('./concerns/registers-tests')
+const MocksStubsSpies = require('./concerns/creates-stubs-mocks-spies')
 
 /**
  * This is the base test class each test should
  * implement. It provides reusable utilities
  * to quickly create powerful test cases.
  */
-class BaseTest extends Many(Http, FakeData, RegistersHook, RegistersTests) {
+class BaseTest extends Many(Http, FakeData, MocksStubsSpies, RegistersHook, RegistersTests) {
   /**
    * Create a new test case instance.
    */
@@ -29,7 +30,7 @@ class BaseTest extends Many(Http, FakeData, RegistersHook, RegistersTests) {
    * @param {String} method
    */
   __call (method) {
-    console.log(`'${method}()' is missing!`)
+    console.log(`'${method}()' is missing in your test class!`)
   }
 }
 

@@ -1,6 +1,5 @@
 'use strict'
 
-const Sinon = require('sinon')
 const Database = util('database')
 const BaseTest = util('base-test')
 
@@ -39,8 +38,12 @@ class DatabaseManagerTest extends BaseTest {
   }
 
   async doesNotFailWhenClosingAlreadyClosedConnection (t) {
-    await Database.close('mongoose')
-    t.is(Object.keys(Database.connections).length, 0)
+    const name = 'closing'
+    Database.addConnection(name, new TestConnector())
+
+    await Database.close(name)
+    await Database.close(name)
+    t.false(Object.keys(Database.connections).includes(name))
   }
 
   async serialClosesAllConnections (t) {
@@ -74,7 +77,7 @@ class DatabaseManagerTest extends BaseTest {
   }
 
   async throwsForUnavailableConnector (t) {
-    const stub = Sinon.stub(Database, 'connectors').returns({})
+    const stub = this.stub(Database, 'connectors').returns({})
     t.throws(() => Database.connector('mongoose'))
     stub.restore()
   }
