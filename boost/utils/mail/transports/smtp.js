@@ -7,7 +7,7 @@ const Nodemailer = require('nodemailer')
  * based on the application's configuration.
  */
 class SmtpTransporter {
-  constructor (options) {
+  constructor (options = {}) {
     return Nodemailer.createTransport(options)
   }
 }
