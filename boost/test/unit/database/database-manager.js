@@ -4,16 +4,73 @@ const Sinon = require('sinon')
 const Database = util('database')
 const BaseTest = util('base-test')
 
+class TestConnector {
+  connect () {}
+  close () {}
+}
+
 class DatabaseManagerTest extends BaseTest {
-  async connectsOnlyOnce (t) {
+  async serialConnectsDefaultConnection (t) {
     await Database.connect()
-    await Database.connect()
+    t.is(Object.keys(Database.connections).length, 1)
+    await Database.close()
+  }
+
+  async serialConnectsMongoose (t) {
+    await Database.connect('mongoose')
+    t.is(Object.keys(Database.connections).length, 1)
+    await Database.close('mongoose')
+  }
+
+  async serialConnectsOnlyOnce (t) {
+    await Database.connect('mongoose')
+    await Database.connect('mongoose')
 
     t.is(Object.keys(Database.connections).length, 1)
+    await Database.close('mongoose')
+  }
+
+  async serialClosesSingleConnection (t) {
+    await Database.connect('mongoose')
+    t.is(Object.keys(Database.connections).length, 1)
+
+    await Database.close('mongoose')
+    t.is(Object.keys(Database.connections).length, 0)
+  }
+
+  async doesNotFailWhenClosingAlreadyClosedConnection (t) {
+    await Database.close('mongoose')
+    t.is(Object.keys(Database.connections).length, 0)
+  }
+
+  async serialClosesAllConnections (t) {
+    Database.addConnection('test1', new TestConnector())
+    Database.addConnection('test2', new TestConnector())
+
+    await Database.connect('test1')
+    await Database.connect('test2')
+    t.is(Object.keys(Database.connections).length, 2)
+
+    await Database.close()
+    t.is(Object.keys(Database.connections).length, 0)
+  }
+
+  async returnsAvailableMongooseConnection (t) {
+    await Database.connect('mongoose')
+    t.truthy(Database.connection('mongoose'))
+  }
+
+  async returnsCustomConnection (t) {
+    Database.addConnection('customConnection', new TestConnector())
+    t.truthy(Database.connection('customConnection'))
+  }
+
+  async throwsWhenTryingToGetUnavailableConnection (t) {
+    t.throws(() => Database.connection('unavailable'))
   }
 
   async returnsAvailableMongooseConnector (t) {
-    t.true(!!Database.connector('mongoose'))
+    t.truthy(Database.connector('mongoose'))
   }
 
   async throwsForUnavailableConnector (t) {
@@ -22,27 +79,33 @@ class DatabaseManagerTest extends BaseTest {
     stub.restore()
   }
 
-  async returnsAvailableMongooseConnection (t) {
-    t.true(!!Database.connection('mongoose'))
+  async returnsDefaultConfiguration (t) {
+    t.truthy(Database.configuration())
+  }
+
+  async returnsConfiguration (t) {
+    t.truthy(Database.configuration('mongoose'))
   }
 
   async throwsForUnavailableDatabaseConfiguration (t) {
     t.throws(() => Database.configuration('unavailable'))
   }
 
-  async addConnection (t) {
-    class Connector {
-      connect () {}
-      close () {}
-    }
+  async returnsDefaultConnection (t) {
+    t.truthy(Database.defaultConnection())
+  }
 
-    Database.addConnection('test', new Connector())
+  async addConnection (t) {
+    Database.addConnection('test', new TestConnector())
     t.true(!!Database.connections['test'])
     delete Database.connections['test']
   }
 
   async throwsWhenAddingAConnectionTwice (t) {
-    t.throws(() => Database.addConnection('mongoose'))
+    Database.addConnection('testConnection', new TestConnector())
+    t.throws(() => {
+      Database.addConnection('testConnection', new TestConnector())
+    })
   }
 
   async throwsWhenAddingAConnectionWithoutName (t) {
