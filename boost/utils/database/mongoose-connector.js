@@ -17,6 +17,10 @@ class MongooseConnector {
    * @param {Object} config
    */
   constructor (config) {
+    if (!config) {
+      throw new Error('Mongoose connector config missing. Define the mongoose connection settings in your config/database.js file.')
+    }
+
     this.config = config
 
     // to avoid "ensureIndex" deprecation warning
