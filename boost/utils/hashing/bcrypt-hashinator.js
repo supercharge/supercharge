@@ -8,7 +8,7 @@ class BcryptHashinator {
    * Create a new Bcrypt hasher instance.
    */
   constructor () {
-    this.rounds = Config.get('hashing.bcrypt.rounds')
+    this.rounds = parseInt(Config.get('hashing.bcrypt.rounds'))
   }
 
   /**
