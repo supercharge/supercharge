@@ -42,6 +42,18 @@ class Config {
   get (key, defaultValue) {
     return _.get(this.config, key, defaultValue)
   }
+
+  /**
+   * Set a config value.
+   *
+   * @param {String} key
+   * @param {Mixed} value
+   *
+   * @returns {Mixed}
+   */
+  set (key, value) {
+    return _.set(this.config, key, value)
+  }
 }
 
 module.exports = new Config()
