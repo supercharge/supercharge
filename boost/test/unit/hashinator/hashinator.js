@@ -1,6 +1,5 @@
 'use strict'
 
-const Env = util('env')
 const Config = util('config')
 const Hash = util('hashinator')
 const BaseTest = util('base-test')
