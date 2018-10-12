@@ -18,10 +18,6 @@ class MongooseConnectorTest extends BaseTest {
     t.pass()
   }
 
-  async serialThrowsWithoutConfig (t) {
-    t.throws(() => new MongooseConnector())
-  }
-
   async serialConsoleLogConnectionError (t) {
     const connector = new MongooseConnector({})
 
@@ -31,11 +27,14 @@ class MongooseConnectorTest extends BaseTest {
     await connector.connect()
 
     this.sinon().assert.called(consoleStub)
-
     consoleStub.restore()
     connectStub.restore()
 
     t.pass()
+  }
+
+  async serialThrowsWithoutConfig (t) {
+    t.throws(() => new MongooseConnector())
   }
 }
 
