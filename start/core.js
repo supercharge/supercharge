@@ -1,7 +1,7 @@
 'use strict'
 
 const Config = util('config')
-const DatabaseManager = util('database')
+const AppShutdown = require('./shutdown')
 
 /**
  * This is the list of core plugins for Boost.
@@ -22,9 +22,7 @@ const corePlugins = [
   {
     plugin: 'hapi-pulse',
     options: {
-      onSignal: async function () {
-        await DatabaseManager.close()
-      }
+      onSignal: AppShutdown.postServerStop
     }
   },
   {
