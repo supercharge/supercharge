@@ -18,7 +18,7 @@ class Logger {
    */
   constructor () {
     this.driver = Config.get('logging.driver')
-    this.logger = this.logger = Winston.createLogger()
+    this.logger = Winston.createLogger()
 
     this.loadDrivers()
 
