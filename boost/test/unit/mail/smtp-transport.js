@@ -6,7 +6,6 @@ const SmtpTransporter = Transports['smtp']
 
 class SmtpTransporterTest extends BaseTest {
   async createSmtpTransporter (t) {
-    console.log(SmtpTransporter)
     const transporter = new SmtpTransporter()
     t.truthy(transporter)
   }
