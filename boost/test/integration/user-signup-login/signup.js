@@ -1,6 +1,7 @@
 'use strict'
 
 const User = model('user')
+const Event = util('event')
 const BaseTest = util('base-test')
 
 class SignupTest extends BaseTest {
@@ -44,6 +45,8 @@ class SignupTest extends BaseTest {
   }
 
   async suceedsSignup (t) {
+    const eventStub = this.stub(Event, 'fire').returns()
+
     const response = await this.post({
       uri: '/signup',
       payload: {
@@ -54,6 +57,9 @@ class SignupTest extends BaseTest {
 
     t.is(response.statusCode, 302)
     t.is(response.headers['location'], '/home')
+
+    this.sinon().assert.called(eventStub)
+    eventStub.restore()
 
     const user = await User.findOne({ email: 'marcus@futurestud.io' })
     t.context.users.push(user)
