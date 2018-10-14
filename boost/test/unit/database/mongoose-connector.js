@@ -1,34 +1,38 @@
 'use strict'
 
 const Config = util('config')
+const Database = util('database')
 const BaseTest = util('base-test')
+const Mongoose = require('mongoose')
 const MongooseConnector = util('database/mongoose-connector')
 
 class MongooseConnectorTest extends BaseTest {
   async serialConnectorLifecycle (t) {
     const connector = new MongooseConnector(Config.get('database.connections.mongoose'))
-    const consoleStub = this.stub(console, 'error')
+    const stub = this.stub(connector, 'onConnectionError').returns()
 
     await connector.connect()
     await connector.close()
 
-    this.sinon().assert.notCalled(consoleStub)
-    consoleStub.restore()
+    this.sinon().assert.notCalled(stub)
+    stub.restore()
 
     t.pass()
   }
 
-  async serialConsoleLogConnectionError (t) {
-    const connector = new MongooseConnector({})
+  async serialMongooseFailsToConnectWithBadConnectionString (t) {
+    const connector = new MongooseConnector({
+      host: 'wrong',
+      port: 27017,
+      database: 'not-existent'
+    })
 
-    const consoleStub = this.stub(console, 'error')
-    const connectStub = this.stub(connector, 'connectionString').returns('mongodb://wrong-string')
+    const stub = this.stub(connector, 'onConnectionError').returns()
 
     await connector.connect()
 
-    this.sinon().assert.called(consoleStub)
-    consoleStub.restore()
-    connectStub.restore()
+    this.sinon().assert.notCalled(stub)
+    stub.restore()
 
     t.pass()
   }
