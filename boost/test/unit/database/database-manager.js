@@ -37,7 +37,7 @@ class DatabaseManagerTest extends BaseTest {
     t.is(Object.keys(Database.connections).length, 0)
   }
 
-  async doesNotFailWhenClosingAlreadyClosedConnection (t) {
+  async serialDoesNotFailWhenClosingAlreadyClosedConnection (t) {
     const name = 'closing'
     Database.addConnection(name, new TestConnector())
 
@@ -58,9 +58,10 @@ class DatabaseManagerTest extends BaseTest {
     t.is(Object.keys(Database.connections).length, 0)
   }
 
-  async returnsAvailableMongooseConnection (t) {
+  async serialReturnsAvailableMongooseConnection (t) {
     await Database.connect('mongoose')
     t.truthy(Database.connection('mongoose'))
+    await Database.close('mongoose')
   }
 
   async returnsCustomConnection (t) {
