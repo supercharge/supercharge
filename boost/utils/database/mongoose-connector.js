@@ -1,6 +1,7 @@
 'use strict'
 
 const Config = util('config')
+const Logger = util('logger')
 const Mongoose = require('mongoose')
 
 /**
@@ -27,9 +28,7 @@ class MongooseConnector {
     Mongoose.set('useCreateIndex', true)
 
     Mongoose.Promise = global.Promise
-    Mongoose.connection.on('error', err => {
-      console.error(`⚡️ 🚨 ⚡️ 🚨 ⚡️ 🚨 Mongoose Error → ${err.message}`)
-    })
+    Mongoose.connection.on('error', this.onConnectionError)
   }
 
   /**
@@ -65,6 +64,10 @@ class MongooseConnector {
   connectionString () {
     const { host, port, database } = this.config
     return `mongodb://${host}:${port}/${database}`
+  }
+
+  onConnectionError (err) {
+    Logger.error(`⚡️ 🚨 ⚡️ 🚨 ⚡️ 🚨 Mongoose Error → ${err.message}`)
   }
 }
 
