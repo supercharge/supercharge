@@ -10,8 +10,8 @@ class Mailer {
    * Create a new mailer instance.
    */
   constructor () {
-    this.from = Config.get('mail.from')
-    this.replyTo = Config.get('mail.from')
+    this.fromAddress = Config.get('mail.from')
+    this.replyToAddress = Config.get('mail.from')
 
     const driver = Config.get('mail.driver')
     const transports = Config.get('mail.transports')
@@ -96,7 +96,7 @@ class Mailer {
       throw new Error('Pass a Mailable instance to the Mailer.send(mailable) method.')
     }
 
-    const { to, cc, bcc, subject, html, text, from = this.from, replyTo = this.replyTo } = await mailable.buildMessage()
+    const { to, cc, bcc, subject, html, text, from = this.fromAddress, replyTo = this.replyToAddress } = await mailable.buildMessage()
     const message = { from, to, cc, bcc, replyTo, subject, html, text }
 
     try {
