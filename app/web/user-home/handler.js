@@ -3,9 +3,7 @@
 const Handler = {
   home: {
     auth: 'session',
-    handler: (_, h) => {
-      return h.view('user/home')
-    }
+    handler: (_, h) => h.view('home')
   }
 }
 
