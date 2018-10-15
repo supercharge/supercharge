@@ -51,6 +51,14 @@ class MongooseConnector {
   }
 
   /**
+   * Returns whether Mongoose has connected to
+   * the MongoDB database instance.
+   */
+  async isConnected () {
+    return Mongoose.connection.readyState === 1
+  }
+
+  /**
    * Close the MongoDB connection.
    */
   async close () {
@@ -67,7 +75,7 @@ class MongooseConnector {
   }
 
   onConnectionError (err) {
-    Logger.error(`⚡️ 🚨 ⚡️ 🚨 ⚡️ 🚨 Mongoose Error → ${err.message}`)
+    Logger.error(`⚡️ 🚨 Mongoose Error → ${err.message}`)
   }
 }
 
