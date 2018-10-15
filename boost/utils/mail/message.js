@@ -8,6 +8,7 @@ class Message {
    * @param {Object} mailer
    */
   constructor (mailer) {
+    this.address = {}
     this.mailer = mailer
   }
 
@@ -17,7 +18,7 @@ class Message {
    * @param {Mixed} users
    */
   to (users) {
-    this.to = users
+    this.address.to = users
 
     return this
   }
@@ -28,7 +29,7 @@ class Message {
    * @param {String|Object|Array} users
    */
   cc (users) {
-    this.cc = users
+    this.address.cc = users
 
     return this
   }
@@ -40,7 +41,7 @@ class Message {
    * @param {String|Object|Array} users
    */
   bcc (users) {
-    this.bcc = users
+    this.address.bcc = users
 
     return this
   }
@@ -52,7 +53,12 @@ class Message {
    * @param {String} name
    */
   from (address, name) {
-    this.from = { address, name }
+    if (!name) {
+      this.address.from = address
+      return this
+    }
+
+    this.address.from = { address, name }
 
     return this
   }
@@ -64,7 +70,12 @@ class Message {
    * @param {String} name
    */
   replyTo (address, name) {
-    this.replyTo = { address, name }
+    if (!name) {
+      this.address.replyTo = address
+      return this
+    }
+
+    this.address.replyTo = { address, name }
 
     return this
   }
@@ -88,11 +99,11 @@ class Message {
    */
   fill (mailable) {
     return mailable
-      .to(this.to)
-      .cc(this.cc)
-      .bcc(this.bcc)
-      .from(this.from)
-      .replyTo(this.replyTo)
+      .to(this.address.to)
+      .cc(this.address.cc)
+      .bcc(this.address.bcc)
+      .from(this.address.from)
+      .replyTo(this.address.replyTo)
   }
 }
 
