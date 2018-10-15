@@ -1,43 +1,36 @@
 'use strict'
 
 const Config = util('config')
-const Database = util('database')
 const BaseTest = util('base-test')
-const Mongoose = require('mongoose')
 const MongooseConnector = util('database/mongoose-connector')
 
 class MongooseConnectorTest extends BaseTest {
-  async serialConnectorLifecycle (t) {
+  async connectorLifecycle (t) {
     const connector = new MongooseConnector(Config.get('database.connections.mongoose'))
-    const stub = this.stub(connector, 'onConnectionError').returns()
 
     await connector.connect()
+    t.true(await connector.isConnected())
+
     await connector.close()
-
-    this.sinon().assert.notCalled(stub)
-    stub.restore()
-
-    t.pass()
+    t.false(await connector.isConnected())
   }
 
-  async serialMongooseFailsToConnectWithBadConnectionString (t) {
+  async mongooseFailsToConnectWithBadConnectionString (t) {
     const connector = new MongooseConnector({
       host: 'wrong',
       port: 27017,
-      database: 'not-existent'
+      database: 'not-existent',
+      options: {
+        useNewUrlParser: true
+      }
     })
-
-    const stub = this.stub(connector, 'onConnectionError').returns()
 
     await connector.connect()
 
-    this.sinon().assert.notCalled(stub)
-    stub.restore()
-
-    t.pass()
+    t.false(await connector.isConnected())
   }
 
-  async serialThrowsWithoutConfig (t) {
+  async throwsWithoutConfig (t) {
     t.throws(() => new MongooseConnector())
   }
 }
