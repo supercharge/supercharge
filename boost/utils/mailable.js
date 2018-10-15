@@ -112,18 +112,7 @@ class Mailable {
    * @param {String} view
    */
   view (view) {
-    this.view = view
-
-    return this
-  }
-
-  /**
-   * Set the path to the text view file.
-   *
-   * @param {String} view
-   */
-  text (textView) {
-    this.textView = textView
+    this.message.view = view
 
     return this
   }
@@ -135,12 +124,12 @@ class Mailable {
    * @param {String} value
    */
   with (key, value) {
-    this.viewData = this.viewData || {}
+    this.message.viewData = this.message.viewData || {}
 
     if (_.isObject(key)) {
-      this.viewData = Object.assign({}, this.viewData, key)
+      this.message.viewData = Object.assign({}, this.message.viewData, key)
     } else {
-      this.viewData[key] = value
+      this.message.viewData[key] = value
     }
 
     return this
@@ -152,7 +141,7 @@ class Mailable {
    * @returns {Object}
    */
   async buildMessage () {
-    this.create()
+    await this.create()
     await this.render()
 
     return this.message
@@ -163,14 +152,8 @@ class Mailable {
    * the HTML view and plain text.
    */
   async render () {
-    this.message.html = await this.buildView(this.view, this.viewData)
-
-    if (!this.textView) {
-      this.message.text = HtmlToText.fromString(this.html)
-      return
-    }
-
-    this.message.text = await this.buildView(this.textView, this.viewData)
+    this.message.html = await this.buildView()
+    this.message.text = HtmlToText.fromString(this.message.html)
   }
 
   /**
@@ -181,11 +164,11 @@ class Mailable {
 
    * @returns {String}
    */
-  async buildView (viewName, viewData) {
-    const template = await this.readTemplate(viewName)
-    const render = Handlebars.compile(template)
+  async buildView () {
+    const template = this.message.view ? await this.readTemplate() : this.message.html
+    const render = Handlebars.compile(template || '')
 
-    return render(viewData)
+    return render(this.message.viewData)
   }
 
   /**
@@ -195,8 +178,8 @@ class Mailable {
    *
    * @returns {String}
    */
-  async readTemplate (viewName) {
-    return ReadFile(this.getTemplatePath(viewName), 'utf8')
+  async readTemplate () {
+    return ReadFile(this.getTemplatePath(this.message.view), 'utf8')
   }
 
   /**
@@ -206,8 +189,8 @@ class Mailable {
    *
    * @returns {String}
    */
-  getTemplatePath (viewName) {
-    const filename = viewName.split('.').join('/')
+  getTemplatePath () {
+    const filename = this.message.view.split('.').join('/')
 
     return __viewsPath(`${filename}.hbs`)
   }
@@ -220,7 +203,7 @@ class Mailable {
   setAddress (field, address, name) {
     this.message[field] = this.message[field] || []
 
-    if (address instanceof Array === true) {
+    if (address instanceof Array) {
       this.message[field] = this.message[field].concat(address)
       return
     }
