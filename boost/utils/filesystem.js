@@ -17,7 +17,7 @@ class Filesystem {
    *
    * @param {String} file
    */
-  stat (file) {
+  async stat (file) {
     return Fs.stat(file)
   }
 
@@ -29,7 +29,7 @@ class Filesystem {
    * @param {String} path  - file or directory path
    * @param {Integer} mode - defaults to `fs.constants.F_OK`
    */
-  access (path, mode) {
+  async access (path, mode) {
     return Fs.access(path, mode)
   }
 
@@ -40,7 +40,7 @@ class Filesystem {
    *
    * @returns {Boolean}
    */
-  pathExists (file) {
+  async pathExists (file) {
     return Fs.pathExists(file)
   }
 
@@ -52,7 +52,7 @@ class Filesystem {
    *
    * @returns {Boolean}
    */
-  exists (file) {
+  async exists (file) {
     return this.pathExists(file)
   }
 
@@ -63,7 +63,7 @@ class Filesystem {
    *
    * @param {String} file
    */
-  ensureFile (file) {
+  async ensureFile (file) {
     return Fs.ensureFile(file)
   }
 
@@ -75,7 +75,7 @@ class Filesystem {
    * @param {String} file
    * @param {String|Object} encoding
    */
-  readFile (file, encoding = 'utf8') {
+  async readFile (file, encoding = 'utf8') {
     return Fs.readFile(file, encoding)
   }
 
@@ -87,7 +87,7 @@ class Filesystem {
    * @param {String} path
    * @param {String} encoding
    */
-  readDir (path, encoding) {
+  async readDir (path, encoding) {
     return Fs.readdir(path, encoding)
   }
 
@@ -100,8 +100,18 @@ class Filesystem {
    * @param  {String} content
    * @param  {Object} options
    */
-  writeFile (file, content, options) {
+  async writeFile (file, content, options) {
     return Fs.outputFile(file, content, options)
+  }
+
+  /**
+   * Removes a file or directory from the
+   * file system located at `path`.
+   *
+   * @param {String} path
+   */
+  async remove (path) {
+    return Fs.remove(path)
   }
 
   /**
@@ -109,7 +119,7 @@ class Filesystem {
    *
    * @param {String} file
    */
-  removeFile (file) {
+  async removeFile (file) {
     return Fs.remove(file)
   }
 
@@ -126,7 +136,7 @@ class Filesystem {
    * @param {String} dest - destination path
    * @param {Object} options
    */
-  copy (src, dest, options) {
+  async copy (src, dest, options) {
     return Fs.copy(src, dest, options)
   }
 
@@ -139,7 +149,7 @@ class Filesystem {
    * @param {String} dest - destination path
    * @param {Object} options
    */
-  move (src, dest, options = {}) {
+  async move (src, dest, options = {}) {
     return Fs.move(src, dest, options)
   }
 
@@ -150,7 +160,7 @@ class Filesystem {
    *
    * @param {String} dir - directory path
    */
-  ensureDir (dir) {
+  async ensureDir (dir) {
     return Fs.ensureDir(dir)
   }
 
@@ -161,7 +171,7 @@ class Filesystem {
    *
    * @param {String} dir - directory path
    */
-  removeDir (dir) {
+  async removeDir (dir) {
     return Fs.remove(dir)
   }
 
@@ -173,7 +183,7 @@ class Filesystem {
    *
    * @param {String} dir
    */
-  emptyDir (dir) {
+  async emptyDir (dir) {
     return Fs.emptyDir(dir)
   }
 
@@ -185,7 +195,7 @@ class Filesystem {
    * @param {String} file
    * @param {String|Integer} mode
    */
-  chmod (file, mode) {
+  async chmod (file, mode) {
     return Fs.chmod(file, parseInt(mode, 8))
   }
 
@@ -197,7 +207,7 @@ class Filesystem {
    * @param {String} src
    * @param {String} dest
    */
-  ensureLink (src, dest) {
+  async ensureLink (src, dest) {
     return Fs.ensureLink(src, dest)
   }
 
@@ -210,7 +220,7 @@ class Filesystem {
    * @param {String} dest
    * @param {String} type
    */
-  ensureSymlink (src, dest, type = 'file') {
+  async ensureSymlink (src, dest, type = 'file') {
     return Fs.ensureSymlink(src, dest, type)
   }
 
@@ -220,8 +230,8 @@ class Filesystem {
    * @param {String} file
    * @param {Object} options
    */
-  lockFile (file, options = {}) {
-    return lockFile(this.prepareLockFile(file), options)
+  async lockFile (file, options = {}) {
+    return lockFile(await this.prepareLockFile(file), options)
   }
 
   /**
@@ -229,8 +239,8 @@ class Filesystem {
    *
    * @param {String} file
    */
-  unlockFile (file) {
-    return unlockFile(this.prepareLockFile(file))
+  async unlockFile (file) {
+    return unlockFile(await this.prepareLockFile(file))
   }
 
   /**
@@ -241,8 +251,8 @@ class Filesystem {
    *
    * @returns {Boolean}
    */
-  isLocked (file, options = {}) {
-    return isFileLocked(this.prepareLockFile(file), options)
+  async isLocked (file, options = {}) {
+    return isFileLocked(await this.prepareLockFile(file), options)
   }
 
   /**
@@ -253,7 +263,7 @@ class Filesystem {
    *
    * @returns {String}
    */
-  prepareLockFile (file) {
+  async prepareLockFile (file) {
     return _.endsWith(file, '.lock') ? file : `${file}.lock`
   }
 
