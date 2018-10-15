@@ -105,7 +105,7 @@ class PendingRequest {
    */
   get (params) {
     if (typeof params === 'string') {
-      return this.inject({ uri: params })
+      return this.inject({ method: 'GET', uri: params })
     }
 
     const { headers, uri } = params
@@ -168,7 +168,7 @@ class PendingRequest {
    *
    * @param {arguments} arguments
    */
-  async inject ({ method, uri: url }) {
+  async inject ({ method = 'GET', uri: url }) {
     const cookies = this.formatCookies()
     this.withHeaders({ cookie: cookies.join('; ') })
 
