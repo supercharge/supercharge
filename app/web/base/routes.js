@@ -20,7 +20,7 @@ const Routes = [
   },
   {
     method: 'GET',
-    path: '/favicon*',
+    path: '/favicon.ico',
     options: Handler.favicon
   },
   {
