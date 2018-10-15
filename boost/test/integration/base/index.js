@@ -1,5 +1,7 @@
 'use strict'
 
+const Path = require('path')
+const Fs = require('fs-extra')
 const BaseTest = util('base-test')
 
 class BaseRoutesTest extends BaseTest {
@@ -13,9 +15,14 @@ class BaseRoutesTest extends BaseTest {
     t.is(response.statusCode, 404)
   }
 
-  async js (t) {
-    const response = await this.get('/js/app.js')
+  async javascript (t) {
+    const file = Path.resolve(__appRoot, 'public', 'js', 'testfile.js')
+    await Fs.ensureFile(file)
+
+    const response = await this.get('/js/testfile.js')
     t.is(response.statusCode, 200)
+
+    await Fs.remove(file)
   }
 
   async css (t) {
