@@ -12,8 +12,8 @@
         <ul class="pagination-list">
             {{#repeat lastPage start=1 }}
                 <li>
-                    <span class="pagination-link has-white-background {{#isEqual @index currentPage}} is-current{{/isEqual}}" aria-current="page"
-                        aria-label="{{#isEqual @index currentPage}}Page {{else}}Goto page {{@index}}{{/isEqual}}">{{@index}}</span>
+                    <span class="pagination-link has-white-background {{#eq @index currentPage}} is-current{{/eq}}"
+                        aria-current="page" aria-label="{{#eq @index currentPage}}Page {{else}}Goto page {{@index}}{{/eq}}">{{@index}}</span>
                 </li>
             {{/repeat}}
         </ul>
