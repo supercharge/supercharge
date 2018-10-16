@@ -15,7 +15,7 @@ const corePlugins = [
   {
     plugin: 'hapi-dev-errors',
     options: {
-      showErrors: Config.get('app.env') !== 'production',
+      showErrors: !Config.get('app.isProduction'),
       toTerminal: false
     }
   },
