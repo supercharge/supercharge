@@ -2,8 +2,8 @@
 
 const Config = util('./config')
 const Winston = require('winston')
-const WinstonFile = require('./logging/file-logger')
-const WinstonConsole = require('./logging/console-logger')
+const FileLogger = require('./logging/file-logger')
+const ConsoleLogger = require('./logging/console-logger')
 
 /**
  * The application logger based on Winston to
@@ -28,19 +28,19 @@ class Logger {
    */
   loadDrivers () {
     if (this.driver === 'console') {
-      this.logger.clear().add(new WinstonConsole())
+      this.logger.clear().add(new ConsoleLogger().logger())
     }
 
     if (this.driver === 'file') {
-      this.logger.clear().add(new WinstonFile())
+      this.logger.clear().add(new FileLogger().logger())
     }
 
     if (this.driver === 'stacked') {
       this
         .logger
         .clear()
-        .add(new WinstonConsole())
-        .add(new WinstonFile())
+        .add(new ConsoleLogger().logger())
+        .add(new FileLogger().logger())
     }
   }
 

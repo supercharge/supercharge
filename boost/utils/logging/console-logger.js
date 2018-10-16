@@ -1,5 +1,6 @@
 'use strict'
 
+const Config = util('config')
 const Chalk = require('chalk')
 const Winston = require('winston')
 const { combine, timestamp, printf } = Winston.format
@@ -9,9 +10,17 @@ const { combine, timestamp, printf } = Winston.format
  * desired log file and a custom log format
  * that includes the ISO date time.
  */
-class WinstonConsoleLogger {
+class ConsoleLogger {
+  /**
+   * Create a new console logger instance that
+   * logs a colored message.
+   */
   constructor () {
-    return new Winston.transports.Console({
+    this.config = Config.get('logging.channels.console')
+    this.colors = this.logColors()
+
+    this.transport = new Winston.transports.Console({
+      level: this.config.level,
       format: combine(
         timestamp(),
         printf(info => {
@@ -19,9 +28,17 @@ class WinstonConsoleLogger {
           const time = new Date(info.timestamp).getTime()
           return `${Chalk.gray(time)} ${Color(info.level)} ${info.message}`
         })
-      ),
-      level: 'debug'
+      )
     })
+  }
+
+  /**
+   * Returns the console logger instance.
+   *
+   * @returns {Object}
+   */
+  logger () {
+    return this.transport
   }
 
   /**
@@ -34,18 +51,20 @@ class WinstonConsoleLogger {
    * error => bold red
    *
    * @param {integer} label - Winston log level as a string label
+   *
+   * @returns {Function}
    */
   getColorForLevel (label) {
-    const colors = this.colors()
-
-    return colors[label] || Chalk.white
+    return this.colors[label] || Chalk.white
   }
 
   /**
    * Color levels, ranked ascending
    * from freakout to chilly
+   *
+   * @returns {Object}
    */
-  colors () {
+  logColors () {
     return {
       error: Chalk.bold.red,
       warn: Chalk.yellow,
@@ -57,4 +76,4 @@ class WinstonConsoleLogger {
   }
 }
 
-module.exports = WinstonConsoleLogger
+module.exports = ConsoleLogger

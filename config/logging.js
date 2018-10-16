@@ -19,13 +19,22 @@ module.exports = {
 
   /**
    * --------------------------------------------------------------------------
-   * Application Log File
+   * Log Channel Configurations
    * --------------------------------------------------------------------------
    *
-   * This is the destination of all log messages from
-   * the file logger. This log file is located within
-   * the storage/logs directory.
+   * This defines the individual configurations for
+   * available log channels. A stacked logger will
+   * apply all channels and take their configs.
    *
    */
-  logfile: Env.get('LOG_FILE', 'app.log')
+  channels: {
+    console: {
+      level: 'debug'
+    },
+
+    file: {
+      level: 'debug',
+      path: __storagePath('logs', Env.get('LOG_FILE', 'app.log'))
+    }
+  }
 }

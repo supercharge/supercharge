@@ -9,11 +9,18 @@ const { combine, timestamp, printf } = Winston.format
  * desired log file and a custom log format
  * that includes the ISO date time.
  */
-class WinstonFileLogger {
+class FileLogger {
+  /**
+   * Create a new file logger instance that
+   * saves the readable UTC time besides
+   * the unix time stamp.
+   */
   constructor () {
-    return new Winston.transports.File({
-      filename: this.logFile(),
-      level: 'debug',
+    this.config = Config.get('logging.channels.file')
+
+    this.transport = new Winston.transports.File({
+      filename: this.config.path,
+      level: this.config.level,
       format: combine(
         timestamp(),
         printf(info => {
@@ -24,9 +31,14 @@ class WinstonFileLogger {
     })
   }
 
-  logFile () {
-    return __storagePath('logs', Config.get('logging.logfile'))
+  /**
+   * Returns the console logger instance.
+   *
+   * @returns {Object}
+   */
+  logger () {
+    return this.transport
   }
 }
 
-module.exports = WinstonFileLogger
+module.exports = FileLogger
