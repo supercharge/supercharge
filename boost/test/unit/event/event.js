@@ -12,7 +12,7 @@ class EventTest extends BaseTest {
 
   async onOff (t) {
     const event = 'test.on'
-    function handler () {}
+    const handler = function () {}
 
     Event.on(event, handler)
     t.is(Dispatcher.listenerCount(event), 1)
@@ -23,7 +23,7 @@ class EventTest extends BaseTest {
 
   async listenForget (t) {
     const event = 'test.on'
-    function handler () {}
+    const handler = function () {}
 
     Event.listen(event, handler)
     t.is(Dispatcher.listenerCount(event), 1)
@@ -34,7 +34,7 @@ class EventTest extends BaseTest {
 
   async listenForgetArray (t) {
     const event = 'test.on'
-    function handler () {}
+    const handler = function () {}
 
     Event.listen(event, handler)
     t.is(Dispatcher.listenerCount(event), 1)
