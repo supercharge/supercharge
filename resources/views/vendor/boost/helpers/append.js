@@ -8,7 +8,7 @@
  * @param {String} name
  * @param {Object} context
  */
-function append(name, context) {
+function append (name, context) {
   if (!context) {
     throw new Error('Provide a name when using the "append" handlebars helper.')
   }

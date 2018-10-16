@@ -25,7 +25,7 @@
  *
  * @returns String - JSON
  */
-function raw(options) {
+function raw (options) {
   return options.fn()
 }
 

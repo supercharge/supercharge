@@ -5,7 +5,7 @@
  *
  * @returns String - JSON
  */
-function json(content) {
+function json (content) {
   return JSON.stringify(content, undefined, 2)
 }
 

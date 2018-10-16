@@ -7,7 +7,7 @@
  *
  * @returns {String}
  */
-function setActive(urlPath, context) {
+function setActive (urlPath, context) {
   return context.data.root.request.path === urlPath ? 'active' : ''
 }
 

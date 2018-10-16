@@ -8,7 +8,7 @@
  * @param {String} name
  * @param {Object} context
  */
-function stack(name, context) {
+function stack (name, context) {
   const stacks = context.data.root.stacks || {}
   const contentStack = stacks[name] || []
 

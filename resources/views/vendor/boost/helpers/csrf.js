@@ -9,7 +9,7 @@ const Handlebars = require('handlebars')
  *
  * @returns String - HTML
  */
-function csrf(context) {
+function csrf (context) {
   const tokenName = Config.get('session.token')
   const token = _.get(context, `data.root.${tokenName}`)
 

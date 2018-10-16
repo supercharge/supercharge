@@ -1,7 +1,5 @@
 'use strict'
 
-const HandlebarsRepeatHelper = require('handlebars-helper-repeat')
-
 /**
  * Block helper for repeating whatever is
  * inside the block n times.
@@ -29,4 +27,4 @@ const HandlebarsRepeatHelper = require('handlebars-helper-repeat')
  * ```
  */
 
-module.exports = HandlebarsRepeatHelper
+module.exports = require('handlebars-helper-repeat')
