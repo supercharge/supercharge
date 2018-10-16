@@ -41,17 +41,17 @@ class Event {
    * Create a custom event with event handler.
    *
    * @param {String} event
-   * @param {Object} handler
+   * @param {Function} handler
    */
   static on (event, handler) {
-    Dispatcher.listen(event, handler)
+    Dispatcher.on(event, handler)
   }
 
   /**
    * Create a custom event with event handler.
    *
    * @param {String} event
-   * @param {Object} handler
+   * @param {Function} handler
    */
   static listen (event, handler) {
     Dispatcher.listen(event, handler)
@@ -62,10 +62,10 @@ class Event {
    * `event` name.
    *
    * @param {String} event
-   * @param {Object} listener
+   * @param {Function} listener
    */
   static off (event, listener) {
-    Dispatcher.forget(event, listener)
+    Dispatcher.off(event, listener)
   }
 
   /**
@@ -73,7 +73,7 @@ class Event {
    * `event` name.
    *
    * @param {String} event
-   * @param {Object} listener
+   * @param {Function} listener
    */
   static forget (event, listener) {
     Dispatcher.forget(event, listener)
