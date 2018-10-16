@@ -68,13 +68,15 @@ class MailerTest extends BaseTest {
     const message = Mailer.replyTo('marcus@futurestud.io', 'Marcus')
     t.deepEqual(message.address.replyTo, { name: 'Marcus', address: 'marcus@futurestud.io' })
   }
+
   async failsSendForEmptyMailableParameter (t) {
     const error = await t.throwsAsync(Mailer.send())
     t.true(error.message.includes('Pass a Mailable instance to the Mailer'))
   }
 
   async failsSendForNonMailableParameter (t) {
-    const error = await t.throwsAsync(Mailer.send(function () { }))
+    class TestMail {}
+    const error = await t.throwsAsync(Mailer.send(new TestMail()))
     t.true(error.message.includes('Pass a Mailable instance to the Mailer'))
   }
 
@@ -123,7 +125,8 @@ class MailerTest extends BaseTest {
   }
 
   async serialFireAndForgetFailsWithoutThrowing (t) {
-    const stub = this.stub(Mailer.transporter, 'sendMail').throws(new Error('fake error'))
+    const error = new Error('fake error')
+    const stub = this.stub(Mailer.transporter, 'sendMail').throws(error)
 
     await Mailer.fireAndForget(new TestMailable())
 
@@ -134,9 +137,10 @@ class MailerTest extends BaseTest {
   }
 
   async serialFireAndForgetFailsAndThrowsSystemErrors (t) {
-    const stub = this.stub(Mailer.transporter, 'sendMail').throws(new URIError('fake uri error'))
+    const error = new URIError('fake uri error')
+    const stub = this.stub(Mailer.transporter, 'sendMail').throws(error)
 
-    const error = await t.throwsAsync(Mailer.fireAndForget(new TestMailable()))
+    await t.throwsAsync(Mailer.fireAndForget(new TestMailable()))
 
     this.sinon().assert.called(stub)
     stub.restore()
