@@ -5,9 +5,9 @@ const Config = util('config')
 const Handlebars = require('handlebars')
 
 /**
- * Generates a CSRF token hidden input form field
+ * Generates a CSRF token hidden input form field.
  *
- * @returns String - HTML
+ * @returns {String} HTML
  */
 function csrf (context) {
   const tokenName = Config.get('session.token')
@@ -16,6 +16,8 @@ function csrf (context) {
   if (token) {
     return new Handlebars.SafeString(`<input type="hidden" name="${tokenName}" value="${token}">`)
   }
+
+  return ''
 }
 
 module.exports = csrf
