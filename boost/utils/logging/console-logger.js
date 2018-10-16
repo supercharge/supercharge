@@ -23,7 +23,7 @@ class ConsoleLogger {
       level: this.config.level,
       format: combine(
         timestamp(),
-        printf(info => this.format(info))
+        printf(this.format)
       )
     })
   }

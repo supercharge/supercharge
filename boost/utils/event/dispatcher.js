@@ -19,8 +19,6 @@ class Dispatcher {
     this.eventsFolder = Path.resolve(__appRoot, 'app', 'events')
     this.listenersFolder = Path.resolve(__appRoot, 'app', 'listeners')
 
-    this.events = {}
-    this.listeners = {}
     this.emitter = new EventEmitter()
   }
 
@@ -30,10 +28,24 @@ class Dispatcher {
    * listeners to the related events.
    */
   async init () {
-    await this.loadEvents()
-    await this.loadListeners()
     await this.registerUserEvents()
     await this.registerSystemEventListeners()
+  }
+
+  eventNames () {
+    return this.emitter.eventNames()
+  }
+
+  listenerCount (eventName) {
+    return this.emitter.listenerCount(eventName)
+  }
+
+  listeners (eventName) {
+    return this.emitter.listeners(eventName)
+  }
+
+  removeAllListeners (eventName) {
+    return this.emitter.removeAllListeners(eventName)
   }
 
   /**
@@ -67,7 +79,7 @@ class Dispatcher {
       )
     }
 
-    this.registerUserListenerForEvent(eventName, handler)
+    this.addListener(eventName, handler)
   }
 
   /**
@@ -86,16 +98,20 @@ class Dispatcher {
 
   /**
    * Load all events from the file system.
+   *
+   * @returns {Object}
    */
   async loadEvents () {
-    this.events = await this.loadFiles(this.eventsFolder)
+    return this.loadFiles(this.eventsFolder)
   }
 
   /**
    * Load all listeners from the file system.
+   *
+   * @returns {Object}
    */
   async loadListeners () {
-    this.listeners = await this.loadFiles(this.listenersFolder)
+    return this.loadFiles(this.listenersFolder)
   }
 
   /**
@@ -140,7 +156,7 @@ class Dispatcher {
    * emitted by the Node.js process.
    */
   async registerSystemEventListeners () {
-    const listeners = this.getSystemEventListeners()
+    const listeners = await this.getSystemEventListeners()
 
     _.forEach(listeners, listener => {
       this.registerListeners(listener.on(), listener)
@@ -148,14 +164,29 @@ class Dispatcher {
   }
 
   /**
+   * Find all event listeners for the given event.
+   *
+   * @param {String} eventName
+   */
+  async getListenersFor (eventName) {
+    return _.map(await this.loadListeners(), Listener => {
+      const listener = new Listener()
+      this.ensureListener(listener)
+
+      return listener.on().includes(eventName) ? listener : null
+    }).filter(listener => !!listener)
+  }
+
+  /**
    * Find all listeners of type `system`. All event
    * files in the app directory should return
    * the type `user`.
    */
-  getSystemEventListeners () {
-    return _.map(this.listeners, Listener => {
+  async getSystemEventListeners () {
+    return _.map(await this.loadListeners(), Listener => {
       const listener = new Listener()
       this.ensureListener(listener)
+
       return listener
     }).filter(listener => {
       return listener.type() === 'system'
@@ -167,25 +198,13 @@ class Dispatcher {
    * listeners to the event emitter.
    */
   async registerUserEvents () {
-    _.forEach(this.events, async Event => {
+    _.forEach(await this.loadEvents(), async Event => {
       const event = new Event()
       this.ensureEvent(event)
 
-      const listeners = this.getListenersByEventName(event.emit())
+      const listeners = await this.getListenersFor(event.emit())
       this.registerListeners(event.emit(), listeners)
     })
-  }
-
-  /**
-   * Find all event listeners for the given event.
-   *
-   * @param {String} eventName
-   */
-  getListenersByEventName (eventName) {
-    return _.map(this.listeners, Listener => {
-      const listener = new Listener()
-      return listener.on().includes(eventName) ? listener : null
-    }).filter(listener => !!listener)
   }
 
   /**
@@ -202,19 +221,10 @@ class Dispatcher {
     _.forEach(events, eventName => {
       _.forEach(listeners, listener => {
         listener.type() === 'user'
-          ? this.registerUserListenerForEvent(eventName, listener.handle)
-          : this.registerSystemEvent(eventName, listener.handle)
+          ? this.addListener(eventName, listener.handle)
+          : this.addSystemListener(eventName, listener.handle)
       })
     })
-  }
-
-  /**
-   * Register the event to the dispatcher.
-   *
-   * @param {String} eventName
-   */
-  async registerUserEvent (eventName) {
-    this.emitter.on(eventName)
   }
 
   /**
@@ -224,7 +234,7 @@ class Dispatcher {
    * @param {String} eventName
    * @param {Object} listener
    */
-  registerUserListenerForEvent (eventName, listener) {
+  addListener (eventName, listener) {
     this.emitter.on(eventName, listener)
   }
 
@@ -234,7 +244,7 @@ class Dispatcher {
    * @param {String} eventName
    * @param {Object} listener
    */
-  async registerSystemEvent (eventName, listener) {
+  async addSystemListener (eventName, listener) {
     process.on(eventName, await listener)
   }
 
@@ -246,29 +256,23 @@ class Dispatcher {
    * @param {String} event
    * @param {Object} listener
    */
-  forget (event, listener) {
-    if (!listener) {
-      listener = event
-      this.ensureListener(listener)
-      event = listener.on()
-    }
-
-    this.forgetUserListener(event, listener)
+  off (eventName, handler) {
+    this.forget(eventName, handler)
   }
 
   /**
-   * Turn off and remove the event listener.
+   * Remove `listener` from the given `event`.
+   * This removes only user listeners, because
+   * system listeners can’t be turned off.
    *
    * @param {String} event
-   * @param {Object} listener
+   * @param {Function} listener
    */
-  forgetUserListener (event, listener) {
+  forget (event, listener) {
     const events = Array.isArray(event) ? event : [event]
 
     _.forEach(events, eventName => {
-      if (listener.type() === 'user') {
-        this.emitter.off(eventName, listener)
-      }
+      this.emitter.removeListener(eventName, listener)
     })
   }
 }
