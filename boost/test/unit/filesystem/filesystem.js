@@ -94,6 +94,15 @@ class FilesystemTest extends BaseTest {
     t.is(content, 'Hello Boost')
   }
 
+  async remove (t) {
+    const file = await this._ensureTempFile()
+    await Filesystem.remove(file)
+
+    const exists = await Filesystem.exists(file)
+
+    t.false(exists)
+  }
+
   async removeFile (t) {
     const file = await this._ensureTempFile()
     await Filesystem.removeFile(file)
