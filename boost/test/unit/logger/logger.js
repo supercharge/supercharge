@@ -24,17 +24,6 @@ class LoggerTest extends BaseTest {
     t.is(consoleLogger.logger._readableState.pipesCount, 1)
   }
 
-  async logsConsoleMessage (t) {
-    const consoleLogger = new Logger.constructor()
-    consoleLogger.driver = 'console'
-    consoleLogger.loadDrivers()
-
-    // consoleLogger.logger.silent = true
-    consoleLogger.debug('testing')
-
-    t.pass()
-  }
-
   async useFileLogger (t) {
     const fileLogger = new Logger.constructor()
     fileLogger.driver = 'file'

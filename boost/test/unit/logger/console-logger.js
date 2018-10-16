@@ -13,6 +13,11 @@ class ConsoleLoggerTest extends BaseTest {
     const logger = new ConsoleLogger()
     t.truthy(logger.getColorForLevel('unavailable-level'))
   }
+
+  async customFormat (t) {
+    const logger = new ConsoleLogger()
+    t.truthy(logger.format({ level: 'debug', message: 'testing' }))
+  }
 }
 
 module.exports = new ConsoleLoggerTest()

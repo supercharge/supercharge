@@ -23,11 +23,7 @@ class ConsoleLogger {
       level: this.config.level,
       format: combine(
         timestamp(),
-        printf(info => {
-          const Color = this.getColorForLevel(info.level)
-          const time = new Date(info.timestamp).getTime()
-          return `${Chalk.gray(time)} ${Color(info.level)} ${info.message}`
-        })
+        printf(this.format)
       )
     })
   }
@@ -56,6 +52,18 @@ class ConsoleLogger {
    */
   getColorForLevel (label) {
     return this.colors[label] || Chalk.white
+  }
+
+  /**
+   * Returns a custom log format function.
+   *
+   * @returns {Function}
+   */
+  format (info) {
+    const Color = this.getColorForLevel(info.level)
+    const time = new Date(info.timestamp).getTime()
+
+    return `${Chalk.gray(time)} ${Color(info.level)} ${info.message}`
   }
 
   /**
