@@ -1,7 +1,7 @@
 'use strict'
 
+const User = model('user')
 const Config = util('config')
-const { User } = frequire('app', 'models')
 
 /**
  * Register authentication plugins and configure the middleware
