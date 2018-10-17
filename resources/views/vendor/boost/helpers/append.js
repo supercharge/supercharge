@@ -7,6 +7,8 @@
  *
  * @param {String} name
  * @param {Object} context
+ *
+ * @returns {String} stack content to append
  */
 function append (name, context) {
   if (!context) {

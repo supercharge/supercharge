@@ -7,17 +7,25 @@
  *
  * @param {String} name
  * @param {Object} context
+ *
+ * @returns {String} the stack's content
  */
 function stack (name, context) {
-  const stacks = context.data.root.stacks || {}
-  const contentStack = stacks[name] || []
+  if (!context) {
+    throw new Error('Provide a name when using the "stack" handlebars helper.')
+  }
 
-  const content = contentStack
+  const stacks = context.data.root.stacks || {}
+  const stackContent = stacks[name] || []
+
+  const content = stackContent
     .reduce(
       (stack, { mode, data }) => {
         if (mode === 'append') {
           stack.push(data)
-        } else if (mode === 'prepend') {
+        }
+
+        if (mode === 'prepend') {
           stack.unshift(data)
         }
 

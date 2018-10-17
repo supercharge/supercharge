@@ -1,12 +1,14 @@
 'use strict'
 
+const Handlebars = require('handlebars')
+
 /**
- * Creates a JSON string from the content parameter
+ * Creates a JSON string from the content parameter.
  *
- * @returns String - JSON
+ * @returns {String} JSON
  */
 function json (content) {
-  return JSON.stringify(content, undefined, 2)
+  return new Handlebars.SafeString(JSON.stringify(content, undefined, 2))
 }
 
 module.exports = json

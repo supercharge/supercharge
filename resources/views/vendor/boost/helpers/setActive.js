@@ -1,5 +1,7 @@
 'use strict'
 
+const _ = require('lodash')
+
 /**
  * Returns the string "active"  if the `urlPath`
  * matches the current request path. Returns an
@@ -8,7 +10,9 @@
  * @returns {String}
  */
 function setActive (urlPath, context) {
-  return context.data.root.request.path === urlPath ? 'active' : ''
+  const path = _.get(context, 'data.root.request.path')
+
+  return path === urlPath ? 'active' : ''
 }
 
 module.exports = setActive

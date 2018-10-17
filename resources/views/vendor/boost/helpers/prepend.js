@@ -7,10 +7,12 @@
  *
  * @param {String} name
  * @param {Object} context
+ *
+ * @returns {String} stack content to prepend
  */
 function prepend (name, context) {
   if (!context) {
-    throw new Error('Provide a name when using the "append" handlebars helper.')
+    throw new Error('Provide a name when using the "prepend" handlebars helper.')
   }
 
   const stacks = context.data.root.stacks || {}
