@@ -16,7 +16,7 @@ class CreatesFakeData {
    */
   async fakeUser ({ email, ...rest } = {}) {
     email = email || `testuser-${Uuid()}@boost.fs`
-    const password = Encryptor.randomKey()
+    const password = this.randomId()
 
     const created = new User({ email, password, ...rest })
     await created.hashPassword()
@@ -60,6 +60,15 @@ class CreatesFakeData {
     }
 
     await User.findOneAndDelete({ _id: id })
+  }
+
+  /**
+   * Generates a random key.
+   *
+   * @returns {String}
+   */
+  randomId () {
+    return Encryptor.randomKey()
   }
 }
 
