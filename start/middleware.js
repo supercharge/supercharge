@@ -2,7 +2,7 @@
 
 const Path = require('path')
 const Fs = util('filesystem')
-const middlewarePath = Path.resolve(__appRoot, 'boost', 'middleware')
+const middlewarePath = Path.resolve(__appRoot, 'app', 'http', 'middleware')
 
 /**
  * All Boost middlewares that apply to all

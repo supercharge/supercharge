@@ -2,7 +2,7 @@
 
 const Path = require('path')
 const Fs = util('filesystem')
-const pluginPath = Path.resolve(__appRoot, 'app', 'web')
+const pluginPath = Path.resolve(__appRoot, 'app', 'http', 'web')
 
 /**
  * Register your hapi application plugins here.
