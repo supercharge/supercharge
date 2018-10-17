@@ -9,6 +9,18 @@ class MakesHttpRequestsTest extends BaseTest {
     t.is(response.statusCode, 404)
   }
 
+  async sendsPutRequestWithoutRoute (t) {
+    const response = await this.put({ uri: '/put' })
+
+    t.is(response.statusCode, 404)
+  }
+
+  async sendsPatchRequestWithoutRoute (t) {
+    const response = await this.patch({ uri: '/patch' })
+
+    t.is(response.statusCode, 404)
+  }
+
   async sendsDeleteRequestWithoutRoute (t) {
     const response = await this.delete('/delete')
 
