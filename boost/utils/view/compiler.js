@@ -49,8 +49,7 @@ class HandlebarsCompiler {
   }
 
   filename (path, file) {
-    const offset = path.slice(-1) === Path.sep ? 0 : 1
-    return file.slice(path.length + offset, -Path.extname(file).length)
+    return file.slice(path.length + 1, -Path.extname(file).length)
   }
 }
 
