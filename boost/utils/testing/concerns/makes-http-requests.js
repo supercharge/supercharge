@@ -13,9 +13,11 @@ class MakesHttpRequests {
    * the request.
    *
    * @param {Object} user
+   *
+   * @returns {Object}
    */
   actAs (user) {
-    return new PendingRequest().actAs(user)
+    return this.request().actAs(user)
   }
 
   /**
@@ -23,18 +25,22 @@ class MakesHttpRequests {
    *
    * @param {String} name
    * @param {String} value
+   *
+   * @returns {Object}
    */
   header (name, value) {
-    return new PendingRequest().withHeader(name, value)
+    return this.request().withHeader(name, value)
   }
 
   /**
    * Add request headers.
    *
    * @param {Object} headers
+   *
+   * @returns {Object}
    */
   headers (headers) {
-    return new PendingRequest().withHeaders(headers)
+    return this.request().withHeaders(headers)
   }
 
   /**
@@ -42,9 +48,11 @@ class MakesHttpRequests {
    *
    * @param {String} name
    * @param {String} value
+   *
+   * @returns {Object}
    */
   cookie (name, value) {
-    return new PendingRequest().cookie(name, value)
+    return this.request().cookie(name, value)
   }
 
   /**
@@ -52,15 +60,31 @@ class MakesHttpRequests {
    * named middleware.
    *
    * @param {Array<String>} names
+   *
+   * @returns {Object}
    */
   withoutMiddleware (names) {
-    return new PendingRequest().withoutMiddleware(names)
+    return this.request().withoutMiddleware(names)
+  }
+
+  /**
+   * Add this route to the testing server
+   * before sending the request.
+   *
+   * @param {Object} config
+   *
+   * @returns {Object}
+   */
+  addRoute (config) {
+    return this.request().addRoute(config)
   }
 
   /**
    * Create a pending request that can
    * be extended before sending it
    * against the server.
+   *
+   * @returns {Object}
    */
   request () {
     return new PendingRequest()
@@ -70,6 +94,8 @@ class MakesHttpRequests {
    * Sent a GET request to the given URI.
    *
    * @param {String|Object} options
+   *
+   * @returns {Object}
    */
   get (params) {
     return this.request().get(params)
@@ -79,6 +105,8 @@ class MakesHttpRequests {
    * Sent a POST request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
   post (params) {
     return this.request().post(params)
@@ -88,6 +116,8 @@ class MakesHttpRequests {
    * Sent a PUT request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
   put (params) {
     return this.request().put(params)
@@ -97,6 +127,8 @@ class MakesHttpRequests {
    * Sent a PATCH request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
   patch (params) {
     return this.request().patch(params)
@@ -106,6 +138,8 @@ class MakesHttpRequests {
    * Sent a DELETE request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
   delete (params) {
     return this.request().delete(params)

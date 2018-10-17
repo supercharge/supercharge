@@ -16,23 +16,31 @@ class PendingRequest {
    */
   constructor () {
     this.user = null
+    this.routes = []
     this.headers = {}
     this.cookies = {}
     this.payload = {}
+    this.excludedMiddleware = []
   }
 
   /**
    * Create a new hapi server instance
    * for the HTTP test.
+   *
+   * @returns {Object}
    */
   async createServer () {
     const launch = new Launch()
 
     await launch.initializeEvents()
     await launch.warmUpCore({ exclude: ['laabr'] })
+    await launch.loadMiddleware({ exclude: ['verify-csrf-token'].concat(this.excludedMiddleware) })
     await launch.configureViews()
-    await launch.loadMiddleware({ exclude: ['verify-csrf-token'] })
     await launch.loadAppPlugins()
+
+    this.routes.forEach(route => {
+      launch.server.route(route)
+    })
 
     return launch.server
   }
@@ -42,6 +50,8 @@ class PendingRequest {
    *
    * @param {String} name
    * @param {String} value
+   *
+   * @returns {Object}
    */
   withHeader (name, value) {
     this.headers[name] = value
@@ -53,6 +63,8 @@ class PendingRequest {
    * Add request headers.
    *
    * @param {Object} headers
+   *
+   * @returns {Object}
    */
   withHeaders (headers) {
     Object.assign(this.headers, headers)
@@ -65,6 +77,8 @@ class PendingRequest {
    *
    * @param {String} name
    * @param {String} value
+   *
+   * @returns {Object}
    */
   cookie (name, value) {
     this.cookies[name] = value
@@ -77,11 +91,11 @@ class PendingRequest {
    * named middleware.
    *
    * @param {Array<String>} names
+   *
+   * @returns {Object}
    */
   withoutMiddleware (names) {
-    names = Array.isArray(names) ? names : [names]
-
-    // TODO
+    this.excludedMiddleware = Array.isArray(names) ? names : [names]
 
     return this
   }
@@ -91,6 +105,8 @@ class PendingRequest {
    * the request.
    *
    * @param {Object} user
+   *
+   * @returns {Object}
    */
   actAs (user) {
     this.user = user
@@ -99,9 +115,25 @@ class PendingRequest {
   }
 
   /**
+   * Add this route to the testing server
+   * before sending the request.
+   *
+   * @param {Object} config
+   *
+   * @returns {Object}
+   */
+  addRoute (config) {
+    this.routes.push(config)
+
+    return this
+  }
+
+  /**
    * Sent a GET request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
   get (params) {
     if (typeof params === 'string') {
@@ -118,10 +150,12 @@ class PendingRequest {
    * Sent a POST request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
   post ({ uri, headers, payload }) {
-    this.withHeaders(headers)
     this.payload = payload
+    this.withHeaders(headers)
 
     return this.inject({ method: 'POST', uri })
   }
@@ -130,10 +164,12 @@ class PendingRequest {
    * Sent a PUT request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
   put ({ uri, headers, payload }) {
-    this.withHeaders(headers)
     this.payload = payload
+    this.withHeaders(headers)
 
     return this.inject({ method: 'PUT', uri })
   }
@@ -142,10 +178,12 @@ class PendingRequest {
    * Sent a PATCH request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
   patch ({ uri, headers, payload }) {
-    this.withHeaders(headers)
     this.payload = payload
+    this.withHeaders(headers)
 
     return this.inject({ method: 'PATCH', uri })
   }
@@ -154,10 +192,18 @@ class PendingRequest {
    * Sent a DELETE request to the given URI.
    *
    * @param {Object} arguments
+   *
+   * @returns {Object}
    */
-  delete ({ uri, headers, payload }) {
-    this.withHeaders = headers
+  delete (params) {
+    if (typeof params === 'string') {
+      return this.inject({ method: 'DELETE', uri: params })
+    }
+
+    const { uri, headers, payload } = params
+
     this.payload = payload
+    this.withHeaders(headers)
 
     return this.inject({ method: 'DELETE', uri })
   }
@@ -167,10 +213,11 @@ class PendingRequest {
    * the response.
    *
    * @param {arguments} arguments
+   *
+   * @returns {Object}
    */
   async inject ({ method = 'GET', uri: url }) {
-    const cookies = this.formatCookies()
-    this.withHeaders({ cookie: cookies.join('; ') })
+    this.withHeaders({ cookie: this.formatCookies() })
 
     const server = await this.createServer()
 
@@ -187,11 +234,13 @@ class PendingRequest {
    * Format the cookies to an array of strings
    * that will joined and sent as the cookie
    * value with the request.
+   *
+   * @returns {String}
    */
   formatCookies () {
     return _.map(this.cookies, (value, name) => {
       return Cookie.serialize(name, value)
-    })
+    }).join('; ')
   }
 }
 

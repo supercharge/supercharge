@@ -156,32 +156,6 @@ class RegistersTests {
   failing (name) {
     Ava.failing(name, async t => this[name](t))
   }
-
-  /**
-   * Create a readable test name that transforms
-   * the actual test name to a format with
-   * spaces that looks like sentence.
-   *
-   * @example
-   *
-   * ```
-   * emailContainsTheNameOfTheRegisteredUser()
-   * ```
-   *
-   * becomes
-   *
-   * ```
-   * "email contains the name of the registered user"
-   * ```
-   *
-   * @param {String} name
-   */
-  readableTestName (name) {
-    return _.chain(name)
-      .kebabCase(name)
-      .replace(/-/g, ' ')
-      .value()
-  }
 }
 
 module.exports = RegistersTests
