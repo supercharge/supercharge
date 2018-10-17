@@ -3,10 +3,74 @@
 const BaseTest = util('base-test')
 
 class MakesHttpRequestsTest extends BaseTest {
+  async assignsKeyValueHeader (t) {
+    const request = await this.withHeader('name', 'Marcus')
+
+    t.deepEqual(request.headers, { name: 'Marcus' })
+  }
+
+  async assignsHeadersAsObject (t) {
+    const request = await this.withHeaders({ passion: 'boost' })
+
+    t.deepEqual(request.headers, { passion: 'boost' })
+  }
+
+  async withoutMiddlewareAsString (t) {
+    const request = await this.withoutMiddleware('testing')
+
+    t.deepEqual(request.excludedMiddleware, ['testing'])
+  }
+
+  async withoutMiddlewareAsArray (t) {
+    const request = await this.withoutMiddleware(['testing'])
+
+    t.deepEqual(request.excludedMiddleware, ['testing'])
+  }
+
+  async withoutMiddlewareUnique (t) {
+    const request = await this
+      .withoutMiddleware(['testing'])
+      .withoutMiddleware(['testing'])
+
+    t.deepEqual(request.excludedMiddleware, ['testing'])
+  }
+
   async usesCookies (t) {
     const response = await this.cookie('name', 'Marcus').get('/cookie')
 
     t.is(response.statusCode, 404)
+  }
+
+  async sendsGetRequestAsObject (t) {
+    const path = `/${this.randomId()}`
+
+    const response = await this.addRoute({
+      path,
+      method: 'GET',
+      handler: (request) => request.headers['x-name']
+    }).get({
+      uri: path,
+      headers: { 'x-name': 'Marcus' }
+    })
+
+    t.is(response.statusCode, 200)
+    t.is(response.payload, 'Marcus')
+  }
+
+  async defaultsToGetRequest (t) {
+    const path = `/${this.randomId()}`
+
+    const response = await this.request().addRoute({
+      path,
+      method: 'GET',
+      handler: (request) => request.headers['x-name']
+    }).inject({
+      uri: path,
+      headers: { 'x-name': 'Marcus' }
+    })
+
+    t.is(response.statusCode, 200)
+    t.is(response.payload, 'Marcus')
   }
 
   async sendsPutRequestWithoutRoute (t) {

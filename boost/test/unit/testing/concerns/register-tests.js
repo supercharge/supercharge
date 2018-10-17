@@ -7,13 +7,9 @@ class RegisterTestsTest extends BaseTest {
     t.fail()
   }
 
-  async skipTest (t) {
-    t.pass()
-  }
+  async skipTest () {}
 
-  async todoTest (t) {
-    t.pass()
-  }
+  async todoTest () {}
 }
 
 module.exports = new RegisterTestsTest()
