@@ -95,7 +95,8 @@ class PendingRequest {
    * @returns {Object}
    */
   withoutMiddleware (names) {
-    this.excludedMiddleware = Array.isArray(names) ? names : [names]
+    names = Array.isArray(names) ? names : [names]
+    this.excludedMiddleware = _.uniq(this.excludedMiddleware.concat(names))
 
     return this
   }
@@ -216,7 +217,8 @@ class PendingRequest {
    *
    * @returns {Object}
    */
-  async inject ({ method = 'GET', uri: url }) {
+  async inject ({ method = 'GET', uri: url, headers }) {
+    this.withHeaders(headers)
     this.withHeaders({ cookie: this.formatCookies() })
 
     const server = await this.createServer()

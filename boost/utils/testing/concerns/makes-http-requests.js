@@ -28,7 +28,7 @@ class MakesHttpRequests {
    *
    * @returns {Object}
    */
-  header (name, value) {
+  withHeader (name, value) {
     return this.request().withHeader(name, value)
   }
 
@@ -39,7 +39,7 @@ class MakesHttpRequests {
    *
    * @returns {Object}
    */
-  headers (headers) {
+  withHeaders (headers) {
     return this.request().withHeaders(headers)
   }
 
