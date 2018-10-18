@@ -32,20 +32,119 @@ class Dispatcher {
     await this.registerSystemEventListeners()
   }
 
+  /**
+   * Returns the list of events for which the
+   * emitter has registered listeners.
+   *
+   * @returns {Array}
+   */
   eventNames () {
     return this.emitter.eventNames()
   }
 
+  /**
+   * Returns the number of listeners listening
+   * to the event named `eventName`.
+   *
+   * @param {String} eventName
+   *
+   * @returns {Integer}
+   */
   listenerCount (eventName) {
     return this.emitter.listenerCount(eventName)
   }
 
+  /**
+   * Returns a copy of the array of listeners
+   * for the event named `eventName`.
+   *
+   * @param {String} eventName
+   *
+   * @returns {Function}
+   */
   listeners (eventName) {
     return this.emitter.listeners(eventName)
   }
 
+  /**
+   * Removes all listeners, or those
+   * specified by `eventName`.
+   *
+   * @param {String} eventName
+   *
+   * @returns {EventEmitter}
+   */
   removeAllListeners (eventName) {
     return this.emitter.removeAllListeners(eventName)
+  }
+
+  /**
+   * Returns the current max listener value for
+   * the emitter. This max value can be set
+   * by emitter.setMaxListeners(n).
+   *
+   * @returns {Integer}
+   */
+  getMaxListeners () {
+    return this.emitter.getMaxListeners()
+  }
+
+  setMaxListeners (n) {
+    return this.emitter.setMaxListeners(n)
+  }
+
+  /**
+   * Adds a one-time `listener` function
+   * for the event named `eventName`.
+   *
+   * @param {String} eventName
+   * @param {Function} listener
+   *
+   * @returns {EventEmitter}
+   */
+  once (eventName, listener) {
+    return this.emitter.once(eventName, listener)
+  }
+
+  /**
+   * Adds the `listener` function to the
+   * beginning of the listeners array
+   * for the event named `eventName`.
+   *
+   * @param {String} eventName
+   * @param {Function} listener
+   *
+   * @returns {EventEmitter}
+   */
+  prependListener (eventName, listener) {
+    return this.emitter.prependListener(eventName, listener)
+  }
+
+  /**
+   * Adds a one-time `listener` function for
+   * the event named `eventName` to the
+   * beginning of the listeners array.
+   *
+   * @param {String} eventName
+   * @param {Function} listener
+   *
+   * @returns {EventEmitter}
+   */
+  prependOnceListener (eventName, listener) {
+    return this.emitter.prependOnceListener(eventName, listener)
+  }
+
+  /**
+   * Returns a copy of the array of listeners for
+   * the event named `eventName`, including any
+   * wrappers (such as those created by .once()).
+   *
+   * @param {String} eventName
+   *
+   * @returns {Function}
+   */
+  rawListeners (eventName) {
+    return this.emitter.rawListeners(eventName)
   }
 
   /**
