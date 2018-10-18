@@ -89,6 +89,15 @@ class Dispatcher {
     return this.emitter.getMaxListeners()
   }
 
+  /**
+   * Modify event emitter limit of listeners for
+   * a given event. The value can be set to
+   * Infinity (or 0) to indicate unlimited.
+   *
+   * @param {Integer} n
+   *
+   * @returns {EventEmitter}
+   */
   setMaxListeners (n) {
     return this.emitter.setMaxListeners(n)
   }
