@@ -10,6 +10,7 @@ const AppShutdown = require('./shutdown')
 const corePlugins = [
   { plugin: 'inert' },
   { plugin: 'vision' },
+  { plugin: 'hapi-request-user' },
   { plugin: 'hapi-request-utilities' },
   { plugin: 'hapi-response-utilities' },
   {
