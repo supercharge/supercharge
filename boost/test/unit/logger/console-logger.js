@@ -1,6 +1,7 @@
 'use strict'
 
 const BaseTest = util('base-test')
+const Winston = require('winston')
 const ConsoleLogger = util('logging/console-logger')
 
 class ConsoleLoggerTest extends BaseTest {
@@ -16,7 +17,22 @@ class ConsoleLoggerTest extends BaseTest {
 
   async customFormat (t) {
     const logger = new ConsoleLogger()
-    t.truthy(logger.format({ level: 'debug', message: 'testing' }))
+    t.true(logger.format({ level: 'debug', message: 'testing' }).includes('debug'))
+    t.true(logger.format({ level: 'debug', message: 'testing' }).includes('testing'))
+  }
+
+  async serialCustomFormatFromLogger (t) {
+    const consoleLogger = new ConsoleLogger()
+    const stub = this.stub(consoleLogger, 'format').returns('')
+
+    const logger = Winston.createLogger()
+    logger.add(consoleLogger.logger())
+    logger.info('testing')
+
+    this.sinon().assert.called(stub)
+    stub.restore()
+
+    t.pass()
   }
 }
 
