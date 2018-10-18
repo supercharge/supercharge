@@ -13,7 +13,7 @@ const Handler = {
   updateProfile: {
     auth: 'session',
     handler: async (request, h) => {
-      const { email, name } = request.payload
+      const { email, name = request.user.name } = request.payload
 
       let user = await User.findOne({
         email,
@@ -60,7 +60,8 @@ const Handler = {
         email: Joi.string()
           .label('Email Address')
           .email({ minDomainAtoms: 2 })
-          .trim(),
+          .trim()
+          .required(),
         name: Joi.string()
           .label('Name')
           .trim()
