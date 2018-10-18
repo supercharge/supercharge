@@ -44,9 +44,9 @@ module.exports = {
    * Mongoose Configurations
    * --------------------------------------------------------------------------
    *
-   * Mongoose is a MongoDB ODM for object modeling. You create
-   * a schema-based model to interact with data in MongoDB.
-   * Customize Mongoose with the options below.
+   * Mongoose is a MongoDB ODM for object modeling. The options
+   * below customize the Mongoose singleton. They are global
+   * configs and apply to all Mongoose database connections.
    *
    */
   mongoose: {
