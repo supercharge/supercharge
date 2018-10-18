@@ -37,5 +37,22 @@ module.exports = {
         useNewUrlParser: true
       }
     }
+  },
+
+  /**
+   * --------------------------------------------------------------------------
+   * Mongoose Configurations
+   * --------------------------------------------------------------------------
+   *
+   * Mongoose is a MongoDB ODM for object modeling. You create
+   * a schema-based model to interact with data in MongoDB.
+   * Customize Mongoose with the options below.
+   *
+   */
+  mongoose: {
+    set: {
+      useCreateIndex: true
+    },
+    Promise: global.Promise
   }
 }
