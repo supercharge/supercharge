@@ -4,17 +4,14 @@ const User = model('user')
 const Config = util('config')
 
 /**
- * Register authentication plugins and configure the middleware
- * to authenticate requests based on a session cookie. Shortcut
- * the authenticated user to `request.user`.
+ * Register authentication plugins and configure
+ * the middleware to authenticate requests
+ * based on a session cookie.
  */
 async function register (server) {
   await server.register([
     {
       plugin: require('hapi-auth-cookie')
-    },
-    {
-      plugin: require('hapi-request-user')
     }
   ])
 
