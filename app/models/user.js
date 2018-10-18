@@ -75,26 +75,16 @@ userSchema.methods.hashPassword = async function () {
   return this
 }
 
-userSchema.methods.generateAuthToken = async function () {
-  this.authToken = Encryptor.randomKey(20)
-  return this
-}
-
 userSchema.methods.resetPassword = async function () {
-  try {
-    const passwordResetToken = Encryptor.randomKey(20)
-    const hash = await Hash.make(passwordResetToken)
+  const passwordResetToken = Encryptor.randomKey(20)
+  const hash = await Hash.make(passwordResetToken)
 
-    this.passwordResetToken = hash
-    this.passwordResetDeadline = Date.now() + 1000 * 60 * 60 // 1 hour
+  this.passwordResetToken = hash
+  this.passwordResetDeadline = Date.now() + 1000 * 60 * 60 // 1 hour
 
-    await this.save()
+  await this.save()
 
-    return passwordResetToken
-  } catch (ignoreError) {
-    const message = 'An error occurred while hashing your password reset token.'
-    throw Boom.badRequest(message, { password: message })
-  }
+  return passwordResetToken
 }
 
 userSchema.methods.comparePasswordResetToken = async function (resetToken) {
