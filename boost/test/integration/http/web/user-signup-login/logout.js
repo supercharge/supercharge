@@ -7,7 +7,7 @@ class LoginTest extends BaseTest {
     context.user = await this.fakeUser()
   }
 
-  async afterEach ({ context }) {
+  async alwaysAfterEach ({ context }) {
     await this.deleteUser(context.user)
   }
 

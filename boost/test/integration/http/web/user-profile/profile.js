@@ -8,7 +8,7 @@ class UserProfileTest extends BaseTest {
     context.user = await this.fakeUser({ name: 'Marcus' })
   }
 
-  async afterEach ({ context }) {
+  async alwaysAfterEach ({ context }) {
     await this.deleteUser(context.user)
   }
 
