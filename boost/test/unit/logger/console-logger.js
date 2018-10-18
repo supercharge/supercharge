@@ -23,16 +23,14 @@ class ConsoleLoggerTest extends BaseTest {
 
   async serialCustomFormatFromLogger (t) {
     const consoleLogger = new ConsoleLogger()
-    const stub = this.stub(consoleLogger, 'format').returns('')
+    const stub = this.stub(consoleLogger, 'format').throws(new Error('logger format error'))
 
     const logger = Winston.createLogger()
     logger.add(consoleLogger.logger())
-    logger.info('testing')
+    t.throws(() => logger.info(''))
 
     this.sinon().assert.called(stub)
     stub.restore()
-
-    t.pass()
   }
 }
 
