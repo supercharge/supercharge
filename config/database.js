@@ -34,25 +34,10 @@ module.exports = {
         //   user: Env.get('MONGODB_USERNAME'),
         //   password: Env.get('MONGODB_PASSWORD')
         // },
-        useNewUrlParser: true
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useFindAndModify: false
       }
     }
-  },
-
-  /**
-   * --------------------------------------------------------------------------
-   * Mongoose Configurations
-   * --------------------------------------------------------------------------
-   *
-   * Mongoose is a MongoDB ODM for object modeling. The options
-   * below customize the Mongoose singleton. They are global
-   * configs and apply to all Mongoose database connections.
-   *
-   */
-  mongoose: {
-    set: {
-      useCreateIndex: true
-    },
-    Promise: global.Promise
   }
 }

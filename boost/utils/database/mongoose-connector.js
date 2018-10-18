@@ -1,6 +1,5 @@
 'use strict'
 
-const Config = util('config')
 const Logger = util('logger')
 const Mongoose = require('mongoose')
 
@@ -23,7 +22,7 @@ class MongooseConnector {
     }
 
     this.connectionConfig = connectionConfig
-    this.configureMongoose()
+    this.createConnectionListeners()
   }
 
   /**
@@ -55,31 +54,6 @@ class MongooseConnector {
   connectionString () {
     const { host, port, database } = this.connectionConfig
     return `mongodb://${host}:${port}/${database}`
-  }
-
-  /**
-   * Configure the global Mongoose instance
-   * based on the user configuration and
-   * add connection listeners.
-   */
-  configureMongoose () {
-    const config = Config.get('database.mongoose')
-
-    this.setMongooseOptions(config)
-    this.createConnectionListeners()
-  }
-
-  /**
-   * Customize the global Mongoose instance.
-   *
-   * @param {Object} config
-   */
-  setMongooseOptions (config) {
-    const options = config.set
-
-    Object.keys(options).forEach(key => {
-      Mongoose.set(key.toString(), options[key])
-    })
   }
 
   /**
