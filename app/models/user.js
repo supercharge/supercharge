@@ -86,7 +86,7 @@ userSchema.methods.resetPassword = async function () {
     const hash = await Hash.make(passwordResetToken)
 
     this.passwordResetToken = hash
-    this.passwordResetDeadline = Date.now() + 1000 * 60 * 60 // 1 hour from now
+    this.passwordResetDeadline = Date.now() + 1000 * 60 * 60 // 1 hour
 
     await this.save()
 
