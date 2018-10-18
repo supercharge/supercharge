@@ -12,7 +12,7 @@ class ChangePasswordTest extends BaseTest {
     await this.deleteUser(context.user)
   }
 
-  async showCchangePasswordPage (t) {
+  async showChangePasswordPage (t) {
     const response = await this.actAs(t.context.user).get('/change-password')
     t.is(response.statusCode, 200)
   }
