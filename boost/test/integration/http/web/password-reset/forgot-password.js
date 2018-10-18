@@ -84,6 +84,20 @@ class ForgotPasswordTest extends BaseTest {
 
     t.is(response.statusCode, 400)
   }
+
+  async failsForgotPasswordForNotRegisteredUser (t) {
+    const user = t.context.user
+    await this.deleteUser(user)
+
+    const response = await this.post({
+      uri: `/forgot-password`,
+      payload: {
+        email: user.email
+      }
+    })
+
+    t.is(response.statusCode, 404)
+  }
 }
 
 module.exports = new ForgotPasswordTest()
