@@ -1,7 +1,7 @@
 'use strict'
 
 const User = model('user')
-const Event = util('event')
+const Logger = util('logger')
 const BaseTest = util('base-test')
 
 class SignupTest extends BaseTest {
@@ -44,8 +44,8 @@ class SignupTest extends BaseTest {
     t.is(response.statusCode, 302)
   }
 
-  async suceedsSignup (t) {
-    const eventStub = this.stub(Event, 'fire').returns()
+  async serialSuceedsSignup (t) {
+    const spy = this.spy(Logger, 'info')
 
     const response = await this.post({
       uri: '/signup',
@@ -58,8 +58,8 @@ class SignupTest extends BaseTest {
     t.is(response.statusCode, 302)
     t.is(response.headers['location'], '/home')
 
-    this.sinon().assert.called(eventStub)
-    eventStub.restore()
+    t.true(spy.called)
+    spy.restore()
 
     const user = await User.findOne({ email: 'marcus@futurestud.io' })
     t.context.users.push(user)
