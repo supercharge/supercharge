@@ -53,7 +53,7 @@ const Handler = {
               {
                 email: request.payload.email,
                 errors: response.data,
-                errormessage: response.data ? null : response.message // this would be be a generic error message, like "Mailer has issues"
+                errormessage: response.message // this would be be a generic error message, like "Mailer has issues"
               },
               { layout: 'clean' }
             )
@@ -107,13 +107,6 @@ const Handler = {
           .trim()
           .required()
       }
-    }
-  },
-
-  resetPasswordSuccess: {
-    auth: 'session',
-    handler: async (_, h) => {
-      return h.view('auth/reset-password-success')
     }
   },
 
