@@ -2,6 +2,7 @@
 
 const User = model('user')
 const Uuid = require('uuid/v4')
+const Hash = util('hashinator')
 const Encryptor = util('encryptor')
 
 /**
@@ -17,12 +18,19 @@ class CreatesFakeData {
   async fakeUser ({ email, ...rest } = {}) {
     email = email || `testuser-${Uuid()}@boost.fs`
     const password = this.randomId()
+    const resetToken = `reset-${this.randomId()}`
 
-    const created = new User({ email, password, ...rest })
+    const created = new User({
+      email,
+      password,
+      passwordResetToken: await Hash.make(resetToken),
+      ...rest
+    })
+
     await created.hashPassword()
     await created.save()
 
-    return Object.assign(created, { passwordPlain: password })
+    return Object.assign(created, { passwordPlain: password, passwordResetTokenPlain: resetToken })
   }
 
   /**
