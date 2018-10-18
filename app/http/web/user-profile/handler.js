@@ -76,7 +76,7 @@ const Handler = {
     handler: (_, h) => h.view('user/change-password')
   },
 
-  updateChangePassword: {
+  changePassword: {
     auth: 'session',
     handler: async (request, h) => {
       let user = request.user

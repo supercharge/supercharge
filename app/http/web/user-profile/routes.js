@@ -21,7 +21,7 @@ const Routes = [
   {
     method: 'POST',
     path: '/change-password',
-    options: Handler.updateChangePassword
+    options: Handler.changePassword
   }
 ]
 
