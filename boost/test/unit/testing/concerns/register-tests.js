@@ -3,13 +3,13 @@
 const BaseTest = util('base-test')
 
 class RegisterTestsTest extends BaseTest {
-  async failingTest (t) {
-    t.fail()
+  async failingSkipTest (t) {
+    this.createTestFromMethod('skipTest')
   }
 
-  async skipTest () {}
-
-  async todoTest () {}
+  async failingTodoTest (t) {
+    this.createTestFromMethod('todoTest')
+  }
 }
 
 module.exports = new RegisterTestsTest()

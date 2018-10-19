@@ -4,7 +4,8 @@ const BaseTest = util('base-test')
 
 class CreatesStubsMocksSpiesTest extends BaseTest {
   async serialMock (t) {
-    const api = { method: function () {} }
+    const api = { method: () => {} }
+    api.method()
 
     const mocked = this.mock(api)
     mocked.expects('method').once()

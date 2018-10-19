@@ -17,6 +17,8 @@ class EventTest extends BaseTest {
     Event.on(event, handler)
     t.is(Dispatcher.listenerCount(event), 1)
 
+    Event.fire('test.on')
+
     Event.off(event, handler)
     t.is(Dispatcher.listenerCount(event), 0)
   }
@@ -28,6 +30,8 @@ class EventTest extends BaseTest {
     Event.listen(event, handler)
     t.is(Dispatcher.listenerCount(event), 1)
 
+    Event.fire('test.on')
+
     Event.forget(event, handler)
     t.is(Dispatcher.listenerCount(event), 0)
   }
@@ -38,6 +42,8 @@ class EventTest extends BaseTest {
 
     Event.listen(event, handler)
     t.is(Dispatcher.listenerCount(event), 1)
+
+    Event.fire('test.on')
 
     Event.forget([event, event], handler)
     t.is(Dispatcher.listenerCount(event), 0)

@@ -131,7 +131,7 @@ class RegistersTests {
    * @param {String} name
    */
   skip (name) {
-    Ava.skip(name, async t => this[name](t))
+    Ava.skip(name)
   }
 
   /**
