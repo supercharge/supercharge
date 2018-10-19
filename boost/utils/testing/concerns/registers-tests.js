@@ -15,10 +15,8 @@ class RegistersTests {
    */
   registerTests () {
     this.classMethods()
-      .filter(this.shouldExclude, this)
-      .forEach(methodName => {
-        this.createTestFromMethod(methodName)
-      })
+      .filter(method => this.shouldExclude(method))
+      .forEach(methodName => this.createTestFromMethod(methodName))
   }
 
   /**
