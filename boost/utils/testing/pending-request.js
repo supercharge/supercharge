@@ -231,7 +231,9 @@ class PendingRequest {
       credentials: this.user
     })
 
-    await server.stop()
+    // clean up all listeners
+    const signals = ['SIGINT', 'SIGTERM']
+    signals.forEach(signal => process.removeAllListeners(signal))
 
     return response
   }
