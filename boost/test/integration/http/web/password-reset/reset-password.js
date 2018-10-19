@@ -121,6 +121,22 @@ class ResetPasswordTest extends BaseTest {
 
     t.is(response.statusCode, 400)
   }
+
+  async failsForOutdatedResetToken (t) {
+    const user = await this.fakeUser({
+      passwordResetDeadline: Date.now() - 1000
+    })
+
+    const response = await this.post({
+      uri: `/reset-password/${user.email}/${user.passwordResetTokenPlain}`,
+      payload: {
+        password: 'updated',
+        passwordConfirm: 'updated'
+      }
+    })
+
+    t.is(response.statusCode, 400)
+  }
 }
 
 module.exports = new ResetPasswordTest()
