@@ -49,7 +49,7 @@
     "hapi": "~17.5.4",
     "hapi-auth-cookie": "~9.0.0",
     "hapi-dev-errors": "~3.0.1",
-    "hapi-pulse": "~1.1.1",
+    "hapi-pulse": "~2.0.0",
     "hapi-request-user": "~1.0.1",
     "hapi-request-utilities": "~1.0.3",
     "hapi-response-utilities": "~1.0.1",
