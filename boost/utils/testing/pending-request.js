@@ -223,13 +223,17 @@ class PendingRequest {
 
     const server = await this.createServer()
 
-    return server.inject({
+    const response = await server.inject({
       url,
       method,
       headers: this.headers,
       payload: this.payload,
       credentials: this.user
     })
+
+    await server.stop()
+
+    return response
   }
 
   /**
