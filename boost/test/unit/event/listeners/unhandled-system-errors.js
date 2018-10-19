@@ -1,21 +1,35 @@
 'use strict'
 
-const Event = util('event')
+const Path = require('path')
 const BaseTest = util('base-test')
+const UnhandledRejectionListener = require(Path.resolve(__appRoot, 'app', 'listeners', 'unhandled-system-errors'))
 
 class UnhandledSytemErrorsTest extends BaseTest {
-  async todohandlesUnhandledSytemErrorsTest (t) {
-    // const spy = this.spy(console, 'log')
-    // const stub = this.stub(process, 'exit')
+  before () {
+    this.stub(console, 'log')
+    this.stub(process, 'exit')
+  }
 
-    // Event.fire('unhandledRejection')
+  alwaysAfter () {
+    console.log.restore()
+    process.exit.restore()
+  }
 
-    // this.sinon().assert.called(stub)
-    // t.true(spy.called)
+  async serialNodeProcessHasListeners (t) {
+    const listener = new UnhandledRejectionListener()
 
-    // spy.restore()
-    // stub.restore()
+    listener.on().forEach(event => {
+      t.not(process.listenerCount(event), 0)
+    })
+  }
 
+  async serialHandlesUnhandledSytemErrors (t) {
+    const listener = new UnhandledRejectionListener()
+    const error = new Error('unhandled system error')
+    await listener.handle(error)
+
+    this.sinon().assert.called(process.exit)
+    this.sinon().assert.called(console.log)
     t.pass()
   }
 }
