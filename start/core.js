@@ -23,7 +23,9 @@ const corePlugins = [
   {
     plugin: 'hapi-pulse',
     options: {
-      onSignal: AppShutdown.postServerStop
+      preServerStop: async () => AppShutdown.preServerStop(),
+      postServerStop: async () => AppShutdown.postServerStop(),
+      preShutdown: async () => AppShutdown.preShutdown()
     }
   },
   {
