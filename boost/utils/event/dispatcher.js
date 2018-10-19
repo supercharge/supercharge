@@ -144,19 +144,6 @@ class Dispatcher {
   }
 
   /**
-   * Returns a copy of the array of listeners for
-   * the event named `eventName`, including any
-   * wrappers (such as those created by .once()).
-   *
-   * @param {String} eventName
-   *
-   * @returns {Function}
-   */
-  rawListeners (eventName) {
-    return this.emitter.rawListeners(eventName)
-  }
-
-  /**
    * Shortcut method for `Event.listen(eventName, handler)`.
    *
    * @param {String} eventName

@@ -64,6 +64,39 @@ class EventTest extends BaseTest {
   async throwsListenWithoutHandler (t) {
     t.throws(() => Dispatcher.listen('event.name'))
   }
+
+  async setsMaxListener (t) {
+    t.is(Dispatcher.getMaxListeners(), 10)
+    Dispatcher.setMaxListeners(25)
+    t.is(Dispatcher.getMaxListeners(), 25)
+  }
+
+  async emitOnce (t) {
+    const spy = this.spy()
+    Dispatcher.once('once.event', spy)
+
+    Dispatcher.fire('once.event')
+    Dispatcher.fire('once.event')
+
+    t.true(spy.calledOnce)
+  }
+
+  async prependListener (t) {
+    const alltime = this.spy()
+    Dispatcher.prependListener('event.prepend', alltime)
+    const once = this.spy()
+    Dispatcher.prependOnceListener('event.prepend', once)
+
+    const listeners = Dispatcher.listeners('event.prepend')
+    t.is(listeners[0], once)
+    t.is(listeners[1], alltime)
+
+    Dispatcher.fire('event.prepend')
+    Dispatcher.fire('event.prepend')
+
+    t.true(once.calledOnce)
+    t.true(alltime.calledTwice)
+  }
 }
 
 module.exports = new EventTest()
