@@ -118,7 +118,7 @@
     "coverage": "cross-env NODE_ENV=testing nyc ava",
     "test-single": "cross-env NODE_ENV=testing ava --match",
     "test-boost": "cross-env NODE_ENV=testing ava boost/test/**/*.js",
-    "cov-boost": "cross-env NODE_ENV=testing nyc ava boost/test/**/*.js",
-    "test-boost-single": "cross-env NODE_ENV=testing ava boost/test/**/*.js --match"
+    "test-boost-single": "cross-env NODE_ENV=testing ava boost/test/**/*.js --match",
+    "cov-boost": "cross-env NODE_ENV=testing nyc --reporter=text --reporter=html ava boost/test/**/*.js"
   }
 }
