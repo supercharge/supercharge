@@ -14,6 +14,8 @@ class CreatesFakeData {
   /**
    * Create a fake user instance without
    * saving it to the database.
+   *
+   * @returns {Object}
    */
   async fakeUser ({ email, ...rest } = {}) {
     email = email || `testuser-${Uuid()}@boost.fs`
@@ -45,7 +47,7 @@ class CreatesFakeData {
    *
    * @param {Object} user
    *
-   * @throws
+   * @throws {Error}
    */
   async deleteUser ({ _id } = {}) {
     if (!_id) {
@@ -60,7 +62,7 @@ class CreatesFakeData {
    *
    * @param {String} id
    *
-   * @throws
+   * @throws {Error}
    */
   async deleteUserById (id) {
     if (!id) {
