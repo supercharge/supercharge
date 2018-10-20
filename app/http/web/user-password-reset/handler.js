@@ -63,11 +63,7 @@ const Handler = {
     },
     validate: {
       payload: {
-        email: Joi.string()
-          .label('Email address')
-          .email({ minDomainAtoms: 2 })
-          .trim()
-          .required()
+        email: Joi.string().label('Email address').email({ minDomainAtoms: 2 }).trim().required()
       }
     }
   },
@@ -97,15 +93,8 @@ const Handler = {
     },
     validate: {
       params: {
-        email: Joi.string()
-          .email({ minDomainAtoms: 2 })
-          .label('Email address')
-          .trim()
-          .required(),
-        resetToken: Joi.string()
-          .label('Password reset token')
-          .trim()
-          .required()
+        email: Joi.string().email({ minDomainAtoms: 2 }).label('Email address').trim().required(),
+        resetToken: Joi.string().label('Password reset token').trim().required()
       }
     }
   },
@@ -117,12 +106,7 @@ const Handler = {
       }
 
       const email = decodeURIComponent(request.params.email)
-      let user = await User.findByEmail(email)
-
-      if (!user) {
-        const message = 'Sorry, we can’t find a user with the credentials.'
-        throw Boom.notFound(message, { email: message })
-      }
+      let user = await User.findByEmailOrFail(email)
 
       user = await user.comparePasswordResetToken(request.params.resetToken)
       user.passwordResetToken = undefined
@@ -153,24 +137,12 @@ const Handler = {
     },
     validate: {
       params: {
-        email: Joi.string()
-          .label('Email address')
-          .email({ minDomainAtoms: 2 })
-          .trim()
-          .required(),
-        resetToken: Joi.string()
-          .label('Password reset token')
-          .trim()
-          .required()
+        email: Joi.string().label('Email address').email({ minDomainAtoms: 2 }).trim().required(),
+        resetToken: Joi.string().label('Password reset token').trim().required()
       },
       payload: {
-        password: Joi.string()
-          .label('Password')
-          .min(6)
-          .required(),
-        passwordConfirm: Joi.string()
-          .label('Confirm password')
-          .min(6)
+        password: Joi.string().label('Password').min(6).required(),
+        passwordConfirm: Joi.string().label('Confirm password').min(6)
           .valid(Joi.ref('password'))
           .options({
             language: {

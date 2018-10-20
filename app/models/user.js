@@ -51,8 +51,34 @@ const userSchema = new Mongoose.Schema(
  * use the “User” model in your app and static methods to find documents
  * like `const user = await User.findByEmail('marcus@futurestud.io')`
  */
-userSchema.statics.findByEmail = function (email) {
+userSchema.statics.findByEmail = async function (email) {
   return this.findOne({ email })
+}
+
+userSchema.statics.findByEmailOrFail = async function (email) {
+  return this
+    .findOne({ email })
+    .orFail(Boom.notFound(null, { email: 'Email address is not registered' }))
+}
+
+userSchema.statics.attemptLogin = async function ({ email, password }) {
+  const user = await this.findByEmailOrFail(email)
+  await user.comparePassword(password)
+
+  return user
+}
+
+userSchema.statics.createFrom = async function ({ email, password }) {
+  if (await this.findByEmail(email)) {
+    // create an error object that matches the views error handling structure
+    const message = 'Email address is already registered'
+    throw Boom.conflict(message, { email: message })
+  }
+
+  const user = new this({ email, password })
+  await user.hashPassword()
+
+  return user.save()
 }
 
 /**

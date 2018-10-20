@@ -3,7 +3,6 @@
 const Joi = require('joi')
 const User = model('user')
 const Event = util('event')
-const Boom = require('boom')
 const Config = util('config')
 const UserRegisteredEvent = event('user-registered')
 
@@ -24,17 +23,8 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      const { email, password } = request.payload
-
-      if (await User.findByEmail(email)) {
-        // create an error object that matches the views error handling structure
-        const message = 'Email address is already registered'
-        throw Boom.conflict(message, { email: message })
-      }
-
-      const user = new User({ email, password })
-      await user.hashPassword()
-      await user.save()
+      const credentials = request.only(['email', 'password'])
+      const user = await User.createFrom(credentials)
 
       request.cookieAuth.set({ id: user.id })
 
@@ -66,15 +56,8 @@ const Handler = {
     },
     validate: {
       payload: {
-        email: Joi.string()
-          .label('Email address')
-          .email({ minDomainAtoms: 2 })
-          .trim()
-          .required(),
-        password: Joi.string()
-          .label('Password')
-          .min(6)
-          .required()
+        email: Joi.string().label('Email address').email({ minDomainAtoms: 2 }).trim().required(),
+        password: Joi.string().label('Password').min(6).required()
       }
     }
   },
@@ -95,15 +78,8 @@ const Handler = {
         return h.redirect('/home')
       }
 
-      const { email, password } = request.payload
-      let user = await User.findByEmail(email)
-
-      if (!user) {
-        const message = 'Email address is not registered'
-        throw Boom.notFound(message, { email: message })
-      }
-
-      await user.comparePassword(password)
+      const credentials = request.only(['email', 'password'])
+      const user = await User.attemptLogin(credentials)
 
       request.cookieAuth.set({ id: user.id })
 
@@ -133,15 +109,8 @@ const Handler = {
     },
     validate: {
       payload: {
-        email: Joi.string()
-          .label('Email address')
-          .email({ minDomainAtoms: 2 })
-          .trim()
-          .required(),
-        password: Joi.string()
-          .label('Password')
-          .min(6)
-          .required()
+        email: Joi.string().label('Email address').email({ minDomainAtoms: 2 }).trim().required(),
+        password: Joi.string().label('Password').min(6).required()
       }
     }
   },
