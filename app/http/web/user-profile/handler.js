@@ -57,16 +57,8 @@ const Handler = {
     },
     validate: {
       payload: {
-        email: Joi.string()
-          .label('Email Address')
-          .email({ minDomainAtoms: 2 })
-          .trim()
-          .required(),
-        name: Joi.string()
-          .label('Name')
-          .trim()
-          .optional()
-          .allow('')
+        email: Joi.string().label('Email Address').email({ minDomainAtoms: 2 }).trim().required(),
+        name: Joi.string().label('Name').trim().optional().allow('')
       }
     }
   },
@@ -108,17 +100,9 @@ const Handler = {
     },
     validate: {
       payload: {
-        password: Joi.string()
-          .label('Current Password')
-          .min(6)
-          .required(),
-        newPassword: Joi.string()
-          .label('New Password')
-          .min(6)
-          .required(),
-        newPasswordConfirm: Joi.string()
-          .label('New Password Confirm')
-          .min(6)
+        password: Joi.string().label('Current Password').min(6).required(),
+        newPassword: Joi.string().label('New Password').min(6).required(),
+        newPasswordConfirm: Joi.string().label('New Password Confirm').min(6)
           .valid(Joi.ref('newPassword'))
           .options({
             language: {
