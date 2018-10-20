@@ -19,12 +19,7 @@ const Handler = {
       }
 
       const { email } = request.payload
-      let user = await User.findByEmail(email)
-
-      if (!user) {
-        const message = 'Email address is not registered'
-        throw Boom.notFound(message, { email: message })
-      }
+      const user = await User.findByEmailOrFail(email)
 
       const passwordResetToken = await user.resetPassword()
       const encodedEmail = encodeURIComponent(user.email)
