@@ -23,8 +23,8 @@ const Handler = {
         return h.redirect('/profile')
       }
 
-      const credentials = request.only(['email', 'password'])
-      const user = await User.createFrom(credentials)
+      const { email, password } = request.payload
+      const user = await User.createFrom({ email, password })
 
       request.cookieAuth.set({ id: user.id })
 
@@ -78,8 +78,8 @@ const Handler = {
         return h.redirect('/home')
       }
 
-      const credentials = request.only(['email', 'password'])
-      const user = await User.attemptLogin(credentials)
+      const { email, password } = request.payload
+      const user = await User.attemptLogin({ email, password })
 
       request.cookieAuth.set({ id: user.id })
 
