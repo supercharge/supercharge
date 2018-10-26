@@ -4,7 +4,7 @@ const BaseTest = util('base-test')
 
 class StackHelperTest extends BaseTest {
   async createContentStack (t) {
-    const name = this.randomId()
+    const name = this.randomKey()
 
     const output = await this.render(`{{#append name}}appended{{/append}}{{#prepend name}}prepended{{/prepend}}{{#stack name}}content{{/stack}}`, { name })
 
@@ -16,7 +16,7 @@ class StackHelperTest extends BaseTest {
   }
 
   async prependsToExistingStack (t) {
-    const name = this.randomId()
+    const name = this.randomKey()
 
     const output = await this.render('{{#prepend name}}prepended{{/prepend}}{{#stack name}}content{{/stack}}', { stacks: { name }, name })
 
@@ -24,7 +24,7 @@ class StackHelperTest extends BaseTest {
   }
 
   async prependsToNonExistingStack (t) {
-    const name = this.randomId()
+    const name = this.randomKey()
 
     const output = await this.render('{{#prepend name}}prepended{{/prepend}}{{#stack name}}content{{/stack}}', { name })
 

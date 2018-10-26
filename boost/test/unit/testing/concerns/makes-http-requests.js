@@ -42,7 +42,7 @@ class MakesHttpRequestsTest extends BaseTest {
   }
 
   async sendsGetRequestAsObject (t) {
-    const path = `/${this.randomId()}`
+    const path = `/${this.randomKey()}`
 
     const response = await this.addRoute({
       path,
@@ -58,7 +58,7 @@ class MakesHttpRequestsTest extends BaseTest {
   }
 
   async defaultsToGetRequest (t) {
-    const path = `/${this.randomId()}`
+    const path = `/${this.randomKey()}`
 
     const response = await this.request().addRoute({
       path,
@@ -92,7 +92,7 @@ class MakesHttpRequestsTest extends BaseTest {
   }
 
   async sendsDeleteRequestAsUrl (t) {
-    const path = `/${this.randomId()}`
+    const path = `/${this.randomKey()}`
 
     const response = await this.addRoute({
       path,
@@ -105,7 +105,7 @@ class MakesHttpRequestsTest extends BaseTest {
   }
 
   async sendsDeleteRequestAsObject (t) {
-    const path = `/${this.randomId()}`
+    const path = `/${this.randomKey()}`
 
     const response = await this.addRoute({
       path,

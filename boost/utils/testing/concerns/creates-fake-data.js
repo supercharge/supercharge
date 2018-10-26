@@ -17,10 +17,10 @@ class CreatesFakeData {
    *
    * @returns {Object}
    */
-  async fakeUser ({ email, ...rest } = {}) {
+  async fakeUser ({ email, password, ...rest } = {}) {
     email = email || `testuser-${Uuid()}@boost.fs`
-    const password = this.randomId()
-    const resetToken = `reset-${this.randomId()}`
+    password = password || this.randomKey()
+    const resetToken = `reset-${this.randomKey()}`
 
     const created = new User({
       email,
@@ -77,8 +77,8 @@ class CreatesFakeData {
    *
    * @returns {String}
    */
-  randomId () {
-    return Encryptor.randomKey()
+  randomKey (bytes) {
+    return Encryptor.randomKey(bytes)
   }
 }
 
