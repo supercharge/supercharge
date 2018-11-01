@@ -51,7 +51,7 @@ class PendingRequest {
    * @param {String} name
    * @param {String} value
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   withHeader (name, value) {
     this.headers[name] = value
@@ -64,10 +64,23 @@ class PendingRequest {
    *
    * @param {Object} headers
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   withHeaders (headers) {
     Object.assign(this.headers, headers)
+
+    return this
+  }
+
+  /**
+   * Add request payload.
+   *
+   * @param {Object} payload
+   *
+   * @returns {PendingRequest}
+   */
+  withPayload (payload) {
+    Object.assign(this.payload, payload)
 
     return this
   }
@@ -78,7 +91,7 @@ class PendingRequest {
    * @param {String} name
    * @param {String} value
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   cookie (name, value) {
     this.cookies[name] = value
@@ -92,7 +105,7 @@ class PendingRequest {
    *
    * @param {Array<String>} names
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   withoutMiddleware (names) {
     names = Array.isArray(names) ? names : [names]
@@ -107,7 +120,7 @@ class PendingRequest {
    *
    * @param {Object} user
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   actAs (user) {
     this.user = user
@@ -121,7 +134,7 @@ class PendingRequest {
    *
    * @param {Object} config
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   addRoute (config) {
     this.routes.push(config)
@@ -137,14 +150,7 @@ class PendingRequest {
    * @returns {Object}
    */
   get (params) {
-    if (typeof params === 'string') {
-      return this.inject({ method: 'GET', uri: params })
-    }
-
-    const { headers, uri } = params
-    this.withHeaders(headers)
-
-    return this.inject({ method: 'GET', uri })
+    return this.inject('GET', params)
   }
 
   /**
@@ -154,11 +160,8 @@ class PendingRequest {
    *
    * @returns {Object}
    */
-  post ({ uri, headers, payload }) {
-    this.payload = payload
-    this.withHeaders(headers)
-
-    return this.inject({ method: 'POST', uri })
+  post (params) {
+    return this.inject('POST', params)
   }
 
   /**
@@ -168,11 +171,8 @@ class PendingRequest {
    *
    * @returns {Object}
    */
-  put ({ uri, headers, payload }) {
-    this.payload = payload
-    this.withHeaders(headers)
-
-    return this.inject({ method: 'PUT', uri })
+  put (params) {
+    return this.inject('PUT', params)
   }
 
   /**
@@ -182,11 +182,8 @@ class PendingRequest {
    *
    * @returns {Object}
    */
-  patch ({ uri, headers, payload }) {
-    this.payload = payload
-    this.withHeaders(headers)
-
-    return this.inject({ method: 'PATCH', uri })
+  patch (params) {
+    return this.inject('PATCH', params)
   }
 
   /**
@@ -197,16 +194,7 @@ class PendingRequest {
    * @returns {Object}
    */
   delete (params) {
-    if (typeof params === 'string') {
-      return this.inject({ method: 'DELETE', uri: params })
-    }
-
-    const { uri, headers, payload } = params
-
-    this.payload = payload
-    this.withHeaders(headers)
-
-    return this.inject({ method: 'DELETE', uri })
+    return this.inject('DELETE', params)
   }
 
   /**
@@ -217,11 +205,21 @@ class PendingRequest {
    *
    * @returns {Object}
    */
-  async inject ({ method = 'GET', uri: url, headers }) {
-    this.withHeaders(headers)
-    this.withHeaders({ cookie: this.formatCookies() })
+  async inject (method, params) {
+    if (!params) {
+      params = method
+      method = 'GET'
+    }
 
-    const server = await this.createServer()
+    const { uri, headers, payload } = params
+    const url = typeof params === 'string' ? params : uri
+
+    const server =
+      await this
+        .withPayload(payload)
+        .withHeaders(headers)
+        .withHeaders({ cookie: this.formatCookies() })
+        .createServer()
 
     const response = await server.inject({
       url,

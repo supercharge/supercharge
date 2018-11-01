@@ -14,7 +14,7 @@ class MakesHttpRequests {
    *
    * @param {Object} user
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   actAs (user) {
     return this.request().actAs(user)
@@ -26,7 +26,7 @@ class MakesHttpRequests {
    * @param {String} name
    * @param {String} value
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   withHeader (name, value) {
     return this.request().withHeader(name, value)
@@ -37,10 +37,21 @@ class MakesHttpRequests {
    *
    * @param {Object} headers
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   withHeaders (headers) {
     return this.request().withHeaders(headers)
+  }
+
+  /**
+   * Add request payload.
+   *
+   * @param {Object} payload
+   *
+   * @returns {PendingRequest}
+   */
+  withPayload (payload) {
+    return this.request().withPayload(payload)
   }
 
   /**
@@ -49,7 +60,7 @@ class MakesHttpRequests {
    * @param {String} name
    * @param {String} value
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   cookie (name, value) {
     return this.request().cookie(name, value)
@@ -61,7 +72,7 @@ class MakesHttpRequests {
    *
    * @param {Array<String>} names
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   withoutMiddleware (names) {
     return this.request().withoutMiddleware(names)
@@ -73,7 +84,7 @@ class MakesHttpRequests {
    *
    * @param {Object} config
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   addRoute (config) {
     return this.request().addRoute(config)
@@ -84,7 +95,7 @@ class MakesHttpRequests {
    * be extended before sending it
    * against the server.
    *
-   * @returns {Object}
+   * @returns {PendingRequest}
    */
   request () {
     return new PendingRequest()
