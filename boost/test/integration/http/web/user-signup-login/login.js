@@ -26,13 +26,13 @@ class LoginTest extends BaseTest {
   async suceedsLogin (t) {
     const user = t.context.user
 
-    const response = await this.post({
-      uri: '/login',
-      payload: {
-        email: user.email,
-        password: user.passwordPlain
-      }
-    })
+    const response =
+      await this
+        .withPayload({
+          email: user.email,
+          password: user.passwordPlain
+        })
+        .post('/login')
 
     t.is(response.statusCode, 302)
     t.is(response.headers['location'], '/home')
@@ -51,13 +51,13 @@ class LoginTest extends BaseTest {
   }
 
   async failsToLoginWithWrongPassword (t) {
-    const response = await this.post({
-      uri: '/login',
-      payload: {
-        email: t.context.user.email,
-        password: 'wrong-password'
-      }
-    })
+    const response =
+      await this
+        .withPayload({
+          email: t.context.user.email,
+          password: 'wrong-password'
+        })
+        .post('/login')
 
     t.is(response.statusCode, 400)
   }
