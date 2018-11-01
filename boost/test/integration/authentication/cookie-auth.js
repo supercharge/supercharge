@@ -34,7 +34,7 @@ class CookieAuthTest extends BaseTest {
     const header = login.headers['set-cookie']
     const cookie = this._getCookieFrom(header)
 
-    const response = await this.cookie(Config.get('session.cookie'), cookie[1]).get('/profile')
+    const response = await this.withCookie(Config.get('session.cookie'), cookie[1]).get('/profile')
     t.is(response.statusCode, 200)
   }
 
@@ -56,7 +56,7 @@ class CookieAuthTest extends BaseTest {
     const header = login.headers['set-cookie']
     const cookie = this._getCookieFrom(header)
 
-    const response = await this.cookie(Config.get('session.cookie'), cookie[1]).get('/profile')
+    const response = await this.withCookie(Config.get('session.cookie'), cookie[1]).get('/profile')
     t.is(response.statusCode, 302)
     t.is(response.headers['location'], `/login?next=${encodeURIComponent('/profile')}`)
   }
@@ -79,7 +79,7 @@ class CookieAuthTest extends BaseTest {
     const header = login.headers['set-cookie']
     const cookie = this._getCookieFrom(header)
 
-    const response = await this.cookie(Config.get('session.cookie'), cookie[1]).get('/profile')
+    const response = await this.withCookie(Config.get('session.cookie'), cookie[1]).get('/profile')
     t.is(response.statusCode, 302)
     t.is(response.headers['location'], `/login?next=${encodeURIComponent('/profile')}`)
   }

@@ -62,8 +62,8 @@ class MakesHttpRequests {
    *
    * @returns {PendingRequest}
    */
-  cookie (name, value) {
-    return this.request().cookie(name, value)
+  withCookie (name, value) {
+    return this.request().withCookie(name, value)
   }
 
   /**

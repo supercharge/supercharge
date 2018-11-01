@@ -93,7 +93,7 @@ class PendingRequest {
    *
    * @returns {PendingRequest}
    */
-  cookie (name, value) {
+  withCookie (name, value) {
     this.cookies[name] = value
 
     return this

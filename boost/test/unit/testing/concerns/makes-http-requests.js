@@ -36,7 +36,7 @@ class MakesHttpRequestsTest extends BaseTest {
   }
 
   async usesCookies (t) {
-    const response = await this.cookie('name', 'Marcus').get('/cookie')
+    const response = await this.withCookie('name', 'Marcus').get('/cookie')
 
     t.is(response.statusCode, 404)
   }
