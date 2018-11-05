@@ -32,7 +32,7 @@ const corePlugins = [
     plugin: 'laabr',
     options: {
       formats: {
-        'log': ':time :level :message'
+        log: 'log.tiny'
       },
       colored: true,
       hapiPino: {
