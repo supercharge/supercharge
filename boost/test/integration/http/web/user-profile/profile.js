@@ -24,16 +24,17 @@ class UserProfileTest extends BaseTest {
     t.is(response.headers['location'], `/login?next=${encodeURIComponent('/profile')}`)
   }
 
-  async serialSuceedsProfileUpdateName (t) {
+  async serialSuceedsProfileNameUpdate (t) {
     const user = t.context.user
 
-    const response = await this.actAs(user).post({
-      uri: '/profile',
-      payload: {
-        email: user.email,
-        name: 'Updated'
-      }
-    })
+    const response =
+      await this
+        .actAs(user)
+        .withPayload({
+          email: user.email,
+          name: 'Updated'
+        })
+        .post('/profile')
 
     t.is(response.statusCode, 200)
 
