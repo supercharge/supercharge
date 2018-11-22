@@ -3,16 +3,6 @@
   "description": "Boost is a framework and app starter kit making it easy to develop your next idea.",
   "version": "0.0.0",
   "author": "Future Studio <info@futurestud.io>",
-  "ava": {
-    "require": [
-      "./test/test-setup.js"
-    ],
-    "files": [
-      "test/**/*.js",
-      "!**/test-setup.js",
-      "!boost/test/**/*.js"
-    ]
-  },
   "contributors": [
     {
       "name": "Marcus Poehls",
@@ -34,9 +24,9 @@
     "axios": "~0.18.0",
     "bcryptjs": "~2.4.3",
     "boom": "~7.2.2",
-    "bounce": "~1.2.2",
+    "bounce": "~1.2.3",
     "chalk": "~2.4.1",
-    "crumb": "~7.2.2",
+    "crumb": "~7.2.3",
     "dotenv": "~6.1.0",
     "dotenv-expand": "~4.2.0",
     "edit-dotenv": "~1.0.4",
@@ -52,19 +42,19 @@
     "hapi-pulse": "~2.0.0",
     "hapi-request-user": "~1.0.1",
     "hapi-request-utilities": "~1.0.4",
-    "hapi-response-utilities": "~1.0.1",
+    "hapi-response-utilities": "~1.2.0",
     "html-to-text": "~4.0.0",
     "inert": "~5.1.2",
-    "joi": "~14.0.4",
+    "joi": "~14.1.0",
     "laabr": "~4.0.3",
     "lockfile": "~1.0.4",
     "lodash": "~4.17.11",
     "md5": "~2.2.1",
-    "mongoose": "~5.3.10",
-    "nodemailer": "~4.6.8",
+    "mongoose": "~5.3.13",
+    "nodemailer": "~4.7.0",
     "nodemailer-mailgun-transport": "~1.4.0",
     "nodemailer-postmark-transport": "~1.4.0",
-    "nodemailer-sparkpost-transport": "~2.1.0",
+    "nodemailer-sparkpost-transport": "~2.2.0",
     "require-all": "~3.0.0",
     "simple-encryptor": "~2.0.0",
     "tempy": "~0.2.1",
@@ -77,10 +67,10 @@
   },
   "devDependencies": {
     "@adonisjs/ace": "~5.0.8",
-    "ava": "~1.0.0-rc.1",
+    "ava": "~1.0.0-rc.2",
     "cookie": "~0.3.1",
     "cross-env": "~5.2.0",
-    "eslint": "~5.8.0",
+    "eslint": "~5.9.0",
     "eslint-config-standard": "~12.0.0",
     "eslint-plugin-import": "~2.14.0",
     "eslint-plugin-node": "~8.0.0",
