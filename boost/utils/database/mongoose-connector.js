@@ -23,37 +23,7 @@ class MongooseConnector {
 
     this.connectionConfig = connectionConfig
     this.createConnectionListeners()
-  }
-
-  /**
-   * Create the MongoDB connection.
-   */
-  async connect () {
-    await Mongoose.connect(this.connectionString(), this.connectionConfig.options)
-  }
-
-  /**
-   * Returns whether Mongoose has connected to
-   * the MongoDB database instance.
-   */
-  async isConnected () {
-    return Mongoose.connection.readyState === 1
-  }
-
-  /**
-   * Close the MongoDB connection.
-   */
-  async close () {
-    await Mongoose.disconnect()
-  }
-
-  /**
-   * Compose the database connection string from
-   * the database configuration.
-   */
-  connectionString () {
-    const { host, port, database } = this.connectionConfig
-    return `mongodb://${host}:${port}/${database}`
+    this.setGlobalToJSONToObjectConfig()
   }
 
   /**
@@ -70,6 +40,59 @@ class MongooseConnector {
    */
   onConnectionError (err) {
     Logger.error(`⚡️ 🚨 Mongoose Error → ${err.message}`)
+  }
+
+  setGlobalToJSONToObjectConfig () {
+    Mongoose.set('toObject', {
+      virtuals: true,
+      versionKey: false, // removes `__v`
+      transform: (_, ret) => {
+        delete ret._id
+
+        return ret
+      }
+    })
+
+    Mongoose.set('toJSON', {
+      virtuals: true,
+      versionKey: false,
+      transform: (_, ret) => {
+        delete ret._id
+
+        return ret
+      }
+    })
+  }
+
+  /**
+   * Create the MongoDB connection.
+   */
+  async connect () {
+    await Mongoose.connect(this.connectionString(), this.connectionConfig.options)
+  }
+
+  /**
+   * Compose the database connection string from
+   * the database configuration.
+   */
+  connectionString () {
+    const { host, port, database } = this.connectionConfig
+    return `mongodb://${host}:${port}/${database}`
+  }
+
+  /**
+   * Close the MongoDB connection.
+   */
+  async close () {
+    await Mongoose.disconnect()
+  }
+
+  /**
+   * Returns whether Mongoose has connected to
+   * the MongoDB database instance.
+   */
+  async isConnected () {
+    return Mongoose.connection.readyState === 1
   }
 }
 
