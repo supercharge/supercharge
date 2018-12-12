@@ -46,7 +46,9 @@ class ResetPasswordTest extends BaseTest {
   }
 
   async succeedsPasswordReset (t) {
-    const user = t.context.user
+    const user = await this.fakeUser({
+      passwordResetDeadline: Date.now() + 1000 * 60 * 60
+    })
 
     const response = await this.post({
       uri: `/reset-password/${user.email}/${user.passwordResetTokenPlain}`,
