@@ -103,10 +103,7 @@ class Globals {
    * events.
    */
   model () {
-    global.model = name => {
-      const Models = require(Path.resolve(this.appRoot, 'app', 'models'))
-      return Models[_.upperFirst(name)]
-    }
+    global.model = (...path) => require(Path.resolve(this.appRoot, 'app', 'models', ...path))
   }
 
   /**

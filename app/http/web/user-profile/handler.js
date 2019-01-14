@@ -1,8 +1,8 @@
 'use strict'
 
+const User = model('user')
 const Joi = require('joi')
 const Boom = require('boom')
-const { User } = frequire('app', 'models')
 
 const Handler = {
   showProfile: {

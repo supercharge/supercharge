@@ -31,16 +31,13 @@ const userSchema = new Mongoose.Schema({
 },
 {
   toJSON: {
-    virtuals: true,
     transform: function (_, ret) {
       delete ret._id
       delete ret.password
 
       return ret
-    },
-    versionKey: false // remove the __v property from JSON response
-  },
-  toObject: { virtuals: true }
+    }
+  }
 })
 
 class User {
@@ -63,7 +60,6 @@ class User {
 
   static async createFrom ({ email, password }) {
     if (await this.findByEmail(email)) {
-      // create an error object that matches the views error handling structure
       const message = 'Email address is already registered'
       throw Boom.conflict(message, { email: message })
     }
@@ -88,6 +84,7 @@ class User {
   async hashPassword () {
     const hash = await Hash.make(this.password)
     this.password = hash
+
     return this
   }
 
