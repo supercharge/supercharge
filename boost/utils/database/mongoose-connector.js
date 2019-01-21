@@ -16,14 +16,13 @@ class MongooseConnector {
    *
    * @param {Object} config
    */
-  constructor (connectionConfig) {
-    if (!connectionConfig) {
+  constructor (config) {
+    if (!config) {
       throw new Error('Mongoose connector config missing. Define the mongoose connection settings in your config/database.js file.')
     }
 
-    this.connectionConfig = connectionConfig
+    this.config = config
     this.createConnectionListeners()
-    this.setGlobalToJSONToObjectConfig()
   }
 
   /**
@@ -42,33 +41,11 @@ class MongooseConnector {
     Logger.error(`⚡️ 🚨 Mongoose Error → ${err.message}`)
   }
 
-  setGlobalToJSONToObjectConfig () {
-    Mongoose.set('toObject', {
-      virtuals: true,
-      versionKey: false, // removes `__v`
-      transform: (_, ret) => {
-        delete ret._id
-
-        return ret
-      }
-    })
-
-    Mongoose.set('toJSON', {
-      virtuals: true,
-      versionKey: false,
-      transform: (_, ret) => {
-        delete ret._id
-
-        return ret
-      }
-    })
-  }
-
   /**
    * Create the MongoDB connection.
    */
   async connect () {
-    await Mongoose.connect(this.connectionString(), this.connectionConfig.options)
+    await Mongoose.connect(this.connectionString(), this.config.options)
   }
 
   /**
@@ -76,7 +53,8 @@ class MongooseConnector {
    * the database configuration.
    */
   connectionString () {
-    const { host, port, database } = this.connectionConfig
+    const { host, port, database } = this.config
+
     return `mongodb://${host}:${port}/${database}`
   }
 
