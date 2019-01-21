@@ -4,17 +4,13 @@ const User = model('user')
 const BaseTest = util('base-test')
 
 class UserProfileTest extends BaseTest {
-  async beforeEach ({ context }) {
-    context.user = await this.fakeUser({ name: 'Marcus' })
-  }
-
-  async alwaysAfterEach ({ context }) {
-    await this.deleteUser(context.user)
-  }
-
   async showsUserProfile (t) {
-    const response = await this.actAs(t.context.user).get('/profile')
+    const user = await this.fakeUser({ name: 'Marcus' })
+
+    const response = await this.actAs(user).get('/profile')
     t.is(response.statusCode, 200)
+
+    await this.deleteUser(user)
   }
 
   async failsShowingProfileWhenUnauthenticated (t) {
@@ -24,8 +20,8 @@ class UserProfileTest extends BaseTest {
     t.is(response.headers['location'], `/login?next=${encodeURIComponent('/profile')}`)
   }
 
-  async serialSuceedsProfileNameUpdate (t) {
-    const user = t.context.user
+  async suceedsProfileNameUpdate (t) {
+    const user = await this.fakeUser({ name: 'Marcus' })
 
     const response =
       await this
@@ -42,34 +38,18 @@ class UserProfileTest extends BaseTest {
     t.is(updated.name, 'Updated')
     t.is(updated.email, user.email)
     t.not(user.name, updated.name)
+
+    await this.deleteUser(user)
   }
 
-  async serialSuceedsProfileUpdateEmail (t) {
-    const user = t.context.user
-
-    const response = await this.actAs(user).post({
-      uri: '/profile',
-      payload: {
-        email: 'updated@email.com',
-        name: user.name
-      }
-    })
-
-    t.is(response.statusCode, 200)
-
-    const updated = await User.findById(user.id)
-    t.is(updated.email, 'updated@email.com')
-    t.not(user.email, user.name)
-    t.is(user.name, updated.name)
-  }
-
-  async serialSuceedsProfileUpdateEmailWithoutName (t) {
+  async succeedsProfileUpdateEmail (t) {
     const user = await this.fakeUser({ name: 'Marcus' })
 
     const response = await this.actAs(user).post({
       uri: '/profile',
       payload: {
-        email: 'updated@email.com'
+        email: 'updated@email.com',
+        name: 'Other Marcus'
       }
     })
 
@@ -77,13 +57,33 @@ class UserProfileTest extends BaseTest {
 
     const updated = await User.findById(user.id)
     t.is(updated.email, 'updated@email.com')
+    t.is(updated.name, 'Other Marcus')
+    t.not(user.email, user.name)
+
+    await this.deleteUser(user)
+  }
+
+  async succeedsProfileUpdateEmailWithoutName (t) {
+    const user = await this.fakeUser({ name: 'Marcus' })
+
+    const response = await this.actAs(user).post({
+      uri: '/profile',
+      payload: {
+        email: 'updated-without-name@email.com'
+      }
+    })
+
+    t.is(response.statusCode, 200)
+
+    const updated = await User.findById(user.id)
+    t.is(updated.email, 'updated-without-name@email.com')
     t.is(user.name, updated.name)
 
     await this.deleteUser(user)
   }
 
-  async serialSuceedsProfileUpdateWithSameUserData (t) {
-    const user = t.context.user
+  async suceedsProfileUpdateWithSameUserData (t) {
+    const user = await this.fakeUser({ name: 'Marcus' })
 
     const response = await this.actAs(user).post({
       uri: '/profile',
@@ -98,10 +98,12 @@ class UserProfileTest extends BaseTest {
     const updated = await User.findById(user.id)
     t.is(updated.email, user.email)
     t.is(user.name, updated.name)
+
+    await this.deleteUser(user)
   }
 
   async failsProfileUpdateWithoutEmailAddress (t) {
-    const user = t.context.user
+    const user = await this.fakeUser({ name: 'Marcus' })
 
     const response = await this.actAs(user).post({
       uri: '/profile',
@@ -111,21 +113,25 @@ class UserProfileTest extends BaseTest {
     })
 
     t.is(response.statusCode, 400)
+
+    await this.deleteUser(user)
   }
 
-  async serialFailsEmailUpdateForExistingAddress (t) {
-    const user = await this.fakeUser()
+  async failsEmailUpdateForExistingAddress (t) {
+    const norman = await this.fakeUser()
+    const marcus = await this.fakeUser()
 
-    const response = await this.actAs(t.context.user).post({
+    const response = await this.actAs(marcus).post({
       uri: '/profile',
       payload: {
-        email: user.email
+        email: norman.email
       }
     })
 
     t.is(response.statusCode, 409)
 
-    await this.deleteUser(user)
+    await this.deleteUser(norman)
+    await this.deleteUser(marcus)
   }
 }
 
