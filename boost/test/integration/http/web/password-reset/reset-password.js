@@ -4,26 +4,26 @@ const User = model('user')
 const BaseTest = util('base-test')
 
 class ResetPasswordTest extends BaseTest {
-  async beforeEach ({ context }) {
-    context.user = await this.fakeUser({
+  async showResetPasswordPage (t) {
+    const user = await this.fakeUser({
       passwordResetDeadline: Date.now() + 1000 * 60 * 60
     })
-  }
 
-  async alwaysAfterEach ({ context }) {
-    await this.deleteUser(context.user)
-  }
-
-  async showResetPasswordPage (t) {
-    const user = t.context.user
     const response = await this.actAs(user).get(`/reset-password/${user.email}/${user.passwordResetTokenPlain}`)
     t.is(response.statusCode, 302)
+
+    await this.deleteUser(user)
   }
 
   async showForgotPasswordPageUnauthenticated (t) {
-    const user = t.context.user
+    const user = await this.fakeUser({
+      passwordResetDeadline: Date.now() + 1000 * 60 * 60
+    })
+
     const response = await this.get(`/reset-password/${user.email}/${user.passwordResetTokenPlain}`)
     t.is(response.statusCode, 200)
+
+    await this.deleteUser(user)
   }
 
   async failsValidationForPasswordResetEmail (t) {
@@ -32,7 +32,9 @@ class ResetPasswordTest extends BaseTest {
   }
 
   async redirectsAuthenticatedUserToProfile (t) {
-    const user = t.context.user
+    const user = await this.fakeUser({
+      passwordResetDeadline: Date.now() + 1000 * 60 * 60
+    })
 
     const response = await this.actAs(user).post({
       uri: `/reset-password/${user.email}/${user.passwordResetTokenPlain}`,
@@ -43,6 +45,8 @@ class ResetPasswordTest extends BaseTest {
     })
 
     t.is(response.statusCode, 302)
+
+    await this.deleteUser(user)
   }
 
   async succeedsPasswordReset (t) {
@@ -65,10 +69,13 @@ class ResetPasswordTest extends BaseTest {
     t.falsy(updated.passwordResetDeadline)
 
     await t.notThrowsAsync(updated.comparePassword('updated'))
+    await this.deleteUser(user)
   }
 
   async failsWithoutPasswordResetPassword (t) {
-    const user = t.context.user
+    const user = await this.fakeUser({
+      passwordResetDeadline: Date.now() + 1000 * 60 * 60
+    })
 
     const response = await this.post({
       uri: `/reset-password/${user.email}/${user.passwordResetTokenPlain}`,
@@ -79,10 +86,14 @@ class ResetPasswordTest extends BaseTest {
     })
 
     t.is(response.statusCode, 400)
+
+    await this.deleteUser(user)
   }
 
   async failsWithoutPasswordResetPasswordConfirm (t) {
-    const user = t.context.user
+    const user = await this.fakeUser({
+      passwordResetDeadline: Date.now() + 1000 * 60 * 60
+    })
 
     const response = await this.post({
       uri: `/reset-password/${user.email}/${user.passwordResetTokenPlain}`,
@@ -93,10 +104,14 @@ class ResetPasswordTest extends BaseTest {
     })
 
     t.is(response.statusCode, 400)
+
+    await this.deleteUser(user)
   }
 
   async failsForNotRegisteredUser (t) {
-    const user = t.context.user
+    const user = await this.fakeUser({
+      passwordResetDeadline: Date.now() + 1000 * 60 * 60
+    })
     await this.deleteUser(user)
 
     const response = await this.post({
@@ -111,7 +126,9 @@ class ResetPasswordTest extends BaseTest {
   }
 
   async failsForWrongResetToken (t) {
-    const user = t.context.user
+    const user = await this.fakeUser({
+      passwordResetDeadline: Date.now() + 1000 * 60 * 60
+    })
 
     const response = await this.post({
       uri: `/reset-password/${user.email}/${user.email}`,
@@ -122,6 +139,8 @@ class ResetPasswordTest extends BaseTest {
     })
 
     t.is(response.statusCode, 400)
+
+    await this.deleteUser(user)
   }
 
   async failsForOutdatedResetToken (t) {
@@ -138,6 +157,8 @@ class ResetPasswordTest extends BaseTest {
     })
 
     t.is(response.statusCode, 400)
+
+    await this.deleteUser(user)
   }
 }
 
