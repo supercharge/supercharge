@@ -10,12 +10,14 @@ class BaseRoutesTest extends BaseTest {
     this.stub(process, 'exit')
   }
 
-  after () {
+  alwaysAfter () {
     console.error.restore()
     process.exit.restore()
   }
 
   async serialStartsAndStopsDefaultServer (t) {
+    this.muteConsole()
+
     const launch = new Launch()
     await launch.launchWithFullSpeed()
 
@@ -26,6 +28,9 @@ class BaseRoutesTest extends BaseTest {
     await new Promise(resolve => setTimeout(resolve, 100))
 
     t.is(server.info.started, 0)
+
+    const { stdout } = this.consoleOutput()
+    t.true(stdout.includes('server started at'))
   }
 
   async serialFailsToStartServer (t) {
