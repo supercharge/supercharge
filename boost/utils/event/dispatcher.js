@@ -16,10 +16,9 @@ class Dispatcher {
    * Initialize a new Dispatcher instance.
    */
   constructor () {
+    this.emitter = new EventEmitter()
     this.eventsFolder = Path.resolve(__appRoot, 'app', 'events')
     this.listenersFolder = Path.resolve(__appRoot, 'app', 'listeners')
-
-    this.emitter = new EventEmitter()
   }
 
   /**
@@ -330,6 +329,7 @@ class Dispatcher {
    * @param {Object} listener
    */
   addListener (eventName, listener) {
+    this.ensureMaxListenersCount(this.emitter, eventName)
     this.emitter.on(eventName, listener)
   }
 
@@ -340,7 +340,24 @@ class Dispatcher {
    * @param {Object} listener
    */
   async addSystemListener (eventName, listener) {
-    process.on(eventName, await listener)
+    this.ensureMaxListenersCount(process, eventName)
+    process.on(eventName, listener)
+  }
+
+  /**
+   * Checks and (if necessary) updates the
+   * max listeners count.
+   *
+   * @param {Object} emitter
+   * @param {String} eventName
+   */
+  ensureMaxListenersCount (emitter, eventName) {
+    const maxListeners = emitter.getMaxListeners()
+    const listenerCount = emitter.listenerCount(eventName)
+
+    if (listenerCount >= maxListeners) {
+      emitter.setMaxListeners(listenerCount + 10)
+    }
   }
 
   /**
