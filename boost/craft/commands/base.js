@@ -52,13 +52,13 @@ class BaseCommand extends Command {
     const exists = await this.pathExists(Path.join(__appRoot, '.env'))
 
     if (!exists) {
-      return Promise.resolve()
+      return
     }
 
     if (force) {
       console.log(this.chalk.red('Found existing app setup. Forcefully overriding it.\n'))
 
-      return Promise.resolve()
+      return
     }
 
     throw new Error('Your project already includes a .env file. Use the "--force" flag for a fresh setup.')
