@@ -1,26 +1,26 @@
 'use strict'
 
+const Config = util('config')
 const Many = require('extends-classes')
 const Http = require('./concerns/makes-http-requests')
 const RenderViews = require('./concerns/render-views')
 const FakeData = require('./concerns/creates-fake-data')
-const RegistersHook = require('./concerns/registers-hooks')
-const RegistersTests = require('./concerns/registers-tests')
+const MocksConsole = require('./concerns/mocks-console')
 const MocksStubsSpies = require('./concerns/creates-stubs-mocks-spies')
+const TestRunner = require(`./drivers/${Config.get('testing').driver}`)
 
 /**
  * This is the base test class each test should
  * implement. It provides reusable utilities
  * to quickly create powerful test cases.
  */
-class BaseTest extends Many(RenderViews, Http, FakeData, MocksStubsSpies, RegistersHook, RegistersTests) {
+class BaseTest extends Many(RenderViews, Http, FakeData, MocksStubsSpies, MocksConsole, TestRunner) {
   /**
    * Create a new test case instance.
    */
   constructor () {
     super()
 
-    this.assignHooks()
     this.registerTests()
   }
 
