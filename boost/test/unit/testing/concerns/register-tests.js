@@ -3,12 +3,12 @@
 const BaseTest = util('base-test')
 
 class RegisterTestsTest extends BaseTest {
-  async failingSkipTest (t) {
-    this.createTestFromMethod('skipTest')
+  async failingSkipTest () {
+    this.createTest('skipTest')
   }
 
-  async failingTodoTest (t) {
-    this.createTestFromMethod('todoTest')
+  async failingTodoTest () {
+    this.createTest('todoTest')
   }
 }
 
