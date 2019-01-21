@@ -1,6 +1,5 @@
 'use strict'
 
-const _ = require('lodash')
 const Path = require('path')
 
 class Globals {
