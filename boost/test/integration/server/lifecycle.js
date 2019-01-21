@@ -16,7 +16,7 @@ class BaseRoutesTest extends BaseTest {
   }
 
   async serialStartsAndStopsDefaultServer (t) {
-    this.muteConsole()
+    this.mockConsole()
 
     const launch = new Launch()
     await launch.launchWithFullSpeed()
