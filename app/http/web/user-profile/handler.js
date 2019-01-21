@@ -107,7 +107,7 @@ const Handler = {
           .options({
             language: {
               any: {
-                allowOnly: '!!New Password and Confirm do not match'
+                allowOnly: '!!New Password and Password Confirm do not match'
               }
             }
           })
