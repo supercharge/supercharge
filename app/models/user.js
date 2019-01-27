@@ -2,7 +2,7 @@
 
 const Boom = require('boom')
 const Hash = util('hashinator')
-const Encryptor = util('encryptor')
+const Encrypter = util('encrypter')
 const Mongoose = require('mongoose')
 const Validator = require('validator')
 
@@ -89,7 +89,7 @@ class User {
   }
 
   async resetPassword () {
-    const passwordResetToken = Encryptor.randomKey(20)
+    const passwordResetToken = Encrypter.randomKey(20)
     const hash = await Hash.make(passwordResetToken)
 
     this.passwordResetToken = hash

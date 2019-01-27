@@ -54,7 +54,6 @@ class ChangePasswordTest extends BaseTest {
     })
 
     t.is(response.statusCode, 400)
-
     const updated = await User.findById(user.id)
     t.truthy(await updated.comparePassword(user.passwordPlain))
 

@@ -1,6 +1,6 @@
 'use strict'
 
-const Encryption = util('encryptor')
+const Encrypter = util('encrypter')
 const BaseCommand = require('../base')
 
 /**
@@ -35,7 +35,7 @@ class KeyGenerate extends BaseCommand {
    * @param {Object} arguments
    */
   async handle (_, { force, echo }) {
-    const key = Encryption.generateKey()
+    const key = Encrypter.generateKey()
 
     if (echo) {
       return this.completed('generated', `Application key: ${key}`)
