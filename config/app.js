@@ -69,7 +69,7 @@ module.exports = {
    *
    * This is your personal application key, at least 32 characters
    * long. It is used to encrypted cookies, sessions and also by
-   * the encryptor utility to keep your sensitive data safe.
+   * the encrypter utility to keep your sensitive data safe.
    *
    */
   key: Env.get('APP_KEY'),

@@ -3,7 +3,7 @@
 const User = model('user')
 const Uuid = require('uuid/v4')
 const Hash = util('hashinator')
-const Encryptor = util('encryptor')
+const Encrypter = util('encrypter')
 
 /**
  * This class provides methods to conveniently
@@ -78,7 +78,7 @@ class CreatesFakeData {
    * @returns {String}
    */
   randomKey (bytes) {
-    return Encryptor.randomKey(bytes)
+    return Encrypter.randomKey(bytes)
   }
 }
 

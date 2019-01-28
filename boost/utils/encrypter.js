@@ -2,9 +2,9 @@
 
 const Crypto = require('crypto')
 const Config = require('./config')
-const Encrypter = require('simple-encryptor')
+const SimpleEncryptor = require('simple-encryptor')
 
-class Encryptor {
+class Encrypter {
   /**
    * Create a new Encrypter instance.
    *
@@ -17,7 +17,7 @@ class Encryptor {
     }
 
     this.key = key
-    this.encryptor = Encrypter(Object.assign({}, { key }, options))
+    this.encryptor = SimpleEncryptor(Object.assign({}, { key }, options))
   }
 
   /**
@@ -29,7 +29,7 @@ class Encryptor {
    */
   static generateKey (cipher = Config.get('app.cipher')) {
     const bytes = cipher === 'AES-128-CBC' ? 16 : 32
-    return Encryptor.randomKey(bytes)
+    return Encrypter.randomKey(bytes)
   }
 
   /**
@@ -111,4 +111,4 @@ class Encryptor {
   }
 }
 
-module.exports = Encryptor
+module.exports = Encrypter
