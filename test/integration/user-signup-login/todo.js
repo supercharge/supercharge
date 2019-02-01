@@ -1,6 +1,6 @@
 'use strict'
 
-const BaseTest = util('base-test')
+const BaseTest = require('@supercharge/framework/testing/base-test')
 
 class LoginTest extends BaseTest {
   async skipFailsToLoginWithoutPassword () {

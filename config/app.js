@@ -1,7 +1,7 @@
 'use strict'
 
-const Env = util('env')
-const Pkg = frequire('package.json')
+const Pkg = require('./../package.json')
+const Env = require('@supercharge/framework/env')
 
 module.exports = {
   /**
@@ -14,7 +14,7 @@ module.exports = {
    * notifcations.
    *
    */
-  name: Env.get('APP_NAME', 'Boost'),
+  name: Env.get('APP_NAME', 'Supercharge'),
 
   /**
    * --------------------------------------------------------------------------

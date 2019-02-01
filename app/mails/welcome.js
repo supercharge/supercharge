@@ -1,7 +1,7 @@
 'use strict'
 
-const Config = util('config')
-const Mailable = util('mailable')
+const Config = require('@supercharge/framework/config')
+const Mailable = require('@supercharge/framework/mailer/mailable')
 
 class WelcomeMail extends Mailable {
   constructor (user) {

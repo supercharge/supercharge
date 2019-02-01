@@ -1,7 +1,7 @@
 'use strict'
 
 const _ = require('lodash')
-const Config = util('config')
+const Config = require('@supercharge/framework/config')
 const Handlebars = require('handlebars')
 
 /**

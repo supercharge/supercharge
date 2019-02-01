@@ -9,17 +9,6 @@
   "plugins": [
     "standard"
   ],
-  "globals": {
-    "__appRoot": false,
-    "__viewsPath": false,
-    "__storagePath": false,
-    "__resourcePath": false,
-    "frequire": false,
-    "model": false,
-    "util": false,
-    "mail": false,
-    "event": false
-  },
   "parserOptions": {
     "ecmaVersion": 2018
   }

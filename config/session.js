@@ -1,6 +1,6 @@
 'use strict'
 
-const Env = util('env')
+const Env = require('@supercharge/framework/env')
 const Slug = require('@sindresorhus/slugify')
 
 module.exports = {

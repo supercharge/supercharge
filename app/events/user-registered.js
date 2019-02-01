@@ -1,6 +1,6 @@
 'use strict'
 
-const Event = util('event')
+const Event = require('@supercharge/framework/event')
 
 /**
  * This event is fired in the sign up handler

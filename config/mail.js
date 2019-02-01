@@ -1,6 +1,6 @@
 'use strict'
 
-const Env = util('env')
+const Env = require('@supercharge/framework/env')
 
 module.exports = {
   /**

@@ -1,6 +1,6 @@
 'use strict'
 
-const Config = util('config')
+const Config = require('@supercharge/framework/config')
 const AppShutdown = require('./shutdown')
 
 /**
@@ -31,13 +31,9 @@ const corePlugins = [
   {
     plugin: 'laabr',
     options: {
-      formats: {
-        log: 'log.tiny'
-      },
+      formats: { log: 'log.tiny' },
       colored: true,
-      hapiPino: {
-        logPayload: false
-      }
+      hapiPino: { logPayload: false }
     }
   }
 ]

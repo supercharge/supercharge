@@ -1,8 +1,8 @@
 'use strict'
 
-// const Mailer = util('mailer')
-const Logger = util('logger')
-const Listener = util('Listener')
+// const Mailer = require('@supercharge/framework/mailer')
+const Logger = require('@supercharge/framework/logging')
+const Listener = require('@supercharge/framework/event/listener')
 // const WelcomeMail = mail('welcome')
 
 /**

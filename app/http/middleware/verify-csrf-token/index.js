@@ -1,6 +1,6 @@
 'use strict'
 
-const Config = util('config')
+const Config = require('@supercharge/framework/config')
 
 /**
  * Configure CSRF protection based on the `crumb` hapi plugin.

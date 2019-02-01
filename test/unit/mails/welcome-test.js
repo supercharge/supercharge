@@ -1,7 +1,7 @@
 'use strict'
 
-const Config = util('config')
-const BaseTest = util('base-test')
+const Config = require('@supercharge/framework/config')
+const BaseTest = require('@supercharge/framework/testing/base-test')
 const WelcomeMail = mail('welcome')
 
 class WelcomeTest extends BaseTest {

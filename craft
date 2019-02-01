@@ -1,12 +1,6 @@
 'use strict'
 
-/**
- * Register custom Node.js globals before launching
- * the Boost hapi server. Boost heavily uses
- * globals to quickly access project files.
- */
-const Globals = require('./start/globals')
-new Globals().fromAppRoot(__dirname)
+// TODO update Craft import and use it from the Supercharge framework
 
 /**
  * Kick off the Boost command line helper called "craft".

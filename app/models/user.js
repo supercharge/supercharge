@@ -1,10 +1,10 @@
 'use strict'
 
 const Boom = require('boom')
-const Hash = util('hashinator')
-const Encrypter = util('encrypter')
 const Mongoose = require('mongoose')
 const Validator = require('validator')
+const Hash = require('@supercharge/framework/hashing')
+const Encrypter = require('@supercharge/framework/encryption')
 
 const userSchema = new Mongoose.Schema({
   email: {

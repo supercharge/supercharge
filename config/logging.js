@@ -1,6 +1,7 @@
 'use strict'
 
-const Env = util('env')
+const Env = require('@supercharge/framework/env')
+const Helper = require('@supercharge/framework/helper')
 
 module.exports = {
   /**
@@ -34,7 +35,7 @@ module.exports = {
 
     file: {
       level: 'debug',
-      path: __storagePath('logs', Env.get('LOG_FILE', 'app.log'))
+      path: Helper.storagePath('logs', Env.get('LOG_FILE', 'app.log'))
     }
   }
 }

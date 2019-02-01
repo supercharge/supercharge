@@ -10,19 +10,19 @@ const Handler = {
   },
 
   css: {
-    handler: { directory: { path: './public/css' } }
+    handler: { directory: { path: './../supercharge-app/public/css' } }
   },
 
   js: {
-    handler: { directory: { path: './public/js' } }
+    handler: { directory: { path: './../supercharge-app/public/js' } }
   },
 
   images: {
-    handler: { directory: { path: './public/images' } }
+    handler: { directory: { path: './../supercharge-app/public/images' } }
   },
 
   favicon: {
-    handler: { file: { path: './public/favicon.ico' } }
+    handler: { file: { path: './../supercharge-app/public/favicon.ico' } }
   }
 }
 
