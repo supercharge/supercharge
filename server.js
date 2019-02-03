@@ -1,9 +1,12 @@
 'use strict'
 
+const App = require('@supercharge/framework')
+
 /**
- * Kick off the Boost hapi server. This binds to
- * a local address and port. The default logger
- * prints the server's address to the terminal.
+ * Kick off the HTTP server which bind to localhost and the defined
+ * `PORT` from your .env file. The required app-root directory
+ * defines the starting point to bootstrap the app.
  */
-const Server = require('./start')
-new Server().launchWithFullSpeed()
+new App()
+  .fromAppRoot(__dirname)
+  .launchWithFullSpeed()
