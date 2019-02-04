@@ -1,11 +1,12 @@
 'use strict'
 
-// TODO update Craft import and use it from the Supercharge framework
+const App = require('@supercharge/framework')
 
 /**
- * Kick off the Boost command line helper called "craft".
- * Craft provides helpers to quickly set up a new
- * project or scaffold project files.
+ * Kick off the command line helper called "craft". Craft commands
+ * can scaffold features or project files. The CLI command will
+ * execute in the terminal and terminate itself once finished.
  */
-const Craft = require('./boost/craft')
-new Craft().makeItHappen()
+new App()
+  .fromAppRoot(__dirname)
+  .consoleForLife()
