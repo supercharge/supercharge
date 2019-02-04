@@ -33,19 +33,5 @@ module.exports = {
      */
     passwordReset: Env.get('AUTH_REDIRECT_PASSWORD_RESET', '/reset-password-success')
 
-  },
-
-  /**
-   * --------------------------------------------------------------------------
-   * JWT Auth
-   * --------------------------------------------------------------------------
-   *
-   * This configuration is used to for JWT authentication.
-   * The secret key is used to encrypt the JSON web tokens
-   * that are only decryptable by your application.
-   *
-   */
-  jwt: {
-    secret: Env.get('JWT_SECRET_KEY')
   }
 }
