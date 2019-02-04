@@ -9,4 +9,4 @@ const App = require('@supercharge/framework')
  */
 new App()
   .fromAppRoot(__dirname)
-  .launchWithFullSpeed()
+  .httpWithFullSpeed()
