@@ -25,7 +25,7 @@ async function register (server) {
 }
 
 exports.plugin = {
-  name: 'boost-verify-csrf-token',
+  name: 'verify-csrf-token',
   once: true,
   register
 }
