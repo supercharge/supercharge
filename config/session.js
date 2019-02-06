@@ -14,7 +14,7 @@ module.exports = {
    * cookies to store individual values.
    *
    */
-  cookie: Env.get('SESSION_COOKIE', `${Slug(Env.get('APP_NAME', 'boost'), { separator: '_' })}_session`),
+  cookie: Env.get('SESSION_COOKIE', `${Slug(Env.get('APP_NAME', 'supercharge'), { separator: '_' })}_session`),
 
   /**
    * --------------------------------------------------------------------------
