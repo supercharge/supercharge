@@ -16,7 +16,6 @@
     "vision": "~5.4.4"
   },
   "devDependencies": {
-    "@adonisjs/ace": "~5.0.8",
     "ava": "~1.1.0",
     "cross-env": "~5.2.0",
     "eslint": "~5.12.0",
