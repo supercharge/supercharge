@@ -5,6 +5,20 @@ const Env = require('@supercharge/framework/env')
 module.exports = {
   /**
    * --------------------------------------------------------------------------
+   * Default Authentication Strategy
+   * --------------------------------------------------------------------------
+   *
+   * This configuration controls the default authentication strategy and mode.
+   * Valid values are a single string representing the strategy name or an
+   * object with two keys: `strategy` and `mode`. Find more details here:
+   * - https://hapijs.com/api#-routeoptionsauthmode
+   * - https://hapijs.com/tutorials/auth#user-content-setting-a-default-strategy
+   *
+   */
+  default: null,
+
+  /**
+   * --------------------------------------------------------------------------
    * Redirect after Authentication
    * --------------------------------------------------------------------------
    *
