@@ -15,7 +15,10 @@ module.exports = {
    * - https://hapijs.com/tutorials/auth#user-content-setting-a-default-strategy
    *
    */
-  default: null,
+  default: {
+    strategy: 'session',
+    mode: 'try'
+  },
 
   /**
    * --------------------------------------------------------------------------
