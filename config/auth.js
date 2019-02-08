@@ -48,7 +48,7 @@ module.exports = {
      * This redirect is called after successfully resetting
      * the password.
      */
-    passwordReset: Env.get('AUTH_REDIRECT_PASSWORD_RESET', '/reset-password-success')
+    passwordReset: Env.get('AUTH_REDIRECT_PASSWORD_RESET', '/home')
 
   }
 }
