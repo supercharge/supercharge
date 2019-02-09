@@ -2,21 +2,21 @@
 
     {{> logo }}
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar" aria-controls="collapsingNavbar"
-        aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar"
+        aria-controls="collapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="navbar-collapse collapse w-100" id="collapsingNavbar">
-        <div class="col-4 nav navbar-nav">
+        <div class="navbar-nav mr-auto">
             {{> nav/nav-left}}
         </div>
 
-        <div class="col-4 nav navbar-nav justify-content-center">
+        <div class="navbar-nav ml-auto mr-auto justify-content-center">
             {{> nav/nav-center}}
         </div>
 
-        <div class="col-4 nav navbar-nav justify-content-end">
+        <div class="navbar-nav ml-auto justify-content-end">
             {{> nav/nav-right}}
         </div>
     </div>
