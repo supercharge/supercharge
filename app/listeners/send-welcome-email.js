@@ -1,9 +1,8 @@
 'use strict'
 
-// const Mailer = require('@supercharge/framework/mailer')
+const Mailer = require('@supercharge/framework/mailer') /* eslint-disable-line */
 const Logger = require('@supercharge/framework/logging')
 const Listener = require('@supercharge/framework/event/listener')
-// const WelcomeMail = mail('welcome')
 
 /**
  * This event listener has the sole job of
