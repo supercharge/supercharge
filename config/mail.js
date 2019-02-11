@@ -71,8 +71,8 @@ module.exports = {
     postmark: {
       auth: {
         apiKey: Env.get('MAIL_POSTMARK_API_KEY')
-      },
-      postmarkOptions: {}
+      }
+      // postmarkOptions: {}
     },
 
     /**
