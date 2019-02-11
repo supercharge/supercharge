@@ -41,7 +41,6 @@ module.exports = {
      * This redirect is called after successfully logging
      * into your app.
      */
-
     login: Env.get('AUTH_REDIRECT_LOGIN', '/home'),
 
     /**
@@ -49,6 +48,5 @@ module.exports = {
      * the password.
      */
     passwordReset: Env.get('AUTH_REDIRECT_PASSWORD_RESET', '/home')
-
   }
 }
