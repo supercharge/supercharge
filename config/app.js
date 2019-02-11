@@ -45,7 +45,9 @@ module.exports = {
    * Production Check
    * --------------------------------------------------------------------------
    *
-   * TODO
+   * This configuration controls whether the current deployment
+   * runs in production. This shortcut property is helpful to
+   * enable view caching or activate secure cookies.
    *
    */
   isProduction: this.env === 'production',
