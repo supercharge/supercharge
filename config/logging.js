@@ -9,7 +9,7 @@ module.exports = {
    * Default Log Driver
    * --------------------------------------------------------------------------
    *
-   * This defines the logger(s) for log messages. Boost
+   * This defines the logger(s) for log messages. Supercharge
    * supports three drivers which log to the console,
    * to file or both (stacked).
    *

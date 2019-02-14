@@ -30,9 +30,9 @@ class SendWelcomeMail extends Listener {
     )
 
     /**
-     * As soon as you configured the mailer, uncomment
-     * the following line. If you want mor details on
-     * the mailer, check the Boost docs.Thank you!
+     * As soon as you configured the mailer, uncomment the
+     * following line. If you want mor details on the
+     * mailer, check the Supercharge docs. Thank you!
      */
     // await Mailer.send(new WelcomeMail(event.user))
   }

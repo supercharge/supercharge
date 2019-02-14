@@ -28,7 +28,7 @@ module.exports = {
     mongoose: {
       host: Env.get('MONGODB_HOST', 'localhost'),
       port: Env.get('MONGODB_PORT', 27017),
-      database: Env.get('MONGODB_DATABASE', 'boost'),
+      database: Env.get('MONGODB_DATABASE', 'supercharge'),
       options: {
         // auth: {
         //   user: Env.get('MONGODB_USERNAME'),

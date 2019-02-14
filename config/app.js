@@ -9,7 +9,7 @@ module.exports = {
    * Application Name
    * --------------------------------------------------------------------------
    *
-   * This is the name of your application. Boost will use it whenever
+   * This is the name of your application. Supercharge will use it whenever
    * your app needs idenfication, like in email subject lines or
    * notifcations.
    *

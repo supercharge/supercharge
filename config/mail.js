@@ -8,7 +8,7 @@ module.exports = {
    * Default Mail Driver
    * --------------------------------------------------------------------------
    *
-   * This defines the transport driver for sending emails. Boost
+   * This defines the transport driver for sending emails. Supercharge
    * uses the `nodemailer` package to send emails and supports
    * basically any driver that is supported by nodemailer.
    *
@@ -23,7 +23,7 @@ module.exports = {
    * --------------------------------------------------------------------------
    *
    * This defines an object to use as the default "from" address
-   * when sending mails with Boost's mailer. This global value
+   * when sending mails with Supercharge’s mailer. This global value
    * is used as the default "from" attribute.
    *
    */
@@ -112,7 +112,7 @@ module.exports = {
       //   click_tracking: true,
       //   transactional: true
       // },
-      // campaign_id: 'Boost Campaign'
+      // campaign_id: 'Supercharge Campaign'
     },
 
     /**
