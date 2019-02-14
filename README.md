@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://superchargejs.com">
-    <img width="471" style="max-width:100%;" src="https://docs.google.com/uc?id=1-wRsRNxiP0EwkH86WodhBeT77GDJOosk" />
+    <img width="471" style="max-width:100%;" src="https://superchargejs.com/images/supercharge-text.svg" />
   </a>
   <br/>
   <br/>
