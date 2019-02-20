@@ -30,21 +30,11 @@
   "engines": {
     "node": ">= 8"
   },
-  "homepage": "https://superchargejs.com",
-  "keywords": [
-    "supercharge",
-    "superchargejs",
-    "node",
-    "nodejs",
-    "node.js",
-    "backend",
-    "framework"
-  ],
   "license": "MIT",
   "private": true,
   "scripts": {
     "coverage": "cross-env NODE_ENV=testing nyc ava",
-    "lint": "eslint ** --fix",
+    "lint": "eslint . --ext .js",
     "test": "cross-env NODE_ENV=testing ava",
     "test-single": "cross-env NODE_ENV=testing ava --match"
   }
