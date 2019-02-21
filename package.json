@@ -7,13 +7,8 @@
     "@supercharge/framework": "file:../supercharge-framework",
     "boom": "~7.3.0",
     "hapi-dev-errors": "~3.2.3",
-    "html-to-text": "~4.0.0",
-    "inert": "~5.1.2",
     "joi": "~14.3.1",
-    "lodash": "~4.17.11",
-    "uuid": "~3.3.2",
-    "validator": "~10.11.0",
-    "vision": "~5.4.4"
+    "validator": "~10.11.0"
   },
   "devDependencies": {
     "ava": "~1.2.1",
