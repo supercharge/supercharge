@@ -6,7 +6,6 @@
     "@sindresorhus/slugify": "~0.8.0",
     "@supercharge/framework": "file:../supercharge-framework",
     "boom": "~7.3.0",
-    "crumb": "~7.2.3",
     "hapi-dev-errors": "~3.2.3",
     "html-to-text": "~4.0.0",
     "inert": "~5.1.2",
