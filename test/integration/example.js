@@ -1,6 +1,6 @@
 'use strict'
 
-const BaseTest = require('../base-test')
+const BaseTest = require('@supercharge/framework/base-test')
 
 class IntegrationSampleTest extends BaseTest {
   async showWelcome (t) {
