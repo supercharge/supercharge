@@ -1,6 +1,6 @@
 'use strict'
 
-const App = require('@supercharge/framework')
+const App = require('@supercharge/framework/application')
 
 /**
  * Kick off the HTTP server which bind to localhost and the defined
