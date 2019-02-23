@@ -1,7 +1,7 @@
 {
   "name": "supercharge",
   "description": "Supercharge application boilerplate",
-  "version": "0.0.0",
+  "version": "1.0.0-beta0",
   "dependencies": {
     "@sindresorhus/slugify": "~0.8.0",
     "@supercharge/framework": "1.0.0-beta0.1",
