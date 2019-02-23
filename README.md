@@ -5,28 +5,64 @@
   <br/>
   <br/>
   <p>
-    Supercharge gives you a Node.js starter kit to build your next JavaScript fullstack app.
+    Supercharge is an open-source Node.js framework making your server-side development enjoyable.
   </p>
   <br/>
   <p>
-    <a href="https://superchargejs.com/docs"><strong>Supercharge Docs</strong></a>
+    <a href="https://superchargejs.com/docs"><strong>Docs</strong></a>
   </p>
   <br/>
+  <br/>
+  <p>
+    <a href="https://travis-ci.org/superchargejs/framework"><img src="https://travis-ci.com/superchargejs/framework.svg?branch=master" alt="Build Status" data-canonical-src="https://travis-ci.com/superchargejs/framework.svg?branch=master" style="max-width:100%;"></a>
+  </p>
+  <p>
+    <em>Follow <a href="http://twitter.com/marcuspoehls">@marcuspoehls</a> for updates!</em>
+  </p>
 </div>
 
 ---
 
-## About Supercharge
-Supercharge is a Node.js framework that makes it a lot more convenient to build your next app than using a common Node.js web framework.
 
-Supercharge builds on top of the hapi.js web framework and adds dozens utilities, like configuration and database management, mailing, logging, encryptiong, hashing, pagination, and more. It also integrates a powerful ORM for intuitive database interactions.
+## Quick Start
+Use the official Supercharge installer to quickly create a new application. Installing is as simple as this:
+
+```
+npm install -g @supercharge/installer
+```
+
+You can create a new application once you installed the Supercharge installer on your computer.
+
+Use the `supercharge new <app-name>` command:
+
+```
+$ supercharge new my-app-name
+Crafting a new Supercharge application
+
+  ✔ Ensure installation directory is empty
+  ✔ Crafting your application
+  ✔ Install application dependencies
+  ✔ Initialize application setup
+```
+
+That’s it! Change into the app directory and start the server with `node server` 🚀
+
+
+## About Supercharge
+Supercharge is Node.js framework — not just a web-framework.
+
+Supercharge builds on top of the hapi.js web framework and adds dozens utilities, like configuration and database management, mailing, logging, encryptiong, hashing, pagination, and more. It also integrates Mongoose as a powerful ORM for intuitive database interactions.
 
 
 ## Learning
 Supercharge has an extensive [documentation](https://superchargejs.com/docs) that gives you all the information to get started with the framework.
 
+
+## License
+Supercharge is [MIT licensed](https://github.com/superchargejs/framework/blob/master/LICENSE).
+
 ---
 
-We (Marcus, Norman, and Christian from Future Studio) appreciate your support and love seeing you build your next app with Supercharge.
-
-We wish you a great developer experience. Enjoy coding and make it rock! 😘
+> [superchargejs.com](https://superchargejs.com) &nbsp;&middot;&nbsp;
+> GitHub [@superchargejs](https://github.com/superchargejs/) &nbsp;&middot;&nbsp;
+> Twitter [@superchargejs](https://twitter.com/superchargejs)
