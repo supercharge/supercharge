@@ -2,7 +2,7 @@
 
 'use strict'
 
-const App = require('@supercharge/framework')
+const App = require('@supercharge/framework/application')
 
 /**
  * Kick off the command line helper called "craft". Craft commands
