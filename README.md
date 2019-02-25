@@ -14,7 +14,7 @@
   <br/>
   <br/>
   <p>
-    <a href="https://travis-ci.org/superchargejs/framework"><img src="https://travis-ci.com/superchargejs/framework.svg?branch=master" alt="Build Status" data-canonical-src="https://travis-ci.com/superchargejs/framework.svg?branch=master" style="max-width:100%;"></a>
+    <a href="https://travis-ci.com/superchargejs/framework"><img src="https://travis-ci.com/superchargejs/framework.svg?branch=master" alt="Build Status" data-canonical-src="https://travis-ci.com/superchargejs/framework.svg?branch=master" style="max-width:100%;"></a>
   </p>
   <p>
     <em>Follow <a href="http://twitter.com/marcuspoehls">@marcuspoehls</a> and <a href="http://twitter.com/superchargejs">@superchargejs</a> for updates!</em>
