@@ -5,7 +5,8 @@
   <br/>
   <br/>
   <p>
-    Supercharge is an open-source Node.js framework making your server-side development enjoyable.
+    Supercharge is an open-source Node.js framework <br>
+    making your server-side development enjoyable.
   </p>
   <br/>
   <p>
