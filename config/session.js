@@ -1,9 +1,24 @@
 'use strict'
 
-const Env = require('@supercharge/framework/env')
 const Slug = require('@sindresorhus/slugify')
+const Env = require('@supercharge/framework/env')
+const Helper = require('@supercharge/framework/helper')
 
 module.exports = {
+  /**
+   * --------------------------------------------------------------------------
+   * Session Driver
+   * --------------------------------------------------------------------------
+   *
+   * This defines the default session “driver” that will be used on
+   * requests. The default “cookie” driver is straightforward to
+   * use because it has no dependencies.
+   *
+   * Supported drivers: "file", "cookie"
+   *
+   */
+  driver: Env.get('SESSION_DRIVER', 'cookie'),
+
   /**
    * --------------------------------------------------------------------------
    * Session Cookie Name
@@ -14,10 +29,14 @@ module.exports = {
    * cookies to store individual values.
    *
    */
-  cookie: Env.get(
-    'SESSION_COOKIE',
-    `${Slug(Env.get('APP_NAME', 'supercharge'), { separator: '_' })}_session`
-  ),
+  cookie: {
+    name: Env.get(
+      'SESSION_COOKIE',
+      `${Slug(Env.get('APP_NAME', 'supercharge'), { separator: '_' })}_session`
+    ),
+
+    options: { }
+  },
 
   /**
    * --------------------------------------------------------------------------
@@ -30,6 +49,18 @@ module.exports = {
    *
    */
   lifetime: Env.get('SESSION_LIFETIME', null),
+
+  /**
+   * --------------------------------------------------------------------------
+   * Session File Location
+   * --------------------------------------------------------------------------
+   *
+   * Using the `file` session driver requires a location
+   * where session files are stored. This location is
+   * not used for other session drivers than `file`.
+   *
+   */
+  files: Helper.storagePath('framework/sessions'),
 
   /**
    * --------------------------------------------------------------------------
