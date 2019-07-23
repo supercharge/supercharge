@@ -21,21 +21,87 @@ module.exports = {
 
   /**
    * --------------------------------------------------------------------------
-   * Session Cookie Name
+   * Session Cookie Options
    * --------------------------------------------------------------------------
    *
-   * This defines the cookie name which identifies sessions.
-   * This cookie name will be used for web sessions using
-   * cookies to store individual values.
+   * This defines the session cookie options. Theses options are
+   * used to create a session cookie. These options also apply
+   * when using the `cookie` session driver.
    *
    */
   cookie: {
+    /**
+     * --------------------------------------------------------------------------
+     * Session Cookie Name
+     * --------------------------------------------------------------------------
+     *
+     * This defines the cookie name identifying the session.
+     *
+     */
     name: Env.get(
       'SESSION_COOKIE',
-      `${Slug(Env.get('APP_NAME', 'supercharge'), { separator: '_' })}_session`
+      Slug(`${Env.get('APP_NAME', 'supercharge')}-session`)
     ),
 
-    options: { }
+    /**
+     * --------------------------------------------------------------------------
+     * Session Cookie Path
+     * --------------------------------------------------------------------------
+     *
+     * This defines the cookie’s path scope. This is typically
+     * the root path of your application.
+     *
+     */
+    path: '/',
+
+    /**
+     * --------------------------------------------------------------------------
+     * Secure Cookies (HTTPS Only)
+     * --------------------------------------------------------------------------
+     *
+     * If enabled, the browser will only include the cookie
+     * when using an HTTPS connection.
+     *
+     */
+    isSecure: Env.isProduction(),
+
+    /**
+     * --------------------------------------------------------------------------
+     * HTTP-Only Cookies
+     * --------------------------------------------------------------------------
+     *
+     * Enabling this value will make the cookie only available
+     * through the HTTP protocol. It’ll prevent JavaScript
+     * from accessing the cookie value.
+     *
+     */
+    isHttpOnly: true,
+
+    /**
+     * --------------------------------------------------------------------------
+     * Clear Invalid Cookies
+     * --------------------------------------------------------------------------
+     *
+     * If enabled, instructs the browser to remove an invalid
+     * session cookie and not keeping it around for
+     * subsequent requests.
+     *
+     */
+    clearInvalid: true,
+
+    /**
+     * --------------------------------------------------------------------------
+     * Same-Site Cookies
+     * --------------------------------------------------------------------------
+     *
+     * Determines whether the browser sends the session cookie along with
+     * cross-site requests. This option can prevent CSRF attacks and is
+     * disabled in favor of the CSRF protection middleware.
+     *
+     * Supported values: "false", "Strict", "Lax"
+     *
+     */
+    isSameSite: false
   },
 
   /**
