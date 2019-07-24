@@ -58,6 +58,8 @@ Supercharge builds on top of the hapi.js web framework and adds dozens utilities
 ## Learning
 Supercharge has an extensive [documentation](https://superchargejs.com/docs) that gives you all the information to get started with the framework.
 
+Did you create a tutorial, video, blog post, plugin, library, or anything else related to Supercharge? Please let me know! Create an issue or tweet me [@marcuspoehls](https://twitter.com/marcuspoehls). I'm very happy to create a content list and share it with everybody!
+
 
 ## License
 Supercharge is [MIT licensed](https://github.com/superchargejs/framework/blob/master/LICENSE).
