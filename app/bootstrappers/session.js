@@ -1,7 +1,7 @@
 'use strict'
 
 // const Session = require('@supercharge/framework/session')
-const Bootstrapper = require('@supercharge/framework/src/session/bootstrapper')
+const Bootstrapper = require('@supercharge/framework/session/bootstrapper')
 
 class SessionBootstrapper extends Bootstrapper {
   constructor (server) {
