@@ -3,26 +3,24 @@
   "description": "Supercharge application boilerplate",
   "version": "1.0.0-beta0",
   "dependencies": {
-    "@sindresorhus/slugify": "~0.8.0",
+    "@hapi/inert": "~5.2.1",
+    "@sindresorhus/slugify": "~0.9.1",
     "@supercharge/framework": "1.0.0-beta0.1",
-    "boom": "~7.3.0",
-    "hapi-dev-errors": "~3.2.3",
-    "joi": "~14.3.1",
-    "validator": "~10.11.0"
+    "hapi-dev-errors": "~3.2.5"
   },
   "devDependencies": {
-    "ava": "~1.2.1",
+    "ava": "~2.2.0",
     "cross-env": "~5.2.0",
-    "eslint": "~5.14.0",
-    "eslint-config-standard": "~12.0.0",
-    "eslint-plugin-import": "~2.16.0",
-    "eslint-plugin-node": "~8.0.1",
-    "eslint-plugin-promise": "~4.0.1",
+    "eslint": "~6.1.0",
+    "eslint-config-standard": "~13.0.1",
+    "eslint-plugin-import": "~2.18.2",
+    "eslint-plugin-node": "~9.1.0",
+    "eslint-plugin-promise": "~4.2.1",
     "eslint-plugin-standard": "~4.0.0",
-    "nyc": "~13.3.0"
+    "nyc": "~14.1.1"
   },
   "engines": {
-    "node": ">= 8"
+    "node": ">= 8.12.0"
   },
   "license": "MIT",
   "private": true,
