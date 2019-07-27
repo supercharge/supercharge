@@ -114,7 +114,7 @@ module.exports = {
    * session end on window close.
    *
    */
-  lifetime: Env.get('SESSION_LIFETIME', '1d'),
+  lifetime: Env.get('SESSION_LIFETIME', '7d'),
 
   /**
    * --------------------------------------------------------------------------
