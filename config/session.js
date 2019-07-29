@@ -126,17 +126,5 @@ module.exports = {
    * not used for other session drivers than `file`.
    *
    */
-  files: Helper.storagePath('framework/sessions'),
-
-  /**
-   * --------------------------------------------------------------------------
-   * CSRF Token Name
-   * --------------------------------------------------------------------------
-   *
-   * This token name is used by the `csrf` handlebars helper
-   * to protect your users against attacks.The `token`value
-   * must be in camelCase and cannot contain a dash.
-   *
-   */
-  token: 'csrfToken'
+  files: Helper.storagePath('framework/sessions')
 }
