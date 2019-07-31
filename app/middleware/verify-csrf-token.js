@@ -1,7 +1,7 @@
 'use strict'
 
-const Extension = require('@supercharge/framework/http/middleware/verify-csrf-token')
+const Middleware = require('@supercharge/framework/http/middleware/verify-csrf-token')
 
-class VerifyCsrfToken extends Extension {}
+class VerifyCsrfToken extends Middleware {}
 
 module.exports = VerifyCsrfToken
