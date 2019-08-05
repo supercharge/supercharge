@@ -22,6 +22,10 @@ module.exports = {
    *
    */
   connections: {
+    sqs: {
+      // TODO
+    },
+
     faktory: {
       url: Env.get('FAKTORY_QUEUE_URL'),
       host: Env.get('FAKTORY_QUEUE_HOST'),
