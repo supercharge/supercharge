@@ -10,6 +10,8 @@ module.exports = {
    *
    * tba.
    *
+   * Supported drivers: `sync`, `sqs`, `faktory`
+   *
    */
   driver: Env.get('QUEUE_DRIVER', 'sync'),
 

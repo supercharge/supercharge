@@ -12,7 +12,7 @@ module.exports = {
    * uses the `nodemailer` package to send emails and supports
    * basically any driver that is supported by nodemailer.
    *
-   * Available drivers: `smtp`, `postmark`, `mailgun`, `sparkpost`, `ses`
+   * Supported drivers: `smtp`, `postmark`, `mailgun`, `sparkpost`, `ses`
    *
    */
   driver: Env.get('MAIL_DRIVER', 'smtp'),
