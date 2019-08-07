@@ -23,7 +23,11 @@ module.exports = {
    */
   connections: {
     sqs: {
-      // TODO
+      key: Env.get('AWS_ACCESS_KEY_ID'),
+      secret: Env.get('AWS_SECRET_ACCESS_KEY'),
+      region: Env.get('AWS_DEFAULT_REGION', 'eu-central-1'),
+      prefix: Env.get('AWS_SQS_PREFIX', 'https://sqs.eu-central-1.amazonaws.com/account-id'),
+      queue: Env.get('AWS_SQS_QUEUE_NAME', 'your-queue-name')
     },
 
     faktory: {
