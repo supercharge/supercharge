@@ -33,20 +33,19 @@ module.exports = {
    * Web Application Host
    * --------------------------------------------------------------------------
    *
-   * This is default host your hapi web server will bind to. You
-   * can change this to a specific IP (0.0.0.0, 192.168.0.1 ) to 
+   * This is the default host your hapi web server will bind to. You
+   * can change this to a specific IP (0.0.0.0, 192.168.0.1 ) to
    * support the requirements of your application.
    *
    */
-
   host: Env.get('HOST', 'localhost'),
-  
+
   /**
    * --------------------------------------------------------------------------
    * Web Application Port
    * --------------------------------------------------------------------------
    *
-   * This is default port your hapi web server will bind to. Define
+   * This is the default port your hapi web server will bind to. Define
    * a value that is not in use on your host machine to avoid
    * port collisions.
    *
@@ -64,18 +63,6 @@ module.exports = {
    *
    */
   env: Env.get('NODE_ENV', 'development').toLowerCase(),
-
-  /**
-   * --------------------------------------------------------------------------
-   * Production Check
-   * --------------------------------------------------------------------------
-   *
-   * This configuration controls whether the current deployment
-   * runs in production. This shortcut property is helpful to
-   * enable view caching or activate secure cookies.
-   *
-   */
-  isProduction: this.env === 'production',
 
   /**
    * --------------------------------------------------------------------------

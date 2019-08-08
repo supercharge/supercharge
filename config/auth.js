@@ -16,7 +16,7 @@ module.exports = {
    *
    */
   default: {
-    strategy: 'session',
+    strategy: 'web',
     mode: 'try'
   },
 
