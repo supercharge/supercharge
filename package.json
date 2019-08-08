@@ -5,7 +5,7 @@
   "dependencies": {
     "@hapi/inert": "~5.2.1",
     "@sindresorhus/slugify": "~0.9.1",
-    "@supercharge/framework": "1.0.0-beta0.1",
+    "@supercharge/framework": "1.0.0-beta1",
     "hapi-dev-errors": "~3.2.5"
   },
   "devDependencies": {
