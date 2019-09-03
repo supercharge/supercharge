@@ -7,6 +7,9 @@ module.exports = {
    * list to register custom functionality to your application.
    */
   bootstrappers: [
+    require('@supercharge/framework/auth/bootstrapper'),
+    require('@supercharge/framework/view/bootstrapper'),
+    require('@supercharge/framework/database/bootstrapper'),
     require('../app/bootstrappers/session')
   ]
 }
