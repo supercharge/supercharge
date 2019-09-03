@@ -4,14 +4,8 @@
 const Bootstrapper = require('@supercharge/framework/session/bootstrapper')
 
 class SessionBootstrapper extends Bootstrapper {
-  constructor (server) {
-    super()
-
-    this.server = server
-  }
-
   async boot () {
-    // Session.extend()
+    // Session.extend('driver-name', DriverClassImplementation)
 
     await super.boot()
   }
