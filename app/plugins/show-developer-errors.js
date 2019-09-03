@@ -1,11 +1,11 @@
 'use strict'
 
-const Config = require('@supercharge/framework/config')
+const Env = require('@supercharge/framework/env')
 
 module.exports = {
   plugin: require('hapi-dev-errors'),
   options: {
-    showErrors: !Config.get('app.isProduction'),
+    showErrors: !Env.isProduction(),
     toTerminal: false
   }
 }
