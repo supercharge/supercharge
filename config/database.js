@@ -38,7 +38,8 @@ module.exports = {
         // },
         useCreateIndex: true,
         useNewUrlParser: true,
-        useFindAndModify: false
+        useFindAndModify: false,
+        useUnifiedTopology: true
       }
     }
   }
