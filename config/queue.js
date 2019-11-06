@@ -8,7 +8,9 @@ module.exports = {
    * Default Queue Connection
    * --------------------------------------------------------------------------
    *
-   * tba.
+   * Supercharge provides a unified API around a handful of queue backends
+   * and services. In your application, you use the same syntax for each
+   * connection. This setting defines the default queue connection.
    *
    * Supported drivers: `sync`, `sqs`, `faktory`
    *
@@ -20,10 +22,13 @@ module.exports = {
    * Queue Connections
    * --------------------------------------------------------------------------
    *
-   * tba.
+   * This section configures the individual details of each queue connection.
+   * Supercharge ships with built-in support for all the listed connections
+   * and you’re free to add your own, custom queue connections.
    *
    */
   connections: {
+
     sqs: {
       key: Env.get('AWS_ACCESS_KEY_ID'),
       secret: Env.get('AWS_SECRET_ACCESS_KEY'),
@@ -39,5 +44,6 @@ module.exports = {
       password: Env.get('FAKTORY_QUEUE_PASSWORD'),
       queue: Env.get('FAKTORY_QUEUE_NAME', 'default')
     }
+
   }
 }

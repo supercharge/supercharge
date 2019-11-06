@@ -25,6 +25,7 @@ module.exports = {
    *
    */
   connections: {
+
     mongoose: {
       url: Env.get('MONGODB_URL'),
       host: Env.get('MONGODB_HOST', 'localhost'),
@@ -42,5 +43,6 @@ module.exports = {
         useUnifiedTopology: true
       }
     }
+
   }
 }
