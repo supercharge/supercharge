@@ -5,13 +5,13 @@
   "dependencies": {
     "@hapi/inert": "~5.2.2",
     "@sindresorhus/slugify": "~0.9.1",
-    "@supercharge/framework": "1.0.0-beta5",
+    "@supercharge/framework": "1.0.0-beta6",
     "hapi-dev-errors": "~3.3.0"
   },
   "devDependencies": {
     "ava": "~2.4.0",
-    "cross-env": "~6.0.0",
-    "eslint": "~6.7.1",
+    "cross-env": "~6.0.3",
+    "eslint": "~6.7.2",
     "eslint-config-standard": "~14.1.0",
     "eslint-plugin-import": "~2.19.1",
     "eslint-plugin-node": "~10.0.0",
