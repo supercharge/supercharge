@@ -1,7 +1,7 @@
 {
   "name": "supercharge",
   "description": "Supercharge application boilerplate",
-  "version": "1.0.0-beta5",
+  "version": "1.0.0-beta6",
   "dependencies": {
     "@hapi/inert": "~5.2.2",
     "@sindresorhus/slugify": "~0.9.1",
