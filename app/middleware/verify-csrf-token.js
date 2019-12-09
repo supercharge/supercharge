@@ -9,9 +9,11 @@ class VerifyCsrfToken extends Middleware {
    *
    * @returns {Array}
    */
-  get exclude() {
+  get exclude () {
     return [
-      //
+      // '/stripe/*',
+      // '/braintree/*',
+      // '/a/webhook/endpoint
     ]
   }
 }
