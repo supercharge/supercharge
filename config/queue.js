@@ -12,7 +12,7 @@ module.exports = {
    * and services. In your application, you use the same syntax for each
    * connection. This setting defines the default queue connection.
    *
-   * Supported drivers: `sync`, `sqs`, `faktory`
+   * Supported drivers: `sync`, `sqs`, `faktory`, `database`
    *
    */
   driver: Env.get('QUEUE_DRIVER', 'sync'),
@@ -43,6 +43,11 @@ module.exports = {
       port: Env.get('FAKTORY_QUEUE_PORT'),
       password: Env.get('FAKTORY_QUEUE_PASSWORD'),
       queue: Env.get('FAKTORY_QUEUE_NAME', 'default')
+    },
+
+    database: {
+      queue: 'default',
+      table: 'queue-jobs'
     }
 
   }
