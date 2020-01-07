@@ -7,6 +7,7 @@ module.exports = {
    * list to register custom functionality to your application.
    */
   bootstrappers: [
-    require('../app/bootstrappers/session')
+    require('../app/bootstrappers/queue/bootstrapper'),
+    require('../app/bootstrappers/session/bootstrapper')
   ]
 }
