@@ -1,0 +1,19 @@
+{
+  "extends": "@supercharge/tsconfig",
+  "include": [
+    "./**/*"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./test",
+    "./dist"
+  ],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "types": [
+      "node",
+      "@supercharge/core",
+      "@supercharge/http-server"
+    ]
+  },
+}

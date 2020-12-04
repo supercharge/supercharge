@@ -1,9 +1,9 @@
 'use strict'
 
-const Pkg = require('./../package.json')
-const Env = require('@supercharge/framework/env')
+import App from '@ioc:supercharge/app'
+import Env from '@ioc:supercharge/env'
 
-module.exports = {
+export default {
   /**
    * --------------------------------------------------------------------------
    * Application Name
@@ -86,7 +86,7 @@ module.exports = {
    * the version in your package.json file.
    *
    */
-  version: Pkg.version,
+  version: App.version(),
 
   /**
    * --------------------------------------------------------------------------
@@ -98,5 +98,5 @@ module.exports = {
    * application key of at least 32 characters.
    *
    */
-  cipher: 'AES-256-CBC'
+  cipher: 'AES-256-CBC',
 }

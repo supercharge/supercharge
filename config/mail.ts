@@ -1,8 +1,8 @@
 'use strict'
 
-const Env = require('@supercharge/framework/env')
+import Env from '@ioc:supercharge/env'
 
-module.exports = {
+export default {
   /**
    * --------------------------------------------------------------------------
    * Default Mail Driver

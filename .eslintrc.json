@@ -1,15 +1,23 @@
 {
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": [
-    "standard"
-  ],
-  "plugins": [
-    "standard"
+    "standard-with-typescript"
   ],
   "parserOptions": {
-    "ecmaVersion": 2018
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "@typescript-eslint/return-await": 0,
+    "@typescript-eslint/method-signature-style": 0,
+    "@typescript-eslint/strict-boolean-expressions": 0
+    // "@typescript-eslint/explicit-function-return-type": 0
   }
 }

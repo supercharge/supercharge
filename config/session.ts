@@ -1,10 +1,10 @@
 'use strict'
 
-const Slug = require('@sindresorhus/slugify')
-const Env = require('@supercharge/framework/env')
-const Helper = require('@supercharge/framework/helper')
+import App from '@ioc:supercharge/app'
+import Env from '@ioc:supercharge/env'
+import Str from '@supercharge/strings'
 
-module.exports = {
+export default {
   /**
    * --------------------------------------------------------------------------
    * Session Driver
@@ -40,7 +40,7 @@ module.exports = {
      */
     name: Env.get(
       'SESSION_COOKIE',
-      Slug(`${Env.get('APP_NAME', 'supercharge')}-session`)
+      Str(Env.get('APP_NAME', 'supercharge')).concat('-session').kebab().get(),
     ),
 
     /**
@@ -101,7 +101,7 @@ module.exports = {
      * Supported values: "false", "Strict", "Lax"
      *
      */
-    isSameSite: false
+    isSameSite: false,
   },
 
   /**
@@ -126,5 +126,5 @@ module.exports = {
    * not used for other session drivers than `file`.
    *
    */
-  files: Helper.storagePath('framework/sessions')
+  files: App.storagePath('framework/sessions'),
 }

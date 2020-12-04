@@ -1,8 +1,8 @@
 'use strict'
 
-const Env = require('@supercharge/framework/env')
+import Env from '@ioc:supercharge/env'
 
-module.exports = {
+export default {
   /**
    * --------------------------------------------------------------------------
    * Default Queue Connection
@@ -28,7 +28,6 @@ module.exports = {
    *
    */
   connections: {
-
     sqs: {
       key: Env.get('AWS_ACCESS_KEY_ID'),
       secret: Env.get('AWS_SECRET_ACCESS_KEY'),
@@ -49,6 +48,5 @@ module.exports = {
       queue: 'default',
       table: 'queue-jobs'
     }
-
   }
 }

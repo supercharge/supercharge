@@ -1,9 +1,10 @@
 'use strict'
 
-const Env = require('@supercharge/framework/env')
-const Helper = require('@supercharge/framework/helper')
+import Path from 'path'
+import Env from '@ioc:supercharge/env'
+import App from '@ioc:supercharge/app'
 
-module.exports = {
+export default {
   /**
    * --------------------------------------------------------------------------
    * Default Log Driver
@@ -31,13 +32,14 @@ module.exports = {
   channels: {
 
     console: {
-      level: Env.get('LOG_LEVEL', 'debug')
+      level: Env.get('LOG_LEVEL', 'debug'),
     },
 
     file: {
       level: Env.get('LOG_LEVEL', 'debug'),
-      path: Helper.storagePath('logs', Env.get('LOG_FILE', 'app.log'))
-    }
-
-  }
+      path: Path.resolve(
+        App.storagePath('logs'), Env.get('LOG_FILE', 'app.log'),
+      ),
+    },
+  },
 }
