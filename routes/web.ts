@@ -13,6 +13,12 @@ Route.get('/', ctx => {
   ctx.response.payload('Hey Vlad')
 })
 
+Route.post('/', ctx => {
+  ctx.response.payload(
+    ctx.request.payload(),
+  )
+})
+
 Route.get('/hi/:name', async ({ request, response }) => {
   response.payload(
     `Hey ${String(request.params().name)}`,
