@@ -30,6 +30,8 @@ coverage
 # build outputs
 dist
 
+package-lock.json
+
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
