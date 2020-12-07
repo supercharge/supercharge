@@ -1,13 +1,20 @@
 'use strict'
 
 import Path from 'path'
-import { Middleware } from '@supercharge/contracts'
+import { HandleCors } from './middleware/handle-cors'
+import { MiddlewareCtor } from '@supercharge/contracts'
 import { HttpKernel as Kernel } from '@supercharge/http-server/dist/src'
 
 export class HttpKernel extends Kernel {
-  middleware (): Middleware[] {
+  /**
+   * Returns the application’s global middleware stack. Every middleware
+   * listed here runs on every request to the application.
+   *
+   * @returns {MiddlewareCtor[]}
+   */
+  middleware (): MiddlewareCtor[] {
     return [
-      //
+      HandleCors,
     ]
   }
 
