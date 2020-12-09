@@ -6,7 +6,7 @@
     "@koa/cors": "3.1.0",
     "@supercharge/contracts": "0.0.0",
     "@supercharge/core": "0.0.0",
-    "@supercharge/http-server": "0.0.0",
+    "@supercharge/routing": "0.0.0",
     "@supercharge/strings": "~1.15.1",
     "reflect-metadata": "~0.1.13"
   },

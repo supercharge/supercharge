@@ -13,7 +13,7 @@
     "types": [
       "node",
       "@supercharge/core",
-      "@supercharge/http-server"
+      "@supercharge/routing"
     ]
   },
 }
