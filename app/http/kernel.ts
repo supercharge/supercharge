@@ -1,9 +1,8 @@
 'use strict'
 
-import Path from 'path'
 import { HandleCors } from './middleware/handle-cors'
 import { MiddlewareCtor } from '@supercharge/contracts'
-import { HttpKernel as Kernel } from '@supercharge/http-server/dist/src'
+import { HttpKernel as Kernel } from '@supercharge/core/dist/src'
 
 export class HttpKernel extends Kernel {
   /**
@@ -18,9 +17,14 @@ export class HttpKernel extends Kernel {
     ]
   }
 
-  loadRoutesFrom (): string {
-    return Path.resolve(
-      this.app().basePath(), 'routes/**/*',
-    )
+  /**
+   * Returns available route-level middleware.
+   *
+   * @returns {Object}
+   */
+  routeMiddleware (): { [name: string]: MiddlewareCtor} {
+    return {
+      // auth: AuthenticateRequest
+    }
   }
 }
