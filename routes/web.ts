@@ -9,14 +9,16 @@
 
 import Route from '@ioc:supercharge/route'
 
-Route.get('/', ctx => {
-  ctx.response.payload('Hey Vlad')
+Route.get('/', 'DevController.index')
+
+Route.get('/hi', () => {
+  return JSON.stringify({
+    id: 1, name: 'Marcus',
+  })
 })
 
 Route.post('/', ctx => {
-  ctx.response.payload(
-    ctx.request.payload(),
-  )
+  return ctx.request.payload()
 })
 
 Route.get('/hi/:name', async ({ request, response }) => {
@@ -26,15 +28,11 @@ Route.get('/hi/:name', async ({ request, response }) => {
 })
 
 Route.prefix('/names').group(() => {
-  const names = ['Marcus', 'Norman', 'Christian']
-
-  Route.get('/', ({ response }) => {
-    return response.payload(names)
+  Route.get('/', () => {
+    return ['Marcus', 'Norman', 'Christian']
   })
 
   Route.get('/:name', ({ request, response }) => {
-    console.log('route handler -> ' + String(request.path()))
-
     response.payload(`Hi ${String(request.params().name)}`)
   })
 })

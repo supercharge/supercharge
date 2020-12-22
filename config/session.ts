@@ -79,18 +79,6 @@ export default {
 
     /**
      * --------------------------------------------------------------------------
-     * Clear Invalid Cookies
-     * --------------------------------------------------------------------------
-     *
-     * If enabled, instructs the browser to remove an invalid
-     * session cookie and not keeping it around for
-     * subsequent requests.
-     *
-     */
-    clearInvalid: true,
-
-    /**
-     * --------------------------------------------------------------------------
      * Same-Site Cookies
      * --------------------------------------------------------------------------
      *
@@ -98,10 +86,9 @@ export default {
      * cross-site requests. This option can prevent CSRF attacks and is
      * disabled in favor of the CSRF protection middleware.
      *
-     * Supported values: "false", "Strict", "Lax"
-     *
+     * Available values: 'strict' | 'lax' | 'none' | true | false
      */
-    isSameSite: false,
+    sameSite: 'strict',
   },
 
   /**

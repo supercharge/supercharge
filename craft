@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
-import 'reflect-metadata'
-import App from '@supercharge/framework/application'
+require('reflect-metadata')
+const { ConsoleKernel } = require('./app/console/kernel')
+const { Application } = require('@supercharge/core/dist/src')
 
 /**
  * Start a command line application, called “craft”. Craft commands
  * can scaffold features or project files. The CLI command will
  * execute in the terminal and terminate itself once finished.
  */
-App
-  .fromAppRoot(__dirname)
-  .startConsole()
+const app = Application.createWithAppRoot(__dirname)
+
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+new ConsoleKernel(app).handle(process.argv)

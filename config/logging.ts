@@ -1,8 +1,8 @@
 'use strict'
 
 import Path from 'path'
-import Env from '@ioc:supercharge/env'
 import App from '@ioc:supercharge/app'
+import Env from '@ioc:supercharge/env'
 
 export default {
   /**
@@ -30,7 +30,6 @@ export default {
    *
    */
   channels: {
-
     console: {
       level: Env.get('LOG_LEVEL', 'debug'),
     },

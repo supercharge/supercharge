@@ -28,7 +28,7 @@ export default {
    *
    */
   bcrypt: {
-    rounds: Env.get('HASH_BCRYPT_ROUNDS', 12)
+    rounds: Env.get('HASH_BCRYPT_ROUNDS', 12),
   },
 
   /**
@@ -46,6 +46,6 @@ export default {
     type: Env.get('HASH_ARGON_TYPE', 'argon2i'),
     memory: Env.get('HASH_ARGON_MEMORY', 1024),
     time: Env.get('HASH_ARGON_TIME', 2),
-    threads: Env.get('HASH_ARGON_THREADS', 2)
-  }
+    threads: Env.get('HASH_ARGON_THREADS', 2),
+  },
 }
