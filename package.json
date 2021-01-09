@@ -3,16 +3,16 @@
   "description": "Supercharge application boilerplate",
   "version": "1.0.0-beta8",
   "dependencies": {
-    "@koa/cors": "3.1.0",
     "@supercharge/contracts": "0.0.0",
     "@supercharge/core": "0.0.0",
+    "@supercharge/http": "0.0.0",
     "@supercharge/routing": "0.0.0",
+    "@supercharge/view": "0.0.0",
     "@supercharge/strings": "~1.15.1",
     "reflect-metadata": "~0.1.13"
   },
   "devDependencies": {
     "@supercharge/tsconfig": "~1.0.0",
-    "@types/koa__cors": "~3.0.2",
     "@types/node": "~14.14.7",
     "@typescript-eslint/eslint-plugin": "~4.7.0",
     "eslint": "~7.13.0",
