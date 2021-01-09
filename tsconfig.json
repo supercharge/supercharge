@@ -13,7 +13,8 @@
     "types": [
       "node",
       "@supercharge/core",
-      "@supercharge/routing"
+      "@supercharge/routing",
+      "@supercharge/view"
     ]
   },
 }
