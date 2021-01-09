@@ -33,7 +33,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "start": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
+    "dev:server": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "npm run build && npm run lint && npm run test:run",
