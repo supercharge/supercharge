@@ -9,7 +9,9 @@
 
 import Route from '@ioc:supercharge/route'
 
-Route.get('/', 'DevController.index')
+Route.get('/', async ctx => {
+  return ctx.response.view('welcome')
+})
 
 Route.get('/hi', () => {
   return JSON.stringify({
