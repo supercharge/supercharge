@@ -1,7 +1,5 @@
 'use strict'
 
-import 'reflect-metadata'
-
 import { HttpKernel } from './app/http/kernel'
 import { Application } from '@supercharge/core/dist/src'
 

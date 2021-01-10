@@ -20,10 +20,10 @@ export default class Inspire extends Command {
    * @returns {String}
    */
   description (): string {
-    return 'Puper description'
+    return 'Prints an inspiring quote to the console'
   }
 
-  async handle (..._inputs: any[]): Promise<void> {
+  async handle (): Promise<void> {
     console.log('Sometimes you win. Sometimes you learn.')
   }
 }

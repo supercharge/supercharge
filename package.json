@@ -8,8 +8,7 @@
     "@supercharge/http": "0.0.0",
     "@supercharge/routing": "0.0.0",
     "@supercharge/view": "0.0.0",
-    "@supercharge/strings": "~1.15.1",
-    "reflect-metadata": "~0.1.13"
+    "@supercharge/strings": "~1.15.1"
   },
   "devDependencies": {
     "@supercharge/tsconfig": "~1.0.0",

@@ -2,8 +2,8 @@
 
 import { HandleCors } from '@supercharge/http'
 import { MiddlewareCtor } from '@supercharge/contracts'
-import { ServeStaticAssets } from './middleware/serve-static-assets'
 import { HttpKernel as Kernel } from '@supercharge/core/dist/src'
+import { ServeStaticAssets } from './middleware/serve-static-assets'
 
 export class HttpKernel extends Kernel {
   /**
@@ -20,7 +20,18 @@ export class HttpKernel extends Kernel {
   }
 
   /**
-   * Returns available route-level middleware.
+   * Returns available route-level middleware. Use the keys as middleware
+   * names when defining routes. For example, require authentication
+   * for inidividual routes by using the 'auth' middleware.
+   *
+   * @example
+   * ```
+   * Route.middleware('auth').group(() => {
+   *   // all routes in this group require authentication
+   *
+   *   Route.get('/profile', …)
+   * })
+   * ```
    *
    * @returns {Object}
    */
