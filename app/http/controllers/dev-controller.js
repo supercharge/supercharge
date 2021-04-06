@@ -1,21 +1,19 @@
 'use strict'
 
-import { HttpContext } from '@supercharge/contracts'
-
 export default class DevController {
   /**
    * Say hello.
    *
    * @param ctx HttpContext
    */
-  index (): any {
+  index () {
     return 'Hello Marcus'
   }
 
   /**
    * Bonjour!
    */
-  helloNorman ({ response }: HttpContext): any {
+  helloNorman ({ response }) {
     return response.payload('Bonjour Norman.')
   }
 }

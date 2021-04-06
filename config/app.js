@@ -63,4 +63,17 @@ export default {
    *
    */
   version: App.version(),
+
+  /**
+   * --------------------------------------------------------------------------
+   * Application Debug Mode
+   * --------------------------------------------------------------------------
+   *
+   * The application shows detailed error messages and stack trace when
+   * in debug mode. Otherwise, a generic error message will be send as
+   * the response.
+   *
+   *
+   */
+  debug: Env.isNotProduction(),
 }

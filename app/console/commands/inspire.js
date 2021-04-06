@@ -10,7 +10,7 @@ export default class Inspire extends Command {
    *
    * @returns {String}
    */
-  signature (): string {
+  signature () {
     return 'inspire'
   }
 
@@ -19,11 +19,14 @@ export default class Inspire extends Command {
    *
    * @returns {String}
    */
-  description (): string {
+  description () {
     return 'Prints an inspiring quote to the console'
   }
 
-  async handle (): Promise<void> {
+  /**
+   * Handle the console command.
+   */
+  async handle () {
     console.log('Sometimes you win. Sometimes you learn.')
   }
 }

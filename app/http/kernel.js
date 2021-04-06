@@ -1,7 +1,10 @@
 'use strict'
 
+/**
+ * @typedef {import('@supercharge/contracts').MiddlewareCtor} MiddlewareCtor
+ */
+
 import { HandleCors } from '@supercharge/http'
-import { MiddlewareCtor } from '@supercharge/contracts'
 import { HttpKernel as Kernel } from '@supercharge/core/dist/src'
 import { ServeStaticAssets } from './middleware/serve-static-assets'
 
@@ -12,7 +15,7 @@ export class HttpKernel extends Kernel {
    *
    * @returns {MiddlewareCtor[]}
    */
-  middleware (): MiddlewareCtor[] {
+  middleware () {
     return [
       HandleCors,
       ServeStaticAssets,
@@ -35,7 +38,7 @@ export class HttpKernel extends Kernel {
    *
    * @returns {Object}
    */
-  routeMiddleware (): { [name: string]: MiddlewareCtor} {
+  routeMiddleware () {
     return {
       // auth: AuthenticateRequest
     }

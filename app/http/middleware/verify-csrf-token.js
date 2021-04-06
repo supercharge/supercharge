@@ -6,9 +6,9 @@ export default class VerifyCsrfToken {
   /**
    * Returns an array of URIs that should be excluded from CSRF verfication.
    *
-   * @returns {Array}
+   * @returns {String[]}
    */
-  exclude (): string[] {
+  exclude () {
     return [
       // '/stripe/*',
       // '/braintree/*',

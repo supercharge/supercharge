@@ -8,7 +8,7 @@ export class ServeStaticAssets extends Middleware {
    *
    * @returns {String}
    */
-  assetsLocation (): string {
+  assetsLocation () {
     return this.app.publicPath()
   }
 }

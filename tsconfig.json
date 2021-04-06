@@ -1,15 +1,6 @@
 {
-  "extends": "@supercharge/tsconfig",
-  "include": [
-    "./**/*"
-  ],
-  "exclude": [
-    "./node_modules",
-    "./test",
-    "./dist"
-  ],
   "compilerOptions": {
-    "outDir": "./dist",
+    "allowJs": true,
     "types": [
       "node",
       "@supercharge/core",

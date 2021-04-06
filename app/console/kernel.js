@@ -6,7 +6,7 @@ export class ConsoleKernel extends Kernel {
   /**
    * Register the console commands to the application.
    */
-  async commands (): Promise<void> {
+  async commands () {
     await this.loadFrom(
       this.app().resolveFromBasePath('app/console/commands'),
     )

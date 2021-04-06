@@ -2,13 +2,15 @@
   "name": "supercharge",
   "description": "Supercharge application boilerplate",
   "version": "1.0.0-beta8",
+  "type": "module",
   "dependencies": {
     "@supercharge/contracts": "0.0.0",
     "@supercharge/core": "0.0.0",
     "@supercharge/http": "0.0.0",
     "@supercharge/routing": "0.0.0",
+    "@supercharge/strings": "~1.17.1",
     "@supercharge/view": "0.0.0",
-    "@supercharge/strings": "~1.17.1"
+    "esm": "~3.2.25"
   },
   "devDependencies": {
     "@supercharge/tsconfig": "~1.0.0",
@@ -25,6 +27,6 @@
     "build": "tsc",
     "dev": "npm run dev:server",
     "dev:server": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
-    "test": "echo 'Missing tests.' && exit 1"
+    "test": "echo 'Missing tests.' && exit 0"
   }
 }
