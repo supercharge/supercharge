@@ -7,8 +7,12 @@
  *
  */
 
-import Route from '@ioc:supercharge/route'
+import { Route } from "@supercharge/facades";
 
 Route.get('/', async ({ response }) => {
   return response.view('welcome')
+})
+
+Route.post('/', async () => {
+  return 'welcome'
 })

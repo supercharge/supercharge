@@ -11,10 +11,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "types": [
-      "node",
-      "@supercharge/core",
-      "@supercharge/routing",
-      "@supercharge/view"
+      "node"
     ]
   },
 }
