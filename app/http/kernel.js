@@ -5,7 +5,7 @@
  */
 
 import { HandleCors } from '@supercharge/http'
-import { HttpKernel as Kernel } from '@supercharge/core/dist/src'
+import { HttpKernel as Kernel } from '@supercharge/core'
 import { ServeStaticAssets } from './middleware/serve-static-assets'
 
 export class HttpKernel extends Kernel {

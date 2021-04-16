@@ -2,9 +2,10 @@
 
 import Path from "path"
 import { fileURLToPath } from "url"
+import { Facade } from "@supercharge/facades";
 import { HttpKernel } from './app/http/kernel'
+import { Application } from '@supercharge/core'
 import { ErrorHandler } from './app/errors/handler'
-import { Application } from '@supercharge/core/dist/src'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = Path.dirname(__filename)
@@ -18,5 +19,8 @@ const __dirname = Path.dirname(__filename)
 const app = Application
   .createWithAppRoot(__dirname)
   .withErrorHandler(ErrorHandler)
+  .booting(app => {
+    Facade.setApplication(app)
+  })
 
-new HttpKernel(app).startServer()
+HttpKernel.for(app).startServer()

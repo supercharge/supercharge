@@ -1,6 +1,6 @@
 'use strict'
 
-import { Command } from '@supercharge/core/dist/src'
+import { Command } from '@supercharge/core'
 
 export default class Inspire extends Command {
   /**

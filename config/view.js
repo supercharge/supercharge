@@ -1,7 +1,6 @@
 'use strict'
 
-import App from '@ioc:supercharge/app'
-import Env from '@ioc:supercharge/env'
+import { App, Env } from '@supercharge/facades'
 
 export default {
   /**
