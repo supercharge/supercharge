@@ -9,7 +9,7 @@
     "@supercharge/facades": "0.0.0",
     "@supercharge/http": "0.0.0",
     "@supercharge/routing": "0.0.0",
-    "@supercharge/strings": "~1.17.1",
+    "@supercharge/strings": "~1.18.0",
     "@supercharge/view": "0.0.0"
   },
   "devDependencies": {
@@ -21,7 +21,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "cli": "node --experimental-specifier-resolution=node craft.js",
     "dev": "npm run dev:server",
     "dev:server": "nodemon --experimental-specifier-resolution=node --watch './**/*.js' server.js",
     "test": "echo 'Missing tests.' && exit 0"
