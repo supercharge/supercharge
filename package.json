@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@supercharge/contracts": "0.0.0",
+    "@supercharge/console": "0.0.0",
     "@supercharge/core": "0.0.0",
     "@supercharge/facades": "0.0.0",
     "@supercharge/http": "0.0.0",

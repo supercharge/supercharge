@@ -22,4 +22,4 @@ const app = Application
     Facade.setApplication(app)
   })
 
-new ConsoleKernel(app).handle(process.argv)
+new ConsoleKernel(app).handle()
