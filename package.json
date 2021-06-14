@@ -25,6 +25,7 @@
     "cli": "node --experimental-specifier-resolution=node craft.js",
     "dev": "npm run dev:server",
     "dev:server": "nodemon --experimental-specifier-resolution=node --watch './**/*.js' server.js",
+    "start": "node --experimental-specifier-resolution=node server.js",
     "test": "echo 'Missing tests.' && exit 0"
   }
 }
