@@ -1,19 +1,16 @@
 'use strict'
 
+/**
+ * @typedef { import('@supercharge/contracts').HttpContext } HttpContext
+ */
+
 export default class DevController {
   /**
-   * Say hello.
-   *
-   * @param ctx HttpContext
-   */
-  index () {
-    return 'Hello Marcus'
-  }
-
-  /**
    * Bonjour!
+   *
+   * @param {HttpContext} ctx
    */
-  helloNorman ({ response }) {
+  handle ({ response }) {
     return response.payload('Bonjour Norman.')
   }
 }
