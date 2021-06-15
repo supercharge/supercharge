@@ -1,6 +1,6 @@
 'use strict'
 
-import { ConsoleKernel as Kernel } from '@supercharge/core/dist/src'
+import { ConsoleKernel as Kernel } from '@supercharge/core'
 
 export class ConsoleKernel extends Kernel {
   /**

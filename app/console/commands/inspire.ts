@@ -1,29 +1,21 @@
 'use strict'
 
-import { Command } from '@supercharge/core/dist/src'
+import { Command } from '@supercharge/console'
 
 export default class Inspire extends Command {
   /**
-   * Returns the command signature. The command signature will be used to register the
-   * console command. Ensure you're not using spaces in your command signatures.
-   * Instead, use semicolons as separators, like `make:model`.
-   *
-   * @returns {String}
+   * Configure this command.
    */
-  signature (): string {
-    return 'inspire'
+  configure() {
+    this
+      .name('inspire')
+      .description('Print an inspiring quote.')
   }
 
   /**
-   * Returns the command description displayed when calling the help overview.
-   *
-   * @returns {String}
+   * Run the command action.
    */
-  description (): string {
-    return 'Prints an inspiring quote to the console'
-  }
-
-  async handle (): Promise<void> {
+  async run () {
     console.log('Sometimes you win. Sometimes you learn.')
   }
 }
