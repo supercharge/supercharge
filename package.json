@@ -3,14 +3,15 @@
   "description": "Supercharge application boilerplate",
   "version": "1.0.0-beta8",
   "dependencies": {
-    "@supercharge/contracts": "0.0.0",
     "@supercharge/console": "0.0.0",
+    "@supercharge/contracts": "0.0.0",
     "@supercharge/core": "0.0.0",
     "@supercharge/facades": "0.0.0",
     "@supercharge/http": "0.0.0",
     "@supercharge/routing": "0.0.0",
     "@supercharge/strings": "~1.18.0",
-    "@supercharge/view": "0.0.0"
+    "@supercharge/view": "0.0.0",
+    "@types/node": "^15.12.4"
   },
   "devDependencies": {
     "@supercharge/tsconfig": "~2.0.0",
