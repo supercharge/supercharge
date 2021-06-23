@@ -1,6 +1,6 @@
 'use strict'
 
-import { Route } from "@supercharge/facades";
+import { Route } from '@supercharge/facades'
 import { RouteServiceProvider as ServiceProvider } from '@supercharge/core'
 
 export class RouteServiceProvider extends ServiceProvider {
@@ -9,9 +9,9 @@ export class RouteServiceProvider extends ServiceProvider {
    */
   async boot (): Promise<void> {
     this.loadRoutesUsing(() => {
-      Route.group(() => {
+      Route.group(
         this.app().resolveGlobFromBasePath('routes/web.**')
-      })
+      )
     })
   }
 }
