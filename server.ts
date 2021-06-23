@@ -1,6 +1,6 @@
 'use strict'
 
-import { Facade } from "@supercharge/facades";
+import { Facade } from '@supercharge/facades'
 import { HttpKernel } from './app/http/kernel'
 import { Application } from '@supercharge/core'
 import { ErrorHandler } from './app/errors/handler'
@@ -14,7 +14,7 @@ import { ErrorHandler } from './app/errors/handler'
 const app = Application
   .createWithAppRoot(__dirname)
   .withErrorHandler(ErrorHandler)
-  .booting((app: Application) => {
+  .booting(app => {
     Facade.setApplication(app)
   })
 
