@@ -1,7 +1,7 @@
 {
   "name": "supercharge",
   "description": "Supercharge application boilerplate",
-  "version": "1.0.0-beta8",
+  "version": "2.0.0-alpha.1",
   "dependencies": {
     "@supercharge/console": "~2.0.0-alpha.1",
     "@supercharge/contracts": "~2.0.0-alpha.1",
