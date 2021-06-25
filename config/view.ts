@@ -52,7 +52,7 @@ export default {
      * Tbd.
      *
      */
-    helpers: App.resourcePath('views/helper'),
+    helpers: App.resourcePath('views/helpers'),
 
     /**
      * --------------------------------------------------------------------------
