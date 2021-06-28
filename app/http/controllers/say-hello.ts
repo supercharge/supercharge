@@ -6,6 +6,6 @@ export class SayHelloController {
   /**
    * Bonjour!
    */
-   handle ({ response }: HttpContext) {
+  handle ({ response }: HttpContext) {
     return response.payload('Bonjour Norman.')
   }}
