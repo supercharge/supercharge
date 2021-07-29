@@ -5,8 +5,7 @@
   <br/>
   <br/>
   <p>
-    Supercharge is an open-source Node.js framework <br>
-    making your server-side development enjoyable.
+    Supercharge is a full-stack Node.js framework.
   </p>
   <br/>
   <p>
@@ -23,33 +22,19 @@
 
 
 ## Quick Start
-Use the official Supercharge installer to quickly create a new application. Installing is as simple as this:
+Scaffold a new Supercharge application on your computer using NPM:
 
 ```
-npm install -g @supercharge/installer
+npm init @supercharge/app hello-supercharge
 ```
 
-You can create a new application once you installed the Supercharge installer on your computer.
-
-Use the `supercharge new <app-name>` command:
-
-```
-$ supercharge new my-app-name
-Crafting a new Supercharge application
-
-  ✔ Ensure installation directory is empty
-  ✔ Crafting your application
-  ✔ Install application dependencies
-  ✔ Initialize application setup
-```
-
-That’s it! Change into the app directory and start the server with `node server` 🚀
+This will create a new Supercharge application in a `hello-supercharge` folder of your current working directory.
 
 
 ## About Supercharge
-Supercharge is Node.js framework — not just a web-framework.
+Supercharge is a full-stack Node.js framework — not just a web-framework.
 
-Supercharge builds on top of the hapi.js web framework and adds dozens utilities, like configuration and database management, mailing, logging, encryptiong, hashing, pagination, and more. It also integrates Mongoose as a powerful ORM for intuitive database interactions.
+Supercharge builds on top of the Koa HTTP framework. Supercharge refines all Koa handling by providing a streamlined approach to middlewares and routing. You’ll also benefit from a comprehensive application setup containing configuration and database management, logging, integrating with Objection.js and knex.js for a powerful database interaction.
 
 
 ## Learning
