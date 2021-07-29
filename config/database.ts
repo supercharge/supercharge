@@ -50,7 +50,7 @@ export default {
         port: Env.get('DB_PORT', 3306),
         database: Env.get('DB_DATABASE', 'supercharge'),
         user: Env.get('DB_USERNAME', 'supercharge'),
-        password: Env.get('DB_PASSWORD', 'supercharge')
+        password: Env.get('DB_PASSWORD', '')
       },
     },
 
@@ -61,7 +61,7 @@ export default {
         port: Env.get('DB_PORT', 5432),
         database: Env.get('DB_DATABASE', 'supercharge'),
         user: Env.get('DB_USERNAME', 'supercharge'),
-        password: Env.get('DB_PASSWORD', 'supercharge')
+        password: Env.get('DB_PASSWORD', '')
       },
     },
 
@@ -72,7 +72,7 @@ export default {
         port: Env.get('DB_PORT', 1433),
         user: Env.get('DB_USERNAME', 'supercharge'),
         password: Env.get('MYSQL_PASSWORD', 'supercharge'),
-        database: Env.get('DB_DATABASE', 'supercharge'),
+        database: Env.get('DB_DATABASE', ''),
       },
     },
   }
