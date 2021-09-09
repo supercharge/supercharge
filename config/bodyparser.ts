@@ -149,11 +149,9 @@ export default {
      * Multipart File Size Limit
      * ------------------------------------------------------------------------
      *
-     * This option configures the multipart body limit. The body parser throws
-     * an HTTP error with status code 413 if an incoming request body exceeds
-     * the given limit.
+     * This option configures the limit of an uploaded file.
      */
-    limit: '20mb',
+    maxFileSize: '200mb',
 
     /**
      * ------------------------------------------------------------------------
