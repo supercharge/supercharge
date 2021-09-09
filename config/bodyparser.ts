@@ -1,15 +1,21 @@
 'use strict'
 
-export default {
+import { BodyparserOptions } from '@supercharge/contracts'
+
+const bodyparserConfig: BodyparserOptions = {
   /**
    * --------------------------------------------------------------------------
    * Request Payload Encoding
    * --------------------------------------------------------------------------
    *
-   * Tba.
+   * The encoding used to decode the incoming request data. The default encoding
+   * is `utf8`. You may change it to any of the supported encodings in Node.js’
+   * `BufferEncoding` type:
+   *     "ascii" | "utf8" | "utf16le" | "ucs2" |
+   *     "base64" | "base64url" | "latin1" | "binary" | "hex"
    *
    */
-  encoding: 'utf-8',
+   encoding: 'utf-8',
 
   /**
    * --------------------------------------------------------------------------
@@ -149,11 +155,9 @@ export default {
      * Multipart File Size Limit
      * ------------------------------------------------------------------------
      *
-     * This option configures the multipart body limit. The body parser throws
-     * an HTTP error with status code 413 if an incoming request body exceeds
-     * the given limit.
+     * This option configures the limit of an uploaded file.
      */
-    limit: '20mb',
+    maxFileSize: '20mb',
 
     /**
      * ------------------------------------------------------------------------
@@ -176,6 +180,8 @@ export default {
      * This option defines the maximum number of fields allowed in the request
      * body. **Notice:** setting this option to `0` means unlimited fields.
      */
-    maxFields: 1000
+    maxFields: 1_000
   }
 }
+
+export default bodyparserConfig
