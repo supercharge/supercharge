@@ -8,7 +8,6 @@
     "@supercharge/core": "~2.0.0-alpha.3",
     "@supercharge/facades": "~2.0.0-alpha.3",
     "@supercharge/http": "~2.0.0-alpha.3",
-    "@supercharge/routing": "~2.0.0-alpha.3",
     "@supercharge/strings": "~1.18.0",
     "@supercharge/view": "~2.0.0-alpha.3"
   },
