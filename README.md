@@ -25,7 +25,7 @@
 Scaffold a new Supercharge application on your computer using NPM:
 
 ```
-npm init @supercharge/app hello-supercharge
+npm init @supercharge/app@latest hello-supercharge
 ```
 
 This will create a new Supercharge application in a `hello-supercharge` folder of your current working directory.
