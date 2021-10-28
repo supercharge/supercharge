@@ -6,7 +6,7 @@ export default class Inspire extends Command {
   /**
    * Configure this command.
    */
-  configure() {
+  override configure() {
     this
       .name('inspire')
       .description('Print an inspiring quote.')
@@ -15,7 +15,7 @@ export default class Inspire extends Command {
   /**
    * Run the command action.
    */
-  async run () {
+  override async run () {
     console.log('Sometimes you win. Sometimes you learn.')
   }
 }

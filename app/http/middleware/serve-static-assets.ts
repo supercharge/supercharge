@@ -1,6 +1,6 @@
 'use strict'
 
-import { ServeStaticAssets as Middleware } from '@supercharge/http'
+import { ServeStaticAssetsMiddleware as Middleware } from '@supercharge/http'
 
 export class ServeStaticAssets extends Middleware {
   /**
@@ -8,7 +8,7 @@ export class ServeStaticAssets extends Middleware {
    *
    * @returns {String}
    */
-  assetsLocation (): string {
+  override assetsLocation (): string {
     return this.app.publicPath()
   }
 }
