@@ -7,7 +7,7 @@ export class RouteServiceProvider extends ServiceProvider {
   /**
    * Boot application services.
    */
-  async boot (): Promise<void> {
+  override async boot (): Promise<void> {
     this.loadRoutesUsing(() => {
       Route.group(
         this.app().resolveGlobFromBasePath('routes/web.**')
