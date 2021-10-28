@@ -3,19 +3,19 @@
   "description": "Supercharge application boilerplate",
   "version": "2.0.0-alpha.3",
   "dependencies": {
-    "@supercharge/console": "~2.0.0-alpha.3",
-    "@supercharge/contracts": "~2.0.0-alpha.3",
-    "@supercharge/core": "~2.0.0-alpha.3",
-    "@supercharge/facades": "~2.0.0-alpha.3",
-    "@supercharge/http": "~2.0.0-alpha.3",
-    "@supercharge/strings": "~1.18.0",
-    "@supercharge/view": "~2.0.0-alpha.3"
+    "@supercharge/console": "~2.0.0-alpha.7",
+    "@supercharge/contracts": "~2.0.0-alpha.7",
+    "@supercharge/core": "~2.0.0-alpha.7",
+    "@supercharge/facades": "~2.0.0-alpha.7",
+    "@supercharge/http": "~2.0.0-alpha.7",
+    "@supercharge/strings": "~1.22.0",
+    "@supercharge/view": "~2.0.0-alpha.7"
   },
   "devDependencies": {
-    "@supercharge/tsconfig": "~3.0.0",
-    "@types/node": "~15.12.5",
-    "nodemon": "~2.0.7",
-    "typescript": "~4.3.4"
+    "@supercharge/tsconfig": "~3.1.0",
+    "@types/node": "~16.11.6",
+    "nodemon": "~2.0.14",
+    "typescript": "~4.4.4"
   },
   "engines": {
     "node": ">= 12"
