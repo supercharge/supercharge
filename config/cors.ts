@@ -22,5 +22,4 @@ export default {
    *
    */
   allowMethods: ['GET, HEAD, PUT, POST, DELETE, PATCH'],
-
 }
