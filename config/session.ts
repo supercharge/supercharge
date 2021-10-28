@@ -87,7 +87,7 @@ export default {
      *
      * Available values: 'strict' | 'lax' | 'none' | true | false
      */
-    sameSite: 'strict',
+    sameSite: 'lax',
   },
 
   /**
