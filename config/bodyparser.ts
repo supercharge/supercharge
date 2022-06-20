@@ -15,7 +15,7 @@ const bodyparserConfig: BodyparserOptions = {
    *     "base64" | "base64url" | "latin1" | "binary" | "hex"
    *
    */
-   encoding: 'utf-8',
+  encoding: 'utf-8',
 
   /**
    * --------------------------------------------------------------------------
@@ -101,9 +101,9 @@ const bodyparserConfig: BodyparserOptions = {
      * may use the `*` wildcard symbol to allow content types confirming
      * to the given definition.
      */
-     contentTypes: [
+    contentTypes: [
       'application/x-www-form-urlencoded'
-     ]
+    ]
   },
 
   /**
@@ -115,7 +115,7 @@ const bodyparserConfig: BodyparserOptions = {
    * apply to text parsing and you may adjust the settings to your needs.
    *
    */
-   text: {
+  text: {
     /**
      * ------------------------------------------------------------------------
      * Text Parsing Limit
@@ -139,7 +139,6 @@ const bodyparserConfig: BodyparserOptions = {
     contentTypes: ['text/*'],
   },
 
-
   /**
    * --------------------------------------------------------------------------
    * Multipart Parser Options
@@ -149,7 +148,7 @@ const bodyparserConfig: BodyparserOptions = {
    * apply to multipart parsing and you may adjust the settings to your needs.
    *
    */
-   multipart: {
+  multipart: {
     /**
      * ------------------------------------------------------------------------
      * Multipart File Size Limit
