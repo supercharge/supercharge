@@ -3,7 +3,7 @@
 import { Env } from '@supercharge/facades'
 import { CorsOptions } from '@supercharge/contracts'
 
-const corsOptions: CorsOptions  = {
+const corsOptions: CorsOptions = {
   /**
    * --------------------------------------------------------------------------
    * Max Age
@@ -22,7 +22,7 @@ const corsOptions: CorsOptions  = {
    * This setting defines the values for the `Access-Control-Request-Method` header.
    *
    */
-  allowMethods: ['GET, HEAD, PUT, POST, DELETE, PATCH'],
+  allowedMethods: ['GET, HEAD, PUT, POST, DELETE, PATCH'],
 }
 
 export default corsOptions
