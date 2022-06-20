@@ -8,6 +8,7 @@
     "@supercharge/core": "~3.0.0",
     "@supercharge/facades": "~3.0.0",
     "@supercharge/http": "~3.0.0",
+    "@supercharge/session": "~3.0.0",
     "@supercharge/strings": "~1.28.0",
     "@supercharge/view": "~3.0.0"
   },

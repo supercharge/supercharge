@@ -1,9 +1,10 @@
 'use strict'
 
-import { MiddlewareCtor } from '@supercharge/contracts'
 import { HttpKernel as Kernel } from '@supercharge/core'
+import { Class, MiddlewareCtor } from '@supercharge/contracts'
 import { ServeStaticAssets } from './middleware/serve-static-assets'
 import { HandleCorsMiddleware as HandleCors } from '@supercharge/http'
+import { StartSessionMiddleware as StartSession } from '@supercharge/session'
 
 export class HttpKernel extends Kernel {
   /**
@@ -12,9 +13,10 @@ export class HttpKernel extends Kernel {
    *
    * @returns {MiddlewareCtor[]}
    */
-  override middleware (): MiddlewareCtor[] {
+  override middleware (): Array<MiddlewareCtor | Class> {
     return [
       HandleCors,
+      StartSession,
       ServeStaticAssets,
     ]
   }
