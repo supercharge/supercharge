@@ -1,7 +1,7 @@
 'use strict'
 
 import Str from '@supercharge/strings'
-import { App, Env } from '@supercharge/facades'
+import { Env } from '@supercharge/facades'
 import { SessionConfig } from '@supercharge/contracts'
 
 const sessionConfig: SessionConfig = {
@@ -47,7 +47,7 @@ const sessionConfig: SessionConfig = {
    */
   lifetime: Env.get('SESSION_LIFETIME', '7d'),
 
-  expireOnClose: Env.get('SESSION_EXPIRE_ON_CLOSE', false),
+  expireOnClose: Boolean(Env.get('SESSION_EXPIRE_ON_CLOSE', false)),
 
   /**
    * --------------------------------------------------------------------------
@@ -82,7 +82,7 @@ const sessionConfig: SessionConfig = {
      * insecure connections. You typically want this enabled in production.
      *
      */
-    isSecure: Env.isProduction(),
+    secure: Env.isProduction(),
 
     /**
      * --------------------------------------------------------------------------
@@ -94,7 +94,7 @@ const sessionConfig: SessionConfig = {
      * only allow access via the HTTP protocol. Change this to your needs.
      *
      */
-    isHttpOnly: true,
+    httpOnly: true,
 
     /**
      * --------------------------------------------------------------------------
@@ -108,19 +108,7 @@ const sessionConfig: SessionConfig = {
      * Available values: 'strict' | 'lax' | 'none' | true | false
      */
     sameSite: 'lax',
-  },
-
-  /**
-   * --------------------------------------------------------------------------
-   * Session File Location
-   * --------------------------------------------------------------------------
-   *
-   * Using the `file` session driver requires a location to store session files
-   * on disk. This location is only used for file-based sessions using the
-   * `file` driver. You can change the location to a desired directory.
-   *
-   */
-  files: App.storagePath('framework/sessions'),
+  }
 }
 
 export default sessionConfig
