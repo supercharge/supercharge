@@ -1,31 +1,36 @@
 {
   "name": "supercharge",
   "description": "Supercharge application boilerplate",
-  "version": "2.0.0-alpha.3",
+  "version": "0.0.0",
   "dependencies": {
-    "@supercharge/console": "~2.0.0-alpha.7",
-    "@supercharge/contracts": "~2.0.0-alpha.7",
-    "@supercharge/core": "~2.0.0-alpha.7",
-    "@supercharge/facades": "~2.0.0-alpha.7",
-    "@supercharge/http": "~2.0.0-alpha.7",
-    "@supercharge/strings": "~1.22.0",
-    "@supercharge/view": "~2.0.0-alpha.7"
+    "@supercharge/console": "~2.0.0-alpha.9",
+    "@supercharge/contracts": "~2.0.0-alpha.9",
+    "@supercharge/core": "~2.0.0-alpha.9",
+    "@supercharge/facades": "~2.0.0-alpha.9",
+    "@supercharge/http": "~2.0.0-alpha.9",
+    "@supercharge/strings": "~1.28.0",
+    "@supercharge/view": "~2.0.0-alpha.9"
   },
   "devDependencies": {
+    "@supercharge/eslint-config-typescript": "~2.3.0",
     "@supercharge/tsconfig": "~3.1.0",
-    "@types/node": "~16.11.6",
-    "nodemon": "~2.0.14",
-    "typescript": "~4.4.4"
+    "@swc-node/register": "~1.5.1",
+    "@types/node": "~17.0.42",
+    "eslint": "~8.17.0",
+    "nodemon": "~2.0.16",
+    "typescript": "~4.7.3"
   },
   "engines": {
-    "node": ">= 12"
+    "node": ">=12"
   },
   "license": "MIT",
   "private": true,
   "scripts": {
     "build": "tsc",
+    "lint": "eslint src --ext .js,.ts",
     "dev": "npm run dev:server",
-    "dev:server": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
+    "dev:server": "nodemon --exec npm start --ext ts,hbs --ignore test --ignore public",
+    "start": "node -r @swc-node/register server.ts",
     "test": "echo 'Missing tests.' && exit 1"
   }
 }

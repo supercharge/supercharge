@@ -1,8 +1,9 @@
 'use strict'
 
 import { Env } from '@supercharge/facades'
+import { CorsOptions } from '@supercharge/contracts'
 
-export default {
+const corsOptions: CorsOptions  = {
   /**
    * --------------------------------------------------------------------------
    * Max Age
@@ -11,7 +12,7 @@ export default {
    * This setting defines the `Access-Control-Max-Age` header in seconds.
    *
    */
-  maxAge: Env.get('STATIC_MAXAGE', 0),
+  maxAge: Number(Env.get('STATIC_MAXAGE', 0)),
 
   /**
    * --------------------------------------------------------------------------
@@ -23,3 +24,5 @@ export default {
    */
   allowMethods: ['GET, HEAD, PUT, POST, DELETE, PATCH'],
 }
+
+export default corsOptions
