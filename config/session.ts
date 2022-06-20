@@ -29,7 +29,7 @@ const sessionConfig: SessionConfig = {
    * of that cookie to your needs and the framework will use that name.
    *
    */
-   name: Env.get(
+  name: Env.get(
     'SESSION_COOKIE_NAME',
     Str(Env.get('APP_NAME', 'supercharge')).concat('-session').kebab().get(),
   ),
