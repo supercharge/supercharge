@@ -1,22 +1,53 @@
 'use strict'
 
 import Str from '@supercharge/strings'
-import { App, Env } from '@supercharge/facades'
+import { Env } from '@supercharge/facades'
+import { SessionConfig } from '@supercharge/contracts'
 
-export default {
+const sessionConfig: SessionConfig = {
   /**
    * --------------------------------------------------------------------------
    * Session Driver
    * --------------------------------------------------------------------------
    *
-   * This defines the default session “driver” that will be used on
-   * requests. The default “cookie” driver is straightforward to
+   * This defines the default session “driver” that will be used on requests.
+   * The default “cookie” driver is straightforward to
    * use because it has no dependencies.
    *
-   * Supported drivers: "file", "cookie"
+   * Supported drivers: "memory", "cookie"
    *
    */
   driver: Env.get('SESSION_DRIVER', 'cookie'),
+
+  /**
+   * --------------------------------------------------------------------------
+   * Session Cookie Name
+   * --------------------------------------------------------------------------
+   *
+   * This setting defines the name of your session cookie. The session cookie
+   * identifies a session instance by a unique ID. You can adjust the name
+   * of that cookie to your needs and the framework will use that name.
+   *
+   */
+  name: Env.get(
+    'SESSION_COOKIE_NAME',
+    Str(Env.get('APP_NAME', 'supercharge')).concat('-session').kebab().get(),
+  ),
+
+  /**
+   * --------------------------------------------------------------------------
+   * Session Lifetime
+   * --------------------------------------------------------------------------
+   *
+   * This setting defines the lifetime of a session cookie. The value can be a
+   * number representing the lifetime in seconds or a string representing the
+   * lifetime in a human-readable format, like '2h', '7d', or '30 days'. You
+   * may set the option to expire a session when the browser window closes.
+   *
+   */
+  lifetime: Env.get('SESSION_LIFETIME', '7d'),
+
+  expireOnClose: Boolean(Env.get('SESSION_EXPIRE_ON_CLOSE', false)),
 
   /**
    * --------------------------------------------------------------------------
@@ -31,24 +62,12 @@ export default {
   cookie: {
     /**
      * --------------------------------------------------------------------------
-     * Session Cookie Name
-     * --------------------------------------------------------------------------
-     *
-     * This defines the cookie name identifying the session.
-     *
-     */
-    name: Env.get(
-      'SESSION_COOKIE',
-      Str(Env.get('APP_NAME', 'supercharge')).concat('-session').kebab().get(),
-    ),
-
-    /**
-     * --------------------------------------------------------------------------
      * Session Cookie Path
      * --------------------------------------------------------------------------
      *
-     * This defines the cookie’s path scope. This is typically
-     * the root path of your application.
+     * This defines the cookie’s path scope. This is typically the root path of
+     * your application. You can refine the URL path of the session cookie if
+     * you want it to be available only for given sections of your website.
      *
      */
     path: '/',
@@ -58,23 +77,24 @@ export default {
      * Secure Cookies (HTTPS Only)
      * --------------------------------------------------------------------------
      *
-     * If enabled, the browser will only include the cookie
-     * when using an HTTPS connection.
+     * If enabled, the browser will only include the cookie when using an HTTPS
+     * connection. This keeps your session cookie secure by not sending it on
+     * insecure connections. You typically want this enabled in production.
      *
      */
-    isSecure: Env.isProduction(),
+    secure: Env.isProduction(),
 
     /**
      * --------------------------------------------------------------------------
      * HTTP-Only Cookies
      * --------------------------------------------------------------------------
      *
-     * Enabling this value will make the cookie only available
-     * through the HTTP protocol. It’ll prevent JavaScript
-     * from accessing the cookie value.
+     * Enabling this value will make the cookie only available through the HTTP
+     * protocol. It’ll prevent JavaScript from accessing the cookie value and
+     * only allow access via the HTTP protocol. Change this to your needs.
      *
      */
-    isHttpOnly: true,
+    httpOnly: true,
 
     /**
      * --------------------------------------------------------------------------
@@ -88,29 +108,7 @@ export default {
      * Available values: 'strict' | 'lax' | 'none' | true | false
      */
     sameSite: 'lax',
-  },
-
-  /**
-   * --------------------------------------------------------------------------
-   * Session Lifetime
-   * --------------------------------------------------------------------------
-   *
-   * This defines the lifetime of a session cookie. This
-   * value is used for web authentication. Defaults to
-   * session end on window close.
-   *
-   */
-  lifetime: Env.get('SESSION_LIFETIME', '7d'),
-
-  /**
-   * --------------------------------------------------------------------------
-   * Session File Location
-   * --------------------------------------------------------------------------
-   *
-   * Using the `file` session driver requires a location
-   * where session files are stored. This location is
-   * not used for other session drivers than `file`.
-   *
-   */
-  files: App.storagePath('framework/sessions'),
+  }
 }
+
+export default sessionConfig

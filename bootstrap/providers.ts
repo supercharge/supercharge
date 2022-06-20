@@ -2,6 +2,7 @@
 
 import { ViewServiceProvider } from '@supercharge/view'
 import { ServiceProviderCtor } from '@supercharge/contracts'
+import { SessionServiceProvider } from '@supercharge/session'
 import { RouteServiceProvider } from '../app/providers/route-service-provider'
 
 export const providers: ServiceProviderCtor[] = [
@@ -11,5 +12,6 @@ export const providers: ServiceProviderCtor[] = [
    * list to register custom functionality to your application.
    */
   RouteServiceProvider,
+  SessionServiceProvider,
   ViewServiceProvider,
 ]
