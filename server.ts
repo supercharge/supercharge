@@ -14,7 +14,7 @@ import { ErrorHandler } from './app/errors/handler'
 const app = Application
   .createWithAppRoot(__dirname)
   .withErrorHandler(ErrorHandler)
-  .booting(app => {
+  .onBooting(app => {
     Facade.setApplication(app)
   })
 
