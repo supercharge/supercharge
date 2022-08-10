@@ -17,7 +17,7 @@
     "@supercharge/eslint-config-typescript": "~2.3.0",
     "@supercharge/tsconfig": "~4.0.0",
     "@swc-node/register": "~1.5.1",
-    "@types/node": "~18.6.3",
+    "@types/node": "~18.6.5",
     "eslint": "~8.21.0",
     "nodemon": "~2.0.19",
     "typescript": "~4.7.4"
@@ -29,7 +29,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "lint": "eslint src --ext .js,.ts",
+    "lint": "eslint . --ext .js,.ts",
     "dev": "npm run dev:server",
     "dev:server": "nodemon --exec npm start --ext ts,hbs --ignore test --ignore public",
     "start": "node -r @swc-node/register server.ts",
