@@ -13,8 +13,9 @@ import { ConsoleKernel } from './app/console/kernel'
 const app = Application
   .createWithAppRoot(__dirname)
   .withErrorHandler(ErrorHandler)
-  .booting(app => {
+  .onBooting(app => {
     Facade.setApplication(app)
   })
 
-new ConsoleKernel(app).run()
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+ConsoleKernel.for(app).run()

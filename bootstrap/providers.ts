@@ -3,14 +3,16 @@
 import { ViewServiceProvider } from '@supercharge/view'
 import { ServiceProviderCtor } from '@supercharge/contracts'
 import { SessionServiceProvider } from '@supercharge/session'
+import { EncryptionServiceProvider } from '@supercharge/encryption'
 import { RouteServiceProvider } from '../app/providers/route-service-provider'
 
 export const providers: ServiceProviderCtor[] = [
   /**
-   * All listed providers will be registered and booted while starting
-   * your application. Go ahead and add your own providers to this
-   * list to register custom functionality to your application.
+   * All listed providers will be registered and booted while starting your
+   * application. You may add your own providers to this list registering
+   * custom functionality to your application. In alphabetical sorting.
    */
+  EncryptionServiceProvider,
   RouteServiceProvider,
   SessionServiceProvider,
   ViewServiceProvider,
