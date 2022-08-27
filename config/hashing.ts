@@ -1,18 +1,19 @@
 'use strict'
 
 import { Env } from '@supercharge/facades'
+import { HashConfig } from '@supercharge/contracts'
 
-export default {
+const hashConfig: HashConfig = {
   /**
    * --------------------------------------------------------------------------
    * Default Hash Driver
    * --------------------------------------------------------------------------
    *
-   * This controls the default hash driver that is used
-   * by the hashing utility. The default hasing driver
-   * is bcrypt.
+   * This option controls the default hash driver being used to hash values in
+   * your application. By default, the framework uses the bcrypt algorithm
+   * for hashing. And bcrypt is currently the only algorithm supported.
    *
-   * Supported drivers: `bcrypt`, `argon`
+   * Supported drivers: `bcrypt`
    *
    */
   driver: Env.get('HASH_DRIVER', 'bcrypt'),
@@ -22,30 +23,15 @@ export default {
    * Bcrypt Options
    * --------------------------------------------------------------------------
    *
-   * Customize the bcrypt hashing configuration. The bcrypt hashing
-   * driver allows you to customize the rounds. A higher number for
-   * rounds increases the amount of time a to create a hash.
+   * Customize the bcrypt hashing configuration to be used when creating hash
+   * values using the bcrypt algorithm. You can customize the work factor.
+   * Using a higher number increases the time used creating a hash value.
    *
    */
   bcrypt: {
-    rounds: Env.get('HASH_BCRYPT_ROUNDS', 12),
+    rounds: Number(Env.get('HASH_BCRYPT_ROUNDS', 12)),
   },
 
-  /**
-   * --------------------------------------------------------------------------
-   * Argon Options
-   * --------------------------------------------------------------------------
-   *
-   * Customize the argon hashing configuration. The argon hashing driver
-   * allows you to customize the type, memory, time and threads. The
-   * values depend on your system's resources.
-   *
-   * Supported types: argon2i, argon2d, and argon2id
-   */
-  argon: {
-    type: Env.get('HASH_ARGON_TYPE', 'argon2i'),
-    memory: Env.get('HASH_ARGON_MEMORY', 1024),
-    time: Env.get('HASH_ARGON_TIME', 2),
-    threads: Env.get('HASH_ARGON_THREADS', 2),
-  },
 }
+
+export default hashConfig

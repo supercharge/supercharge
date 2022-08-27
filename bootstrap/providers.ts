@@ -2,6 +2,7 @@
 
 import { ViewServiceProvider } from '@supercharge/view'
 import { ServiceProviderCtor } from '@supercharge/contracts'
+import { HashingServiceProvider } from '@supercharge/hashing'
 import { SessionServiceProvider } from '@supercharge/session'
 import { EncryptionServiceProvider } from '@supercharge/encryption'
 import { RouteServiceProvider } from '../app/providers/route-service-provider'
@@ -13,6 +14,7 @@ export const providers: ServiceProviderCtor[] = [
    * custom functionality to your application. In alphabetical sorting.
    */
   EncryptionServiceProvider,
+  HashingServiceProvider,
   RouteServiceProvider,
   SessionServiceProvider,
   ViewServiceProvider,
