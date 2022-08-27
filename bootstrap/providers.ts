@@ -1,6 +1,7 @@
 'use strict'
 
 import { ViewServiceProvider } from '@supercharge/view'
+import { ViteServiceProvider } from '@supercharge/vite'
 import { ServiceProviderCtor } from '@supercharge/contracts'
 import { HashingServiceProvider } from '@supercharge/hashing'
 import { SessionServiceProvider } from '@supercharge/session'
@@ -18,4 +19,5 @@ export const providers: ServiceProviderCtor[] = [
   RouteServiceProvider,
   SessionServiceProvider,
   ViewServiceProvider,
+  ViteServiceProvider
 ]

@@ -1,5 +1,11 @@
 haters
 
+# auto-generated files
+bootstrap/ssr*
+public/hot
+public/build
+public/css/app.css
+
 # Logs
 logs
 *.log
