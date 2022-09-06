@@ -13,6 +13,7 @@
     "@supercharge/session": "~3.7.1",
     "@supercharge/strings": "~1.28.0",
     "@supercharge/view": "~3.7.1",
+    "@supercharge/support": "~3.7.1",
     "@supercharge/vite": "~3.7.1"
   },
   "devDependencies": {

@@ -1,17 +1,26 @@
 'use strict'
 
-export default class AppServiceProvider {
+import { ServiceProvider } from '@supercharge/support'
+
+export class AppServiceProvider extends ServiceProvider {
   /**
    * Register application services to the container.
    */
-  public register (): void {
+  override register (): void {
     //
   }
 
   /**
    * Boot application services.
    */
-  async boot (): Promise<void> {
+  override async boot (): Promise<void> {
+    //
+  }
+
+  /**
+   * Stop application services.
+   */
+  override async shutdown (): Promise<void> {
     //
   }
 }
