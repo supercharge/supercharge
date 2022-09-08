@@ -31,7 +31,6 @@ const hashConfig: HashConfig = {
   bcrypt: {
     rounds: Number(Env.get('HASH_BCRYPT_ROUNDS', 12)),
   },
-
 }
 
 export default hashConfig
