@@ -20,9 +20,9 @@ export default {
    * Application Key
    * --------------------------------------------------------------------------
    *
-   * This is your personal application key, at least 32 characters
-   * long. It is used to encrypted cookies, sessions and also by
-   * the encrypter utility to keep your sensitive data safe.
+   * This is your personal application key, should be at least 32 characters
+   * long. The app key is used to encrypt cookies and sessions and also by
+   * the encrypter utility as a secret to keep your sensitive data safe.
    *
    */
   key: Env.get('APP_KEY'),
@@ -44,7 +44,7 @@ export default {
    * Application Environment
    * --------------------------------------------------------------------------
    *
-   * This is the environment your app runs in. Usually, youwant your
+   * This is the environment your app runs in. Usually, you want your
    * app to behave differently in production and development, like
    * caching views in production but not during development.
    *
@@ -56,10 +56,22 @@ export default {
    * Application Version
    * --------------------------------------------------------------------------
    *
-   * This is the current version of your application. Create
-   * application releases in “semver” style by increasing
-   * the version in your package.json file.
+   * This is the current release version of your application, read from the
+   * `package.json` file of this project. You might increase the version
+   * with every release you’re publishing to your production server.
    *
    */
   version: App.version(),
+
+  /**
+   * --------------------------------------------------------------------------
+   * Application Runs Behind a Proxy Server
+   * --------------------------------------------------------------------------
+   *
+   * This setting defines whether your application runs behind a proxy server,
+   * like nginx, Apache, Caddy, or any other. If true, the HTTP server uses
+   * the given `X-Forwarded-<Host|Proto|For>` request headers preferably.
+   *
+   */
+  runsBehindProxy: Env.isProduction(),
 }
