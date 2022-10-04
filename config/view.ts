@@ -8,7 +8,9 @@ export default {
    * Default View Driver
    * --------------------------------------------------------------------------
    *
-   * tba.
+   * This setting defines the view driver used by Supercharge to render views.
+   * This driver-based approach allows you to select the template rendering
+   * engine that suites your needs. Find all supported view drivers below.
    *
    * Supported drivers: `handlebars`
    *
@@ -19,47 +21,46 @@ export default {
    * --------------------------------------------------------------------------
    * Handlebars Settings
    * --------------------------------------------------------------------------
-   *
-   * Tbd.
-   *
    */
   handlebars: {
     /**
      * --------------------------------------------------------------------------
-     * Path to Views
+     * Path to View Files
      * --------------------------------------------------------------------------
      *
-     * Tbd.
+     * This setting defines the path to your view files. Supercharge projects
+     * usually keep their views inside the `resources/views` directory. You
+     * may change this path if you’re customizing the directory structure.
      *
      */
     views: App.resourcePath('views'),
 
     /**
      * --------------------------------------------------------------------------
-     * Path to Partial Views
+     * Path to Partial View Files
      * --------------------------------------------------------------------------
      *
-     * Tbd.
+     * This setting defines the path to your partial view files.
      *
      */
     partials: App.resourcePath('views/partials'),
 
     /**
      * --------------------------------------------------------------------------
-     * Path to View Helpers
+     * Path to View Helper Files
      * --------------------------------------------------------------------------
      *
-     * Tbd.
+     * This setting defines the path to your view helper files.
      *
      */
     helpers: App.resourcePath('views/helpers'),
 
     /**
      * --------------------------------------------------------------------------
-     * Path to View Layouts
+     * Path to View Layout Files
      * --------------------------------------------------------------------------
      *
-     * Tbd.
+     * This setting defines the path to your layout files.
      *
      */
     layouts: App.resourcePath('views/layouts'),
@@ -69,7 +70,9 @@ export default {
      * Default View Layout
      * --------------------------------------------------------------------------
      *
-     * Tbd.
+     * This setting defines the name of your default layout. Supercharge always
+     * uses the default layout when rendering a view, for example using the
+     * `response.view()` method.
      *
      */
     defaultLayout: Env.get('VIEW_DEFAULT_LAYOUT', 'app'),
