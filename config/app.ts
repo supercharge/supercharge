@@ -1,8 +1,9 @@
 'use strict'
 
 import { App, Env } from '@supercharge/facades'
+import { ApplicationConfig } from '@supercharge/contracts'
 
-export default {
+const appConfig: ApplicationConfig = {
   /**
    * --------------------------------------------------------------------------
    * Application Name
@@ -75,3 +76,5 @@ export default {
    */
   runsBehindProxy: Env.isProduction(),
 }
+
+export default appConfig

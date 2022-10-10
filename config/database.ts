@@ -1,8 +1,9 @@
 'use strict'
 
 import { App, Env } from '@supercharge/facades'
+import { DatabaseConfig } from '@supercharge/contracts'
 
-export default {
+const databaseConfig: DatabaseConfig = {
   /**
    * --------------------------------------------------------------------------
    * Default Database Connection
@@ -18,7 +19,7 @@ export default {
    * the supported database engines because we don’t use the others.
    *
    */
-  default: Env.get('DB_CONNECTION', 'sqlite'),
+  connection: Env.get('DB_CONNECTION', 'sqlite'),
 
   /**
    * --------------------------------------------------------------------------
@@ -47,12 +48,12 @@ export default {
       client: 'mysql',
       connection: {
         host: Env.get('DB_HOST', 'localhost'),
-        port: Env.get('DB_PORT', 3306),
+        port: Env.number('DB_PORT', 3306),
         database: Env.get('DB_DATABASE', 'supercharge'),
         user: Env.get('DB_USERNAME', 'supercharge'),
         password: Env.get('DB_PASSWORD', ''),
         charset: Env.get('DB_CHARSET', 'utf8mb4'),
-        collation: Env.get('DB_COLLATION', 'utf8mb4_unicode_ci'),
+        // collation: Env.get('DB_COLLATION', 'utf8mb4_unicode_ci'),
       },
     },
 
@@ -60,7 +61,7 @@ export default {
       client: 'pg',
       connection: {
         host: Env.get('DB_HOST', 'localhost'),
-        port: Env.get('DB_PORT', 5432),
+        port: Env.number('DB_PORT', 5432),
         database: Env.get('DB_DATABASE', 'supercharge'),
         user: Env.get('DB_USERNAME', 'supercharge'),
         password: Env.get('DB_PASSWORD', '')
@@ -71,7 +72,7 @@ export default {
       client: 'mssql',
       connection: {
         server: Env.get('DB_HOST', 'localhost'),
-        port: Env.get('DB_PORT', 1433),
+        port: Env.number('DB_PORT', 1433),
         user: Env.get('DB_USERNAME', 'supercharge'),
         password: Env.get('MYSQL_PASSWORD', 'supercharge'),
         database: Env.get('DB_DATABASE', ''),
@@ -79,3 +80,5 @@ export default {
     },
   }
 }
+
+export default databaseConfig

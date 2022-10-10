@@ -1,9 +1,9 @@
 'use strict'
 
 import { Env } from '@supercharge/facades'
-import { StaticAssetsOptions } from '@supercharge/contracts'
+import { StaticAssetsConfig } from '@supercharge/contracts'
 
-const staticAssetsConfig: StaticAssetsOptions = {
+const staticAssetsConfig: StaticAssetsConfig = {
   /**
    * --------------------------------------------------------------------------
    * Cache Static Assets
@@ -17,7 +17,7 @@ const staticAssetsConfig: StaticAssetsOptions = {
    *   - `maxage: 30` caches a resource for the next 30s
    *
    */
-  maxage: Number(Env.get('STATIC_MAXAGE', 0)),
+  maxage: Env.number('STATIC_MAXAGE', 0),
 
   /**
    * --------------------------------------------------------------------------

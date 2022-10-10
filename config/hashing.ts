@@ -29,7 +29,7 @@ const hashConfig: HashConfig = {
    *
    */
   bcrypt: {
-    rounds: Number(Env.get('HASH_BCRYPT_ROUNDS', 12)),
+    rounds: Env.number('HASH_BCRYPT_ROUNDS', 12),
   },
 }
 

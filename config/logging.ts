@@ -2,8 +2,9 @@
 
 import Path from 'path'
 import { App, Env } from '@supercharge/facades'
+import { LoggingConfig } from '@supercharge/contracts'
 
-export default {
+const loggingConfig: LoggingConfig = {
   /**
    * --------------------------------------------------------------------------
    * Default Log Driver
@@ -41,3 +42,5 @@ export default {
     },
   },
 }
+
+export default loggingConfig

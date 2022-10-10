@@ -1,8 +1,9 @@
 'use strict'
 
+import { ViewConfig } from '@supercharge/contracts'
 import { App, Env } from '@supercharge/facades'
 
-export default {
+const viewConfig: ViewConfig = {
   /**
    * --------------------------------------------------------------------------
    * Default View Driver
@@ -15,7 +16,7 @@ export default {
    * Supported drivers: `handlebars`
    *
    */
-  driver: Env.get('VIEW_DRIVER', 'handlebars'),
+  driver: 'handlebars',
 
   /**
    * --------------------------------------------------------------------------
@@ -78,3 +79,5 @@ export default {
     defaultLayout: Env.get('VIEW_DEFAULT_LAYOUT', 'app'),
   },
 }
+
+export default viewConfig

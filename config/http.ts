@@ -1,8 +1,9 @@
 'use strict'
 
 import { Env } from '@supercharge/facades'
+import { HttpConfig } from '@supercharge/contracts'
 
-export default {
+const httpConfig: HttpConfig = {
   /**
    * --------------------------------------------------------------------------
    * Web Application Host
@@ -25,7 +26,7 @@ export default {
    * port collisions with other locally running HTTP processes.
    *
    */
-  port: Env.get('PORT', 3000),
+  port: Env.number('PORT', 3000),
 
   /**
    * --------------------------------------------------------------------------
@@ -100,3 +101,5 @@ export default {
     secure: Env.isProduction(),
   },
 }
+
+export default httpConfig
