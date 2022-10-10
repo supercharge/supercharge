@@ -3,17 +3,17 @@
   "description": "Supercharge application boilerplate",
   "version": "0.0.0",
   "dependencies": {
-    "@supercharge/console": "~3.11.2",
-    "@supercharge/contracts": "~3.11.2",
-    "@supercharge/core": "~3.11.2",
-    "@supercharge/encryption": "~3.11.2",
-    "@supercharge/facades": "~3.11.2",
-    "@supercharge/hashing": "~3.11.2",
-    "@supercharge/http": "~3.11.2",
-    "@supercharge/session": "~3.11.2",
+    "@supercharge/console": "~3.12.0",
+    "@supercharge/contracts": "~3.12.0",
+    "@supercharge/core": "~3.12.0",
+    "@supercharge/encryption": "~3.12.0",
+    "@supercharge/facades": "~3.12.0",
+    "@supercharge/hashing": "~3.12.0",
+    "@supercharge/http": "~3.12.0",
+    "@supercharge/session": "~3.12.0",
     "@supercharge/strings": "~1.28.0",
-    "@supercharge/support": "~3.11.2",
-    "@supercharge/view": "~3.11.2"
+    "@supercharge/support": "~3.12.0",
+    "@supercharge/view": "~3.12.0"
   },
   "devDependencies": {
     "@supercharge/eslint-config-typescript": "~2.3.1",
