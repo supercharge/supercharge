@@ -29,7 +29,7 @@ const staticAssetsConfig: StaticAssetsConfig = {
    * middleware to respond first, before serving static assets.
    *
    */
-  defer: Boolean(Env.get('STATIC_DEFER', false)),
+  defer: Env.boolean('STATIC_DEFER', false),
 
   /**
    * --------------------------------------------------------------------------
@@ -41,7 +41,7 @@ const staticAssetsConfig: StaticAssetsConfig = {
    * and serving hidden files may have security implications.
    *
    */
-  hidden: Boolean(Env.get('STATIC_SERVE_HIDDEN', false)),
+  hidden: Env.boolean('STATIC_SERVE_HIDDEN', false),
 
   /**
    * --------------------------------------------------------------------------

@@ -47,7 +47,7 @@ const sessionConfig: SessionConfig = {
    */
   lifetime: Env.get('SESSION_LIFETIME', '7d'),
 
-  expireOnClose: Boolean(Env.get('SESSION_EXPIRE_ON_CLOSE', false)),
+  expireOnClose: Env.boolean('SESSION_EXPIRE_ON_CLOSE', false),
 
   /**
    * --------------------------------------------------------------------------
