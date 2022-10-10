@@ -16,7 +16,7 @@ const viewConfig: ViewConfig = {
    * Supported drivers: `handlebars`
    *
    */
-  driver: 'handlebars',
+  driver: Env.get('VIEW_DRIVER', 'handlebars'),
 
   /**
    * --------------------------------------------------------------------------
