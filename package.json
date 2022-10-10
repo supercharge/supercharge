@@ -3,28 +3,27 @@
   "description": "Supercharge application boilerplate",
   "version": "0.0.0",
   "dependencies": {
-    "@supercharge/console": "~3.7.1",
-    "@supercharge/contracts": "~3.7.1",
-    "@supercharge/core": "~3.7.1",
-    "@supercharge/encryption": "~3.7.1",
-    "@supercharge/facades": "~3.7.1",
-    "@supercharge/hashing": "~3.7.1",
-    "@supercharge/http": "~3.7.1",
-    "@supercharge/session": "~3.7.1",
+    "@supercharge/console": "~3.10.0",
+    "@supercharge/contracts": "~3.10.0",
+    "@supercharge/core": "~3.10.0",
+    "@supercharge/encryption": "~3.10.0",
+    "@supercharge/facades": "~3.10.0",
+    "@supercharge/hashing": "~3.10.0",
+    "@supercharge/http": "~3.10.0",
+    "@supercharge/session": "~3.10.0",
     "@supercharge/strings": "~1.28.0",
-    "@supercharge/view": "~3.7.1",
-    "@supercharge/support": "~3.7.1",
-    "@supercharge/vite": "~3.7.1"
+    "@supercharge/support": "~3.10.0",
+    "@supercharge/view": "~3.10.0"
   },
   "devDependencies": {
-    "@supercharge/eslint-config-typescript": "~2.3.0",
+    "@supercharge/eslint-config-typescript": "~2.3.1",
     "@supercharge/tsconfig": "~4.0.0",
-    "@swc-node/register": "~1.5.1",
-    "@types/node": "~18.7.13",
-    "eslint": "~8.22.0",
-    "nodemon": "~2.0.19",
-    "typescript": "~4.7.4",
-    "vite": "~3.0.9"
+    "@swc-node/register": "~1.5.4",
+    "@types/node": "~18.8.3",
+    "eslint": "~8.25.0",
+    "nodemon": "~2.0.20",
+    "typescript": "~4.8.4",
+    "vite": "~3.1.6"
   },
   "engines": {
     "node": ">=16"
