@@ -1,9 +1,6 @@
 'use strict'
 
-import { Facade } from '@supercharge/facades'
-import { HttpKernel } from './app/http/kernel'
-import { Application } from '@supercharge/core'
-import { ErrorHandler } from './app/errors/handler'
+import { createHttpApp } from './bootstrap/create-http-app'
 
 /**
  * Kick off the HTTP server which bind to localhost and the defined
@@ -11,12 +8,6 @@ import { ErrorHandler } from './app/errors/handler'
  * defines the starting point to bootstrap the app.
  */
 
-const app = Application
-  .createWithAppRoot(__dirname)
-  .withErrorHandler(ErrorHandler)
-  .onBooting(app => {
-    Facade.setApplication(app)
-  })
-
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-HttpKernel.for(app).startServer()
+createHttpApp()
+  .startServer()
+  .catch(error => console.error(error))
