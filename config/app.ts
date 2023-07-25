@@ -1,8 +1,9 @@
 'use strict'
 
 import { App, Env } from '@supercharge/facades'
+import { ApplicationConfig } from '@supercharge/contracts'
 
-export default {
+const appConfig: ApplicationConfig = {
   /**
    * --------------------------------------------------------------------------
    * Application Name
@@ -25,7 +26,7 @@ export default {
    * the encrypter utility as a secret to keep your sensitive data safe.
    *
    */
-  key: Env.get('APP_KEY'),
+  key: Env.getOrFail('APP_KEY'),
 
   /**
    * --------------------------------------------------------------------------
@@ -75,3 +76,5 @@ export default {
    */
   runsBehindProxy: Env.isProduction(),
 }
+
+export default appConfig

@@ -2,8 +2,9 @@
 
 import Path from 'path'
 import { App, Env } from '@supercharge/facades'
+import { LoggingConfig } from '@supercharge/contracts'
 
-export default {
+const loggingConfig: LoggingConfig = {
   /**
    * --------------------------------------------------------------------------
    * Default Log Driver
@@ -23,9 +24,9 @@ export default {
    * Log Channel Configurations
    * --------------------------------------------------------------------------
    *
-   * This defines the individual configurations for
-   * available log channels. A stacked logger will
-   * apply all channels and take their configs.
+   * This setting defines the individual configurations for available logging
+   * channels. A logging channel is the output destination for log messages.
+   * Configure your log destinations individually using the given options.
    *
    */
   channels: {
@@ -41,3 +42,5 @@ export default {
     },
   },
 }
+
+export default loggingConfig

@@ -1,6 +1,6 @@
 'use strict'
 
-import Str from '@supercharge/strings'
+import { Str } from '@supercharge/strings'
 import { Env } from '@supercharge/facades'
 import { SessionConfig } from '@supercharge/contracts'
 
@@ -14,7 +14,7 @@ const sessionConfig: SessionConfig = {
    * The default “cookie” driver is straightforward to
    * use because it has no dependencies.
    *
-   * Supported drivers: "memory", "cookie"
+   * Supported drivers: "memory", "cookie", "file"
    *
    */
   driver: Env.get('SESSION_DRIVER', 'cookie'),
@@ -47,7 +47,7 @@ const sessionConfig: SessionConfig = {
    */
   lifetime: Env.get('SESSION_LIFETIME', '7d'),
 
-  expireOnClose: Boolean(Env.get('SESSION_EXPIRE_ON_CLOSE', false)),
+  expireOnClose: Env.boolean('SESSION_EXPIRE_ON_CLOSE', false),
 
   /**
    * --------------------------------------------------------------------------

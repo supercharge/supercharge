@@ -1,16 +1,17 @@
 'use strict'
 
 import { Env } from '@supercharge/facades'
+import { HttpConfig } from '@supercharge/contracts'
 
-export default {
+const httpConfig: HttpConfig = {
   /**
    * --------------------------------------------------------------------------
    * Web Application Host
    * --------------------------------------------------------------------------
    *
-   * This is the default host your hapi web server will bind to. You
-   * can change this to a specific IP (0.0.0.0, 192.168.0.1 ) to
-   * support the requirements of your application.
+   * This is the default host address your HTTP server will bind to. You may
+   * change this setting to a specific IP (like 0.0.0.0 or 192.168.0.1) to
+   * meet the requirements of your application or you bind to localhost.
    *
    */
   host: Env.get('HOST', 'localhost'),
@@ -25,7 +26,7 @@ export default {
    * port collisions with other locally running HTTP processes.
    *
    */
-  port: Env.get('PORT', 3000),
+  port: Env.number('PORT', 3000),
 
   /**
    * --------------------------------------------------------------------------
@@ -43,12 +44,12 @@ export default {
      * Time to Live (TTL)
      * --------------------------------------------------------------------------
      *
-     * This setting describes the cookie time-to-live (TTL) in milliseconds.
-     * You may also provide a human-readable string value, like '14d'.
-     * Internally, Supercharge translates the string to a number.
+     * This setting describes the cookie time-to-live (TTL) in milliseconds. At
+     * this point, we’re only supporting human-readable string values for this
+     * option when using the response cookie builder. Not here, yet. Sorry.
      *
      */
-    maxAge: 1234,
+    maxAge: 1_000 * 60 * 60 * 24, // 1 day
 
     /**
      * --------------------------------------------------------------------------
@@ -100,3 +101,5 @@ export default {
     secure: Env.isProduction(),
   },
 }
+
+export default httpConfig

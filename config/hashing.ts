@@ -13,10 +13,10 @@ const hashConfig: HashConfig = {
    * your application. By default, the framework uses the bcrypt algorithm
    * for hashing. And bcrypt is currently the only algorithm supported.
    *
-   * Supported drivers: `bcrypt`
+   * Supported drivers: "bcrypt", "scrypt"
    *
    */
-  driver: Env.get('HASH_DRIVER', 'bcrypt'),
+  driver: Env.get('HASH_DRIVER', 'scrypt'),
 
   /**
    * --------------------------------------------------------------------------
@@ -29,9 +29,51 @@ const hashConfig: HashConfig = {
    *
    */
   bcrypt: {
-    rounds: Number(Env.get('HASH_BCRYPT_ROUNDS', 12)),
+    rounds: Env.number('HASH_BCRYPT_ROUNDS', 12),
   },
 
+  /**
+   * --------------------------------------------------------------------------
+   * Scrypt Options
+   * --------------------------------------------------------------------------
+   *
+   * Customize the scrypt hashing configuration to be used when creating hash
+   * values using Node.js native scrypt implementation. Customize the used
+   * options by increasing the cost factor, block size, salt, and more.
+   *
+   * @see https://nodejs.org/docs/latest-v18.x/api/crypto.html#cryptoscryptpassword-salt-keylen-options-callback
+   */
+  scrypt: {
+    /**
+     * The CPU/memory cost factor. Must be a power of two and greater than one.
+     */
+    cost: 16384,
+
+    /**
+     * The block size parameter.
+     */
+    blockSize: 8,
+
+    /**
+     * The salt size parameter in bytes. It’s recommended to use a salt at least 16 bytes long.
+     */
+    saltSize: 16,
+
+    /**
+     * The desired key length in bytes.
+     */
+    keyLength: 64,
+
+    /**
+     * The parallelization parameter.
+     */
+    parallelization: 1,
+
+    /**
+     * The memory upper bound while generating the hash.
+     */
+    maxMemory: 16_777_216 // (128 * costs * blockSize)
+  }
 }
 
 export default hashConfig
