@@ -3,24 +3,24 @@
   "description": "Supercharge application boilerplate",
   "version": "0.0.0",
   "dependencies": {
-    "@supercharge/console": "~3.4.0",
-    "@supercharge/contracts": "~3.4.0",
-    "@supercharge/core": "~3.4.0",
-    "@supercharge/encryption": "~3.4.0",
-    "@supercharge/facades": "~3.4.0",
-    "@supercharge/http": "~3.4.0",
-    "@supercharge/session": "~3.4.0",
-    "@supercharge/strings": "~1.28.0",
-    "@supercharge/view": "~3.4.0"
+    "@supercharge/console": "~3.20.0",
+    "@supercharge/contracts": "~3.20.0",
+    "@supercharge/core": "~3.20.0",
+    "@supercharge/encryption": "~3.20.0",
+    "@supercharge/facades": "~3.20.0",
+    "@supercharge/http": "~3.20.0",
+    "@supercharge/session": "~3.20.0",
+    "@supercharge/strings": "~2.0.0",
+    "@supercharge/view": "~3.20.0"
   },
   "devDependencies": {
-    "@supercharge/eslint-config-typescript": "~2.3.0",
+    "@supercharge/eslint-config-typescript": "~3.0.0",
     "@supercharge/tsconfig": "~4.0.0",
-    "@swc-node/register": "~1.5.1",
-    "@types/node": "~18.6.3",
-    "eslint": "~8.21.0",
-    "nodemon": "~2.0.19",
-    "typescript": "~4.7.4"
+    "@swc-node/register": "~1.6.6",
+    "@types/node": "~20.4.4",
+    "eslint": "~8.45.0",
+    "nodemon": "~3.0.1",
+    "typescript": "~5.1.6"
   },
   "engines": {
     "node": ">=16"
