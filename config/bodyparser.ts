@@ -1,8 +1,8 @@
 'use strict'
 
-import { BodyparserOptions } from '@supercharge/contracts'
+import { BodyparserConfig } from '@supercharge/contracts'
 
-const bodyparserConfig: BodyparserOptions = {
+const bodyparserConfig: BodyparserConfig = {
   /**
    * --------------------------------------------------------------------------
    * Request Payload Encoding

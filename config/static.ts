@@ -1,8 +1,9 @@
 'use strict'
 
 import { Env } from '@supercharge/facades'
+import { StaticAssetsConfig } from '@supercharge/contracts'
 
-export default {
+const staticAssetsConfig: StaticAssetsConfig = {
   /**
    * --------------------------------------------------------------------------
    * Cache Static Assets
@@ -16,7 +17,7 @@ export default {
    *   - `maxage: 30` caches a resource for the next 30s
    *
    */
-  maxage: Env.get('STATIC_MAXAGE', 0),
+  maxage: Env.number('STATIC_MAXAGE', 0),
 
   /**
    * --------------------------------------------------------------------------
@@ -28,7 +29,7 @@ export default {
    * middleware to respond first, before serving static assets.
    *
    */
-  defer: Env.get('STATIC_DEFER', false),
+  defer: Env.boolean('STATIC_DEFER', false),
 
   /**
    * --------------------------------------------------------------------------
@@ -40,7 +41,7 @@ export default {
    * and serving hidden files may have security implications.
    *
    */
-  hidden: Env.get('STATIC_SERVE_HIDDEN', false),
+  hidden: Env.boolean('STATIC_SERVE_HIDDEN', false),
 
   /**
    * --------------------------------------------------------------------------
@@ -54,3 +55,5 @@ export default {
    */
   index: Env.get('STATIC_INDEX', false),
 }
+
+export default staticAssetsConfig

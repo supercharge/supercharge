@@ -1,51 +1,79 @@
 'use strict'
 
 import { Env } from '@supercharge/facades'
+import { HashConfig } from '@supercharge/contracts'
 
-export default {
+const hashConfig: HashConfig = {
   /**
    * --------------------------------------------------------------------------
    * Default Hash Driver
    * --------------------------------------------------------------------------
    *
-   * This controls the default hash driver that is used
-   * by the hashing utility. The default hasing driver
-   * is bcrypt.
+   * This option controls the default hash driver being used to hash values in
+   * your application. By default, the framework uses the bcrypt algorithm
+   * for hashing. And bcrypt is currently the only algorithm supported.
    *
-   * Supported drivers: `bcrypt`, `argon`
+   * Supported drivers: "bcrypt", "scrypt"
    *
    */
-  driver: Env.get('HASH_DRIVER', 'bcrypt'),
+  driver: Env.get('HASH_DRIVER', 'scrypt'),
 
   /**
    * --------------------------------------------------------------------------
    * Bcrypt Options
    * --------------------------------------------------------------------------
    *
-   * Customize the bcrypt hashing configuration. The bcrypt hashing
-   * driver allows you to customize the rounds. A higher number for
-   * rounds increases the amount of time a to create a hash.
+   * Customize the bcrypt hashing configuration to be used when creating hash
+   * values using the bcrypt algorithm. You can customize the work factor.
+   * Using a higher number increases the time used creating a hash value.
    *
    */
   bcrypt: {
-    rounds: Env.get('HASH_BCRYPT_ROUNDS', 12),
+    rounds: Env.number('HASH_BCRYPT_ROUNDS', 12),
   },
 
   /**
    * --------------------------------------------------------------------------
-   * Argon Options
+   * Scrypt Options
    * --------------------------------------------------------------------------
    *
-   * Customize the argon hashing configuration. The argon hashing driver
-   * allows you to customize the type, memory, time and threads. The
-   * values depend on your system's resources.
+   * Customize the scrypt hashing configuration to be used when creating hash
+   * values using Node.js native scrypt implementation. Customize the used
+   * options by increasing the cost factor, block size, salt, and more.
    *
-   * Supported types: argon2i, argon2d, and argon2id
+   * @see https://nodejs.org/docs/latest-v18.x/api/crypto.html#cryptoscryptpassword-salt-keylen-options-callback
    */
-  argon: {
-    type: Env.get('HASH_ARGON_TYPE', 'argon2i'),
-    memory: Env.get('HASH_ARGON_MEMORY', 1024),
-    time: Env.get('HASH_ARGON_TIME', 2),
-    threads: Env.get('HASH_ARGON_THREADS', 2),
-  },
+  scrypt: {
+    /**
+     * The CPU/memory cost factor. Must be a power of two and greater than one.
+     */
+    cost: 16384,
+
+    /**
+     * The block size parameter.
+     */
+    blockSize: 8,
+
+    /**
+     * The salt size parameter in bytes. It’s recommended to use a salt at least 16 bytes long.
+     */
+    saltSize: 16,
+
+    /**
+     * The desired key length in bytes.
+     */
+    keyLength: 64,
+
+    /**
+     * The parallelization parameter.
+     */
+    parallelization: 1,
+
+    /**
+     * The memory upper bound while generating the hash.
+     */
+    maxMemory: 16_777_216 // (128 * costs * blockSize)
+  }
 }
+
+export default hashConfig
