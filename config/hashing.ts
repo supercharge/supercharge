@@ -71,8 +71,9 @@ const hashConfig: HashConfig = {
 
     /**
      * The memory upper bound while generating the hash.
+     * It’s an error when (approximately) 128 * cost * blockSize > maxMemory.
      */
-    maxMemory: 16_777_216 // (128 * costs * blockSize)
+    maxMemory: 16_781_312 // (128 * cost * blockSize + 4096 (leeway))
   }
 }
 
