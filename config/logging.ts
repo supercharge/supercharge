@@ -14,7 +14,7 @@ const loggingConfig: LoggingConfig = {
    * supports three drivers which log to the console,
    * to file or both (stacked).
    *
-   * Available drivers: `console`, `file`, `stacked`
+   * Available drivers: `console`, `file`
    *
    */
   driver: Env.get('LOG_DRIVER', 'console'),
