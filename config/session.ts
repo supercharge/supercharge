@@ -1,7 +1,7 @@
 'use strict'
 
 import { Str } from '@supercharge/strings'
-import { Env } from '@supercharge/facades'
+import { App, Env } from '@supercharge/facades'
 import { SessionConfig } from '@supercharge/contracts'
 
 const sessionConfig: SessionConfig = {
@@ -17,7 +17,7 @@ const sessionConfig: SessionConfig = {
    * Supported drivers: "memory", "cookie", "file"
    *
    */
-  driver: Env.get('SESSION_DRIVER', 'cookie'),
+  driver: Env.get('SESSION_DRIVER', 'file'),
 
   /**
    * --------------------------------------------------------------------------
@@ -108,6 +108,20 @@ const sessionConfig: SessionConfig = {
      * Available values: 'strict' | 'lax' | 'none' | true | false
      */
     sameSite: 'lax',
+  },
+
+  /**
+   * --------------------------------------------------------------------------
+   * Session File Location
+   * --------------------------------------------------------------------------
+   *
+   * Using the `file` session driver requires a location to store session files
+   * on disk. This location is only used for file-based sessions using the
+   * `file` driver. You can change the location to a desired directory.
+   *
+   */
+  file: {
+    location: App.storagePath('framework/sessions'),
   }
 }
 
