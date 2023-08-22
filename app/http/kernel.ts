@@ -15,9 +15,9 @@ export class HttpKernel extends Kernel {
    */
   override middleware (): Array<MiddlewareCtor | Class> {
     return [
+      ServeStaticAssets,
       HandleCors,
       StartSession,
-      ServeStaticAssets,
     ]
   }
 
